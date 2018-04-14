@@ -1,0 +1,30 @@
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.3'
+    }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+dependencies {
+    compile project(':graph')
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.lgsim.engine.graphEditor.app.Application'
+    }
+}
+
+shadowJar {
+    mergeServiceFiles {
+        exclude 'META-INF/*.SF'
+        exclude 'META-INF/*.DSA'
+        exclude 'META-INF/*.RSA'
+    }
+}

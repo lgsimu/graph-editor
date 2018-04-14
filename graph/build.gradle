@@ -1,0 +1,6 @@
+version '1.0-SNAPSHOT'
+
+dependencies {
+    compile project(":data")
+    compile project(":widget")
+}
