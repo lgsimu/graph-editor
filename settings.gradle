@@ -3,4 +3,6 @@ include 'data'
 include 'graph'
 include 'widget'
 include 'app'
+include 'api'
+include 'util'
 
