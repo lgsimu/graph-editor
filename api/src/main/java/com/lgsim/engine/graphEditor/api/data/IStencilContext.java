@@ -6,11 +6,20 @@ import java.util.List;
 
 public interface IStencilContext
 {
-  List<IStencil> getPredefinedStencils();
+  /**
+   * 获取预定义的元件模板
+   */
+  List<IVertexStencil> getPredefinedStencils();
 
 
-  List<IStencil> getUserDefinedStencils();
+  /**
+   * 获取用户定义的元件模板
+   */
+  List<IVertexStencil> getUserDefinedStencils();
 
 
-  void saveUserDefinedStencil(@NotNull IStencil stencil);
+  /**
+   * 保存用户定义的元件模板
+   */
+  void saveUserDefinedStencil(@NotNull IVertexStencil stencil);
 }
