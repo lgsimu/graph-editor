@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<models>
+    <model id="predefined.chameleon" name="chameleon">
+        <icon model="com/lgsim/engine/graphEditor/graph/icon/stencil/chameleon.png" canvas="com/lgsim/engine/graphEditor/graph/icon/stencil/chameleon.png"/>
+        <arguments>
+            <argument id="0x01" type="ArmInteger" name="arms" description="desc.chameleon.arms" value="1"/>
+            <argument id="0x02" type="Sex" name="sex" description="desc.chameleon.sex" value="2"/>
+            <argument id="0x03" type="Complexion" name="complexion" description="desc.chameleon.complexion"
+                      value="3"/>
+        </arguments>
+        <outputs>
+            <output id="0x04" type="Appetite" name="appetite" description="desc.chameleon.appetite"
+                    value="0.31415926"/>
+        </outputs>
+        <restriction minInputPortCount="1" maxInputPortCount="1" minOutputPortCount="1" maxOutputPortCount="1">
+            <inputTypeIds>
+                <inputTypeId>predefined.chameleon</inputTypeId>
+            </inputTypeIds>
+            <outputTypeIds>
+                <outputTypeId>predefined.chameleon</outputTypeId>
+            </outputTypeIds>
+        </restriction>
+    </model>
+    <model id="predefined.elephant" name="elephant">
+        <icon model="com/lgsim/engine/graphEditor/graph/icon/stencil/elephant.png" canvas="com/lgsim/engine/graphEditor/graph/icon/stencil/elephant.png"/>
+        <arguments>
+            <argument id="0x01" type="ArmInteger" name="arms" description="desc.elephant.arms" value="5"/>
+            <argument id="0x02" type="Sex" name="sex" description="desc.elephant.sex" value="8"/>
+            <argument id="0x03" type="Complexion" name="complexion" description="desc.elephant.complexion"
+                      value="1"/>
+        </arguments>
+        <outputs>
+            <output id="0x04" type="Appetite" name="appetite" description="desc.elephant.appetite"
+                    value="0.31415926"/>
+        </outputs>
+        <restriction minInputPortCount="1" maxInputPortCount="1" minOutputPortCount="1" maxOutputPortCount="1">
+            <inputTypeIds>
+                <inputTypeId>predefined.elephant</inputTypeId>
+            </inputTypeIds>
+            <outputTypeIds>
+                <outputTypeId>predefined.elephant</outputTypeId>
+            </outputTypeIds>
+        </restriction>
+    </model>
+</models>
