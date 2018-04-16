@@ -7,7 +7,7 @@ public interface IVertexArgument
   /**
    * 参数id
    */
-  String getId();
+  String getID();
 
 
   /**
