@@ -1,5 +1,7 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
+import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
+import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.graph.ApplicationContext;
 import com.lgsim.engine.graphEditor.graph.component.*;
 import com.lgsim.engine.graphEditor.graph.util.IOUtil;
@@ -27,11 +29,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Vector;
 
-public class GraphEditor extends JPanel
+public class GraphEditor extends JPanel implements IGraphEditor
 {
   private static final long serialVersionUID = -3839357795020116834L;
   private static final Logger logger = LoggerFactory.getLogger(GraphEditor.class);
@@ -377,5 +380,33 @@ public class GraphEditor extends JPanel
   public mxGraphComponent getGraphComponent()
   {
     return getCurrentDocument().getGraphComponent();
+  }
+
+
+  @Override
+  public IGraphDocument getCurrentGraphDocument()
+  {
+    return null;
+  }
+
+
+  @Override
+  public List<IGraphDocument> getOpenedGraphDocuments()
+  {
+    return null;
+  }
+
+
+  @Override
+  public IGraphDocument openGraphDocument(@NotNull File file)
+  {
+    return null;
+  }
+
+
+  @Override
+  public void saveGraphDocument(@NotNull IGraphDocument document, @NotNull File file)
+  {
+
   }
 }

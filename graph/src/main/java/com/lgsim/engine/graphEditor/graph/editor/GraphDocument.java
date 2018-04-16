@@ -1,11 +1,13 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
+import com.lgsim.engine.graphEditor.api.data.IGraph;
+import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
 import com.mxgraph.swing.mxGraphComponent;
 
 import java.io.File;
 
-public class GraphDocument
+public class GraphDocument implements IGraphDocument
 {
   private File file;
   private boolean modified;
@@ -65,5 +67,12 @@ public class GraphDocument
     {
       return file.getAbsolutePath();
     }
+  }
+
+
+  @Override
+  public IGraph getGraph()
+  {
+    return null;
   }
 }
