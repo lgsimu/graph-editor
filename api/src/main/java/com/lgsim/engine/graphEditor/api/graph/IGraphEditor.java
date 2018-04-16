@@ -1,5 +1,6 @@
 package com.lgsim.engine.graphEditor.api.graph;
 
-public interface IVertexArgument
+public interface IGraphEditor
 {
+
 }

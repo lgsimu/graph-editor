@@ -1,9 +1,5 @@
 package com.lgsim.engine.graphEditor.api.data;
 
-import com.lgsim.engine.graphEditor.api.graph.IVertexArgument;
-import com.lgsim.engine.graphEditor.api.graph.IVertexOutput;
-import com.lgsim.engine.graphEditor.api.graph.IVertexRestriction;
-
 import java.util.List;
 
 public interface IStencil

@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.api.graph;
+package com.lgsim.engine.graphEditor.api.data;
 
 import java.util.List;
 
