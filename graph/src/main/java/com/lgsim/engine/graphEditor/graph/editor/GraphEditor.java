@@ -7,13 +7,16 @@ import com.lgsim.engine.graphEditor.graph.component.*;
 import com.lgsim.engine.graphEditor.graph.util.IOUtil;
 import com.lgsim.engine.graphEditor.graph.util.IconUtil;
 import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
+import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.mxGraphOutline;
+import com.mxgraph.swing.view.mxInteractiveCanvas;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
@@ -37,7 +40,7 @@ import java.util.Vector;
 public class GraphEditor extends JPanel implements IGraphEditor
 {
   private static final long serialVersionUID = -3839357795020116834L;
-  private static final Logger logger = LoggerFactory.getLogger(GraphEditor.class);
+  private static final Logger log = LoggerFactory.getLogger(GraphEditor.class);
   private static final int defaultDividerSize = 1;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
@@ -171,7 +174,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
   private void installPaletteListeners()
   {
-    predefinedPalette.addListener(mxEvent.SELECT, (sender, evt) -> logger.debug("palette select event fired"));
+    predefinedPalette.addListener(mxEvent.SELECT, (sender, evt) -> log.debug("palette select event fired"));
   }
 
 
@@ -210,10 +213,10 @@ public class GraphEditor extends JPanel implements IGraphEditor
           if (cells.length == 1)
           {
             mxCell cell = (mxCell) cells[0];
-            logger.debug("select cell {} value is {}", cell, cell.getValue());
+            log.debug("select cell {} value is {}", cell, cell.getValue());
             InstanceComponentTable table = parameterEditor.getTable();
             loadTableData(table, cell);
-            logger.debug("load cell data to table");
+            log.debug("load cell data to table");
           }
         }
       }
@@ -221,7 +224,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
     getGraphComponent().getGraph().getModel().addListener(mxEvent.CHANGE, (sender, evt) -> {
       getCurrentDocument().setModified(true);
       docTabbedPane.setTitleAt(currentDocumentIndex, getCurrentDocument().getTitle());
-      logger.debug("document {} changed", currentDocumentIndex);
+      log.debug("document {} changed", currentDocumentIndex);
     });
   }
 
@@ -279,9 +282,24 @@ public class GraphEditor extends JPanel implements IGraphEditor
         setAlternateEdgeStyle("edgeStyle=mxEdgeStyle.ElbowConnector;elbow=vertical");
       }
 
+      @Override
       public String getToolTipForCell(Object cell)
       {
         return "";
+      }
+
+
+      @Override
+      public Object createEdge(Object parent, String id, Object value, Object source, Object target, String style)
+      {
+        log.debug("create edge");
+        mxCell edge = new mxCell(value, new mxGeometry(), style);
+
+        edge.setId(id);
+        edge.setEdge(true);
+        edge.getGeometry().setRelative(true);
+
+        return edge;
       }
     })
     {
@@ -295,6 +313,8 @@ public class GraphEditor extends JPanel implements IGraphEditor
         codec.decode(doc.getDocumentElement(), graph.getStylesheet());
         getViewport().setOpaque(true);
         getViewport().setBackground(Color.WHITE);
+        graph.setCellsResizable(false);
+        graph.setKeepEdgesInBackground(true);
       }
 
       @Override
@@ -318,6 +338,13 @@ public class GraphEditor extends JPanel implements IGraphEditor
           }
         }
         return super.importCells(cells, dx, dy, target, location);
+      }
+
+
+      @Override
+      public mxInteractiveCanvas createCanvas()
+      {
+        return new GraphCanvas();
       }
     };
     currentDocumentIndex = graphDocuments.size();
