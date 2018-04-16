@@ -1,0 +1,606 @@
+
+自定义JSplitPane分隔条按钮
+=======================
+
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicSplitPaneDivider;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
+import java.awt.*;
+import java.awt.event.*;
+
+public class CustomSplitPaneButton extends JFrame {
+
+
+    JSplitPane splitPane;
+
+
+    public CustomSplitPaneButton() {
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                System.exit(0);
+            }
+        });
+
+        splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
+                                   new JPanel(), new JPanel());
+        splitPane.setDividerSize(20);
+
+        splitPane.setUI(new MenuDividerUI(getMainMenuBar()));
+
+        getContentPane().add(splitPane);
+
+        addComponentListener(new ComponentAdapter() {
+            public void componentShown(ComponentEvent event) {
+                splitPane.setDividerLocation(0.5);
+
+                removeComponentListener(this);
+            }
+        });
+    }
+
+
+    public JMenuBar getMainMenuBar() {
+        JMenuBar mainBar = new JMenuBar();
+        JMenu menu = new JMenu("JSplitPane");
+        JMenuItem item1 = new JMenuItem("HORIZONTAL_SPLIT");
+        JMenuItem item2 = new JMenuItem("VERTICAL_SPLIT");
+        menu.add(item1);
+        menu.add(item2);
+        mainBar.add(menu);
+
+        item1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
+            }
+        });
+
+        item2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+            }
+        });
+
+        return mainBar;
+    }
+
+
+    public static void main(String[] args) {
+        CustomSplitPaneButton main = new CustomSplitPaneButton();
+        main.setSize(300, 300);
+        main.setVisible(true);
+    }
+}
+
+
+class MenuDividerUI extends BasicSplitPaneUI {
+
+
+    protected JMenuBar menuBar;
+
+
+    public MenuDividerUI(JMenuBar menuBar) {
+        this.menuBar = menuBar;
+    }
+
+
+    public BasicSplitPaneDivider createDefaultDivider() {
+        BasicSplitPaneDivider divider = new BasicSplitPaneDivider(this) {
+            public int getDividerSize() {
+                return menuBar.getPreferredSize().height;
+            }
+        };
+        divider.setLayout(new BorderLayout());
+        divider.add(BorderLayout.NORTH, menuBar);
+
+        return divider;
+    }
+}
+
+=======================
+
+自定义JTree
+==========
+import javax.swing.*;
+import javax.swing.plaf.IconUIResource;
+import javax.swing.tree.*;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Path2D;
+
+public class CustomItemTreeTest {
+    public JComponent makeUI() {
+        IconUIResource emptyIcon = new IconUIResource(new Icon() {
+            @Override public void paintIcon(Component c, Graphics g, int x, int y) {}
+            @Override public int getIconWidth() {
+                return 0;
+            }
+            @Override public int getIconHeight() {
+                return 0;
+            }
+        });
+        UIManager.put("Tree.expandedIcon",  emptyIcon);
+        UIManager.put("Tree.collapsedIcon", emptyIcon);
+        //UIManager.put("Tree.closedIcon",    emptyIcon);
+        //UIManager.put("Tree.openIcon",      emptyIcon);
+        UIManager.put("Tree.paintLines",    Boolean.FALSE);
+
+        UIDefaults d = new UIDefaults();
+        d.put("Tree:TreeCell[Enabled+Selected].backgroundPainter", new Painter<JComponent>() {
+            @Override public void paint(Graphics2D g, JComponent c, int w, int h) {
+                g.setPaint(Color.GREEN.darker());
+                g.fillRect(0, 0, w, h);
+            }
+        });
+
+        JTree tree = new JTree(makeModel());
+        tree.setCellRenderer(new TestTreeCellRenderer());
+        //tree.setRowHeight(0);
+        tree.setRootVisible(false);
+        tree.setShowsRootHandles(false);
+        tree.setBackground(Color.WHITE);
+        tree.putClientProperty("Nimbus.Overrides", d);
+        tree.putClientProperty("Nimbus.Overrides.InheritDefaults", false);
+
+        return new JScrollPane(tree);
+    }
+
+    private static TreeModel makeModel() {
+        Dimension d64 = new Dimension(64, 64);
+        Dimension d32 = new Dimension(32, 32);
+        Dimension d24 = new Dimension(24, 24);
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+        DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
+                new TestNode("SubCategory 1", Color.ORANGE, d64, false));
+        set1.add(new DefaultMutableTreeNode(
+                new TestNode("SubSubCategory 1", Color.ORANGE, d32, true)));
+        set1.add(new DefaultMutableTreeNode(
+                new TestNode("SubSubCategory 2", Color.CYAN.darker(), d32, true)));
+        set1.add(new DefaultMutableTreeNode(
+                new TestNode("SubSubCategory 3", Color.GREEN, d32, true)));
+        DefaultMutableTreeNode set2 = new DefaultMutableTreeNode(
+                new TestNode("SubCategory 2", Color.GREEN.darker().darker(), d64, false));
+        DefaultMutableTreeNode set3 = new DefaultMutableTreeNode(
+                new TestNode("SubSubCategory 5", Color.GREEN, d32, false));
+        set3.add(new DefaultMutableTreeNode(
+                new TestNode("SubSubSubCategory 1", Color.BLUE, d24, true)));
+        set3.add(new DefaultMutableTreeNode(
+                new TestNode("SubSubSubCategory 2", Color.GREEN, d24, true)));
+        set3.add(new DefaultMutableTreeNode(
+                new TestNode("SubSubSubCategory 3", Color.ORANGE.darker(), d24, true)));
+        set2.add(new DefaultMutableTreeNode(
+                new TestNode("SubSubCategory 4", Color.ORANGE.darker().darker(), d32, true)));
+        set2.add(set3);
+        set2.add(new DefaultMutableTreeNode(
+                new TestNode("SubSubCategory 6", Color.ORANGE, d32, true)));
+        root.add(set1);
+        root.add(set2);
+        return new DefaultTreeModel(root);
+    }
+
+    public static void main(String... args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                for (UIManager.LookAndFeelInfo laf: UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(laf.getName())) {
+                        UIManager.setLookAndFeel(laf.getClassName());
+                    }
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            JFrame f = new JFrame();
+            f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            f.getContentPane().add(new CustomItemTreeTest().makeUI());
+            f.setSize(320, 512);
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+        });
+    }
+}
+
+class TestTreeCellRenderer extends DefaultTreeCellRenderer {
+    @Override public Component getTreeCellRendererComponent(
+            JTree tree, Object value, boolean selected, boolean expanded,
+            boolean leaf, int row, boolean hasFocus) {
+        JLabel l = (JLabel) super.getTreeCellRendererComponent(
+                tree, value, selected, expanded, leaf, row, hasFocus);
+        if (value instanceof DefaultMutableTreeNode) {
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
+            Object uo = node.getUserObject();
+            if (uo instanceof TestNode) {
+                TestNode i = (TestNode) uo;
+                l.setForeground(Color.BLACK);
+                l.setIcon(new TestNode(i.title, i.color, i.dim, leaf, expanded));
+
+                int indent = 0;
+                TreeNode parent = node.getParent();
+                while (parent instanceof DefaultMutableTreeNode) {
+                    DefaultMutableTreeNode pn = (DefaultMutableTreeNode) parent;
+                    if (pn.getUserObject() instanceof TestNode) {
+                        TestNode pi = (TestNode) pn.getUserObject();
+                        indent += pi.dim.width / 2;
+                    }
+                    parent = pn.getParent();
+                }
+                l.setBorder(BorderFactory.createEmptyBorder(2, indent, 2, 5));
+            }
+        }
+        return l;
+    }
+}
+
+class TestNode implements Icon {
+    public final String title;
+    public final Color color;
+    public final Dimension dim;
+    private final boolean expanded;
+    private final boolean leaf;
+    private static int GAP = 4;
+    //public TestNode(String title, ImageIcon img, Dimension dim) {
+    public TestNode(String title, Color color, Dimension dim, boolean leaf) {
+        this(title, color, dim, leaf, false);
+    }
+    public TestNode(String title, Color color, Dimension dim,
+                    boolean leaf, boolean expanded) {
+        this.title = title;
+        this.color = color;
+        this.dim = dim;
+        this.expanded = expanded;
+        this.leaf = leaf;
+    }
+    @Override public void paintIcon(Component c, Graphics g, int x, int y) {
+        g.setColor(color);
+        g.fillRect(x + GAP, y + GAP, dim.width - GAP - GAP, dim.height - GAP - GAP);
+        if (dim.width < 64) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                                RenderingHints.VALUE_ANTIALIAS_ON);
+            int w6 = dim.width / 12;
+            int w3 = dim.width / 6;
+            g2.setColor(Color.WHITE);
+            g2.setStroke(new BasicStroke(w6));
+            Point pt = new Point(x + dim.width / 2, y + dim.height / 2);
+            Path2D path = new Path2D.Double();
+            path.moveTo(pt.x - w6, pt.y - w3);
+            path.lineTo(pt.x + w6, pt.y);
+            path.lineTo(pt.x - w6, pt.y + w3);
+            int numquadrants;
+            if (leaf) {
+                numquadrants = 0;
+            } else if (expanded) {
+                numquadrants = 3;
+            } else {
+                numquadrants = 1;
+            }
+            AffineTransform at = AffineTransform.getQuadrantRotateInstance(
+                    numquadrants, pt.x, pt.y);
+            g2.draw(at.createTransformedShape(path));
+            g2.dispose();
+        }
+    }
+    @Override public int getIconWidth() {
+        return dim.width;
+    }
+    @Override public int getIconHeight() {
+        return dim.height;
+    }
+    @Override public String toString() {
+        return title;
+    }
+}
+==========
+
+错误处理
+=======
+
+* ModelComponentXmlFileParser中的parse需要对文件异常更细致的处理
+* 需要整体捕获异常，根据异常的类型选择崩溃或者提示用户
+
+=======
+
+$.java
+======
+package com.lgsim.air.util;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.function.Consumer;
+
+public class $ {
+
+
+    public static final Border thinEmptyBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
+    public static final Color defaultColor = new Color(255, 255, 255);
+    public static final Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+            new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "blank cursor");
+
+
+    public static void setComponents(@NotNull Container container,
+                                     @NotNull Component[] components,
+                                     @Nullable Consumer<Component> modifier) {
+        for (Component component : components) {
+            if (modifier != null) {
+                modifier.accept(component);
+            }
+            container.add(component);
+        }
+    }
+
+
+    @NotNull
+    public static ImageIcon createResIcon(@NotNull String resPath) {
+        URL url = Thread.currentThread().getContextClassLoader().getResource(resPath);
+        assert url != null;
+        return new ImageIcon(url);
+    }
+
+
+    public static Color getForegroundColor() {
+        return UIManager.getColor("Panel.foreground");
+    }
+}
+======
+
+添加模板
+======
+public void addTemplate(final String name, ImageIcon icon, String style,
+                            int width, int height, Object value) {
+        mxCell cell = new mxCell(value, new mxGeometry(0, 0, width, height),
+                                 style);
+        cell.setVertex(true);
+
+        addTemplate(name, icon, cell);
+    }
+
+
+    private void addTemplate(final String name, ImageIcon icon, mxCell cell) {
+        mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
+        final mxGraphTransferable t = new mxGraphTransferable(new Object[]{cell}, bounds);
+
+        if (icon != null) {
+            if (icon.getIconWidth() > 32 || icon.getIconHeight() > 32) {
+                icon = new ImageIcon(icon.getImage().getScaledInstance(32, 32, 0));
+            }
+        }
+
+        final JLabel entry = new JLabel(icon);
+        entry.setPreferredSize(new Dimension(50, 50));
+        entry.setBackground(getBackground().brighter());
+        entry.setFont(FontUtil.fabiana.deriveFont(Font.PLAIN, 10));
+
+        entry.setVerticalTextPosition(JLabel.BOTTOM);
+        entry.setHorizontalTextPosition(JLabel.CENTER);
+        entry.setIconTextGap(0);
+
+        entry.setToolTipText(name);
+        entry.setText(name);
+
+        entry.addMouseListener(new MouseListener() {
+
+
+            public void mousePressed(MouseEvent e) {
+                setSelectionEntry(entry, t);
+            }
+
+
+            public void mouseClicked(MouseEvent e) {
+            }
+
+
+            public void mouseEntered(MouseEvent e) {
+            }
+
+
+            public void mouseExited(MouseEvent e) {
+            }
+
+
+            public void mouseReleased(MouseEvent e) {
+            }
+
+        });
+
+        DragGestureListener dragGestureListener = e -> {
+            e.startDrag(null, mxSwingConstants.EMPTY_IMAGE,
+                        new Point(), t, null);
+            logger.debug("drag stencil event {}", e);
+        };
+
+        DragSource dragSource = new DragSource();
+        dragSource.createDefaultDragGestureRecognizer(entry, DnDConstants.ACTION_COPY, dragGestureListener);
+
+        add(entry);
+    }
+======
+
+tree node selection
+===================
+        tree.addTreeSelectionListener(e -> {
+            StencilComponent stencilComponent =
+                    (StencilComponent) ((DefaultMutableTreeNode) e.getPath().getLastPathComponent()).getUserObject();
+            logger.debug("select tree node {}", stencilComponent);
+        });
+===================
+
+tmp edit
+========
+final mxGraph graph = graphComponent.getGraph();
+    graph.setResetViewOnRootChange(false);
+    graph.getModel().addListener(mxEvent.CHANGE, (source, evt) -> {
+    logger.debug("file changed");
+    });
+
+
+
+
+private void installHandlers()
+    {
+    new mxRubberband(graphComponent);
+    }
+
+private void installRepaintListener()
+    {
+    graphComponent.getGraph().addListener(mxEvent.REPAINT, (source, evt) -> {
+    String buff = (graphComponent.getTripleBuffer() != null) ? "" : MessageBundleUtil.get("repaint.unbuffered");
+    mxRectangle dirty = (mxRectangle) evt.getProperty("region");
+final String msg;
+    if (dirty == null)
+    {
+    msg = MessageBundleUtil.get("repaint.all", buff);
+    }
+    else
+    {
+    int x = (int) dirty.getX();
+    int y = (int) dirty.getY();
+    int w = (int) dirty.getWidth();
+    int h = (int) dirty.getHeight();
+    msg = MessageBundleUtil.get("repaint.one", x, y, w, h, buff);
+    }
+    status(msg);
+    });
+    }
+
+private void mouseWheelMoved(MouseWheelEvent e)
+    {
+    if (e.getWheelRotation() < 0)
+                    {
+                    graphComponent.zoomIn();
+                    }
+                    else
+                    {
+                    graphComponent.zoomOut();
+                    }
+
+                    int scale = (int) (100 * graphComponent.getGraph().getView().getScale());
+                    String msg = MessageBundleUtil.get("scale", scale);
+                    status(msg);
+    }
+
+
+
+
+private void showGraphPopupMenu(MouseEvent mouseEvent)
+    {
+    Point pt = SwingUtilities.convertPoint(mouseEvent.getComponent(), mouseEvent.getPoint(), graphComponent);
+
+    EditorPopupMenu menu = new EditorPopupMenu(this);
+    menu.show(graphComponent, pt.x, pt.y);
+
+    mouseEvent.consume();
+    }
+
+
+private void mouseLocationChanged(MouseEvent mouseEvent)
+    {
+    status(mouseEvent.getX() + ", " + mouseEvent.getY());
+    }
+
+
+private void installListeners()
+    {
+    MouseWheelListener wheelTracker = e -> {
+    if ((e.getSource() instanceof mxGraphOutline) || e.isControlDown())
+    {
+    mouseWheelMoved(e);
+    }
+    };
+
+    graphOutline.addMouseWheelListener(wheelTracker);
+    graphComponent.addMouseWheelListener(wheelTracker);
+
+    graphOutline.addMouseListener(new MouseAdapter()
+    {
+public void mousePressed(MouseEvent e)
+    {
+    mouseReleased(e);
+    }
+
+
+public void mouseReleased(MouseEvent e)
+    {
+    if (e.isPopupTrigger())
+    {
+    showOutlinePopupMenu(e);
+    }
+    }
+    });
+
+    graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
+    {
+public void mousePressed(MouseEvent e)
+    {
+    mouseReleased(e);
+    }
+
+
+public void mouseReleased(MouseEvent e)
+    {
+    if (e.isPopupTrigger())
+    {
+    showGraphPopupMenu(e);
+    }
+    }
+    });
+
+    graphComponent.getGraphControl().addMouseMotionListener(new MouseMotionListener()
+    {
+public void mouseDragged(MouseEvent e)
+    {
+    mouseLocationChanged(e);
+    }
+
+
+public void mouseMoved(MouseEvent e)
+    {
+    mouseDragged(e);
+    }
+    });
+    }
+
+
+  private void status(String msg)
+  {
+    statusBar.setText(msg);
+  }
+========
+
+重载导入cell的方法
+===============
+      @Override
+      public Object[] importCells(Object[] cells, double dx, double dy, Object target, Point location)
+      {
+        if (target == null && cells.length == 1 && location != null)
+        {
+          target = getCellAt(location.x, location.y);
+          if (target instanceof mxICell && cells[0] instanceof mxICell)
+          {
+            mxICell targetCell = (mxICell) target;
+            mxICell dropCell = (mxICell) cells[0];
+            if (targetCell.isVertex() == dropCell.isVertex()
+                || targetCell.isEdge() == dropCell.isEdge())
+            {
+              mxIGraphModel model = graph.getModel();
+              model.setStyle(target, model.getStyle(cells[0]));
+              graph.setSelectionCell(target);
+              return null;
+            }
+          }
+        }
+        return super.importCells(cells, dx, dy, target, location);
+      }
+===============
+
+布局大小
+======
+//    inner.setBorder(null);
+//    inner.setMinimumSize(new Dimension(defaultLength, 768));
+
+//    docTabbedPane.setMinimumSize(new Dimension(1266, 768));
+======

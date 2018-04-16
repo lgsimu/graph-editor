@@ -31,13 +31,13 @@ public interface IVertexArgument
   /**
    * 获取数值
    */
-  BigDecimal getValue();
+  double getValue();
 
 
   /**
    * 设置数值
    */
-  void setValue(BigDecimal value);
+  void setValue(double value);
 
 
   /**

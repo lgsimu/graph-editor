@@ -1,8 +1,37 @@
-version '1.0-SNAPSHOT'
+configurations {
+    antTask
+}
+
+repositories {
+    flatDir dirs: "${rootDir}/lib"
+}
 
 dependencies {
     compile project(':api')
     compile project(':util')
     compile project(":data")
     compile project(":widget")
+
+    antTask name: 'javac2'
+    antTask name: 'forms_rt'
+    antTask name: 'asm-all'
+    antTask name: 'jdom'
+
+    compile files('lib/darcula.jar')
+    compile files('lib/jgraphx-3.9.3.jar')
+
+    compile group: 'org.dom4j', name: 'dom4j', version: '2.1.0'
+}
+
+task compileJava(overwrite: true, dependsOn: configurations.compile.getTaskDependencyFromProjectDependency(true, 'jar')) {
+    doLast {
+        project.sourceSets.main.output.classesDir.mkdirs()
+        ant.taskdef name: 'javac2', classname: 'com.intellij.ant.Javac2', classpath: configurations.antTask.asPath
+        ant.javac2 srcdir: project.sourceSets.main.java.srcDirs.join(':'),
+                classpath: project.sourceSets.main.compileClasspath.asPath,
+                destdir: project.sourceSets.main.output.classesDir,
+                source: sourceCompatibility,
+                target: targetCompatibility,
+                includeAntRuntime: false
+    }
 }

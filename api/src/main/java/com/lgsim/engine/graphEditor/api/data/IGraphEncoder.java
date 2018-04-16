@@ -1,11 +1,13 @@
 package com.lgsim.engine.graphEditor.api.data;
 
-import java.io.OutputStream;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
 
 public interface IGraphEncoder
 {
   /**
    * 从图中读取信息，生成数据流
    */
-  OutputStream encode(IGraph graph);
+  Serializable encode(@NotNull IGraph graph);
 }
