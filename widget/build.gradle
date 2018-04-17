@@ -4,3 +4,7 @@ dependencies {
     compile project(':api')
     compile project(':util')
 }
+
+dependencies {
+    compile group: 'org.mariuszgromada.math', name: 'MathParser.org-mXparser', version: '4.1.1'
+}

@@ -3,23 +3,30 @@ package com.lgsim.engine.graphEditor.widget.Component;
 import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.widget.PoJo.RowContent;
 import com.lgsim.engine.graphEditor.widget.PoJo.Unit;
+import org.mariuszgromada.math.mxparser.Expression;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mariuszgromada.math.mxparser.Constant.SYNTAX_ERROR_OR_STATUS_UNKNOWN;
+
 
 public class TablePanel extends JPanel {
     JScrollPane scrollPane;
+
     static JTable table;
     JComboBox comboBoxLen, comboBoxArea;
     List<Unit> units, units2;
     static int rowNum = 0;
     private static List<TableCellEditor> editors = new ArrayList<>();
+    private static List<TableCellEditor> editor2 = new ArrayList<>();
 
     public void calculate(Unit unit, IVertexArgument rowContent) {
         Double number = rowContent.getValue() / unit.getUnitRate();
@@ -40,6 +47,7 @@ public class TablePanel extends JPanel {
             units.add(new Unit("mm", 0.001));
             comboBoxLen = new JComboBox(setComboBoxArray(units));
             setListener(comboBoxLen, rowContent);
+            setTextListener();
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxLen);
             editors.add(cellEditor);
             data[rowNum - 1][0] = rowContent.getID();
@@ -58,6 +66,7 @@ public class TablePanel extends JPanel {
             units2.add(new Unit("mm2", 0.001 * 0.001));
             comboBoxArea = new JComboBox(setComboBoxArray(units2));
             setListener(comboBoxArea, rowContent);
+            setTextListener();
             DefaultCellEditor cellEditor1 = new DefaultCellEditor(comboBoxArea);
             editors.add(cellEditor1);
             data[rowNum - 1][0] = rowContent.getID();
@@ -67,6 +76,44 @@ public class TablePanel extends JPanel {
         }
 
         return data;
+    }
+
+    public boolean isNumber(String str){
+
+        try{
+            Expression e = new Expression(str);
+            double count = e.calculate();
+            e.getSyntaxStatus();
+            if(e.getSyntaxStatus() == SYNTAX_ERROR_OR_STATUS_UNKNOWN || Double.isInfinite(count)||Double.isNaN(count)){
+                return false;
+            }
+            return true;
+        }catch(Exception e){
+
+            return false;
+
+        }
+
+    }
+
+    public void setTextListener(){
+        JTextField textField = new JTextField();
+        textField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(!isNumber(textField.getText())){
+                    JOptionPane.showMessageDialog(null,"请输入数字!");
+
+                }
+            }
+        });
+        DefaultCellEditor cellEditor2 = new DefaultCellEditor(textField);
+        editor2.add(cellEditor2);
     }
 
     public Unit[] setComboBoxArray(List<Unit> list) {
@@ -93,11 +140,15 @@ public class TablePanel extends JPanel {
 
 
     public void end(DefaultTableModel model) {
+
         table = new JTable(model) {
             public TableCellEditor getCellEditor(int row, int column) {
                 int modelColumn = convertColumnIndexToModel(column);
                 if (modelColumn == 2 && row < editors.size())
                     return editors.get(row);
+                if(modelColumn == 1 && row < editor2.size()){
+                    return editor2.get(row);
+                }
                 else
                     return super.getCellEditor(row, column);
             }
@@ -107,9 +158,9 @@ public class TablePanel extends JPanel {
 
     public TablePanel(List<IVertexArgument> argumentList) {
         String[] columns = {"属性", "值", "单位", "描述"};
-        Object[][] data = new Object[10][4];
-        for (IVertexArgument rowContent1 : argumentList) {
-            setComboBoxCell(data, rowContent1);
+        Object[][] data = new Object[argumentList.size()][4];
+        for (IVertexArgument rowContent : argumentList) {
+            setComboBoxCell(data, rowContent);
         }
         DefaultTableModel model = new DefaultTableModel(data, columns);
         end(model);
