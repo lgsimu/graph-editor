@@ -321,6 +321,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
         getViewport().setBackground(Color.WHITE);
         graph.setCellsResizable(false);
         graph.setCellsEditable(false);
+        graph.setKeepEdgesInForeground(true);
       }
 
       @Override
