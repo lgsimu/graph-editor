@@ -17,6 +17,7 @@ class EditorGraph extends mxGraph
   private mxCell fromNode;
   private mxCell toNode;
   private mxCell autogenEdge;
+  private final mxIEventListener listener;
 
 
   EditorGraph()
@@ -25,7 +26,7 @@ class EditorGraph extends mxGraph
     setCellsResizable(false);
     setCellsEditable(true);
     setKeepEdgesInForeground(true);
-    addListener(mxEvent.CELL_CONNECTED, (sender, evt) -> {
+    listener = (sender, evt) -> {
       log.debug("cell connected, event {}", evt.getName());
       Map<String, Object> properties = evt.getProperties();
       mxCell terminal = (mxCell) properties.get("terminal");
@@ -41,7 +42,8 @@ class EditorGraph extends mxGraph
         toNode = terminal;
         paintCavityNodeBetween();
       }
-    });
+    };
+    addListener(mxEvent.CELL_CONNECTED, listener);
   }
 
 
@@ -55,11 +57,13 @@ class EditorGraph extends mxGraph
     {
       mxCell cavity = (mxCell) insertVertex(parent, null, "cavity", position.x, position.y, 64, 64);
       autogenEdge.setTerminal(cavity, false);
+      removeListener(listener);
       insertEdge(parent, null, "", cavity, toNode);
     }
     finally
     {
       getModel().endUpdate();
+      addListener(mxEvent.CELL_CONNECTED, listener);
     }
   }
 
