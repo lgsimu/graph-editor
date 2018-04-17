@@ -27,9 +27,16 @@ public class TablePanel extends JPanel {
     static int rowNum = 0;
     private static List<TableCellEditor> editors = new ArrayList<>();
     private static List<TableCellEditor> editor2 = new ArrayList<>();
-
-    public void calculate(Unit unit, IVertexArgument rowContent) {
-        Double number = rowContent.getValue() / unit.getUnitRate();
+    JTextField textField = new JTextField();
+    public void calculate(Unit unit, String str) {
+        double num = 0;
+        try{
+            num =  Double.parseDouble(str);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "请检查输入的值!");
+            return;
+        }
+        Double number = num/ unit.getUnitRate();
         table.setValueAt(number.toString(), table.getSelectedRow(), table.getSelectedColumn() - 1);
     }
 
@@ -46,7 +53,7 @@ public class TablePanel extends JPanel {
             units.add(new Unit("m", 1.0));
             units.add(new Unit("mm", 0.001));
             comboBoxLen = new JComboBox(setComboBoxArray(units));
-            setListener(comboBoxLen, rowContent);
+            setListener(comboBoxLen);
             setTextListener();
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxLen);
             editors.add(cellEditor);
@@ -65,7 +72,7 @@ public class TablePanel extends JPanel {
             units2.add(new Unit("m2", 1.0));
             units2.add(new Unit("mm2", 0.001 * 0.001));
             comboBoxArea = new JComboBox(setComboBoxArray(units2));
-            setListener(comboBoxArea, rowContent);
+            setListener(comboBoxArea);
             setTextListener();
             DefaultCellEditor cellEditor1 = new DefaultCellEditor(comboBoxArea);
             editors.add(cellEditor1);
@@ -78,26 +85,25 @@ public class TablePanel extends JPanel {
         return data;
     }
 
-    public boolean isNumber(String str){
+    public boolean isNumber(String str) {
 
-        try{
+        try {
             Expression e = new Expression(str);
             double count = e.calculate();
             e.getSyntaxStatus();
-            if(e.getSyntaxStatus() == SYNTAX_ERROR_OR_STATUS_UNKNOWN || Double.isInfinite(count)||Double.isNaN(count)){
+            if (e.getSyntaxStatus() == SYNTAX_ERROR_OR_STATUS_UNKNOWN || Double.isInfinite(count) || Double.isNaN(count)) {
                 return false;
             }
             return true;
-        }catch(Exception e){
-
+        } catch (Exception e) {
             return false;
 
         }
 
     }
 
-    public void setTextListener(){
-        JTextField textField = new JTextField();
+    public void setTextListener() {
+
         textField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -106,9 +112,8 @@ public class TablePanel extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                if(!isNumber(textField.getText())){
-                    JOptionPane.showMessageDialog(null,"请输入数字!");
-
+                if (!isNumber(textField.getText())) {
+                    JOptionPane.showMessageDialog(null, "请输入数字!");
                 }
             }
         });
@@ -127,12 +132,12 @@ public class TablePanel extends JPanel {
      *
      * @param comboBox
      */
-    public void setListener(JComboBox comboBox, IVertexArgument rowContent) {
+    public void setListener(JComboBox comboBox) {
         comboBox.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 JComboBox<Unit> combo = (JComboBox<Unit>) e.getSource();
                 Unit item = (Unit) combo.getSelectedItem();
-                calculate(item, rowContent);
+                calculate(item, textField.getText());
             }
 
         });
@@ -146,10 +151,9 @@ public class TablePanel extends JPanel {
                 int modelColumn = convertColumnIndexToModel(column);
                 if (modelColumn == 2 && row < editors.size())
                     return editors.get(row);
-                if(modelColumn == 1 && row < editor2.size()){
+                if (modelColumn == 1 && row < editor2.size()) {
                     return editor2.get(row);
-                }
-                else
+                } else
                     return super.getCellEditor(row, column);
             }
         };
