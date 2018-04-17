@@ -1,48 +1,35 @@
 package com.lgsim.engine.graphEditor.widget.PoJo;
 
-/**
- * 基础单位类
- */
+import java.math.BigDecimal;
+
 public class Unit {
 
-    private String description;
-    private double multiplier;
-    private int index;
+    private String unitName;//单位名称
+    private double unitRate;//单位比率
 
-    public Unit(String description,double multiplier){
-        this.description = description;
-        this.multiplier = multiplier;
+    public Unit(String unitName,double unitRate){
+        this.unitName = unitName;
+        this.unitRate = unitRate;
     }
 
-    public Unit(){}
-
-    public String getDescription() {
-        return description;
+    public String getUnitName() {
+        return unitName;
     }
 
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
-    public double getMultiplier() {
-        return multiplier;
+    public double getUnitRate() {
+        return unitRate;
     }
 
-    public void setMultiplier(double multiplier) {
-        this.multiplier = multiplier;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
+    public void setUnitRate(double unitRate) {
+        this.unitRate = unitRate;
     }
 
     @Override
     public String toString(){
-        return this.getDescription();
+        return this.getUnitName();
     }
 }
