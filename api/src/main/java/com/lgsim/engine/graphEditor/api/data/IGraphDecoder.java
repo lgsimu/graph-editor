@@ -9,5 +9,5 @@ public interface IGraphDecoder
   /**
    * 从输入数据流中解码出图
    */
-  IGraph decode(@NotNull Serializable serializable);
+  IGraph decode(@NotNull Serializable serializable) throws Exception;
 }
