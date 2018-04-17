@@ -145,9 +145,17 @@
 1.2 定义图文档编辑器的接口
 1.3 实现图文档编辑器接口
 1.4 创建图文档编辑器示例应用
+2.1 回答如何重绘连接的问题
+2.2 回答如何在连接上绘制圆圈的问题
+  2.2.1 绘制在什么位置
+  2.2.2 绘制多大
+2.3 回答如何在圆圈中绘制数字的问题
+2.4 回答圆圈中的数字如何自增的问题
 
 决策:
 ====
+2.1 继承mxGraphics2DCanvas类，重载drawCell方法，覆盖mxConstants.SHAPE_CONNECTOR，重新实现mxConnectorShape的paintShape
+    方法，如果cell.isEdge是true的时候，即可重绘
 
 结果:
 ====
