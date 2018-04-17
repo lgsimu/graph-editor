@@ -10,7 +10,10 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Collection;
 
-public class Decode implements IGraphDecoder {
+/**
+ * 解码实现类
+ */
+public class IGraphDecoderImpl implements IGraphDecoder {
 
     /**
      * 从输入数据流中解码出图

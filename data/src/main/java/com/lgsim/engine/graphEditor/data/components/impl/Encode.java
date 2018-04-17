@@ -6,6 +6,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 
+/**
+ * 编码实现类
+ */
 public class Encode implements IGraphEncoder {
 
     /**

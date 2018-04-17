@@ -1,6 +1,7 @@
 package com.lgsim.engine.graphEditor.data.components.component;
 
 import com.lgsim.engine.graphEditor.api.data.IVertexRestriction;
+import com.lgsim.engine.graphEditor.data.components.entity.IVertexRestrictionImpl;
 
 /**
  * Created by admin on 2018/4/14.
@@ -12,12 +13,12 @@ public abstract class Component {
     private String type;//元件类型
     private String stencilIcon;//元件模板图标
     private String graphIcon;//元件模板在图中的图标
-    private String restriction;//连接限制
+    private IVertexRestriction restriction;//连接限制
 
     public Component() {
     }
 
-    public Component(String name, String type, String stencilIcon, String graphIcon, String restriction) {
+    public Component(String name, String type, String stencilIcon, String graphIcon, IVertexRestriction restriction) {
         this.name = name;
         this.type = type;
         this.stencilIcon = stencilIcon;
@@ -25,6 +26,9 @@ public abstract class Component {
         this.restriction = restriction;
     }
 
+    /**
+     * name
+     */
     public String getName() {
         return name;
     }
@@ -33,6 +37,9 @@ public abstract class Component {
         this.name = name;
     }
 
+    /**
+     * type
+     */
     public String getType() {
         return type;
     }
@@ -41,6 +48,9 @@ public abstract class Component {
         this.type = type;
     }
 
+    /**
+     * 获取元件模板图标
+     */
     public String getStencilIcon() {
         return stencilIcon;
     }
@@ -49,6 +59,9 @@ public abstract class Component {
         this.stencilIcon = stencilIcon;
     }
 
+    /**
+     * 获取元件模板图标中的图标
+     */
     public String getGraphIcon() {
         return graphIcon;
     }
@@ -57,11 +70,15 @@ public abstract class Component {
         this.graphIcon = graphIcon;
     }
 
+    /**
+     * 连接限制
+     */
     public IVertexRestriction getRestriction() {
-        return null;
+        //IVertexRestrictionImpl iVertexRestrictionImpl = new IVertexRestrictionImpl();
+        return restriction;
     }
 
-    public void setRestriction(String restriction) {
+    public void setRestriction(IVertexRestriction restriction) {
         this.restriction = restriction;
     }
 }

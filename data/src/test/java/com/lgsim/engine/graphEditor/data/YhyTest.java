@@ -3,7 +3,7 @@ package com.lgsim.engine.graphEditor.data;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
-import com.lgsim.engine.graphEditor.data.components.impl.ComponentImpl;
+//import com.lgsim.engine.graphEditor.data.components.impl.ComponentImpl;
 import com.lgsim.engine.graphEditor.data.components.impl.Encode;
 
 import java.io.Serializable;
@@ -21,10 +21,10 @@ public class YhyTest {
         };
         Encode encode = new Encode();
         Serializable os = encode.encode(iGraph);*/
-        ComponentImpl component = new ComponentImpl();
+        /*ComponentImpl component = new ComponentImpl();
 
         List<IVertexStencil> list = component.getPredefinedStencils();
-        System.out.print(list);
+        System.out.print(list);*/
     }
 }
 
