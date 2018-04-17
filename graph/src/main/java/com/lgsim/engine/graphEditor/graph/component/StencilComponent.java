@@ -155,7 +155,7 @@ public class StencilComponent extends EngineComponent implements Serializable
   @Override
   public String toString()
   {
-    return name;
+    return "";
   }
 
 

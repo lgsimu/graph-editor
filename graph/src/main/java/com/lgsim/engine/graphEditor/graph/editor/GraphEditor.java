@@ -291,7 +291,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
       @Override
       public Object createEdge(Object parent, String id, Object value, Object source, Object target, String style)
       {
-        log.debug("create edge");
+        log.debug("create edge {}", style);
         mxCell edge = new mxCell(value, new mxGeometry(), style);
 
         edge.setId(id);
