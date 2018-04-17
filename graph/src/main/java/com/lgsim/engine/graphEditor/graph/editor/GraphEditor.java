@@ -7,7 +7,6 @@ import com.lgsim.engine.graphEditor.graph.component.*;
 import com.lgsim.engine.graphEditor.graph.util.IOUtil;
 import com.lgsim.engine.graphEditor.graph.util.IconUtil;
 import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
-import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
@@ -301,6 +300,13 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
         return edge;
       }
+
+
+      @Override
+      public boolean isCellSelectable(Object cell)
+      {
+        return !model.isEdge(cell);
+      }
     })
     {
       {
@@ -314,7 +320,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
         getViewport().setOpaque(true);
         getViewport().setBackground(Color.WHITE);
         graph.setCellsResizable(false);
-        graph.setKeepEdgesInBackground(true);
+        graph.setCellsEditable(false);
       }
 
       @Override
