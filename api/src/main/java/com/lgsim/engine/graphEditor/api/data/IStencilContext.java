@@ -22,4 +22,10 @@ public interface IStencilContext
    * 保存用户定义的元件模板
    */
   void saveUserDefinedStencil(@NotNull IVertexStencil stencil);
+
+
+  /**
+   * 获取腔节点模板
+   */
+  IVertexStencil getCavityStencil();
 }
