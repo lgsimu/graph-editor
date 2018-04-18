@@ -19,8 +19,8 @@ dependencies {
     antTask name: 'asm-all'
     antTask name: 'jdom'
 
-    compile files('lib/darcula.jar')
-    compile files('lib/jgraphx-3.9.3.jar')
+    compile files("${projectDir}/lib/darcula.jar")
+    compile files("${projectDir}/lib/jgraphx-3.9.3.jar")
 
     compile group: 'org.dom4j', name: 'dom4j', version: '2.1.0'
 }
