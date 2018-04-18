@@ -34,6 +34,19 @@ public class Ptlos extends Component implements IVertexStencil {
     }
 
     /**
+     * 元件类型
+     */
+    @Override
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
      * 参数类型
      */
     public String getArgumentType() {
@@ -94,18 +107,28 @@ public class Ptlos extends Component implements IVertexStencil {
         this.outputs = outputs;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Ptlos{" +
-                "name:" + super.getName() +
-                ", type:'" + type + '\'' +
-                ", stencilIcon:'" + super.getStencilIcon() + '\'' +
-                ", graphIcon:'" + super.getGraphIcon() + '\'' +
-                ", restriction:'" + super.getRestriction() + '\'' +
-                ", isPredefined:'" + isPredefined + '\'' +
-                ", argumentType:'" + argumentType + '\'' +
-                ", arguments:" + arguments +
-                ", outputs:" + outputs +
+                "isPredefined=" + isPredefined +
+                ", type='" + type + '\'' +
+                ", argumentType='" + argumentType + '\'' +
+                ", arguments=" + arguments +
+                ", outputs=" + outputs +
+                '}';
+    }*/
+    @Override
+    public String toString() {
+        return "{" +
+                "\"Name\":\"" + super.getName() + '\"' +
+                ",\"Type\":\"" + type + '\"' +
+                ",\"StencilIcon\":\"" + super.getStencilIcon() + '\"' +
+                ",\"GraphIcon\":\"" + super.getGraphIcon() + '\"' +
+                ",\"Restriction\":\"" + super.getRestriction() + '\"' +
+                ",\"IsPredefined\":\"" + isPredefined + '\"' +
+                ",\"ArgumentType\":\"" + argumentType + '\"' +
+                ",\"Arguments\":\"" + arguments +
+                ",\"Outputs\":\"" + outputs +
                 '}';
     }
 

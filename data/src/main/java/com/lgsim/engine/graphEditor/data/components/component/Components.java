@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Components implements IStencilContext {
     @Override
-    public List<IVertexStencil> getPredefinedStencils() {
+    public ArrayList<IVertexStencil> getPredefinedStencils() {
 
         //读取文件
         File file = new File("E:\\YHY\\案例-20180412\\simpleCase.inp");
@@ -32,6 +32,7 @@ public class Components implements IStencilContext {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         //创建json对象,并将字符串转化为json对象
         JSONObject json = JSONObject.fromObject(jsonStr);
 
@@ -39,14 +40,16 @@ public class Components implements IStencilContext {
         JSONArray component = JSONArray.fromObject(components.get("Component"));
 
         //创建Component元件对象集合
-        List<IVertexStencil> coms = new ArrayList<IVertexStencil>();
+        ArrayList<IVertexStencil> coms = new ArrayList<IVertexStencil>();
 
-        for (int i = 0; i < coms.size();i++) {
+        for (int i = 0; i < component.size(); i ++) {
+
             Ptlos ptlos = new Ptlos();//元件对象
             ArrayList<IVertexArgumentImpl> arguments = new ArrayList<IVertexArgumentImpl>();//参数集合
             ArrayList<IVertexOutput> outputs = new ArrayList<IVertexOutput>();//计算后的输出参数
             ArrayList<String> pInt = new ArrayList<String>();//连入端口类型
             ArrayList<String> pOut = new ArrayList<String>();//连出端口类型
+
 
             JSONObject com = JSONObject.fromObject(component.getJSONObject(i));
             JSONArray armnode = JSONArray.fromObject(com.get("ArmNodes"));
@@ -101,19 +104,19 @@ public class Components implements IStencilContext {
                 ptlos.setArguments(arguments);
                 ptlos.setOutputs(outputs);
 
-            }else {
+            }else if (com.getString("Type").equals("2")){
 
-                IVertexArgumentImpl argument1 = new IVertexArgumentImpl("GEO1","4",0,0,values.getDouble(0),"静压");
-                IVertexArgumentImpl argument2 = new IVertexArgumentImpl("GEO2","24",0,0,values.getDouble(1),"总温");
-                IVertexArgumentImpl argument3 = new IVertexArgumentImpl("GEO3","2",0,0,values.getDouble(2),"流通面积");
-                IVertexArgumentImpl argument4 = new IVertexArgumentImpl("GEO4","30",0,0,values.getDouble(3),"涡量");
+                IVertexArgumentImpl argument21 = new IVertexArgumentImpl("GEO1","4",0,0,values.getDouble(0),"静压");
+                IVertexArgumentImpl argument22 = new IVertexArgumentImpl("GEO2","24",0,0,values.getDouble(1),"总温");
+                IVertexArgumentImpl argument23 = new IVertexArgumentImpl("GEO3","2",0,0,values.getDouble(2),"流通面积");
+                IVertexArgumentImpl argument24 = new IVertexArgumentImpl("GEO4","30",0,0,values.getDouble(3),"涡量");
 
                 pInt.add(armnode.getString(0));
 
-                arguments.add(argument1);
-                arguments.add(argument2);
-                arguments.add(argument3);
-                arguments.add(argument4);
+                arguments.add(argument21);
+                arguments.add(argument22);
+                arguments.add(argument23);
+                arguments.add(argument24);
 
                 ptlos.setName(com.getString("Name"));
                 ptlos.setType(com.getString("Type"));
@@ -129,6 +132,7 @@ public class Components implements IStencilContext {
             coms.add(ptlos);
 
         }
+
 
         return coms;
     }

@@ -96,13 +96,13 @@ public class IVertexRestrictionImpl implements IVertexRestriction {
 
     @Override
     public String toString() {
-        return "{" +
-                "minInputPortCount:" + minInputPortCount +
-                ", maxInputPortCount:" + maxInputPortCount +
-                ", minOutputPortCount:" + minOutputPortCount +
-                ", maxOutputPortCount:" + maxOutputPortCount +
-                ", inputPortTypes:" + inputPortTypes +
-                ", outputPortTypes:" + outputPortTypes +
-                '}';
+        return "[" +
+                "minInputPortCount\":\"" + minInputPortCount + '\"' +
+                ",\"maxInputPortCount\":\"" + maxInputPortCount + '\"' +
+                ",\"minOutputPortCount\":\"" + minOutputPortCount + '\"' +
+                ",\"maxOutputPortCount\":\"" + maxOutputPortCount + '\"' +
+                ",\"inputPortTypes\":\"" + inputPortTypes + '\"' +
+                ",\"outputPortTypes\":\"" + outputPortTypes +
+                ']';
     }
 }
