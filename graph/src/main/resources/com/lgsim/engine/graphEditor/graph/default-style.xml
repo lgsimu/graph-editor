@@ -10,6 +10,7 @@
     </add>
     <add as="defaultEdge" extend="defaultEdge">
         <add as="labelBackgroundColor" value="white"/>
+        <add as="labelBorderColor" value="green"/>
         <add as="rounded" value="1"/>
         <add as="edgeStyle" value="elbowEdgeStyle"/>
         <add as="strokeColor" value="#5d65df"/>

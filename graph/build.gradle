@@ -1,9 +1,11 @@
+version '1.0-SNAPSHOT'
+
 configurations {
     antTask
 }
 
 repositories {
-    flatDir dirs: "${rootDir}/lib"
+    flatDir dirs: "${projectDir}/lib"
 }
 
 dependencies {
@@ -17,8 +19,8 @@ dependencies {
     antTask name: 'asm-all'
     antTask name: 'jdom'
 
-    compile files('lib/darcula.jar')
-    compile files('lib/jgraphx-3.9.3.jar')
+    compile files("${projectDir}/lib/darcula.jar")
+    compile files("${projectDir}/lib/jgraphx-3.9.3.jar")
 
     compile group: 'org.dom4j', name: 'dom4j', version: '2.1.0'
 }
@@ -32,6 +34,7 @@ task compileJava(overwrite: true, dependsOn: configurations.compile.getTaskDepen
                 destdir: project.sourceSets.main.output.classesDir,
                 source: sourceCompatibility,
                 target: targetCompatibility,
-                includeAntRuntime: false
+                includeAntRuntime: false,
+                encoding: 'UTF-8'
     }
 }
