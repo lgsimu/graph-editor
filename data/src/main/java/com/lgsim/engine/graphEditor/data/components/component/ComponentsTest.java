@@ -127,4 +127,9 @@ public class ComponentsTest implements IStencilContext {
     public void saveUserDefinedStencil(@NotNull IVertexStencil stencil) {
 
     }
+
+    @Override
+    public IVertexStencil getCavityStencil() {
+        return null;
+    }
 }
