@@ -3,7 +3,6 @@ package com.lgsim.engine.graphEditor.graph.editor;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxEvent;
-import com.mxgraph.util.mxEventObject;
 import com.mxgraph.view.mxGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +17,7 @@ class EditorGraph extends mxGraph
   private mxCell toNode;
   private mxCell autogenEdge;
   private final mxIEventListener listener;
+  private final CavityCounter cavityCounter = new CavityCounter();
 
 
   EditorGraph()
@@ -55,7 +55,8 @@ class EditorGraph extends mxGraph
     getModel().beginUpdate();
     try
     {
-      mxCell cavity = (mxCell) insertVertex(parent, null, "cavity", position.x, position.y, 64, 64);
+      String count = cavityCounter.incInt() + "";
+      mxCell cavity = (mxCell) insertVertex(parent, null, count, position.x, position.y, 64, 64);
       autogenEdge.setTerminal(cavity, false);
       removeListener(listener);
       insertEdge(parent, null, "", cavity, toNode);
