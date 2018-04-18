@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-class EditorGraph extends mxGraph implements IGraph
+public class EditorGraph extends mxGraph implements IGraph
 {
   private static final Logger log = LoggerFactory.getLogger(EditorGraph.class);
   private mxCell fromNode;
