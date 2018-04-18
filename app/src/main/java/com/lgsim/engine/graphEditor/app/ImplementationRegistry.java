@@ -1,6 +1,12 @@
 package com.lgsim.engine.graphEditor.app;
 
-import com.lgsim.engine.graphEditor.api.data.IGraph;
+import com.lgsim.engine.graphEditor.api.data.*;
+import com.lgsim.engine.graphEditor.data.components.component.Components;
+import com.lgsim.engine.graphEditor.data.components.component.ComponentsTest;
+import com.lgsim.engine.graphEditor.data.components.entity.IVertexArgumentImpl;
+import com.lgsim.engine.graphEditor.data.components.entity.IVertexRestrictionImpl;
+import com.lgsim.engine.graphEditor.data.components.impl.*;
+import com.lgsim.engine.graphEditor.data.components.ptlos.entity.Ptlos;
 import com.lgsim.engine.graphEditor.graph.editor.EditorGraph;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 
@@ -9,5 +15,15 @@ class ImplementationRegistry
   static void registerAll()
   {
     ImplementationUtil.put(IGraph.class, EditorGraph.class);
+    ImplementationUtil.put(IGraphDecoder.class, IGraphDecoderImpl.class);
+    ImplementationUtil.put(IGraphEncoder.class, IGraphEncoderImpl.class);
+    ImplementationUtil.put(IStencilContext.class, IStencilContextImpl.class);
+    ImplementationUtil.put(IStencilContext.class, Components.class);
+    ImplementationUtil.put(IStencilContext.class, ComponentsTest.class);
+    ImplementationUtil.put(IVertex.class, IVertexImpl.class);
+    ImplementationUtil.put(IVertexArgument.class, IVertexArgumentImpl.class);
+    ImplementationUtil.put(IVertexOutput.class, IVertexOutputImpl.class);
+    ImplementationUtil.put(IVertexRestriction.class, IVertexRestrictionImpl.class);
+    ImplementationUtil.put(IVertexStencil.class, Ptlos.class);
   }
 }
