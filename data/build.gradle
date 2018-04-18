@@ -3,4 +3,16 @@ version '1.0-SNAPSHOT'
 dependencies {
     compile project(':api')
     compile project(':util')
+    compile files('lib/commons-beanutils-core-1.8.0.jar')
+    compile files('lib/commons-collections-3.2.jar')
+    compile files('lib/commons-lang-2.4.jar')
+    compile files('lib/commons-logging-1.1.2.jar')
+    compile files('lib/ezmorph-1.0.6.jar')
+    compile files('lib/json-lib-2.3-jdk15.jar')
+    compile files('lib/json-simple-1.1.1.jar')
+    compile files('lib/org.apache.commons.io.jar')
+    compile files('lib/org.json.jar')
+    compile files('lib/xom-1.0d10.jar')
+
+
 }

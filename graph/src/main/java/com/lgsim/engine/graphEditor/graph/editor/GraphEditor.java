@@ -4,28 +4,19 @@ import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.graph.ApplicationContext;
 import com.lgsim.engine.graphEditor.graph.component.*;
-import com.lgsim.engine.graphEditor.graph.util.IOUtil;
 import com.lgsim.engine.graphEditor.graph.util.IconUtil;
 import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
-import com.mxgraph.canvas.mxGraphics2DCanvas;
-import com.mxgraph.io.mxCodec;
 import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
-import com.mxgraph.model.mxICell;
-import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.mxGraphOutline;
-import com.mxgraph.swing.view.mxInteractiveCanvas;
 import com.mxgraph.util.mxEvent;
-import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 
 import javax.swing.*;
 import java.awt.*;
@@ -276,78 +267,8 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
   private void openNewDocument()
   {
-    final mxGraphComponent comp = new mxGraphComponent(new mxGraph()
-    {
-      {
-        setAlternateEdgeStyle("edgeStyle=mxEdgeStyle.ElbowConnector;elbow=vertical");
-      }
-
-      @Override
-      public String getToolTipForCell(Object cell)
-      {
-        return "";
-      }
-
-
-      @Override
-      public Object createEdge(Object parent, String id, Object value, Object source, Object target, String style)
-      {
-        log.debug("create edge");
-        mxCell edge = new mxCell(value, new mxGeometry(), style);
-
-        edge.setId(id);
-        edge.setEdge(true);
-        edge.getGeometry().setRelative(true);
-
-        return edge;
-      }
-    })
-    {
-      {
-        setPageVisible(true);
-        setGridVisible(true);
-        setToolTips(true);
-        getConnectionHandler().setCreateTarget(true);
-        mxCodec codec = new mxCodec();
-        Document doc = mxUtils.loadDocument(IOUtil.getResourceURI("com/lgsim/engine/graphEditor/graph/default-style.xml"));
-        codec.decode(doc.getDocumentElement(), graph.getStylesheet());
-        getViewport().setOpaque(true);
-        getViewport().setBackground(Color.WHITE);
-        graph.setCellsResizable(false);
-        graph.setKeepEdgesInBackground(true);
-      }
-
-      @Override
-      public Object[] importCells(Object[] cells, double dx, double dy, Object target, Point location)
-      {
-        if (target == null && cells.length == 1 && location != null)
-        {
-          target = getCellAt(location.x, location.y);
-          if (target instanceof mxICell && cells[0] instanceof mxICell)
-          {
-            mxICell targetCell = (mxICell) target;
-            mxICell dropCell = (mxICell) cells[0];
-            if (targetCell.isVertex() == dropCell.isVertex()
-                || targetCell.isEdge() == dropCell.isEdge())
-            {
-              mxIGraphModel model = graph.getModel();
-              model.setStyle(target, model.getStyle(cells[0]));
-              graph.setSelectionCell(target);
-              return null;
-            }
-          }
-        }
-        return super.importCells(cells, dx, dy, target, location);
-      }
-
-
-      @Override
-      public mxInteractiveCanvas createCanvas()
-      {
-        return new GraphCanvas();
-      }
-    };
     currentDocumentIndex = graphDocuments.size();
+    final mxGraphComponent comp = new EditorGraphComponent(new EditorGraph());
     graphDocuments.add(currentDocumentIndex, new GraphDocument(null, comp));
   }
 

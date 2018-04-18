@@ -2,6 +2,7 @@ package com.lgsim.engine.graphEditor.api.data;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IStencilContext
@@ -22,4 +23,10 @@ public interface IStencilContext
    * 保存用户定义的元件模板
    */
   void saveUserDefinedStencil(@NotNull IVertexStencil stencil);
+
+
+  /**
+   * 获取腔节点模板
+   */
+  IVertexStencil getCavityStencil();
 }

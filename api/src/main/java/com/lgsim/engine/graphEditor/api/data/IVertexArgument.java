@@ -1,7 +1,5 @@
 package com.lgsim.engine.graphEditor.api.data;
 
-import java.math.BigDecimal;
-
 public interface IVertexArgument
 {
   /**
@@ -19,13 +17,13 @@ public interface IVertexArgument
   /**
    * 最小值
    */
-  BigDecimal getMinValue();
+  double getMinValue();
 
 
   /**
    * 最大值
    */
-  BigDecimal getMaxValue();
+  double getMaxValue();
 
 
   /**
