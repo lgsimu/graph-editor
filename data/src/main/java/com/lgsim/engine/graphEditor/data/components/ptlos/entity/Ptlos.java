@@ -18,17 +18,30 @@ public class Ptlos extends Component implements IVertexStencil {
 
     private boolean isPredefined;//是否是预定义的元件
     private String type;//元件类型
+    private String argumentType;//参数类型
     private ArrayList<IVertexArgumentImpl> arguments = new ArrayList<IVertexArgumentImpl>();//元素参数
     private ArrayList<IVertexOutput> outputs = new ArrayList<IVertexOutput>();//计算后的参数
 
     public Ptlos() {
     }
 
-    public Ptlos(String name, String type, String stencilIcon, String graphIcon, IVertexRestriction restriction, boolean isPredefined, ArrayList<IVertexArgumentImpl> arguments, ArrayList<IVertexOutput> outputs) {
+    public Ptlos(String name, String type, String argumentType, String stencilIcon, String graphIcon, IVertexRestriction restriction, boolean isPredefined, ArrayList<IVertexArgumentImpl> arguments, ArrayList<IVertexOutput> outputs) {
         super(name, type, stencilIcon, graphIcon, restriction);
+        this.argumentType = argumentType;
         this.isPredefined = isPredefined;
         this.arguments = arguments;
         this.outputs = outputs;
+    }
+
+    /**
+     * 参数类型
+     */
+    public String getArgumentType() {
+        return argumentType;
+    }
+
+    public void setArgumentType(String argumentType) {
+        this.argumentType = argumentType;
     }
 
     /**
@@ -81,53 +94,20 @@ public class Ptlos extends Component implements IVertexStencil {
         this.outputs = outputs;
     }
 
-    /*public String getArmNode1() {
-        return armNode1;
+    @Override
+    public String toString() {
+        return "Ptlos{" +
+                "name:" + super.getName() +
+                ", type:'" + type + '\'' +
+                ", stencilIcon:'" + super.getStencilIcon() + '\'' +
+                ", graphIcon:'" + super.getGraphIcon() + '\'' +
+                ", restriction:'" + super.getRestriction() + '\'' +
+                ", isPredefined:'" + isPredefined + '\'' +
+                ", argumentType:'" + argumentType + '\'' +
+                ", arguments:" + arguments +
+                ", outputs:" + outputs +
+                '}';
     }
-
-    public void setArmNode1(String armNode1) {
-        this.armNode1 = armNode1;
-    }
-
-    public String getArmNode2() {
-        return armNode2;
-    }
-
-    public void setArmNode2(String armNode2) {
-        this.armNode2 = armNode2;
-    }
-
-    public String getFeatureName() {
-        return featureName;
-    }
-
-    public void setFeatureName(String featureName) {
-        this.featureName = featureName;
-    }
-
-    public double getAa() {
-        return aa;
-    }
-
-    public void setAa(double aa) {
-        this.aa = aa;
-    }
-
-    public double getGeo1() {
-        return geo1;
-    }
-
-    public void setGeo1(double geo1) {
-        this.geo1 = geo1;
-    }
-
-    public double getGeo2() {
-        return geo2;
-    }
-
-    public void setGeo2(double geo2) {
-        this.geo2 = geo2;
-    }*/
 
     //@Override
     /*public String toString() {

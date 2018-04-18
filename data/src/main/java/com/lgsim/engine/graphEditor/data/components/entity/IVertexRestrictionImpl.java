@@ -93,4 +93,16 @@ public class IVertexRestrictionImpl implements IVertexRestriction {
     public void setOutputPortTypes(ArrayList<String> outputPortTypes) {
         this.outputPortTypes = outputPortTypes;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "minInputPortCount:" + minInputPortCount +
+                ", maxInputPortCount:" + maxInputPortCount +
+                ", minOutputPortCount:" + minOutputPortCount +
+                ", maxOutputPortCount:" + maxOutputPortCount +
+                ", inputPortTypes:" + inputPortTypes +
+                ", outputPortTypes:" + outputPortTypes +
+                '}';
+    }
 }

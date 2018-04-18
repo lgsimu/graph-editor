@@ -16,7 +16,7 @@ public class ComponentsTest implements IStencilContext {
 
     @Override
     public List<IVertexStencil> getPredefinedStencils() {
-        Ptlos ptloss = new Ptlos("","","","",new IVertexRestrictionImpl(),false,new ArrayList<IVertexArgumentImpl>(),new ArrayList<IVertexOutput>());
+        Ptlos ptloss = new Ptlos("","","","","",new IVertexRestrictionImpl(),false,new ArrayList<IVertexArgumentImpl>(),new ArrayList<IVertexOutput>());
         //IVertexRestrictionImpl iVertexRestrictionImpl = new IVertexRestrictionImpl();
         /**
          * '111'类型
@@ -56,7 +56,7 @@ public class ComponentsTest implements IStencilContext {
         iargs2.add(iarg24);
 
         /**
-         * 元件'2'类型
+         * 元件'3'类型
          */
         Ptlos ptlos3 = new Ptlos();
 
@@ -84,6 +84,7 @@ public class ComponentsTest implements IStencilContext {
         ptlos1.setGraphIcon("");
         ptlos1.setRestriction(new IVertexRestrictionImpl(1,1,1,1,pInt1,pOut1));
         ptlos1.setIsPredefined(true);
+        ptlos1.setArgumentType("Input");
         ptlos1.setArguments(iargs1);
         ptlos1.setOutputs(iouts1);
 
@@ -93,17 +94,19 @@ public class ComponentsTest implements IStencilContext {
         ptlos2.setGraphIcon("");
         ptlos2.setRestriction(new IVertexRestrictionImpl(0,0,1,1,pInt2,pOut2));
         ptlos2.setIsPredefined(true);
+        ptlos2.setArgumentType("Input");
         ptlos2.setArguments(iargs2);
         ptlos2.setOutputs(iouts2);
 
-        ptlos2.setName("OUT21");
-        ptlos2.setType("2");
-        ptlos2.setStencilIcon("");
-        ptlos2.setGraphIcon("");
-        ptlos2.setRestriction(new IVertexRestrictionImpl(1,1,0,0,pInt3,pOut3));
-        ptlos2.setIsPredefined(true);
-        ptlos2.setArguments(iargs3);
-        ptlos2.setOutputs(iouts3);
+        ptlos3.setName("OUT21");
+        ptlos3.setType("2");
+        ptlos3.setStencilIcon("");
+        ptlos3.setGraphIcon("");
+        ptlos3.setRestriction(new IVertexRestrictionImpl(1,1,0,0,pInt3,pOut3));
+        ptlos3.setIsPredefined(true);
+        ptlos3.setArgumentType("Input");
+        ptlos3.setArguments(iargs3);
+        ptlos3.setOutputs(iouts3);
 
         /**
          * 元件集合
