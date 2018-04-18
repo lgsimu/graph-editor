@@ -1,5 +1,7 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
+import com.lgsim.engine.graphEditor.api.data.IGraph;
+import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxEvent;
@@ -8,9 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.util.Collection;
 import java.util.Map;
 
-class EditorGraph extends mxGraph
+class EditorGraph extends mxGraph implements IGraph
 {
   private static final Logger log = LoggerFactory.getLogger(EditorGraph.class);
   private mxCell fromNode;
@@ -102,5 +105,16 @@ class EditorGraph extends mxGraph
   public boolean isCellSelectable(Object cell)
   {
     return !model.isEdge(cell);
+  }
+
+
+  @Override
+  public Collection<IVertex> getAllVertexes()
+  {
+    final Object defaultParent = getDefaultParent();
+    final Object[] vertices = getChildVertices(defaultParent);
+    final Object[] edges = getChildEdges(defaultParent);
+
+    return null;
   }
 }
