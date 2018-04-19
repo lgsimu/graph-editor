@@ -11,6 +11,7 @@ import com.lgsim.engine.graphEditor.data.components.ptlos.entity.Ptlos;
 import com.lgsim.engine.graphEditor.graph.editor.EditorGraph;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.widget.Component.Resolver;
+import com.lgsim.engine.graphEditor.widget.IWidegtImp.ResolverImp;
 import com.lgsim.engine.graphEditor.widget.IWidegtImp.TablePanelImp;
 
 class ImplementationRegistry
@@ -29,6 +30,6 @@ class ImplementationRegistry
     ImplementationUtil.put(IVertexRestriction.class, IVertexRestrictionImpl.class);
     ImplementationUtil.put(IVertexStencil.class, Ptlos.class);
     ImplementationUtil.put(IWidget.class, TablePanelImp.class);
-    ImplementationUtil.put(IWidget.class, Resolver.class);
+    ImplementationUtil.put(IWidget.class, ResolverImp.class);
   }
 }
