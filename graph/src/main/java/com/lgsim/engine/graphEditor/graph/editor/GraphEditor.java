@@ -7,8 +7,8 @@ import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
-import com.lgsim.engine.graphEditor.graph.util.IconUtil;
 import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
+import com.lgsim.engine.graphEditor.util.ResourceUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
@@ -286,7 +286,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
   Action bind(String name, final Action action, String iconUrl)
   {
     final mxGraphComponent graphComp = getCurrentDocument().getGraphComponent();
-    Icon icon = (iconUrl != null) ? IconUtil.getIcon(iconUrl) : null;
+    Icon icon = ResourceUtil.lookupImageIcon(iconUrl);
     AbstractAction newAction = new AbstractAction(name, icon)
     {
       public void actionPerformed(ActionEvent e)
