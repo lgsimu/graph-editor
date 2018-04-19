@@ -19,7 +19,6 @@ import java.util.TooManyListenersException;
 public class EditorRuler extends JComponent
     implements MouseMotionListener, DropTargetListener
 {
-  private static final long serialVersionUID = -6310912355878668096L;
   public static int ORIENTATION_HORIZONTAL = 0, ORIENTATION_VERTICAL = 1;
   private static int DEFAULT_PAGE_SCALE = 1;
   private static boolean DEFAULT_IS_METRIC = true;

@@ -145,7 +145,6 @@ public class GraphConfigDialog extends JDialog
    * Grid spacing for a grid graph
    */
   protected float gridSpacing = 80;
-  private static final long serialVersionUID = 1535851135077957959L;
   protected boolean insertGraph = false;
   protected mxGraph graph;
   protected mxAnalysisGraph aGraph;

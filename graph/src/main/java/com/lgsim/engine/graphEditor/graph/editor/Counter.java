@@ -1,5 +1,6 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
+// TODO: multiple thread?
 class Counter
 {
   private int count;

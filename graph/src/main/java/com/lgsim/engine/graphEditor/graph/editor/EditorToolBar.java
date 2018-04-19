@@ -23,7 +23,6 @@ import static com.lgsim.engine.graphEditor.graph.editor.EditorActions.*;
 
 class EditorToolBar extends JToolBar
 {
-  private static final long serialVersionUID = -8015443128436394471L;
   private boolean ignoreZoomChange = false;
 
 

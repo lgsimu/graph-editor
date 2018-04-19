@@ -45,6 +45,7 @@ public class EditorGraphComponent extends mxGraphComponent
   @Override
   public Object[] importCells(Object[] cells, double dx, double dy, Object target, Point location)
   {
+    /* 覆盖时替换元件 */
     if (target == null && cells.length == 1 && location != null)
     {
       target = getCellAt(location.x, location.y);

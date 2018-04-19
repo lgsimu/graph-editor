@@ -22,9 +22,6 @@ import static com.lgsim.engine.graphEditor.graph.editor.EditorActions.*;
 
 public class EditorMenuBar extends JMenuBar
 {
-  private static final long serialVersionUID = 4060203894740766714L;
-
-
   public enum AnalyzeType
   {
     IS_CONNECTED, IS_SIMPLE, IS_CYCLIC_DIRECTED, IS_CYCLIC_UNDIRECTED,
@@ -331,9 +328,6 @@ public class EditorMenuBar extends JMenuBar
 
       menu.add(new AbstractAction(lafs[i].getName())
       {
-        private static final long serialVersionUID = 7588919504149148501L;
-
-
         public void actionPerformed(ActionEvent e)
         {
           System.out.println("set look and feel");
@@ -666,7 +660,6 @@ public class EditorMenuBar extends JMenuBar
 
   public static class InsertGraph extends AbstractAction
   {
-    private static final long serialVersionUID = 4010463992665008365L;
     protected GraphType graphType;
     protected mxAnalysisGraph aGraph;
 
@@ -746,7 +739,6 @@ public class EditorMenuBar extends JMenuBar
 
   public static class AnalyzeGraph extends AbstractAction
   {
-    private static final long serialVersionUID = 6926170745240507985L;
     mxAnalysisGraph aGraph;
     protected AnalyzeType analyzeType;
 
