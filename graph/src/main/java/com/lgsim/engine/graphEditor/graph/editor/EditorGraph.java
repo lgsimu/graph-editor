@@ -7,7 +7,6 @@ import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
 import com.lgsim.engine.graphEditor.util.CollectionUtil;
 import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.view.mxGraph;
 import org.jetbrains.annotations.Contract;
@@ -28,7 +27,8 @@ public class EditorGraph extends mxGraph implements IGraph
   private mxCell toNode;
   private mxCell autogenEdge;
   private final mxIEventListener listener;
-  private final CavityCounter cavityCounter = new CavityCounter();
+  private final Counter cavityCounter = new Counter();
+  private final Counter edgeCounter = new Counter();
 
 
   EditorGraph()
@@ -67,11 +67,11 @@ public class EditorGraph extends mxGraph implements IGraph
     try
     {
       String count = cavityCounter.incInt() + "";
-      mxCell cavity = (mxCell) insertVertex(parent, null, count, position.x, position.y, 64, 64);
+      mxCell cavity = (mxCell) insertVertex(parent, count, count, position.x, position.y, 64, 64);
       autogenEdge.setTerminal(cavity, false);
       removeListener(listener);
-      // TODO: needs id generator?
-      insertEdge(parent, null, "", cavity, toNode);
+      String edgeId = edgeCounter.incInt() + "";
+      insertEdge(parent, edgeId, null, cavity, toNode);
     }
     finally
     {
@@ -93,20 +93,6 @@ public class EditorGraph extends mxGraph implements IGraph
   public String getToolTipForCell(Object cell)
   {
     return "";
-  }
-
-
-  @Override
-  public Object createEdge(Object parent, String id, Object value, Object source, Object target, String style)
-  {
-    log.debug("create edge {}", style);
-    mxCell edge = new mxCell(value, new mxGeometry(), style);
-
-    edge.setId(id);
-    edge.setEdge(true);
-    edge.getGeometry().setRelative(true);
-
-    return edge;
   }
 
 
@@ -141,7 +127,7 @@ public class EditorGraph extends mxGraph implements IGraph
 
 
   // TODO: deep clone?
-  private void cloneIfPossible(IVertex source, VertexImpl target)
+  private void cloneIfPossible(@NotNull IVertex source, @NotNull VertexImpl target)
   {
     target.setID(source.getID());
     target.setTypeID(source.getTypeID());

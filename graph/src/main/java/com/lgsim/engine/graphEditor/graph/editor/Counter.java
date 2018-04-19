@@ -1,11 +1,11 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
-class CavityCounter
+class Counter
 {
   private int count;
 
 
-  CavityCounter()
+  Counter()
   {
     count = 0;
   }
