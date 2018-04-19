@@ -1,5 +1,5 @@
 subprojects {
-    group 'com.lg.engine'
+    group 'com.lgsim.engine'
 
     apply plugin: 'java'
 
