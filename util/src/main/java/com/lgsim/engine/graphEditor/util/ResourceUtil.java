@@ -1,7 +1,5 @@
-package com.lgsim.engine.graphEditor.graph.util;
+package com.lgsim.engine.graphEditor.util;
 
-import com.lgsim.engine.graphEditor.util.ExceptionManager;
-import com.lgsim.engine.graphEditor.util.ResourceFileMissingException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -9,22 +7,30 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-public class IOUtil
+/**
+ * @author leiqiao
+ */
+public class ResourceUtil
 {
+  /**
+   * 查找资源uri
+   *
+   * @param path 资源相对路径，注意开头没有斜杠
+   * @return 如果资源存在，则返回其uri，否则返回{@code null}
+   */
   @Nullable
-  public static String getResourceURI(@NotNull String path)
+  public static URI lookup(@NotNull String path)
   {
     try
     {
       URL url = Thread.currentThread().getContextClassLoader().getResource(path);
-      if (url == null)
+      if (url != null)
       {
-        throw new NullPointerException();
+        return url.toURI();
       }
       else
       {
-        URI uri = url.toURI();
-        return uri.toString();
+        throw new NullPointerException();
       }
     }
     catch (URISyntaxException | NullPointerException e)

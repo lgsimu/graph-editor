@@ -7,12 +7,12 @@ import java.util.ResourceBundle;
 
 public class MessageBundleUtil
 {
-  private static final ResourceBundle GRAPH_MSG = ResourceBundle.getBundle("com/lgsim/engine/graphEditor/graph/messages");
+  private static final ResourceBundle MSG = ResourceBundle.getBundle("com/lgsim/engine/graphEditor/graph/messages");
 
 
   public static String get(@NotNull String key, @NotNull Object... arguments)
   {
-    String val = GRAPH_MSG.getString(key);
+    String val = MSG.getString(key);
     if (arguments.length == 0)
     {
       return val;

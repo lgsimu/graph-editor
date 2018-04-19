@@ -3,7 +3,6 @@ package com.lgsim.engine.graphEditor.app;
 import com.bulenkov.darcula.DarculaLaf;
 import com.lgsim.engine.graphEditor.graph.editor.EditorMenuBar;
 import com.lgsim.engine.graphEditor.graph.editor.GraphEditor;
-import com.lgsim.engine.graphEditor.graph.listener.ApplicationListener;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import com.lgsim.engine.graphEditor.util.ExceptionManager;
 import com.mxgraph.swing.util.mxSwingConstants;
