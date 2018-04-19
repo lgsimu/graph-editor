@@ -4,28 +4,37 @@ import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import com.lgsim.engine.graphEditor.api.data.IVertexRestriction;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class VertexStencilImpl implements IVertexStencil
 {
   private boolean predefined;
+
+  @NotNull
   private String ID;
+
+  @NotNull
   private String name;
+
+  @NotNull
   private String stencilIcon;
+
+  @NotNull
   private String graphIcon;
+
+  @NotNull
   private List<IVertexArgument> arguments;
+
+  @NotNull
   private List<IVertexOutput> outputs;
+
+  @NotNull
   private IVertexRestriction restriction;
 
 
-  public VertexStencilImpl()
-  {
-  }
-
-
-  public VertexStencilImpl(boolean predefined, String ID, String name, String stencilIcon, String graphIcon,
-                           List<IVertexArgument> arguments, List<IVertexOutput> outputs, IVertexRestriction restriction)
+  public VertexStencilImpl(boolean predefined, @NotNull String ID, @NotNull String name, @NotNull String stencilIcon, @NotNull String graphIcon, @NotNull List<IVertexArgument> arguments, @NotNull List<IVertexOutput> outputs, @NotNull IVertexRestriction restriction)
   {
     this.predefined = predefined;
     this.ID = ID;
@@ -52,91 +61,98 @@ public class VertexStencilImpl implements IVertexStencil
 
 
   @Override
+  @NotNull
   public String getID()
   {
     return ID;
   }
 
 
-  public void setID(String ID)
+  public void setID(@NotNull String ID)
   {
     this.ID = ID;
   }
 
 
   @Override
+  @NotNull
   public String getName()
   {
     return name;
   }
 
 
-  public void setName(String name)
+  public void setName(@NotNull String name)
   {
     this.name = name;
   }
 
 
   @Override
+  @NotNull
   public String getStencilIcon()
   {
     return stencilIcon;
   }
 
 
-  public void setStencilIcon(String stencilIcon)
+  public void setStencilIcon(@NotNull String stencilIcon)
   {
     this.stencilIcon = stencilIcon;
   }
 
 
   @Override
+  @NotNull
   public String getGraphIcon()
   {
     return graphIcon;
   }
 
 
-  public void setGraphIcon(String graphIcon)
+  public void setGraphIcon(@NotNull String graphIcon)
   {
     this.graphIcon = graphIcon;
   }
 
 
   @Override
+  @NotNull
   public List<IVertexArgument> getArguments()
   {
     return arguments;
   }
 
 
-  public void setArguments(List<IVertexArgument> arguments)
+  public void setArguments(@NotNull List<IVertexArgument> arguments)
   {
     this.arguments = arguments;
   }
 
 
   @Override
+  @NotNull
   public List<IVertexOutput> getOutputs()
   {
     return outputs;
   }
 
 
-  public void setOutputs(List<IVertexOutput> outputs)
+  public void setOutputs(@NotNull List<IVertexOutput> outputs)
   {
     this.outputs = outputs;
   }
 
 
   @Override
+  @NotNull
   public IVertexRestriction getRestriction()
   {
     return restriction;
   }
 
 
-  public void setRestriction(IVertexRestriction restriction)
+  public void setRestriction(@NotNull IVertexRestriction restriction)
   {
     this.restriction = restriction;
   }

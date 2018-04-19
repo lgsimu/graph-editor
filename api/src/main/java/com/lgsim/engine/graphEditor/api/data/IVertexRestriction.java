@@ -1,8 +1,11 @@
 package com.lgsim.engine.graphEditor.api.data;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
 import java.util.List;
 
-public interface IVertexRestriction
+public interface IVertexRestriction extends Serializable
 {
   /**
    * 最小连入端口数
@@ -31,11 +34,13 @@ public interface IVertexRestriction
   /**
    * 获取可以连入的端口的类型
    */
+  @NotNull
   List<String> getInputPortTypes();
 
 
   /**
    * 获取可以连出的端口的类型
    */
+  @NotNull
   List<String> getOutputPortTypes();
 }

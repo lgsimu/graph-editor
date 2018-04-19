@@ -1,16 +1,22 @@
 package com.lgsim.engine.graphEditor.api.data;
 
-public interface IVertexArgument
+import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
+
+public interface IVertexArgument extends Serializable
 {
   /**
    * 参数id
    */
+  @NotNull
   String getID();
 
 
   /**
    * 单位
    */
+  @NotNull
   String getUnit();
 
 
@@ -41,5 +47,6 @@ public interface IVertexArgument
   /**
    * 描述
    */
+  @NotNull
   String getDescription();
 }

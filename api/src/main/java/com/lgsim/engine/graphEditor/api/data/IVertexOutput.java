@@ -1,5 +1,7 @@
 package com.lgsim.engine.graphEditor.api.data;
 
-public interface IVertexOutput
+import java.io.Serializable;
+
+public interface IVertexOutput extends Serializable
 {
 }
