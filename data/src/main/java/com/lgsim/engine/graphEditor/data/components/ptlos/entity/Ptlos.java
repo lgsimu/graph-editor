@@ -131,7 +131,11 @@ public class Ptlos extends Component implements IVertexStencil {
         this.outputs = outputs;
     }
 
-    /*@Override
+    @Override
+    public String toString() {
+        return getName();
+    }
+/*@Override
     public String toString() {
         return "Ptlos{" +
                 "isPredefined=" + isPredefined +
@@ -141,7 +145,7 @@ public class Ptlos extends Component implements IVertexStencil {
                 ", outputs=" + outputs +
                 '}';
     }*/
-    @Override
+    //@Override
     /*public String toString() {
         return "{" +
                 "\"Name\":\"" + super.getName() + '\"' +
@@ -156,7 +160,7 @@ public class Ptlos extends Component implements IVertexStencil {
                 '}';
     }*/
 
-    public String toString() {
+    /*public String toString() {
 
         return  //"{\"Component\":" +
                 "{" +
@@ -167,7 +171,7 @@ public class Ptlos extends Component implements IVertexStencil {
                         ",\"Value\":" + value + "}]" +
                         //'}' +
                         '}' ;
-    }
+    }*/
     //@Override
     /*public String toString() {
         return "{" +
