@@ -15,7 +15,7 @@ import java.util.List;
 public class ComponentsTest implements IStencilContext {
 
     @Override
-    public List<IVertexStencil> getPredefinedStencils() {
+    public ArrayList<IVertexStencil> getPredefinedStencils() {
         Ptlos ptloss = new Ptlos("","","","","",new IVertexRestrictionImpl(),false,new ArrayList<IVertexArgumentImpl>(),new ArrayList<IVertexOutput>());
         //IVertexRestrictionImpl iVertexRestrictionImpl = new IVertexRestrictionImpl();
         /**
@@ -111,7 +111,7 @@ public class ComponentsTest implements IStencilContext {
         /**
          * 元件集合
          */
-        List<IVertexStencil> list = new ArrayList<IVertexStencil>();
+        ArrayList<IVertexStencil> list = new ArrayList<IVertexStencil>();
         list.add(ptlos1);
         list.add(ptlos2);
         list.add(ptlos3);

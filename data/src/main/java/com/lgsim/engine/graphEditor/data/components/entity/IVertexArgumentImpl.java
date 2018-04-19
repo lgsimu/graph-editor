@@ -7,7 +7,6 @@ import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
  */
 public class IVertexArgumentImpl implements IVertexArgument {
 
-    private String name;//name
     private String id;//id
     private String unit;//单位
     private double minValue;//最小值
@@ -25,27 +24,6 @@ public class IVertexArgumentImpl implements IVertexArgument {
         this.maxValue = maxValue;
         this.value = value;
         this.description = description;
-    }
-
-    public IVertexArgumentImpl(String name, String id, String unit, double minValue, double maxValue, double value, String description) {
-        this.name = name;
-        this.id = id;
-        this.unit = unit;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
-        this.value = value;
-        this.description = description;
-    }
-
-    /**
-     * name
-     */
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
@@ -120,15 +98,20 @@ public class IVertexArgumentImpl implements IVertexArgument {
     }
 
     @Override
+    /*public String toString() {
+        return "{" +
+                "\"id\":\"" + id + '\"' +
+                ",\"unit\":\"" + unit + '\"' +
+                ",\"minValue\":\"" + minValue + '\"' +
+                ",\"maxValue\":\"" + maxValue + '\"' +
+                ",\"value\":\"" + value + '\"' +
+                ",\"description\":\"" + description + '\"' +
+                '}';
+    }*/
+
     public String toString() {
         return "{" +
-                "name:'" + name + '\'' +
-                ", id:'" + id + '\'' +
-                ", unit:'" + unit + '\'' +
-                ", minValue:" + minValue +
-                ", maxValue:" + maxValue +
-                ", value:" + value +
-                ", description:'" + description + '\'' +
+                  value +
                 '}';
     }
 }

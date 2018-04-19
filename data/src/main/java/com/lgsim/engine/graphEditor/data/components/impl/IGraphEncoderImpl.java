@@ -9,7 +9,7 @@ import java.io.*;
 /**
  * 编码实现类
  */
-public class Encode implements IGraphEncoder {
+public class IGraphEncoderImpl implements IGraphEncoder {
 
     /**
      * 从图中读取信息，生成数据流
