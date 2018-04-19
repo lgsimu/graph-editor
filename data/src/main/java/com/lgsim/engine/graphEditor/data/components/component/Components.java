@@ -85,8 +85,8 @@ public class Components implements IStencilContext {
 
                 ptlos.setName(com.getString("Name"));
                 ptlos.setType(com.getString("Type"));
-                ptlos.setStencilIcon("");
-                ptlos.setGraphIcon("");
+                ptlos.setStencilIcon("com/lgsim/engine/graphEditor/data/testjpg/1.png");
+                ptlos.setGraphIcon("com/lgsim/engine/graphEditor/data/testjpg/1.png");
                 ptlos.setRestriction(new IVertexRestrictionImpl(1,1,1,1,pInt,pOut));
                 ptlos.setIsPredefined(true);
                 ptlos.setArgumentType(feature.getString("Name"));
@@ -111,8 +111,8 @@ public class Components implements IStencilContext {
 
                 ptlos.setName(com.getString("Name"));
                 ptlos.setType(com.getString("Type"));
-                ptlos.setStencilIcon("");
-                ptlos.setGraphIcon("");
+                ptlos.setStencilIcon("com/lgsim/engine/graphEditor/data/testjpg/2.png");
+                ptlos.setGraphIcon("com/lgsim/engine/graphEditor/data/testjpg/2.png");
                 ptlos.setRestriction(new IVertexRestrictionImpl(0,0,1,1,pInt,pOut));
                 ptlos.setIsPredefined(true);
                 ptlos.setArgumentType(feature.getString("Name"));
@@ -137,8 +137,9 @@ public class Components implements IStencilContext {
 
                 ptlos.setName(com.getString("Name"));
                 ptlos.setType(com.getString("Type"));
-                ptlos.setStencilIcon("");
-                ptlos.setGraphIcon("");
+                ptlos.setStencilIcon("com/lgsim/engine/graphEditor/data/testjpg/3.png");
+                System.out.println(ptlos.getStencilIcon());
+                ptlos.setGraphIcon("com/lgsim/engine/graphEditor/data/testjpg/3.png");
                 ptlos.setRestriction(new IVertexRestrictionImpl(0,0,1,1,pInt,pOut));
                 ptlos.setIsPredefined(true);
                 ptlos.setArgumentType(feature.getString("Name"));
