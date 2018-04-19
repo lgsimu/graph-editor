@@ -19,6 +19,8 @@ public class Ptlos extends Component implements IVertexStencil {
     private boolean isPredefined;//是否是预定义的元件
     private String type;//元件类型
     private String argumentType;//参数类型
+    private String value;//值
+    private String armNodes;//端口号
     private ArrayList<IVertexArgumentImpl> arguments = new ArrayList<IVertexArgumentImpl>();//元素参数
     private ArrayList<IVertexOutput> outputs = new ArrayList<IVertexOutput>();//计算后的参数
 
@@ -31,6 +33,41 @@ public class Ptlos extends Component implements IVertexStencil {
         this.isPredefined = isPredefined;
         this.arguments = arguments;
         this.outputs = outputs;
+    }
+
+    /**
+     * 端口号
+     */
+    public String getArmNodes() {
+        return armNodes;
+    }
+
+    public void setArmNodes(String armNodes) {
+        this.armNodes = armNodes;
+    }
+
+    /**
+     * 值
+     */
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    /**
+     * 元件类型
+     */
+    @Override
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
@@ -94,21 +131,43 @@ public class Ptlos extends Component implements IVertexStencil {
         this.outputs = outputs;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Ptlos{" +
-                "name:" + super.getName() +
-                ", type:'" + type + '\'' +
-                ", stencilIcon:'" + super.getStencilIcon() + '\'' +
-                ", graphIcon:'" + super.getGraphIcon() + '\'' +
-                ", restriction:'" + super.getRestriction() + '\'' +
-                ", isPredefined:'" + isPredefined + '\'' +
-                ", argumentType:'" + argumentType + '\'' +
-                ", arguments:" + arguments +
-                ", outputs:" + outputs +
+                "isPredefined=" + isPredefined +
+                ", type='" + type + '\'' +
+                ", argumentType='" + argumentType + '\'' +
+                ", arguments=" + arguments +
+                ", outputs=" + outputs +
                 '}';
-    }
+    }*/
+    @Override
+    /*public String toString() {
+        return "{" +
+                "\"Name\":\"" + super.getName() + '\"' +
+                ",\"Type\":\"" + type + '\"' +
+                ",\"StencilIcon\":\"" + super.getStencilIcon() + '\"' +
+                ",\"GraphIcon\":\"" + super.getGraphIcon() + '\"' +
+                ",\"Restriction\":" + super.getRestriction() +
+                ",\"IsPredefined\":\"" + isPredefined + '\"' +
+                ",\"ArgumentType\":\"" + argumentType + '\"' +
+                ",\"Arguments\":" + arguments +
+                ",\"Outputs\":" + outputs +
+                '}';
+    }*/
 
+    public String toString() {
+
+        return  //"{\"Component\":" +
+                "{" +
+                "\"Name\":\"" + super.getName() + '\"' +
+                ",\"Type\":\"" + type + '\"' +
+                ",\"ArmNodes\":" + armNodes +
+                ",\"Feature\":[{" + "\"Name\":\"" + argumentType + '\"' +
+                ",\"Value\":" + value + "}]" +
+                //'}' +
+                '}' ;
+    }
     //@Override
     /*public String toString() {
         return "{" +

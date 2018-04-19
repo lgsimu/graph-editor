@@ -20,23 +20,29 @@ import static org.mariuszgromada.math.mxparser.Constant.SYNTAX_ERROR_OR_STATUS_U
 
 public class TablePanel extends JPanel {
     JScrollPane scrollPane;
-
     static JTable table;
-    JComboBox comboBoxLen, comboBoxArea;
-    List<Unit> units, units2;
+    JComboBox comboBoxLen, comboBoxArea, comboBoxPa, comboBoxTem, comboBoxSwirl;
+    List<Unit> unitLen, unitArea, unitPa, unitTem, unitSwirl;
     static int rowNum = 0;
     private static List<TableCellEditor> editors = new ArrayList<>();
     private static List<TableCellEditor> editor2 = new ArrayList<>();
     JTextField textField = new JTextField();
+
+    /**
+     * 单位转换
+     *
+     * @param unit
+     * @param str
+     */
     public void calculate(Unit unit, String str) {
         double num = 0;
-        try{
-            num =  Double.parseDouble(str);
-        }catch(Exception e){
+        try {
+            num = Double.parseDouble(str);
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "请检查输入的值!");
             return;
         }
-        Double number = num/ unit.getUnitRate();
+        Double number = num / unit.getUnitRate();
         table.setValueAt(number.toString(), table.getSelectedRow(), table.getSelectedColumn() - 1);
     }
 
@@ -44,15 +50,14 @@ public class TablePanel extends JPanel {
      * 根据单位设置下拉框
      */
     public Object[][] setComboBoxCell(Object[][] data, IVertexArgument rowContent) {
-
         String[] lenUnit = {"m", "dm", "cm", "mm"};
         List lenList = Arrays.asList(lenUnit);
         if (lenList.contains(rowContent.getUnit())) {
             rowNum++;
-            units = new ArrayList<>();
-            units.add(new Unit("m", 1.0));
-            units.add(new Unit("mm", 0.001));
-            comboBoxLen = new JComboBox(setComboBoxArray(units));
+            unitLen = new ArrayList<>();
+            unitLen.add(new Unit("m", 1.0));
+            unitLen.add(new Unit("mm", 0.001));
+            comboBoxLen = new JComboBox(setComboBoxArray(unitLen));
             setListener(comboBoxLen);
             setTextListener();
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxLen);
@@ -68,25 +73,85 @@ public class TablePanel extends JPanel {
         List areaList = Arrays.asList(areaUnit);
         if (areaList.contains(rowContent.getUnit())) {
             rowNum++;
-            units2 = new ArrayList<>();
-            units2.add(new Unit("m2", 1.0));
-            units2.add(new Unit("mm2", 0.001 * 0.001));
-            comboBoxArea = new JComboBox(setComboBoxArray(units2));
+            unitArea = new ArrayList<>();
+            unitArea.add(new Unit("m2", 1.0));
+            unitArea.add(new Unit("mm2", 0.001 * 0.001));
+            comboBoxArea = new JComboBox(setComboBoxArray(unitArea));
             setListener(comboBoxArea);
             setTextListener();
-            DefaultCellEditor cellEditor1 = new DefaultCellEditor(comboBoxArea);
-            editors.add(cellEditor1);
+            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxArea);
+            editors.add(cellEditor);
             data[rowNum - 1][0] = rowContent.getID();
             data[rowNum - 1][1] = rowContent.getValue();
             data[rowNum - 1][2] = rowContent.getUnit();
             data[rowNum - 1][3] = rowContent.getDescription();
         }
 
+
+        String[] paUnit = {"Pa", "Bar"};
+        List paList = Arrays.asList(areaUnit);
+        if (paList.contains(rowContent.getUnit())) {
+            rowNum++;
+            unitPa = new ArrayList<>();
+            unitPa.add(new Unit("Pa", 1.0));
+            unitPa.add(new Unit("Bar", 100 * 100));
+            comboBoxPa = new JComboBox(setComboBoxArray(unitPa));
+            setListener(comboBoxPa);
+            setTextListener();
+            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxPa);
+            editors.add(cellEditor);
+            data[rowNum - 1][0] = rowContent.getID();
+            data[rowNum - 1][1] = rowContent.getValue();
+            data[rowNum - 1][2] = rowContent.getUnit();
+            data[rowNum - 1][3] = rowContent.getDescription();
+        }
+
+        String[] temUnit = {"K", "℃"};
+        List temList = Arrays.asList(temUnit);
+        if (temList.contains(rowContent.getUnit())) {
+            rowNum++;
+            unitTem = new ArrayList<>();
+            unitTem.add(new Unit("℃", rowContent.getValue() * 28.315));
+            unitTem.add(new Unit("K", 1));
+
+            comboBoxTem = new JComboBox(setComboBoxArray(unitTem));
+            setListener(comboBoxTem);
+            setTextListener();
+            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxTem);
+            editors.add(cellEditor);
+            data[rowNum - 1][0] = rowContent.getID();
+            data[rowNum - 1][1] = rowContent.getValue();
+            data[rowNum - 1][2] = rowContent.getUnit();
+            data[rowNum - 1][3] = rowContent.getDescription();
+        }
+
+        String[] swirlUnit = {"m2/s"};
+        List swirlList = Arrays.asList(swirlUnit);
+        if (swirlList.contains(rowContent.getUnit())) {
+            rowNum++;
+            unitSwirl = new ArrayList<>();
+            unitSwirl.add(new Unit("m2/s", 1.0));
+
+            comboBoxSwirl = new JComboBox(setComboBoxArray(unitSwirl));
+            setListener(comboBoxSwirl);
+            setTextListener();
+            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxSwirl);
+            editors.add(cellEditor);
+            data[rowNum - 1][0] = rowContent.getID();
+            data[rowNum - 1][1] = rowContent.getValue();
+            data[rowNum - 1][2] = rowContent.getUnit();
+            data[rowNum - 1][3] = rowContent.getDescription();
+        }
         return data;
     }
 
+    /**
+     * 验证数字是否合法
+     *
+     * @param str
+     * @return
+     */
     public boolean isNumber(String str) {
-
         try {
             Expression e = new Expression(str);
             double count = e.calculate();
@@ -97,13 +162,10 @@ public class TablePanel extends JPanel {
             return true;
         } catch (Exception e) {
             return false;
-
         }
-
     }
 
     public void setTextListener() {
-
         textField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -139,13 +201,15 @@ public class TablePanel extends JPanel {
                 Unit item = (Unit) combo.getSelectedItem();
                 calculate(item, textField.getText());
             }
-
         });
     }
 
-
-    public void end(DefaultTableModel model) {
-
+    /**
+     * 展示
+     *
+     * @param model
+     */
+    public void show(DefaultTableModel model) {
         table = new JTable(model) {
             public TableCellEditor getCellEditor(int row, int column) {
                 int modelColumn = convertColumnIndexToModel(column);
@@ -158,6 +222,7 @@ public class TablePanel extends JPanel {
             }
         };
         scrollPane = new JScrollPane(table);
+        this.add(scrollPane);
     }
 
     public TablePanel(List<IVertexArgument> argumentList) {
@@ -167,8 +232,6 @@ public class TablePanel extends JPanel {
             setComboBoxCell(data, rowContent);
         }
         DefaultTableModel model = new DefaultTableModel(data, columns);
-        end(model);
-
+        show(model);
     }
-
 }
