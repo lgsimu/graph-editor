@@ -130,4 +130,11 @@ public class VertexImpl implements IVertex
   {
     this.cavity = cavity;
   }
+
+
+  @Override
+  public String toString()
+  {
+    return "";
+  }
 }
