@@ -1,5 +1,6 @@
 package com.lgsim.engine.graphEditor.widget.Component;
 
+import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.widget.PoJo.RowContent;
 import com.lgsim.engine.graphEditor.widget.PoJo.Unit;
@@ -89,7 +90,7 @@ public class TablePanel extends JPanel {
 
 
         String[] paUnit = {"Pa", "Bar"};
-        List paList = Arrays.asList(areaUnit);
+        List paList = Arrays.asList(paUnit);
         if (paList.contains(rowContent.getUnit())) {
             rowNum++;
             unitPa = new ArrayList<>();
@@ -225,13 +226,19 @@ public class TablePanel extends JPanel {
         this.add(scrollPane);
     }
 
-    public TablePanel(List<IVertexArgument> argumentList) {
-        String[] columns = {"属性", "值", "单位", "描述"};
-        Object[][] data = new Object[argumentList.size()][4];
-        for (IVertexArgument rowContent : argumentList) {
+    public void showTable(IVertex vertex){
+        //String[] columns = {"属性", "值", "单位", "描述"};
+        Object[][] data = new Object[vertex.getArguments().size()][4];
+        for (IVertexArgument rowContent : vertex.getArguments()) {
             setComboBoxCell(data, rowContent);
         }
-        DefaultTableModel model = new DefaultTableModel(data, columns);
+        DefaultTableModel model = new DefaultTableModel(data, null);
         show(model);
-    }
+        }
+
+        public TablePanel(){
+        String[] columns = {"属性", "值", "单位", "描述"};
+        table = new JTable(null,columns);
+        }
+
 }
