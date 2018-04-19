@@ -69,7 +69,7 @@ public class ResourceUtil
       {
         if (uri != null)
         {
-          return new ImageIcon(uri.toURL());
+          icon = new ImageIcon(uri.toURL());
         }
         else
         {
@@ -79,8 +79,10 @@ public class ResourceUtil
       catch (MalformedURLException | NullPointerException e)
       {
         ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException());
-        return new ImageIcon();
+        icon = new ImageIcon();
       }
+      imageIconCache.put(path, icon);
+      return icon;
     }
   }
 }
