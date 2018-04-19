@@ -66,8 +66,9 @@ public class EditorGraph extends mxGraph implements IGraph
     getModel().beginUpdate();
     try
     {
-      String count = cavityCounter.incInt() + "";
-      mxCell cavity = (mxCell) insertVertex(parent, count, count, position.x, position.y, 64, 64);
+      String id = cavityCounter.incInt() + "";
+      // TODO: cavity value
+      mxCell cavity = (mxCell) insertVertex(parent, id, id, position.x, position.y, 64, 64);
       autogenEdge.setTerminal(cavity, false);
       removeListener(listener);
       String edgeId = edgeCounter.incInt() + "";
