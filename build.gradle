@@ -1,5 +1,5 @@
 subprojects {
-    group 'com.lgsim.engine'
+    setGroup('com.lgsim.engine')
 
     apply plugin: 'java'
 
@@ -10,7 +10,7 @@ subprojects {
 
     repositories {
         maven {
-            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+            setUrl('http://maven.aliyun.com/nexus/content/groups/public/')
         }
     }
 
