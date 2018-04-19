@@ -18,8 +18,9 @@ public class YhyTest {
         ArrayList<IVertexStencil> list1 = coms.getPredefinedStencils();
 
         WriteJson wr = new WriteJson();
+        String path = "C:\\Users\\admin\\Desktop\\ptlo-111.out";
 
-        wr.writeJson(list1);
+        wr.writeJson(list1,path);
 
 //        System.out.println(list);
 //        System.out.println(list.size());
