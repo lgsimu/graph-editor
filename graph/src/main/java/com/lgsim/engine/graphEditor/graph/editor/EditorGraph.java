@@ -2,7 +2,10 @@ package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
+import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
+import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
+import com.lgsim.engine.graphEditor.util.CollectionUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxEvent;
@@ -11,10 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
-import java.util.Collection;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Vector;
 
 public class EditorGraph extends mxGraph implements IGraph
 {
@@ -65,6 +66,7 @@ public class EditorGraph extends mxGraph implements IGraph
       mxCell cavity = (mxCell) insertVertex(parent, null, count, position.x, position.y, 64, 64);
       autogenEdge.setTerminal(cavity, false);
       removeListener(listener);
+      // TODO: needs id generator?
       insertEdge(parent, null, "", cavity, toNode);
     }
     finally
@@ -134,13 +136,15 @@ public class EditorGraph extends mxGraph implements IGraph
   }
 
 
-  // TODO deep clone ？
+  // TODO: deep clone?
   private void cloneIfPossible(IVertex source, VertexImpl target)
   {
     target.setID(source.getID());
     target.setTypeID(source.getTypeID());
-    target.setArguments(source.getArguments());
-    target.setOutputs(source.getOutputs());
+    List<IVertexArgument> arguments = CollectionUtil.cloneList(source.getArguments());
+    target.setArguments(arguments);
+    List<IVertexOutput> outputs = CollectionUtil.cloneList(source.getOutputs());
+    target.setOutputs(outputs);
     target.setCavity(source.isCavity());
   }
 
@@ -191,7 +195,14 @@ public class EditorGraph extends mxGraph implements IGraph
 
   private boolean cellEquals(mxCell x, mxCell y)
   {
-    return x.getId().equals(y.getId());
+    if (x == null || y == null)
+    {
+      return false;
+    }
+    else
+    {
+      return Objects.hash(x) == Objects.hash(y);
+    }
   }
 
 

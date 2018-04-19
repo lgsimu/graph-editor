@@ -9,17 +9,11 @@ import java.util.List;
 
 public class VertexImpl implements IVertex
 {
-  @NotNull
   private String ID;
-  @NotNull
   private String typeID;
-  @NotNull
   private List<IVertexArgument> arguments;
-  @NotNull
   private List<IVertexOutput> outputs;
-  @NotNull
   private List<IVertex> inputPorts;
-  @NotNull
   private List<IVertex> outputPorts;
   private boolean cavity;
 
