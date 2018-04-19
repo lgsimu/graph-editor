@@ -283,10 +283,10 @@ public class GraphEditor extends JPanel implements IGraphEditor
   }
 
 
-  Action bind(String name, final Action action, String iconUrl)
+  Action bind(String name, final Action action, String iconPath)
   {
     final mxGraphComponent graphComp = getCurrentDocument().getGraphComponent();
-    Icon icon = ResourceUtil.lookupImageIcon(iconUrl);
+    Icon icon = (iconPath == null) ? null : ResourceUtil.lookupImageIcon(iconPath);
     AbstractAction newAction = new AbstractAction(name, icon)
     {
       public void actionPerformed(ActionEvent e)
