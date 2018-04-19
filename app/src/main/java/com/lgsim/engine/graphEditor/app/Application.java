@@ -1,10 +1,11 @@
 package com.lgsim.engine.graphEditor.app;
 
 import com.bulenkov.darcula.DarculaLaf;
-import com.lgsim.engine.graphEditor.graph.ApplicationContext;
 import com.lgsim.engine.graphEditor.graph.editor.EditorMenuBar;
 import com.lgsim.engine.graphEditor.graph.editor.GraphEditor;
 import com.lgsim.engine.graphEditor.graph.listener.ApplicationListener;
+import com.lgsim.engine.graphEditor.util.Configuration;
+import com.lgsim.engine.graphEditor.util.ExceptionManager;
 import com.mxgraph.swing.util.mxSwingConstants;
 import com.mxgraph.util.mxConstants;
 
@@ -13,6 +14,10 @@ import java.awt.*;
 
 public class Application
 {
+  private static final Configuration CONFIGURATION =
+      new Configuration("LGSimulator", "GraphEditor", "1.0");
+
+
   private Application()
   {
     mxSwingConstants.SHADOW_COLOR = Color.LIGHT_GRAY;
@@ -32,17 +37,18 @@ public class Application
 
   public static void main(String[] args)
   {
-    ImplementationRegistry.registerAll();
+    ResourceRegistry.INSTANCE.registerAll();
+    ImplementationRegistry.INSTANCE.registerAll();
+    CONFIGURATION.applyIfPossible();
     SwingUtilities.invokeLater(() -> {
       try
       {
-        ApplicationContext.initialize();
         UIManager.setLookAndFeel(new DarculaLaf());
         new Application();
       }
       catch (Exception e)
       {
-        ApplicationContext.getInstance().getApplicationExceptionManager().dealWith(e);
+        ExceptionManager.INSTANCE.dealWith(e);
       }
     });
   }

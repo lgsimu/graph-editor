@@ -7,16 +7,11 @@ public class VertexArgumentImpl implements IVertexArgument
 {
   @NotNull
   private String ID;
-
   @NotNull
   private String unit;
-
   private double minValue;
-
   private double maxValue;
-
   private double value;
-
   @NotNull
   private String description;
 

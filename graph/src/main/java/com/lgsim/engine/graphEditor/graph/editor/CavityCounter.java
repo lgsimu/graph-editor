@@ -1,17 +1,17 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
-public class CavityCounter
+class CavityCounter
 {
   private int count;
 
 
-  public CavityCounter()
+  CavityCounter()
   {
     count = 0;
   }
 
 
-  public int incInt()
+  int incInt()
   {
     if (count != Integer.MAX_VALUE)
     {
@@ -21,7 +21,7 @@ public class CavityCounter
   }
 
 
-  public int decInt()
+  int decInt()
   {
     if (count != 0)
     {

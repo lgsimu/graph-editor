@@ -1,7 +1,7 @@
 package com.lgsim.engine.graphEditor.graph.util;
 
-import com.lgsim.engine.graphEditor.graph.ApplicationContext;
-import com.lgsim.engine.graphEditor.graph.component.ResourceFileMissingException;
+import com.lgsim.engine.graphEditor.util.ExceptionManager;
+import com.lgsim.engine.graphEditor.util.ResourceFileMissingException;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -19,9 +19,7 @@ public class IconUtil
     }
     else
     {
-      ApplicationContext.getInstance()
-                        .getApplicationExceptionManager()
-                        .dealWith(new ResourceFileMissingException());
+      ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException());
       return new ImageIcon();
     }
   }

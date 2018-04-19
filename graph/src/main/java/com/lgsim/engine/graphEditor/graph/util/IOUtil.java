@@ -1,7 +1,7 @@
 package com.lgsim.engine.graphEditor.graph.util;
 
-import com.lgsim.engine.graphEditor.graph.ApplicationContext;
-import com.lgsim.engine.graphEditor.graph.component.ResourceFileMissingException;
+import com.lgsim.engine.graphEditor.util.ExceptionManager;
+import com.lgsim.engine.graphEditor.util.ResourceFileMissingException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,8 +29,7 @@ public class IOUtil
     }
     catch (URISyntaxException | NullPointerException e)
     {
-      ApplicationContext.getInstance().getApplicationExceptionManager()
-                        .dealWith(new ResourceFileMissingException());
+      ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException());
       return null;
     }
   }

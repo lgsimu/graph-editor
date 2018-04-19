@@ -11,25 +11,18 @@ import java.util.List;
 public class VertexStencilImpl implements IVertexStencil
 {
   private boolean predefined;
-
   @NotNull
   private String ID;
-
   @NotNull
   private String name;
-
   @NotNull
   private String stencilIcon;
-
   @NotNull
   private String graphIcon;
-
   @NotNull
   private List<IVertexArgument> arguments;
-
   @NotNull
   private List<IVertexOutput> outputs;
-
   @NotNull
   private IVertexRestriction restriction;
 

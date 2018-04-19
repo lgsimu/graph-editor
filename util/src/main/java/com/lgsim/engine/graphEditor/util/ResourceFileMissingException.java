@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.graph.component;
+package com.lgsim.engine.graphEditor.util;
 
 public class ResourceFileMissingException extends Exception
 {

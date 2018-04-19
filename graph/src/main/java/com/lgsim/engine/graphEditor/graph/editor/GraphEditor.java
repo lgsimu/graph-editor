@@ -1,9 +1,12 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
+import com.lgsim.engine.graphEditor.api.data.IStencilContext;
+import com.lgsim.engine.graphEditor.api.data.IVertex;
+import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
-import com.lgsim.engine.graphEditor.graph.ApplicationContext;
-import com.lgsim.engine.graphEditor.graph.component.*;
+import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
+import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.util.IconUtil;
 import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
 import com.mxgraph.model.mxCell;
@@ -11,7 +14,6 @@ import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.mxGraphOutline;
 import com.mxgraph.util.mxEvent;
-import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -24,13 +26,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Vector;
 
 public class GraphEditor extends JPanel implements IGraphEditor
 {
-  private static final long serialVersionUID = -3839357795020116834L;
   private static final Logger log = LoggerFactory.getLogger(GraphEditor.class);
   private static final int defaultDividerSize = 1;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
@@ -41,11 +41,11 @@ public class GraphEditor extends JPanel implements IGraphEditor
       setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
     }
   };
-  private final InstanceComponentParameterEditor parameterEditor = new InstanceComponentParameterEditor();
+  private final IVertexTable vertexTable = ImplementationContext.INSTANCE.getVertexTable();
   private final JTabbedPane docTabbedPane = new JTabbedPane();
   private final JSplitPane westPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, libraryPane, graphOutline);
   private final JSplitPane centerPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, westPane, docTabbedPane);
-  private final JSplitPane eastPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPane, parameterEditor);
+  private final JSplitPane eastPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPane, vertexTable.getSwingComponent());
   private final EditorPalette predefinedPalette = addPalette(MessageBundleUtil.get("predefined"));
   private final EditorPalette userDefinedPalette = addPalette(MessageBundleUtil.get("userDefined"));
   private List<GraphDocument> graphDocuments = new Vector<>();
@@ -65,7 +65,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
 
   @NotNull
-  public EditorPalette addPalette(@NotNull String title)
+  EditorPalette addPalette(@NotNull String title)
   {
     final EditorPalette palette = new EditorPalette();
     final JScrollPane scrollPane = new JScrollPane(palette);
@@ -86,22 +86,19 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
   private void loadStencils()
   {
-    final StencilComponentContext context = ApplicationContext.getInstance().getStencilComponentContext();
-    List<StencilComponent> predefinedComponents = context.loadPredefinedComponents();
-    if (predefinedComponents != null)
+    final IStencilContext context = ImplementationContext.INSTANCE.getStencilContext();
+    final List<IVertexStencil> predefinedStencils = context.getPredefinedStencils();
+    final List<IVertexStencil> userDefinedStencils = context.getUserDefinedStencils();
+    addStencils(predefinedPalette, predefinedStencils);
+    addStencils(userDefinedPalette, userDefinedStencils);
+  }
+
+
+  private void addStencils(EditorPalette palette, List<IVertexStencil> stencils)
+  {
+    for (IVertexStencil stencil : stencils)
     {
-      for (StencilComponent stencil : predefinedComponents)
-      {
-        predefinedPalette.addStencil(stencil);
-      }
-    }
-    List<StencilComponent> userDefinedComponents = context.loadUserDefinedComponents();
-    if (userDefinedComponents != null)
-    {
-      for (StencilComponent stencil : userDefinedComponents)
-      {
-        userDefinedPalette.addStencil(stencil);
-      }
+      palette.addStencil(stencil);
     }
   }
 
@@ -131,9 +128,9 @@ public class GraphEditor extends JPanel implements IGraphEditor
     graphOutline.setMinimumSize(new Dimension(0, 0));
 
     westPane.getRightComponent().setPreferredSize(
-        new Dimension((int) parameterEditor.getTable().getPreferredSize().getWidth(), 320)
+        new Dimension((int) vertexTable.getSwingComponent().getPreferredSize().getWidth(), 320)
     );
-    eastPane.getRightComponent().setPreferredSize(parameterEditor.getTable().getPreferredSize());
+    eastPane.getRightComponent().setPreferredSize(vertexTable.getSwingComponent().getPreferredSize());
 
     libraryPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
     docTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -195,7 +192,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
   {
     new mxRubberband(getGraphComponent());
     getGraphComponent().getGraph().getSelectionModel().addListener(mxEvent.CHANGE, (sender, evt) -> {
-      if ((sender != null) && (sender instanceof mxGraphSelectionModel))
+      if ((sender instanceof mxGraphSelectionModel))
       {
         mxGraphSelectionModel selectionModel = (mxGraphSelectionModel) sender;
         Object[] cells = selectionModel.getCells();
@@ -205,8 +202,8 @@ public class GraphEditor extends JPanel implements IGraphEditor
           {
             mxCell cell = (mxCell) cells[0];
             log.debug("select cell {} value is {}", cell, cell.getValue());
-            InstanceComponentTable table = parameterEditor.getTable();
-            loadTableData(table, cell);
+            IVertex vertex = (IVertex) cell.getValue();
+            renderVertexTable(vertex);
             log.debug("load cell data to table");
           }
         }
@@ -220,28 +217,9 @@ public class GraphEditor extends JPanel implements IGraphEditor
   }
 
 
-  private void loadTableData(@NotNull InstanceComponentTable table, @NotNull mxCell vertex)
+  private void renderVertexTable(@NotNull IVertex vertex)
   {
-    final Object value = vertex.getValue();
-    if (value instanceof StencilComponent)
-    {
-      StencilComponent component = (StencilComponent) value;
-      final List<InstanceComponentArgument> arguments = component.getArguments();
-      Object[][] data = new Object[arguments.size()][4];
-      for (int i = 0; i < arguments.size(); i++)
-      {
-        final InstanceComponentArgument argument = arguments.get(i);
-        String name = argument.getName();
-        BigDecimal val = argument.getNumericalValue();
-        String unit = "mm"; // TODO
-        String description = argument.getDescription();
-        data[i][0] = name;
-        data[i][1] = val;
-        data[i][2] = unit;
-        data[i][3] = description;
-      }
-      ((InstanceComponentTableModel) table.getModel()).setData(data);
-    }
+    vertexTable.render(vertex);
   }
 
 
@@ -286,26 +264,26 @@ public class GraphEditor extends JPanel implements IGraphEditor
   }
 
 
-  public mxGraphOutline getGraphOutline()
+  mxGraphOutline getGraphOutline()
   {
     return graphOutline;
   }
 
 
   @NotNull
-  public GraphDocument getCurrentDocument()
+  GraphDocument getCurrentDocument()
   {
     return graphDocuments.get(currentDocumentIndex);
   }
 
 
-  public Action bind(String name, final Action action)
+  Action bind(String name, final Action action)
   {
     return bind(name, action, null);
   }
 
 
-  public Action bind(String name, final Action action, String iconUrl)
+  Action bind(String name, final Action action, String iconUrl)
   {
     final mxGraphComponent graphComp = getCurrentDocument().getGraphComponent();
     Icon icon = (iconUrl != null) ? IconUtil.getIcon(iconUrl) : null;
@@ -325,7 +303,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
 
   @NotNull
-  public mxGraphComponent getGraphComponent()
+  mxGraphComponent getGraphComponent()
   {
     return getCurrentDocument().getGraphComponent();
   }

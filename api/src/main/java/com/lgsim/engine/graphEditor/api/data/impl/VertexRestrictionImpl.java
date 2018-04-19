@@ -8,16 +8,11 @@ import java.util.List;
 public class VertexRestrictionImpl implements IVertexRestriction
 {
   private int minInputPortCount;
-
   private int maxInputPortCount;
-
   private int minOutputPortCount;
-
   private int maxOutputPortCount;
-
   @NotNull
   private List<String> inputPortTypes;
-
   @NotNull
   private List<String> outputPortTypes;
 

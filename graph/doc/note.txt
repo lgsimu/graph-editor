@@ -604,3 +604,71 @@ public void mouseMoved(MouseEvent e)
 
 //    docTabbedPane.setMinimumSize(new Dimension(1266, 768));
 ======
+
+addStencil
+==========
+  public void addStencil(@NotNull final StencilComponent comp)
+  {
+    mxCell cell = new mxCell(comp, new mxGeometry(0, 0, 64, 64),
+                             "icon;image=/" + comp.getCanvasIcon());
+    cell.setVertex(true);
+    mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
+    final mxGraphTransferable t = new mxGraphTransferable(new Object[]{cell}, bounds);
+    ImageIcon icon = IconUtil.getIcon(comp.getModelIcon());
+    if (icon.getIconWidth() > 32 || icon.getIconHeight() > 32)
+    {
+      icon = new ImageIcon(icon.getImage().getScaledInstance(32, 32, 0));
+    }
+    final JLabel entry = new JLabel(icon);
+    entry.setPreferredSize(new Dimension(50, 50));
+    entry.setBackground(EditorPalette.this.getBackground().brighter());
+    entry.setFont(new Font(entry.getFont().getFamily(), Font.PLAIN, 10));
+
+    entry.setVerticalTextPosition(JLabel.BOTTOM);
+    entry.setHorizontalTextPosition(JLabel.CENTER);
+    entry.setIconTextGap(0);
+
+    final String name = comp.getName();
+    entry.setToolTipText(name);
+    entry.setText(name);
+
+    entry.addMouseListener(new MouseAdapter()
+    {
+      @Override
+      public void mousePressed(MouseEvent e)
+      {
+        setSelectionEntry(entry, t);
+      }
+    });
+
+    DragGestureListener dragGestureListener = e -> e.startDrag(null, mxSwingConstants.EMPTY_IMAGE,
+                                                               new Point(), t, null);
+    DragSource dragSource = new DragSource();
+    dragSource.createDefaultDragGestureRecognizer(entry, DnDConstants.ACTION_COPY, dragGestureListener);
+    add(entry);
+  }
+==========
+
+
+copyIfAbsent
+============
+  private void copyFileTemplateIfAbsent(String from, String to)
+  {
+    File toFile = new File(to);
+    if (!toFile.exists())
+    {
+      InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(from);
+      try
+      {
+        FileOutputStream fileOutputStream = new FileOutputStream(toFile);
+        IOUtils.copy(inputStream, fileOutputStream);
+        fileOutputStream.close();
+        logger.debug("copy user defined template file to {}", toFile);
+      }
+      catch (IOException e)
+      {
+        ExceptionManager.INSTANCE.dealWith(e);
+      }
+    }
+  }
+============

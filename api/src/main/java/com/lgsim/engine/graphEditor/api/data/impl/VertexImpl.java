@@ -11,23 +11,22 @@ public class VertexImpl implements IVertex
 {
   @NotNull
   private String ID;
-
   @NotNull
   private String typeID;
-
   @NotNull
   private List<IVertexArgument> arguments;
-
   @NotNull
   private List<IVertexOutput> outputs;
-
   @NotNull
   private List<IVertex> inputPorts;
-
   @NotNull
   private List<IVertex> outputPorts;
-
   private boolean cavity;
+
+
+  public VertexImpl()
+  {
+  }
 
 
   public VertexImpl(@NotNull String ID, @NotNull String typeID, @NotNull List<IVertexArgument> arguments, @NotNull List<IVertexOutput> outputs, @NotNull List<IVertex> inputPorts, @NotNull List<IVertex> outputPorts, boolean cavity)
