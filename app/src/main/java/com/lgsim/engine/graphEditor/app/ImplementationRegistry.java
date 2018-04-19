@@ -25,10 +25,7 @@ class ImplementationRegistry implements IRegistry
     ImplementationUtil.put(IGraph.class, EditorGraph.class);
     ImplementationUtil.put(IGraphDecoder.class, IGraphDecoderImpl.class);
     ImplementationUtil.put(IGraphEncoder.class, IGraphEncoderImpl.class);
-    ImplementationUtil.put(IStencilContext.class, com.lgsim.engine.graphEditor.data.components.impl.IStencilContextImpl.class);
-    ImplementationUtil.put(IStencilContext.class, com.lgsim.engine.graphEditor.data.components.library.ptlos.impl.IStencilContextImpl.class);
     ImplementationUtil.put(IStencilContext.class, Components.class);
-    ImplementationUtil.put(IStencilContext.class, ComponentsTest.class);
     ImplementationUtil.put(IVertex.class, IVertexImpl.class);
     ImplementationUtil.put(IVertexArgument.class, IVertexArgumentImpl.class);
     ImplementationUtil.put(IVertexOutput.class, IVertexOutputImpl.class);
