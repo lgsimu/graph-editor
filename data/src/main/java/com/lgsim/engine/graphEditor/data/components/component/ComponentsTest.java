@@ -80,12 +80,14 @@ public class ComponentsTest implements IStencilContext {
          */
         ptlos1.setName("1");
         ptlos1.setType("111");
+        System.out.println(ptlos1.getID());
         ptlos1.setStencilIcon("");
         ptlos1.setGraphIcon("");
         ptlos1.setRestriction(new IVertexRestrictionImpl(1,1,1,1,pInt1,pOut1));
         ptlos1.setIsPredefined(true);
         ptlos1.setArgumentType("Input");
         ptlos1.setArguments(iargs1);
+        System.out.println(ptlos1.getArguments());
         ptlos1.setOutputs(iouts1);
 
         ptlos2.setName("IN1");

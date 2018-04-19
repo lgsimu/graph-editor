@@ -1,20 +1,19 @@
-package com.lgsim.engine.graphEditor.data.components.ptlos.entity;
+package com.lgsim.engine.graphEditor.data.components.library.holfm.holfm_base;
 
 import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import com.lgsim.engine.graphEditor.api.data.IVertexRestriction;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
-import com.lgsim.engine.graphEditor.data.components.entity.IVertexArgumentImpl;
 import com.lgsim.engine.graphEditor.data.components.component.Component;
+import com.lgsim.engine.graphEditor.data.components.entity.IVertexArgumentImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by admin on 2018/4/14.
- * 局部损失元件
+ * HOLFM：气膜孔元件Gritsch方法
  */
-public class Ptlos extends Component implements IVertexStencil {
+public class HolfmBase extends Component implements IVertexStencil {
 
     private boolean isPredefined;//是否是预定义的元件
     private String type;//元件类型
@@ -24,10 +23,10 @@ public class Ptlos extends Component implements IVertexStencil {
     private ArrayList<IVertexArgumentImpl> arguments = new ArrayList<IVertexArgumentImpl>();//元素参数
     private ArrayList<IVertexOutput> outputs = new ArrayList<IVertexOutput>();//计算后的参数
 
-    public Ptlos() {
+    public HolfmBase() {
     }
 
-    public Ptlos(String name, String type, String argumentType, String stencilIcon, String graphIcon, IVertexRestriction restriction, boolean isPredefined, ArrayList<IVertexArgumentImpl> arguments, ArrayList<IVertexOutput> outputs) {
+    public HolfmBase(String name, String type, String argumentType, String stencilIcon, String graphIcon, IVertexRestriction restriction, boolean isPredefined, ArrayList<IVertexArgumentImpl> arguments, ArrayList<IVertexOutput> outputs) {
         super(name, type, stencilIcon, graphIcon, restriction);
         this.argumentType = argumentType;
         this.isPredefined = isPredefined;
@@ -102,7 +101,7 @@ public class Ptlos extends Component implements IVertexStencil {
      */
     @Override
     public String getID() {
-        return this.getType();
+        return super.getType();
     }
 
     /**
@@ -130,56 +129,4 @@ public class Ptlos extends Component implements IVertexStencil {
     public void setOutputs(ArrayList<IVertexOutput> outputs) {
         this.outputs = outputs;
     }
-
-    /*@Override
-    public String toString() {
-        return "Ptlos{" +
-                "isPredefined=" + isPredefined +
-                ", type='" + type + '\'' +
-                ", argumentType='" + argumentType + '\'' +
-                ", arguments=" + arguments +
-                ", outputs=" + outputs +
-                '}';
-    }*/
-    @Override
-    /*public String toString() {
-        return "{" +
-                "\"Name\":\"" + super.getName() + '\"' +
-                ",\"Type\":\"" + type + '\"' +
-                ",\"StencilIcon\":\"" + super.getStencilIcon() + '\"' +
-                ",\"GraphIcon\":\"" + super.getGraphIcon() + '\"' +
-                ",\"Restriction\":" + super.getRestriction() +
-                ",\"IsPredefined\":\"" + isPredefined + '\"' +
-                ",\"ArgumentType\":\"" + argumentType + '\"' +
-                ",\"Arguments\":" + arguments +
-                ",\"Outputs\":" + outputs +
-                '}';
-    }*/
-
-    public String toString() {
-
-        return  //"{\"Component\":" +
-                "{" +
-                        "\"Name\":\"" + super.getName() + '\"' +
-                        ",\"Type\":\"" + type + '\"' +
-                        ",\"ArmNodes\":" + armNodes +
-                        ",\"Feature\":[{" + "\"Name\":\"" + argumentType + '\"' +
-                        ",\"Value\":" + value + "}]" +
-                        //'}' +
-                        '}' ;
-    }
-    //@Override
-    /*public String toString() {
-        return "{" +
-                "\"Name\":\"" + super.getName() + '\"' +
-                ",\"Type\":\"" + super.getType() + '\"' +
-                ",\"ArmNode1\":\"" + armNode1 + '\"' +
-                ",\"ArmNode2\":\"" + armNode2 + '\"' +
-                ",\"FeatureName\":\"" + featureName + '\"' +
-                ",\"AA\":\"" + aa + '\"' +
-                ",\"GEO1\":\"" + geo1 + '\"' +
-                ",\"GEO2\":\"" + geo2 + '\"' +
-                '}';
-    }*/
 }
-

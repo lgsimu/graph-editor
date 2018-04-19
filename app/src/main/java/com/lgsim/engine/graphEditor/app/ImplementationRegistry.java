@@ -12,6 +12,7 @@ import com.lgsim.engine.graphEditor.data.components.ptlos.entity.Ptlos;
 import com.lgsim.engine.graphEditor.graph.editor.EditorGraph;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.widget.IWidegtImp.TablePanelImp;
+import com.lgsim.engine.graphEditor.data.components.library.ptlos.impl.IStencilContextImpl;
 
 class ImplementationRegistry implements IRegistry
 {
@@ -24,7 +25,8 @@ class ImplementationRegistry implements IRegistry
     ImplementationUtil.put(IGraph.class, EditorGraph.class);
     ImplementationUtil.put(IGraphDecoder.class, IGraphDecoderImpl.class);
     ImplementationUtil.put(IGraphEncoder.class, IGraphEncoderImpl.class);
-    ImplementationUtil.put(IStencilContext.class, IStencilContextImpl.class);
+    ImplementationUtil.put(IStencilContext.class, com.lgsim.engine.graphEditor.data.components.impl.IStencilContextImpl.class);
+    ImplementationUtil.put(IStencilContext.class, com.lgsim.engine.graphEditor.data.components.library.ptlos.impl.IStencilContextImpl.class);
     ImplementationUtil.put(IStencilContext.class, Components.class);
     ImplementationUtil.put(IStencilContext.class, ComponentsTest.class);
     ImplementationUtil.put(IVertex.class, IVertexImpl.class);

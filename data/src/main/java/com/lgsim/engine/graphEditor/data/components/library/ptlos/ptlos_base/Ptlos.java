@@ -1,11 +1,11 @@
-package com.lgsim.engine.graphEditor.data.components.ptlos.entity;
+package com.lgsim.engine.graphEditor.data.components.library.ptlos.ptlos_base;
 
 import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import com.lgsim.engine.graphEditor.api.data.IVertexRestriction;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
-import com.lgsim.engine.graphEditor.data.components.entity.IVertexArgumentImpl;
 import com.lgsim.engine.graphEditor.data.components.component.Component;
+import com.lgsim.engine.graphEditor.data.components.entity.IVertexArgumentImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,12 +102,13 @@ public class Ptlos extends Component implements IVertexStencil {
      */
     @Override
     public String getID() {
-        return this.getType();
+        return super.getType();
     }
 
     /**
      * 输入参数
      */
+
     @Override
     public List<IVertexArgument> getArguments() {
         IVertexArgumentImpl argument = new IVertexArgumentImpl("","",0,0,0,"");
@@ -141,7 +142,7 @@ public class Ptlos extends Component implements IVertexStencil {
                 ", outputs=" + outputs +
                 '}';
     }*/
-    @Override
+    //@Override
     /*public String toString() {
         return "{" +
                 "\"Name\":\"" + super.getName() + '\"' +
@@ -156,7 +157,7 @@ public class Ptlos extends Component implements IVertexStencil {
                 '}';
     }*/
 
-    public String toString() {
+    /*public String toString() {
 
         return  //"{\"Component\":" +
                 "{" +
@@ -167,7 +168,7 @@ public class Ptlos extends Component implements IVertexStencil {
                         ",\"Value\":" + value + "}]" +
                         //'}' +
                         '}' ;
-    }
+    }*/
     //@Override
     /*public String toString() {
         return "{" +

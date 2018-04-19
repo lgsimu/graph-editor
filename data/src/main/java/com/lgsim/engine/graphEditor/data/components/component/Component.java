@@ -1,5 +1,5 @@
 package com.lgsim.engine.graphEditor.data.components.component;
-
+//com.lg
 import com.lgsim.engine.graphEditor.api.data.IVertexRestriction;
 import com.lgsim.engine.graphEditor.data.components.entity.IVertexRestrictionImpl;
 
