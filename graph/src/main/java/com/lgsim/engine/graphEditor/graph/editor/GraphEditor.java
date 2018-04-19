@@ -203,8 +203,11 @@ public class GraphEditor extends JPanel implements IGraphEditor
           {
             mxCell cell = (mxCell) cells[0];
             log.debug("select cell {} value is {}", cell, cell.getValue());
-            IVertex vertex = (IVertex) cell.getValue();
-            renderVertexTable(vertex);
+            if (cell.getValue() instanceof IVertex)
+            {
+              IVertex vertex = (IVertex) cell.getValue();
+              renderVertexTable(vertex);
+            }
             log.debug("load cell data to table");
           }
         }
