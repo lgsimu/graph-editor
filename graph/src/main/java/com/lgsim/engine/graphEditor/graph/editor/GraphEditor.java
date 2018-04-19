@@ -90,7 +90,8 @@ public class GraphEditor extends JPanel implements IGraphEditor
     final List<IVertexStencil> predefinedStencils = context.getPredefinedStencils();
     final List<IVertexStencil> userDefinedStencils = context.getUserDefinedStencils();
     addStencils(predefinedPalette, predefinedStencils);
-    addStencils(userDefinedPalette, userDefinedStencils);
+    // TODO: uncomment
+//    addStencils(userDefinedPalette, userDefinedStencils);
   }
 
 
