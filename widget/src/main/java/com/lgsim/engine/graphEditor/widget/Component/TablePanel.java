@@ -158,6 +158,7 @@ public class TablePanel extends JPanel {
             }
         };
         scrollPane = new JScrollPane(table);
+        this.add(scrollPane);
     }
 
     public TablePanel(List<IVertexArgument> argumentList) {
