@@ -98,7 +98,7 @@ public class IVertexArgumentImpl implements IVertexArgument {
     }
 
     @Override
-    public String toString() {
+    /*public String toString() {
         return "{" +
                 "\"id\":\"" + id + '\"' +
                 ",\"unit\":\"" + unit + '\"' +
@@ -106,6 +106,12 @@ public class IVertexArgumentImpl implements IVertexArgument {
                 ",\"maxValue\":\"" + maxValue + '\"' +
                 ",\"value\":\"" + value + '\"' +
                 ",\"description\":\"" + description + '\"' +
+                '}';
+    }*/
+
+    public String toString() {
+        return "{" +
+                  value +
                 '}';
     }
 }

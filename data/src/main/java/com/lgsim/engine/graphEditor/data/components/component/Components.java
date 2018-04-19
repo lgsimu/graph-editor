@@ -9,10 +9,12 @@ import com.lgsim.engine.graphEditor.data.components.ptlos.entity.Ptlos;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +26,17 @@ public class Components implements IStencilContext {
     public ArrayList<IVertexStencil> getPredefinedStencils() {
 
         //读取文件
-        File file = new File("E:\\YHY\\案例-20180412\\simpleCase.inp");
+        String path = "com/lgsim/engine/graphEditor/data/simpleCase.inp";
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+
+        //File file = new File("com/lgsim/engine/graphEditor/data/simpleCase.inp");
         //将json文件转化为字符串
         String jsonStr = null;
+
+        System.out.println(jsonStr);
         try {
-            jsonStr = FileUtils.readFileToString(file, "UTF-8");
+            jsonStr = IOUtils.toString(in);
+            //jsonStr = FileUtils.readFileToString(file, "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,12 +57,15 @@ public class Components implements IStencilContext {
             ArrayList<IVertexOutput> outputs = new ArrayList<IVertexOutput>();//计算后的输出参数
             ArrayList<String> pInt = new ArrayList<String>();//连入端口类型
             ArrayList<String> pOut = new ArrayList<String>();//连出端口类型
+            /*ArrayList<String> arms = new ArrayList<String>();//端口
+            ArrayList<Double> val = new ArrayList<Double>();//端口*/
 
 
             JSONObject com = JSONObject.fromObject(component.getJSONObject(i));
             JSONArray armnode = JSONArray.fromObject(com.get("ArmNodes"));
             JSONArray features = JSONArray.fromObject(com.get("Feature"));
             JSONObject feature = JSONObject.fromObject(features.getJSONObject(0));
+            //JSONObject name = JSONObject.fromObject(feature.getString("Name"));
             JSONArray values = JSONArray.fromObject(feature.get("Value"));
 
             if(com.getString("Type").equals("111")) {
@@ -70,6 +81,8 @@ public class Components implements IStencilContext {
                 arguments.add(argument2);
                 arguments.add(argument3);
 
+                //val = ;
+
                 ptlos.setName(com.getString("Name"));
                 ptlos.setType(com.getString("Type"));
                 ptlos.setStencilIcon("");
@@ -79,6 +92,8 @@ public class Components implements IStencilContext {
                 ptlos.setArgumentType(feature.getString("Name"));
                 ptlos.setArguments(arguments);
                 ptlos.setOutputs(outputs);
+                ptlos.setArmNodes(armnode.toString());
+                ptlos.setValue(values.toString());
 
             }else if(com.getString("Type").equals("1")) {
 

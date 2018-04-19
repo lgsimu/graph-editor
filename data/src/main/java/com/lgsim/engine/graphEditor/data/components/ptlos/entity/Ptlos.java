@@ -19,6 +19,8 @@ public class Ptlos extends Component implements IVertexStencil {
     private boolean isPredefined;//是否是预定义的元件
     private String type;//元件类型
     private String argumentType;//参数类型
+    private String value;//值
+    private String armNodes;//端口号
     private ArrayList<IVertexArgumentImpl> arguments = new ArrayList<IVertexArgumentImpl>();//元素参数
     private ArrayList<IVertexOutput> outputs = new ArrayList<IVertexOutput>();//计算后的参数
 
@@ -31,6 +33,28 @@ public class Ptlos extends Component implements IVertexStencil {
         this.isPredefined = isPredefined;
         this.arguments = arguments;
         this.outputs = outputs;
+    }
+
+    /**
+     * 端口号
+     */
+    public String getArmNodes() {
+        return armNodes;
+    }
+
+    public void setArmNodes(String armNodes) {
+        this.armNodes = armNodes;
+    }
+
+    /**
+     * 值
+     */
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     /**
@@ -118,20 +142,33 @@ public class Ptlos extends Component implements IVertexStencil {
                 '}';
     }*/
     @Override
-    public String toString() {
+    /*public String toString() {
         return "{" +
                 "\"Name\":\"" + super.getName() + '\"' +
                 ",\"Type\":\"" + type + '\"' +
                 ",\"StencilIcon\":\"" + super.getStencilIcon() + '\"' +
                 ",\"GraphIcon\":\"" + super.getGraphIcon() + '\"' +
-                ",\"Restriction\":\"" + super.getRestriction() + '\"' +
+                ",\"Restriction\":" + super.getRestriction() +
                 ",\"IsPredefined\":\"" + isPredefined + '\"' +
                 ",\"ArgumentType\":\"" + argumentType + '\"' +
-                ",\"Arguments\":\"" + arguments +
-                ",\"Outputs\":\"" + outputs +
+                ",\"Arguments\":" + arguments +
+                ",\"Outputs\":" + outputs +
                 '}';
-    }
+    }*/
 
+    public String toString() {
+        String str1 = "{\"Name\": \"TestAutomationInput\",\"User\": \"LiZongyao\",\"SimplifiedInput\": \"1\",\"SolveSwirl\": \"-1\",\"OutputFormat\": \"2\",\"Parameters\": {\"Parameter\": []},\"SimulationData\": {\"SimulationType\": \"CompressibleSteady\",\"Material\": \"Gas\",\"TurbineData\": {\"RotationalSpeed\": [ \"0\",\"0\",\"0\"]},\"Restart\": \"0\",\"ConvergenceData\": {\"MaxIter\": \"500\",\"RelaxFactor\": [\"0.3\",\"0.2\",\"0.5\"],\"ConvergenceData\": [\"1E-08\",\"1E-08\",\"1E-08\"]}},\"Nodes\": {\"Node\": []},\"Components\":";
+        String str2 = "}";
+        return str1 +
+                "{" +
+                "\"Name\":\"" + super.getName() + '\"' +
+                ",\"Type\":\"" + type + '\"' +
+                ",\"ArmNodes\":" + armNodes +
+                ",\"Name\":\"" + argumentType + '\"' +
+                ",\"Feature\":" + value +
+                '}' +
+                str2;
+    }
     //@Override
     /*public String toString() {
         return "{" +

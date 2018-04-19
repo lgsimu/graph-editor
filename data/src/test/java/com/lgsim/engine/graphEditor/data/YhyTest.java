@@ -12,7 +12,7 @@ public class YhyTest {
     public static void main(String[] args) throws Exception {
 
         ComponentsTest com = new ComponentsTest();
-        ArrayList<IVertexStencil> list = com.getPredefinedStencils();
+        //ArrayList<IVertexStencil> list = com.getPredefinedStencils();
 
         Components coms = new Components();
         ArrayList<IVertexStencil> list1 = coms.getPredefinedStencils();
@@ -21,8 +21,8 @@ public class YhyTest {
 
         wr.writeJson(list1);
 
-        System.out.println(list);
-        System.out.println(list.size());
+//        System.out.println(list);
+//        System.out.println(list.size());
         System.out.println("---------------------------------");
         System.out.println(list1);
 
