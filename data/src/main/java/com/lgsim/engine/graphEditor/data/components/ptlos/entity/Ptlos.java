@@ -157,17 +157,16 @@ public class Ptlos extends Component implements IVertexStencil {
     }*/
 
     public String toString() {
-        String str1 = "{\"Name\": \"TestAutomationInput\",\"User\": \"LiZongyao\",\"SimplifiedInput\": \"1\",\"SolveSwirl\": \"-1\",\"OutputFormat\": \"2\",\"Parameters\": {\"Parameter\": []},\"SimulationData\": {\"SimulationType\": \"CompressibleSteady\",\"Material\": \"Gas\",\"TurbineData\": {\"RotationalSpeed\": [ \"0\",\"0\",\"0\"]},\"Restart\": \"0\",\"ConvergenceData\": {\"MaxIter\": \"500\",\"RelaxFactor\": [\"0.3\",\"0.2\",\"0.5\"],\"ConvergenceData\": [\"1E-08\",\"1E-08\",\"1E-08\"]}},\"Nodes\": {\"Node\": []},\"Components\":";
-        String str2 = "}";
-        return str1 +
+
+        return  //"{\"Component\":" +
                 "{" +
                 "\"Name\":\"" + super.getName() + '\"' +
                 ",\"Type\":\"" + type + '\"' +
                 ",\"ArmNodes\":" + armNodes +
-                ",\"Name\":\"" + argumentType + '\"' +
-                ",\"Feature\":" + value +
-                '}' +
-                str2;
+                ",\"Feature\":[{" + "\"Name\":\"" + argumentType + '\"' +
+                ",\"Value\":" + value + "}]" +
+                //'}' +
+                '}' ;
     }
     //@Override
     /*public String toString() {

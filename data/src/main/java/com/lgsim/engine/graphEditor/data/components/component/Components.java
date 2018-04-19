@@ -118,6 +118,8 @@ public class Components implements IStencilContext {
                 ptlos.setArgumentType(feature.getString("Name"));
                 ptlos.setArguments(arguments);
                 ptlos.setOutputs(outputs);
+                ptlos.setArmNodes(armnode.toString());
+                ptlos.setValue(values.toString());
 
             }else if (com.getString("Type").equals("2")){
 
@@ -142,6 +144,8 @@ public class Components implements IStencilContext {
                 ptlos.setArgumentType(feature.getString("Name"));
                 ptlos.setArguments(arguments);
                 ptlos.setOutputs(outputs);
+                ptlos.setArmNodes(armnode.toString());
+                ptlos.setValue(values.toString());
 
             }
             coms.add(ptlos);
