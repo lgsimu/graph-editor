@@ -138,6 +138,7 @@ public class Components implements IStencilContext {
                 ptlos.setName(com.getString("Name"));
                 ptlos.setType(com.getString("Type"));
                 ptlos.setStencilIcon("com/lgsim/engine/graphEditor/data/testjpg/3.png");
+                System.out.println(ptlos.getStencilIcon());
                 ptlos.setGraphIcon("com/lgsim/engine/graphEditor/data/testjpg/3.png");
                 ptlos.setRestriction(new IVertexRestrictionImpl(0,0,1,1,pInt,pOut));
                 ptlos.setIsPredefined(true);
