@@ -10,12 +10,16 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.view.mxGraph;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
-import java.util.*;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 public class EditorGraph extends mxGraph implements IGraph
 {
@@ -149,7 +153,7 @@ public class EditorGraph extends mxGraph implements IGraph
   }
 
 
-  private List<IVertex> lookupInputPorts(Object vertex, Object[] edges)
+  private List<IVertex> lookupInputPorts(@NotNull Object vertex, @NotNull Object[] edges)
   {
     List<IVertex> output = new Vector<>();
     for (Object o : edges)
@@ -171,7 +175,7 @@ public class EditorGraph extends mxGraph implements IGraph
   }
 
 
-  private List<IVertex> lookupOutputPorts(Object vertex, Object[] edges)
+  private List<IVertex> lookupOutputPorts(@NotNull Object vertex, @NotNull Object[] edges)
   {
     List<IVertex> output = new Vector<>();
     for (Object o : edges)
@@ -193,20 +197,14 @@ public class EditorGraph extends mxGraph implements IGraph
   }
 
 
-  private boolean cellEquals(mxCell x, mxCell y)
+  @Contract(pure = true)
+  private boolean cellEquals(@NotNull mxCell x, @NotNull mxCell y)
   {
-    if (x == null || y == null)
-    {
-      return false;
-    }
-    else
-    {
-      return Objects.hash(x) == Objects.hash(y);
-    }
+    return x.equals(y);
   }
 
 
-  private boolean notOrphanEdge(mxCell cell)
+  private boolean notOrphanEdge(@NotNull mxCell cell)
   {
     return (cell.getSource() != null) && (cell.getTarget() != null);
   }
