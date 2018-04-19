@@ -233,12 +233,14 @@ public class TablePanel extends JPanel {
             setComboBoxCell(data, rowContent);
         }
         DefaultTableModel model = new DefaultTableModel(data, null);
+
         show(model);
         }
 
         public TablePanel(){
         String[] columns = {"属性", "值", "单位", "描述"};
-        table = new JTable(null,columns);
+        DefaultTableModel model = new DefaultTableModel(null, columns);
+        show(model);
         }
 
 }
