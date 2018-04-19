@@ -1,7 +1,6 @@
 package com.lgsim.engine.graphEditor.app;
 
 import com.lgsim.engine.graphEditor.api.IRegistry;
-import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.data.*;
 import com.lgsim.engine.graphEditor.api.widget.IWidget;
 import com.lgsim.engine.graphEditor.data.components.component.Components;
@@ -12,7 +11,6 @@ import com.lgsim.engine.graphEditor.data.components.impl.*;
 import com.lgsim.engine.graphEditor.data.components.ptlos.entity.Ptlos;
 import com.lgsim.engine.graphEditor.graph.editor.EditorGraph;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
-import com.lgsim.engine.graphEditor.widget.Component.Resolver;
 import com.lgsim.engine.graphEditor.widget.IWidegtImp.ResolverImp;
 import com.lgsim.engine.graphEditor.widget.IWidegtImp.TablePanelImp;
 
