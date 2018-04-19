@@ -1,6 +1,5 @@
-package com.lgsim.engine.graphEditor.graph.util;
+package com.lgsim.engine.graphEditor.util;
 
-import com.lgsim.engine.graphEditor.util.ResourceUtil;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
@@ -12,7 +11,7 @@ public class ResourceUtilTest
   @Test
   public void lookup() throws IOException
   {
-    URI uri = ResourceUtil.lookup("com/lgsim/engine/graphEditor/graph/default-style.xml");
+    URI uri = ResourceUtil.lookup("com/lgsim/engine/graphEditor/util/default-style.xml");
     if (uri != null)
     {
       String output = IOUtils.toString(uri.toURL().openStream(), "utf-8");
