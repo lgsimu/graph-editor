@@ -1,9 +1,9 @@
 package com.lgsim.engine.graphEditor.util;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.jar.Manifest;
 
 public class JarUtil
@@ -15,9 +15,11 @@ public class JarUtil
    * @param jarFile  jar包文件
    * @param manifest 清单
    * @return 如果遇到异常，返回{@code null}，否则，则返回jar包文件
+   * @throws IOException io exception
    */
-  public static @Nullable File pack(@NotNull File dir, @NotNull File jarFile, @NotNull Manifest manifest)
+  public static @NotNull File pack(@NotNull File dir, @NotNull File jarFile, @NotNull Manifest manifest) throws IOException
   {
+
     return null;
   }
 

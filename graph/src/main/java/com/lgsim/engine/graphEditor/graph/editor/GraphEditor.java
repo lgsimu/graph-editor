@@ -411,9 +411,9 @@ public class GraphEditor extends JPanel implements IGraphEditor
   private @NotNull Manifest createManifest()
   {
     Manifest manifest = new Manifest();
-    manifest.getMainAttributes().put(new Attributes.Name("Implementation-Title"), spec.getImplementationTitle());
-    manifest.getMainAttributes().put(new Attributes.Name("Implementation-Version"), spec.getImplementationVersion());
-    manifest.getMainAttributes().put(new Attributes.Name("Implementation-Vendor"), spec.getImplementationVendor());
+    manifest.getMainAttributes().put(Attributes.Name.IMPLEMENTATION_TITLE, spec.getImplementationTitle());
+    manifest.getMainAttributes().put(Attributes.Name.IMPLEMENTATION_VERSION, spec.getImplementationVersion());
+    manifest.getMainAttributes().put(Attributes.Name.IMPLEMENTATION_VENDOR, spec.getImplementationVendor());
     return manifest;
   }
 
