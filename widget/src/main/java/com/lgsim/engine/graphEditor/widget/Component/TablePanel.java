@@ -15,6 +15,7 @@ import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 import static org.mariuszgromada.math.mxparser.Constant.SYNTAX_ERROR_OR_STATUS_UNKNOWN;
 
@@ -24,10 +25,10 @@ public class TablePanel extends JPanel {
     static JTable table;
     JComboBox comboBoxLen, comboBoxArea, comboBoxPa, comboBoxTem, comboBoxSwirl;
     List<Unit> unitLen, unitArea, unitPa, unitTem, unitSwirl;
-    static int rowNum = 0;
     private static List<TableCellEditor> editors = new ArrayList<>();
     private static List<TableCellEditor> editor2 = new ArrayList<>();
     JTextField textField = new JTextField();
+    static DefaultTableModel model = new DefaultTableModel();
 
     /**
      * 单位转换
@@ -50,30 +51,27 @@ public class TablePanel extends JPanel {
     /**
      * 根据单位设置下拉框
      */
-    public Object[][] setComboBoxCell(Object[][] data, IVertexArgument rowContent) {
+    public Vector setComboBoxCell(Vector vector, IVertexArgument rowContent) {
         String[] lenUnit = {"m", "dm", "cm", "mm"};
         List lenList = Arrays.asList(lenUnit);
-        if (lenList.contains(rowContent.getUnit())) {
-            rowNum++;
+        if (rowContent != null && lenList.contains(rowContent.getUnit())) {
             unitLen = new ArrayList<>();
             unitLen.add(new Unit("m", 1.0));
             unitLen.add(new Unit("mm", 0.001));
             comboBoxLen = new JComboBox(setComboBoxArray(unitLen));
             setListener(comboBoxLen);
             setTextListener();
-            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxLen);
-            editors.add(cellEditor);
-            data[rowNum - 1][0] = rowContent.getID();
-            data[rowNum - 1][1] = rowContent.getValue();
-            data[rowNum - 1][2] = rowContent.getUnit();
-            data[rowNum - 1][3] = rowContent.getDescription();
-
+            DefaultCellEditor cellEditor1 = new DefaultCellEditor(comboBoxLen);
+            editors.add(cellEditor1);
+            vector.add(rowContent.getID());
+            vector.add(rowContent.getValue());
+            vector.add(rowContent.getUnit());
+            vector.add(rowContent.getDescription());
         }
 
         String[] areaUnit = {"m2", "dm2", "cm2", "mm2"};
         List areaList = Arrays.asList(areaUnit);
-        if (areaList.contains(rowContent.getUnit())) {
-            rowNum++;
+        if (rowContent != null && areaList.contains(rowContent.getUnit())) {
             unitArea = new ArrayList<>();
             unitArea.add(new Unit("m2", 1.0));
             unitArea.add(new Unit("mm2", 0.001 * 0.001));
@@ -82,17 +80,16 @@ public class TablePanel extends JPanel {
             setTextListener();
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxArea);
             editors.add(cellEditor);
-            data[rowNum - 1][0] = rowContent.getID();
-            data[rowNum - 1][1] = rowContent.getValue();
-            data[rowNum - 1][2] = rowContent.getUnit();
-            data[rowNum - 1][3] = rowContent.getDescription();
+            vector.add(rowContent.getID());
+            vector.add(rowContent.getValue());
+            vector.add(rowContent.getUnit());
+            vector.add(rowContent.getDescription());
         }
 
 
         String[] paUnit = {"Pa", "Bar"};
         List paList = Arrays.asList(paUnit);
-        if (paList.contains(rowContent.getUnit())) {
-            rowNum++;
+        if (rowContent != null && paList.contains(rowContent.getUnit())) {
             unitPa = new ArrayList<>();
             unitPa.add(new Unit("Pa", 1.0));
             unitPa.add(new Unit("Bar", 100 * 100));
@@ -101,49 +98,45 @@ public class TablePanel extends JPanel {
             setTextListener();
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxPa);
             editors.add(cellEditor);
-            data[rowNum - 1][0] = rowContent.getID();
-            data[rowNum - 1][1] = rowContent.getValue();
-            data[rowNum - 1][2] = rowContent.getUnit();
-            data[rowNum - 1][3] = rowContent.getDescription();
+            vector.add(rowContent.getID());
+            vector.add(rowContent.getValue());
+            vector.add(rowContent.getUnit());
+            vector.add(rowContent.getDescription());
         }
 
         String[] temUnit = {"K", "℃"};
         List temList = Arrays.asList(temUnit);
-        if (temList.contains(rowContent.getUnit())) {
-            rowNum++;
+        if (rowContent != null && temList.contains(rowContent.getUnit())) {
             unitTem = new ArrayList<>();
             unitTem.add(new Unit("℃", rowContent.getValue() * 28.315));
             unitTem.add(new Unit("K", 1));
-
             comboBoxTem = new JComboBox(setComboBoxArray(unitTem));
             setListener(comboBoxTem);
             setTextListener();
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxTem);
             editors.add(cellEditor);
-            data[rowNum - 1][0] = rowContent.getID();
-            data[rowNum - 1][1] = rowContent.getValue();
-            data[rowNum - 1][2] = rowContent.getUnit();
-            data[rowNum - 1][3] = rowContent.getDescription();
+            vector.add(rowContent.getID());
+            vector.add(rowContent.getValue());
+            vector.add(rowContent.getUnit());
+            vector.add(rowContent.getDescription());
         }
 
         String[] swirlUnit = {"m2/s"};
         List swirlList = Arrays.asList(swirlUnit);
-        if (swirlList.contains(rowContent.getUnit())) {
-            rowNum++;
+        if (rowContent != null && swirlList.contains(rowContent.getUnit())) {
             unitSwirl = new ArrayList<>();
             unitSwirl.add(new Unit("m2/s", 1.0));
-
             comboBoxSwirl = new JComboBox(setComboBoxArray(unitSwirl));
             setListener(comboBoxSwirl);
             setTextListener();
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxSwirl);
             editors.add(cellEditor);
-            data[rowNum - 1][0] = rowContent.getID();
-            data[rowNum - 1][1] = rowContent.getValue();
-            data[rowNum - 1][2] = rowContent.getUnit();
-            data[rowNum - 1][3] = rowContent.getDescription();
+            vector.add(rowContent.getID());
+            vector.add(rowContent.getValue());
+            vector.add(rowContent.getUnit());
+            vector.add(rowContent.getDescription());
         }
-        return data;
+        return vector;
     }
 
     /**
@@ -208,9 +201,9 @@ public class TablePanel extends JPanel {
     /**
      * 展示
      *
-     * @param model
+     * @param
      */
-    public void show(DefaultTableModel model) {
+    public void shows(DefaultTableModel model) {
         table = new JTable(model) {
             public TableCellEditor getCellEditor(int row, int column) {
                 int modelColumn = convertColumnIndexToModel(column);
@@ -222,25 +215,27 @@ public class TablePanel extends JPanel {
                     return super.getCellEditor(row, column);
             }
         };
-        scrollPane = new JScrollPane(table);
-        this.add(scrollPane);
+
     }
 
-    public void showTable(IVertex vertex){
-        //String[] columns = {"属性", "值", "单位", "描述"};
-        Object[][] data = new Object[vertex.getArguments().size()][4];
+    public void showTable(IVertex vertex) {
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+        Vector vector = new Vector();
         for (IVertexArgument rowContent : vertex.getArguments()) {
-            setComboBoxCell(data, rowContent);
+            model.addRow(setComboBoxCell(vector, rowContent));
+            shows(model);
         }
-        DefaultTableModel model = new DefaultTableModel(data, null);
+    }
 
-        show(model);
-        }
-
-        public TablePanel(){
+    public TablePanel() {
         String[] columns = {"属性", "值", "单位", "描述"};
-        DefaultTableModel model = new DefaultTableModel(null, columns);
-        show(model);
-        }
+        model.setColumnIdentifiers(columns);
+        shows(model);
+        scrollPane = new JScrollPane(table);
+        this.setSize(300, 300);
+        this.add(scrollPane);
+
+    }
 
 }
