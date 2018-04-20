@@ -3,6 +3,7 @@ package com.lgsim.engine.graphEditor.data.components.impl;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class IVertexImpl implements IVertex {
         this.isCavity = isCavity;
     }
 
-    public String getID() {
+    public @NotNull String getID() {
         return ID;
     }
 
@@ -42,7 +43,7 @@ public class IVertexImpl implements IVertex {
     }
 
 
-    public String getTypeID() {
+    public @NotNull String getTypeID() {
         return typeID;
     }
 
@@ -50,7 +51,7 @@ public class IVertexImpl implements IVertex {
         this.typeID = typeID;
     }
 
-    public ArrayList<IVertexArgument> getArguments() {
+    public @NotNull ArrayList<IVertexArgument> getArguments() {
         return arguments;
     }
 
@@ -58,7 +59,7 @@ public class IVertexImpl implements IVertex {
         this.arguments = arguments;
     }
 
-    public ArrayList<IVertexOutput> getOutputs() {
+    public @NotNull ArrayList<IVertexOutput> getOutputs() {
         return outputs;
     }
 
@@ -66,7 +67,7 @@ public class IVertexImpl implements IVertex {
         this.outputs = outputs;
     }
 
-    public List<IVertex> getInputPorts() {
+    public @NotNull List<IVertex> getInputPorts() {
         return inputPorts;
     }
 
@@ -74,7 +75,7 @@ public class IVertexImpl implements IVertex {
         this.inputPorts = inputPorts;
     }
 
-    public List<IVertex> getOutputPorts() {
+    public @NotNull List<IVertex> getOutputPorts() {
         return outputPorts;
     }
 

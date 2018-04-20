@@ -9,10 +9,11 @@ import com.lgsim.engine.graphEditor.data.components.entity.IVertexRestrictionImp
  */
 public abstract class Component {
 
+    private String componentTemplateName;//元件模板名称
     private String name;//元件名
-    private String type;//元件类型
-    private String stencilIcon;//元件模板图标
-    private String graphIcon;//元件模板在图中的图标
+    private String type;//元件类型ID
+    private String stencilIcon;//元件模板图标路径
+    private String graphIcon;//元件模板在图中的图标路径
     private IVertexRestriction restriction;//连接限制
 
     public Component() {
@@ -24,6 +25,17 @@ public abstract class Component {
         this.stencilIcon = stencilIcon;
         this.graphIcon = graphIcon;
         this.restriction = restriction;
+    }
+
+    /**
+     * 元件模板名称
+     */
+    public String getComponentTemplateName() {
+        return componentTemplateName;
+    }
+
+    public void setComponentTemplateName(String componentTemplateName) {
+        this.componentTemplateName = componentTemplateName;
     }
 
     /**

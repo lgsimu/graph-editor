@@ -6,6 +6,7 @@ import com.lgsim.engine.graphEditor.api.data.IVertexRestriction;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.data.components.entity.IVertexArgumentImpl;
 import com.lgsim.engine.graphEditor.data.components.component.Component;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +102,7 @@ public class Ptlos extends Component implements IVertexStencil {
      * id
      */
     @Override
-    public String getID() {
+    public @NotNull String getID() {
         return this.getType();
     }
 
@@ -109,7 +110,7 @@ public class Ptlos extends Component implements IVertexStencil {
      * 输入参数
      */
     @Override
-    public List<IVertexArgument> getArguments() {
+    public @NotNull List<IVertexArgument> getArguments() {
         IVertexArgumentImpl argument = new IVertexArgumentImpl("","",0,0,0,"");
         List<IVertexArgument> arguments = new ArrayList<IVertexArgument>();
         arguments.add(argument);
@@ -123,7 +124,7 @@ public class Ptlos extends Component implements IVertexStencil {
     /**
      * 计算后的输出
      */
-    public List<IVertexOutput> getOutputs() {
+    public @NotNull List<IVertexOutput> getOutputs() {
         return outputs;
     }
 
