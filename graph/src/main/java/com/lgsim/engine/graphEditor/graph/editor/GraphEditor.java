@@ -40,6 +40,8 @@ import java.util.jar.Manifest;
 public class GraphEditor extends JPanel implements IGraphEditor
 {
   private static final Logger log = LoggerFactory.getLogger(GraphEditor.class);
+  private static final String modelFileName = "model";
+  private static final String styleFileName = "style";
   private static final int defaultDividerSize = 1;
   private final IGraphDocumentSpec spec;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
@@ -398,23 +400,31 @@ public class GraphEditor extends JPanel implements IGraphEditor
     log.debug("create document jar file");
     File temp = new File(workDir, "tmp");
     File jarFile = new File(workDir, document.getTitle() + ".jar");
-    createDocumentGraphFile(document, temp);
+    createDocumentModelFile(document, temp);
     createDocumentStyleFile(document, temp);
     Manifest manifestFile = createManifest();
     return JarUtil.pack(temp, jarFile, manifestFile);
   }
 
 
-  private void createDocumentGraphFile(@NotNull IGraphDocument document, @NotNull File workDir)
+  private void createDocumentModelFile(@NotNull IGraphDocument document, @NotNull File workDir)
   {
     try
     {
       Serializable graphData = ImplementationContext.INSTANCE.getGraphEncoder().encode(document.getGraph());
+      File file = new File(workDir, modelFileName);
+      writeSerializableToFile(graphData, file);
     }
     catch (Exception e)
     {
       ExceptionManager.INSTANCE.dealWith(e);
     }
+  }
+
+
+  private void writeSerializableToFile(@NotNull Serializable data, @NotNull File file)
+  {
+
   }
 
 
