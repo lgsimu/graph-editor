@@ -105,6 +105,16 @@ public class EditorGraph extends mxGraph implements IGraph
 
 
   @Override
+  public Object createEdge(Object parent, String id, Object value, Object source, Object target, String style)
+  {
+    final mxCell edge = (mxCell) super.createEdge(parent, id, value, source, target, style);
+    /* remove vertexes then remove connected edges respectively */
+    edge.getGeometry().setRelative(false);
+    return edge;
+  }
+
+
+  @Override
   public Collection<IVertex> getAllVertexes()
   {
     final Object defaultParent = getDefaultParent();
