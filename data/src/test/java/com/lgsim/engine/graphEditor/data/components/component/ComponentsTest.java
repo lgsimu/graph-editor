@@ -8,6 +8,7 @@ import java.io.InputStream;
 
 import static org.junit.Assert.*;
 
+/*
 public class ComponentsTest {
 
     @Test
@@ -17,4 +18,4 @@ public class ComponentsTest {
         String s = IOUtils.toString(in);
         System.out.println(s);
     }
-}
+}*/
