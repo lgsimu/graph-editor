@@ -7,6 +7,7 @@ import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
+import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleCodecImpl;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
@@ -411,9 +412,9 @@ public class GraphEditor extends JPanel implements IGraphEditor
   {
     try
     {
-      Serializable graphData = ImplementationContext.INSTANCE.getGraphEncoder().encode(document.getGraph());
+      Serializable data = ImplementationContext.INSTANCE.getGraphEncoder().encode(document.getGraph());
       File file = new File(workDir, modelFileName);
-      writeSerializableToFile(graphData, file);
+      writeSerializableToFile(data, file);
     }
     catch (Exception e)
     {
@@ -422,14 +423,18 @@ public class GraphEditor extends JPanel implements IGraphEditor
   }
 
 
-  private void writeSerializableToFile(@NotNull Serializable data, @NotNull File file)
+  private void createDocumentStyleFile(@NotNull IGraphDocument document, @NotNull File workDir)
   {
-
+    GraphStyleCodecImpl codec = new GraphStyleCodecImpl();
+    Serializable data = codec.encode(document.getGraphStyle());
+    File file = new File(workDir, styleFileName);
+    writeSerializableToFile(data, file);
   }
 
 
-  private void createDocumentStyleFile(@NotNull IGraphDocument document, @NotNull File workDir)
+  private void writeSerializableToFile(@NotNull Serializable data, @NotNull File file)
   {
+
   }
 
 
