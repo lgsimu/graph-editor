@@ -3,12 +3,8 @@ package com.lgsim.engine.graphEditor.app;
 import com.lgsim.engine.graphEditor.api.IRegistry;
 import com.lgsim.engine.graphEditor.api.data.*;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
-import com.lgsim.engine.graphEditor.data.components.component.Components;
-import com.lgsim.engine.graphEditor.data.components.component.ComponentsTest;
-import com.lgsim.engine.graphEditor.data.components.entity.IVertexArgumentImpl;
-import com.lgsim.engine.graphEditor.data.components.entity.IVertexRestrictionImpl;
-import com.lgsim.engine.graphEditor.data.components.impl.*;
-import com.lgsim.engine.graphEditor.data.components.ptlos.entity.Ptlos;
+import com.lgsim.engine.graphEditor.data.components.impl.GraphCodecImpl;
+import com.lgsim.engine.graphEditor.data.components.impl.IVertexImpl;
 import com.lgsim.engine.graphEditor.data.components.template.Component;
 import com.lgsim.engine.graphEditor.data.components.template.ComponentArm;
 import com.lgsim.engine.graphEditor.data.components.template.Parameter;
@@ -16,7 +12,6 @@ import com.lgsim.engine.graphEditor.data.components.template.Template;
 import com.lgsim.engine.graphEditor.graph.editor.EditorGraph;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.widget.IWidegtImp.TablePanelImp;
-import com.lgsim.engine.graphEditor.data.components.library.ptlos.impl.IStencilContextImpl;
 
 class ImplementationRegistry implements IRegistry
 {
@@ -27,8 +22,7 @@ class ImplementationRegistry implements IRegistry
   public void registerAll()
   {
     ImplementationUtil.put(IGraph.class, EditorGraph.class);
-    ImplementationUtil.put(IGraphDecoder.class, IGraphDecoderImpl.class);
-    ImplementationUtil.put(IGraphEncoder.class, IGraphEncoderImpl.class);
+    ImplementationUtil.put(IGraphCodec.class, GraphCodecImpl.class);
     //ImplementationUtil.put(IStencilContext.class, ComponentsTest.class);
     ImplementationUtil.put(IStencilContext.class, Template.class);
     ImplementationUtil.put(IVertex.class, IVertexImpl.class);
