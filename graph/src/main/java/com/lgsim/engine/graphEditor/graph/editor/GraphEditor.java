@@ -392,7 +392,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
   {
     try
     {
-      Serializable data = ImplementationContext.INSTANCE.getGraphEncoder().encode(document.getGraph());
+      Serializable data = ImplementationContext.INSTANCE.getGraphCodec().encode(document.getGraph());
       File file = new File(workDir, modelFileName);
       writeSerializableToFile(data, file);
     }
@@ -435,7 +435,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
 
   @Override
-  public void saveOpenedGraphDocuments(@NotNull List<IGraphDocument> documents)
+  public void saveOpenedGraphDocuments(@NotNull List<IGraphDocument> documents) throws IOException
   {
     for (IGraphDocument document : documents)
     {

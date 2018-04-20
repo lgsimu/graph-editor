@@ -47,7 +47,7 @@ public interface IGraphEditor
    *
    * @param documents 要保存的图文档
    */
-  void saveOpenedGraphDocuments(@NotNull List<IGraphDocument> documents);
+  void saveOpenedGraphDocuments(@NotNull List<IGraphDocument> documents) throws IOException;
 
 
   /**

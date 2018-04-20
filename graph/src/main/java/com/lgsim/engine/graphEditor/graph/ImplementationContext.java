@@ -1,6 +1,6 @@
 package com.lgsim.engine.graphEditor.graph;
 
-import com.lgsim.engine.graphEditor.api.data.IGraphEncoder;
+import com.lgsim.engine.graphEditor.api.data.IGraphCodec;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.util.ExceptionManager;
@@ -12,7 +12,7 @@ public class ImplementationContext
   public static final ImplementationContext INSTANCE = new ImplementationContext();
   private IStencilContext stencilContext;
   private IVertexTable vertexTable;
-  private IGraphEncoder graphEncoder;
+  private IGraphCodec graphCodec;
 
 
   private ImplementationContext()
@@ -21,7 +21,7 @@ public class ImplementationContext
     {
       stencilContext = ImplementationUtil.getInstanceOf(IStencilContext.class);
       vertexTable = ImplementationUtil.getInstanceOf(IVertexTable.class);
-      graphEncoder = ImplementationUtil.getInstanceOf(IGraphEncoder.class);
+      graphCodec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
     }
     catch (InstantiationException e)
     {
@@ -44,8 +44,8 @@ public class ImplementationContext
   }
 
 
-  public @NotNull IGraphEncoder getGraphEncoder()
+  public @NotNull IGraphCodec getGraphCodec()
   {
-    return graphEncoder;
+    return graphCodec;
   }
 }
