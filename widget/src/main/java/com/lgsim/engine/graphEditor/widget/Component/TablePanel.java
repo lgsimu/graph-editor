@@ -61,12 +61,7 @@ public class TablePanel extends JPanel {
             comboBoxLen = new JComboBox(setComboBoxArray(unitLen));
             setListener(comboBoxLen);
             setTextListener();
-            DefaultCellEditor cellEditor1 = new DefaultCellEditor(comboBoxLen);
-            editors.add(cellEditor1);
-            vector.add(rowContent.getID());
-            vector.add(rowContent.getValue());
-            vector.add(rowContent.getUnit());
-            vector.add(rowContent.getDescription());
+            setTableContent(vector, rowContent, comboBoxLen);
         }
 
         String[] areaUnit = {"m2", "dm2", "cm2", "mm2"};
@@ -78,12 +73,7 @@ public class TablePanel extends JPanel {
             comboBoxArea = new JComboBox(setComboBoxArray(unitArea));
             setListener(comboBoxArea);
             setTextListener();
-            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxArea);
-            editors.add(cellEditor);
-            vector.add(rowContent.getID());
-            vector.add(rowContent.getValue());
-            vector.add(rowContent.getUnit());
-            vector.add(rowContent.getDescription());
+            setTableContent(vector, rowContent, comboBoxArea);
         }
 
 
@@ -96,12 +86,7 @@ public class TablePanel extends JPanel {
             comboBoxPa = new JComboBox(setComboBoxArray(unitPa));
             setListener(comboBoxPa);
             setTextListener();
-            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxPa);
-            editors.add(cellEditor);
-            vector.add(rowContent.getID());
-            vector.add(rowContent.getValue());
-            vector.add(rowContent.getUnit());
-            vector.add(rowContent.getDescription());
+            setTableContent(vector, rowContent, comboBoxPa);
         }
 
         String[] temUnit = {"K", "℃"};
@@ -113,12 +98,7 @@ public class TablePanel extends JPanel {
             comboBoxTem = new JComboBox(setComboBoxArray(unitTem));
             setListener(comboBoxTem);
             setTextListener();
-            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxTem);
-            editors.add(cellEditor);
-            vector.add(rowContent.getID());
-            vector.add(rowContent.getValue());
-            vector.add(rowContent.getUnit());
-            vector.add(rowContent.getDescription());
+            setTableContent(vector, rowContent, comboBoxTem);
         }
 
         String[] swirlUnit = {"m2/s"};
@@ -129,14 +109,25 @@ public class TablePanel extends JPanel {
             comboBoxSwirl = new JComboBox(setComboBoxArray(unitSwirl));
             setListener(comboBoxSwirl);
             setTextListener();
-            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBoxSwirl);
-            editors.add(cellEditor);
-            vector.add(rowContent.getID());
-            vector.add(rowContent.getValue());
-            vector.add(rowContent.getUnit());
-            vector.add(rowContent.getDescription());
+            setTableContent(vector, rowContent, comboBoxSwirl);
         }
         return vector;
+    }
+
+    /**
+     * 设置表格显示的内容
+     *
+     * @param vector
+     * @param rowContent
+     * @param comboBox
+     */
+    public void setTableContent(Vector vector, IVertexArgument rowContent, JComboBox comboBox) {
+        DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
+        editors.add(cellEditor);
+        vector.add(rowContent.getID());
+        vector.add(rowContent.getValue());
+        vector.add(rowContent.getUnit());
+        vector.add(rowContent.getDescription());
     }
 
     /**
@@ -163,7 +154,6 @@ public class TablePanel extends JPanel {
         textField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-
             }
 
             @Override
@@ -215,7 +205,6 @@ public class TablePanel extends JPanel {
                     return super.getCellEditor(row, column);
             }
         };
-
     }
 
     public void showTable(IVertex vertex) {
@@ -235,7 +224,5 @@ public class TablePanel extends JPanel {
         scrollPane = new JScrollPane(table);
         this.setSize(300, 300);
         this.add(scrollPane);
-
     }
-
 }
