@@ -330,9 +330,9 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
 
   @Override
-  public List<IGraphDocument> getOpenedGraphDocuments()
+  public @NotNull List<IGraphDocument> getOpenedGraphDocuments()
   {
-    return null;
+    return new Vector<>();
   }
 
 
@@ -344,7 +344,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
 
   @Override
-  public void saveGraphDocument(@NotNull IGraphDocument document, @NotNull File file)
+  public void saveOpenedGraphDocuments(@NotNull List<IGraphDocument> documents)
   {
 
   }
