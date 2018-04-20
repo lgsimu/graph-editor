@@ -1,11 +1,12 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.google.common.io.Files;
-import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
-import com.lgsim.engine.graphEditor.api.graph.*;
+import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
+import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
+import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
@@ -265,12 +266,8 @@ public class GraphEditor extends JPanel implements IGraphEditor
   private void openNewDocument()
   {
     currentDocumentIndex = graphDocuments.size();
-    final mxGraphComponent comp = new EditorGraphComponent(new EditorGraph());
-    final IGraphDocumentFile graphDocumentFile = ImplementationContext.INSTANCE.getGraphDocumentFile();
-    final IGraph graph = ImplementationContext.INSTANCE.getGraph();
-    final IGraphStyle graphStyle = ImplementationContext.INSTANCE.getGraphStyle();
-    final mxGraphComponent graphComponent = getGraphComponent();
-    GraphDocument graphDocument = new GraphDocument(null, graphDocumentFile, graph, graphStyle, false, graphComponent);
+    mxGraphComponent comp = new EditorGraphComponent(new EditorGraph());
+    GraphDocument graphDocument = new GraphDocument(comp);
     graphDocuments.add(currentDocumentIndex, graphDocument);
   }
 

@@ -5,15 +5,22 @@ import com.lgsim.engine.graphEditor.api.graph.IVertexStyle;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Vector;
 
 public class GraphStyleImpl implements IGraphStyle
 {
   private List<IVertexStyle> vertexStyles;
 
 
+  public GraphStyleImpl()
+  {
+    setVertexStyles(new Vector<>());
+  }
+
+
   public GraphStyleImpl(List<IVertexStyle> vertexStyles)
   {
-    this.vertexStyles = vertexStyles;
+    setVertexStyles(vertexStyles);
   }
 
 

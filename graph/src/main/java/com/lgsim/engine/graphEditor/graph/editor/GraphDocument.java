@@ -1,13 +1,12 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.lgsim.engine.graphEditor.api.data.IGraph;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentFile;
-import com.lgsim.engine.graphEditor.api.graph.IGraphStyle;
+import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentFileImpl;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentImpl;
+import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleImpl;
 import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
 import com.mxgraph.swing.mxGraphComponent;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
@@ -16,11 +15,10 @@ class GraphDocument extends GraphDocumentImpl
   private mxGraphComponent graphComponent;
 
 
-  GraphDocument(@Nullable String title, @NotNull IGraphDocumentFile graphDocumentFile, @NotNull IGraph graph,
-                @NotNull IGraphStyle graphStyle, boolean modified, @NotNull mxGraphComponent graphComponent)
+  GraphDocument(@NotNull mxGraphComponent comp)
   {
-    super(title, graphDocumentFile, graph, graphStyle, modified);
-    setGraphComponent(graphComponent);
+    super(null, new GraphDocumentFileImpl(), (IGraph) comp.getGraph(), new GraphStyleImpl(), false);
+    setGraphComponent(comp);
   }
 
 
