@@ -39,4 +39,13 @@ public interface IGraphEditor
    * @param documents 要保存的图文档
    */
   void saveOpenedGraphDocuments(@NotNull List<IGraphDocument> documents);
+
+
+  /**
+   * 测试文件是不是图文档文件
+   *
+   * @param file 被测试的文件
+   * @return 如果被测试文件是图文档文件，返回{@code true}，否则返回{code false}
+   */
+  boolean isGraphDocumentFile(@NotNull File file);
 }

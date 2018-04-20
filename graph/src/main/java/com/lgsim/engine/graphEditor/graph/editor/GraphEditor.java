@@ -348,4 +348,11 @@ public class GraphEditor extends JPanel implements IGraphEditor
   {
 
   }
+
+
+  @Override
+  public boolean isGraphDocumentFile(@NotNull File file)
+  {
+    return false;
+  }
 }
