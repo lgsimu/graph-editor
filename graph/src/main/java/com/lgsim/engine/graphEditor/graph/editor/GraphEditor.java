@@ -11,10 +11,8 @@ import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleCodecImpl;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
-import com.lgsim.engine.graphEditor.util.ExceptionManager;
 import com.lgsim.engine.graphEditor.util.JarUtil;
 import com.lgsim.engine.graphEditor.util.ResourceUtil;
-import com.lgsim.engine.graphEditor.util.exception.EncodeException;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
@@ -33,7 +31,6 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
 import java.util.jar.Attributes;
@@ -376,7 +373,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
   }
 
 
-  private @NotNull File createDocumentJarFile(@NotNull IGraphDocument document, @NotNull File workDir) throws EncodeException
+  private @NotNull File createDocumentJarFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
   {
     log.debug("create document jar file");
     File temp = new File(workDir, "tmp");
@@ -388,33 +385,26 @@ public class GraphEditor extends JPanel implements IGraphEditor
   }
 
 
-  private void createDocumentModelFile(@NotNull IGraphDocument document, @NotNull File workDir)
+  private void createDocumentModelFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
   {
-    try
-    {
-      Serializable data = ImplementationContext.INSTANCE.getGraphCodec().encode(document.getGraph());
-      File file = new File(workDir, modelFileName);
-      writeSerializableToFile(data, file);
-    }
-    catch (Exception e)
-    {
-      ExceptionManager.INSTANCE.dealWith(e);
-    }
+    byte[] data = ImplementationContext.INSTANCE.getGraphCodec().encode(document.getGraph());
+    File file = new File(workDir, modelFileName);
+    writeToFile(data, file);
   }
 
 
-  private void createDocumentStyleFile(@NotNull IGraphDocument document, @NotNull File workDir) throws EncodeException
+  private void createDocumentStyleFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
   {
     GraphStyleCodecImpl codec = new GraphStyleCodecImpl();
-    Serializable data = codec.encode(document.getGraphStyle());
+    byte[] data = codec.encode(document.getGraphStyle());
     File file = new File(workDir, styleFileName);
-    writeSerializableToFile(data, file);
+    writeToFile(data, file);
   }
 
 
-  private void writeSerializableToFile(@NotNull Serializable data, @NotNull File file)
+  private void writeToFile(byte[] data, @NotNull File file) throws IOException
   {
-
+    Files.write(data, file);
   }
 
 

@@ -4,8 +4,6 @@ import com.lgsim.engine.graphEditor.util.exception.DecodeException;
 import com.lgsim.engine.graphEditor.util.exception.EncodeException;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
-
 public interface IGraphCodec
 {
   /**
@@ -14,8 +12,8 @@ public interface IGraphCodec
    * @param graph 图数据模型
    * @return 序列化对象
    */
-  @NotNull Serializable encode(@NotNull IGraph graph) throws EncodeException;
+  @NotNull byte[] encode(@NotNull IGraph graph) throws EncodeException;
 
 
-  @NotNull IGraph decode(@NotNull Serializable serializable) throws DecodeException;
+  @NotNull IGraph decode(@NotNull byte[] bytes) throws DecodeException;
 }

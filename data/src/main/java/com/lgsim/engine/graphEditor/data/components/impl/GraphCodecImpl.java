@@ -7,13 +7,16 @@ import com.lgsim.engine.graphEditor.util.exception.DecodeException;
 import com.lgsim.engine.graphEditor.util.exception.EncodeException;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Collection;
 
 public class GraphCodecImpl implements IGraphCodec
 {
   @Override
-  public @NotNull Serializable encode(@NotNull IGraph graph) throws EncodeException
+  public @NotNull byte[] encode(@NotNull IGraph graph) throws EncodeException
   {
     try
     {
@@ -22,8 +25,7 @@ public class GraphCodecImpl implements IGraphCodec
 
       oos.writeObject(graph);
       oos.close();
-
-      return (Serializable) oos;
+      return null;
     }
     catch (Exception e)
     {
@@ -33,14 +35,14 @@ public class GraphCodecImpl implements IGraphCodec
 
 
   @Override
-  public @NotNull IGraph decode(@NotNull Serializable serializable) throws DecodeException
+  public @NotNull IGraph decode(@NotNull byte[] bytes) throws DecodeException
   {
     try
     {
       FileInputStream fis = new FileInputStream("graph.out");
       ObjectInputStream ois = new ObjectInputStream(fis);
 
-      serializable = (Serializable) ois.readObject();
+      bytes = (byte[]) ois.readObject();
       ois.close();
 
       return new IGraph()
