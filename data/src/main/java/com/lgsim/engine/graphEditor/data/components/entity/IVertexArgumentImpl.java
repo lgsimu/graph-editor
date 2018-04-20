@@ -7,6 +7,15 @@ import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
  */
 public class IVertexArgumentImpl implements IVertexArgument {
 
+    public enum ParameterIOType {
+        InputParameter,
+        OutputParameter
+    };
+    public enum ParameterValueType {
+        Integer,
+        Double
+    };
+
     private String id;//id
     private String unit;//单位
     private double minValue;//最小值

@@ -15,7 +15,7 @@ import java.util.List;
 public class ComponentsTest implements IStencilContext {
 
     @Override
-    public ArrayList<IVertexStencil> getPredefinedStencils() {
+    public @NotNull ArrayList<IVertexStencil> getPredefinedStencils() {
         Ptlos ptloss = new Ptlos("","","","","",new IVertexRestrictionImpl(),false,new ArrayList<IVertexArgumentImpl>(),new ArrayList<IVertexOutput>());
         //IVertexRestrictionImpl iVertexRestrictionImpl = new IVertexRestrictionImpl();
         /**
@@ -121,8 +121,8 @@ public class ComponentsTest implements IStencilContext {
     }
 
     @Override
-    public List<IVertexStencil> getUserDefinedStencils() {
-        return null;
+    public @NotNull List<IVertexStencil> getUserDefinedStencils() {
+        return new ArrayList<IVertexStencil>();
     }
 
     @Override
@@ -131,7 +131,7 @@ public class ComponentsTest implements IStencilContext {
     }
 
     @Override
-    public IVertexStencil getCavityStencil() {
+    public @NotNull IVertexStencil getCavityStencil() {
         return null;
     }
 }

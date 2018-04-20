@@ -18,7 +18,7 @@ public class IStencilContextImpl implements IStencilContext {
      * 获取预定义的元件模板
      */
     @Override
-    public List<IVertexStencil> getPredefinedStencils() {
+    public @NotNull List<IVertexStencil> getPredefinedStencils() {
         Ptlos ptlos = new Ptlos("","","","","",new IVertexRestrictionImpl(),false,new ArrayList<IVertexArgumentImpl>(),new ArrayList<IVertexOutput>());
         //PtlosImpl ptImpl = new PtlosImpl();
 
@@ -31,8 +31,8 @@ public class IStencilContextImpl implements IStencilContext {
      * 获取用户定义的元件模板
      */
     @Override
-    public List<IVertexStencil> getUserDefinedStencils() {
-        return null;
+    public @NotNull List<IVertexStencil> getUserDefinedStencils() {
+        return new ArrayList<IVertexStencil>();
     }
 
     /**
@@ -44,7 +44,7 @@ public class IStencilContextImpl implements IStencilContext {
     }
 
     @Override
-    public IVertexStencil getCavityStencil() {
+    public @NotNull IVertexStencil getCavityStencil() {
         return null;
     }
 }

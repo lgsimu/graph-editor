@@ -9,6 +9,10 @@ import com.lgsim.engine.graphEditor.data.components.entity.IVertexArgumentImpl;
 import com.lgsim.engine.graphEditor.data.components.entity.IVertexRestrictionImpl;
 import com.lgsim.engine.graphEditor.data.components.impl.*;
 import com.lgsim.engine.graphEditor.data.components.ptlos.entity.Ptlos;
+import com.lgsim.engine.graphEditor.data.components.template.Component;
+import com.lgsim.engine.graphEditor.data.components.template.ComponentArm;
+import com.lgsim.engine.graphEditor.data.components.template.Parameter;
+import com.lgsim.engine.graphEditor.data.components.template.Template;
 import com.lgsim.engine.graphEditor.graph.editor.EditorGraph;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.widget.IWidegtImp.TablePanelImp;
@@ -25,12 +29,17 @@ class ImplementationRegistry implements IRegistry
     ImplementationUtil.put(IGraph.class, EditorGraph.class);
     ImplementationUtil.put(IGraphDecoder.class, IGraphDecoderImpl.class);
     ImplementationUtil.put(IGraphEncoder.class, IGraphEncoderImpl.class);
-    ImplementationUtil.put(IStencilContext.class, ComponentsTest.class);
+    //ImplementationUtil.put(IStencilContext.class, ComponentsTest.class);
+    ImplementationUtil.put(IStencilContext.class, Template.class);
     ImplementationUtil.put(IVertex.class, IVertexImpl.class);
-    ImplementationUtil.put(IVertexArgument.class, IVertexArgumentImpl.class);
-    ImplementationUtil.put(IVertexOutput.class, IVertexOutputImpl.class);
-    ImplementationUtil.put(IVertexRestriction.class, IVertexRestrictionImpl.class);
-    ImplementationUtil.put(IVertexStencil.class, Ptlos.class);
+    //ImplementationUtil.put(IVertexArgument.class, IVertexArgumentImpl.class);
+    ImplementationUtil.put(IVertexArgument.class, Parameter.class);
+    //ImplementationUtil.put(IVertexOutput.class, IVertexOutputImpl.class);
+    ImplementationUtil.put(IVertexOutput.class, Parameter.class);
+    //ImplementationUtil.put(IVertexRestriction.class, IVertexRestrictionImpl.class);
+    ImplementationUtil.put(IVertexRestriction.class, ComponentArm.class);
+    //ImplementationUtil.put(IVertexStencil.class, Ptlos.class);
+    ImplementationUtil.put(IVertexStencil.class, Component.class);
     ImplementationUtil.put(IVertexTable.class, TablePanelImp.class);
   }
 }
