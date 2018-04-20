@@ -1,14 +1,16 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
+import com.google.common.io.Files;
+import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
-import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
+import com.lgsim.engine.graphEditor.api.graph.*;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
+import com.lgsim.engine.graphEditor.util.ExceptionManager;
+import com.lgsim.engine.graphEditor.util.JarUtil;
 import com.lgsim.engine.graphEditor.util.ResourceUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
@@ -27,8 +29,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
+import java.util.jar.Attributes;
+import java.util.jar.Manifest;
 
 public class GraphEditor extends JPanel implements IGraphEditor
 {
@@ -260,7 +266,12 @@ public class GraphEditor extends JPanel implements IGraphEditor
   {
     currentDocumentIndex = graphDocuments.size();
     final mxGraphComponent comp = new EditorGraphComponent(new EditorGraph());
-    graphDocuments.add(currentDocumentIndex, new GraphDocument(null, comp));
+    final IGraphDocumentFile graphDocumentFile = ImplementationContext.INSTANCE.getGraphDocumentFile();
+    final IGraph graph = ImplementationContext.INSTANCE.getGraph();
+    final IGraphStyle graphStyle = ImplementationContext.INSTANCE.getGraphStyle();
+    final mxGraphComponent graphComponent = getGraphComponent();
+    GraphDocument graphDocument = new GraphDocument(null, graphDocumentFile, graph, graphStyle, false, graphComponent);
+    graphDocuments.add(currentDocumentIndex, graphDocument);
   }
 
 
@@ -344,9 +355,100 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
 
   @Override
+  public void saveOpenedGraphDocument(@NotNull IGraphDocument document)
+  {
+    final File docFile = document.getGraphDocumentFile().getEntryFile();
+    if (docFile != null)
+    {
+      if (docFile.exists())
+      {
+        updateDocumentJarFile(document);
+      }
+      else
+      {
+        File workDir = Files.createTempDir();
+        File jarFile = createDocumentJarFile(document, workDir);
+        try
+        {
+          if (jarFile != null)
+          {
+            Files.copy(jarFile, docFile);
+          }
+          else
+          {
+            throw new NullPointerException();
+          }
+        }
+        catch (IOException e)
+        {
+          ExceptionManager.INSTANCE.dealWith(e);
+        }
+        if (workDir.delete())
+        {
+          log.debug("delete temp work dir {}", workDir);
+        }
+      }
+    }
+    else
+    {
+      log.debug("no relative file for graph document {}", document);
+    }
+  }
+
+
+  private @Nullable File createDocumentJarFile(@NotNull IGraphDocument document, @NotNull File workDir)
+  {
+    log.debug("create document jar file");
+    File temp = new File(workDir, "tmp");
+    File jarFile = new File(workDir, document.getTitle() + ".jar");
+    createDocumentGraphFile(document, temp);
+    createDocumentStyleFile(document, temp);
+    Manifest manifestFile = createManifest();
+    return JarUtil.pack(temp, jarFile, manifestFile);
+  }
+
+
+  private void createDocumentGraphFile(@NotNull IGraphDocument document, @NotNull File workDir)
+  {
+    try
+    {
+      Serializable graphData = ImplementationContext.INSTANCE.getGraphEncoder().encode(document.getGraph());
+    }
+    catch (Exception e)
+    {
+      ExceptionManager.INSTANCE.dealWith(e);
+    }
+  }
+
+
+  private void createDocumentStyleFile(@NotNull IGraphDocument document, @NotNull File workDir)
+  {
+  }
+
+
+  private @NotNull Manifest createManifest()
+  {
+    Manifest manifest = new Manifest();
+    manifest.getMainAttributes().put(new Attributes.Name("Implementation-Title"), spec.getImplementationTitle());
+    manifest.getMainAttributes().put(new Attributes.Name("Implementation-Version"), spec.getImplementationVersion());
+    manifest.getMainAttributes().put(new Attributes.Name("Implementation-Vendor"), spec.getImplementationVendor());
+    return manifest;
+  }
+
+
+  private void updateDocumentJarFile(@NotNull IGraphDocument document)
+  {
+    log.debug("update document jar file");
+  }
+
+
+  @Override
   public void saveOpenedGraphDocuments(@NotNull List<IGraphDocument> documents)
   {
-
+    for (IGraphDocument document : documents)
+    {
+      saveOpenedGraphDocument(document);
+    }
   }
 
 

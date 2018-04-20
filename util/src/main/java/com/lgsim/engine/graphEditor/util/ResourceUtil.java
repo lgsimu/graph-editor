@@ -1,9 +1,12 @@
 package com.lgsim.engine.graphEditor.util;
 
+import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -83,6 +86,30 @@ public class ResourceUtil
       }
       imageIconCache.put(path, icon);
       return icon;
+    }
+  }
+
+
+  // TODO: cache
+  public static @NotNull String lookupText(@NotNull String path)
+  {
+    URI uri = lookup(path);
+    try
+    {
+      if (uri != null)
+      {
+        InputStream in = uri.toURL().openStream();
+        return IOUtils.toString(in, "utf-8");
+      }
+      else
+      {
+        throw new NullPointerException();
+      }
+    }
+    catch (IOException e)
+    {
+      ExceptionManager.INSTANCE.dealWith(e);
+      return "<empty>";
     }
   }
 }

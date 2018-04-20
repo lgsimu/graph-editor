@@ -4,6 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 public class ExceptionManager
 {
   public static final ExceptionManager INSTANCE = new ExceptionManager();
@@ -24,6 +26,13 @@ public class ExceptionManager
 
 
   public void dealWith(@NotNull InstantiationException e)
+  {
+    dealWith((Exception) e);
+    System.exit(1);
+  }
+
+
+  public void dealWith(@NotNull IOException e)
   {
     dealWith((Exception) e);
     System.exit(1);

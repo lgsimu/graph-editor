@@ -34,6 +34,14 @@ public interface IGraphEditor
 
 
   /**
+   * 保存一个图文档
+   *
+   * @param document 要保存的图文档
+   */
+  void saveOpenedGraphDocument(@NotNull IGraphDocument document);
+
+
+  /**
    * 保存打开的图文档
    *
    * @param documents 要保存的图文档

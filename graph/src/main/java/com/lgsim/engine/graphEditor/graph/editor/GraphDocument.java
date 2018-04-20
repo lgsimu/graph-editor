@@ -1,67 +1,36 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.lgsim.engine.graphEditor.api.data.IGraph;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
+import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentFile;
+import com.lgsim.engine.graphEditor.api.graph.IGraphStyle;
+import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentImpl;
 import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
 import com.mxgraph.swing.mxGraphComponent;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
-public class GraphDocument implements IGraphDocument
+class GraphDocument extends GraphDocumentImpl
 {
-  private File file;
-  private boolean modified;
   private mxGraphComponent graphComponent;
 
 
-  public GraphDocument(File file, mxGraphComponent graphComponent)
+  GraphDocument(@Nullable String title, @NotNull IGraphDocumentFile graphDocumentFile, @NotNull IGraph graph,
+                @NotNull IGraphStyle graphStyle, boolean modified, @NotNull mxGraphComponent graphComponent)
   {
-    this.file = file;
-    this.graphComponent = graphComponent;
+    super(title, graphDocumentFile, graph, graphStyle, modified);
+    setGraphComponent(graphComponent);
   }
 
 
-  public File getFile()
+  @Override
+  public @NotNull String getTitle()
   {
-    return file;
-  }
-
-
-  public void setFile(File file)
-  {
-    this.file = file;
-  }
-
-
-  public boolean isModified()
-  {
-    return modified;
-  }
-
-
-  public void setModified(boolean modified)
-  {
-    this.modified = modified;
-  }
-
-
-  public mxGraphComponent getGraphComponent()
-  {
-    return graphComponent;
-  }
-
-
-  public void setGraphComponent(mxGraphComponent graphComponent)
-  {
-    this.graphComponent = graphComponent;
-  }
-
-
-  public String getTitle()
-  {
+    final File file = getGraphDocumentFile().getEntryFile();
     if (file == null)
     {
-      return MessageBundleUtil.get("newDiagram") + (modified ? "*" : "");
+      return MessageBundleUtil.get("newDiagram") + (isModified() ? "*" : "");
     }
     else
     {
@@ -70,9 +39,14 @@ public class GraphDocument implements IGraphDocument
   }
 
 
-  @Override
-  public IGraph getGraph()
+  @NotNull mxGraphComponent getGraphComponent()
   {
-    return null;
+    return graphComponent;
+  }
+
+
+  private void setGraphComponent(@NotNull mxGraphComponent graphComponent)
+  {
+    this.graphComponent = graphComponent;
   }
 }

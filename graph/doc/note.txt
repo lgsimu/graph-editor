@@ -677,3 +677,9 @@ edge & vertex id
 ================
 edge与vertex的id应该属于同一体系
 ================
+
+manifest读取属性
+==============
+Manifest manifest = jarFile.getManifest();
+    System.out.println(manifest.getMainAttributes().get(new Attributes.Name("Main-Class")));
+==============
