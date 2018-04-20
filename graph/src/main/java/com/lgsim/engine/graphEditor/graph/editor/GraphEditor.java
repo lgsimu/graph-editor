@@ -4,6 +4,7 @@ import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
+import com.lgsim.engine.graphEditor.api.exception.EncodeException;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
@@ -355,48 +356,27 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
 
   @Override
-  public void saveOpenedGraphDocument(@NotNull IGraphDocument document)
+  public void saveOpenedGraphDocument(@NotNull IGraphDocument document) throws IOException
   {
     final File docFile = document.getGraphDocumentFile().getEntryFile();
-    if (docFile != null)
+    if (docFile.exists())
     {
-      if (docFile.exists())
-      {
-        updateDocumentJarFile(document);
-      }
-      else
-      {
-        File workDir = Files.createTempDir();
-        File jarFile = createDocumentJarFile(document, workDir);
-        try
-        {
-          if (jarFile != null)
-          {
-            Files.copy(jarFile, docFile);
-          }
-          else
-          {
-            throw new NullPointerException();
-          }
-        }
-        catch (IOException e)
-        {
-          ExceptionManager.INSTANCE.dealWith(e);
-        }
-        if (workDir.delete())
-        {
-          log.debug("delete temp work dir {}", workDir);
-        }
-      }
+      updateDocumentJarFile(document);
     }
     else
     {
-      log.debug("no relative file for graph document {}", document);
+      File workDir = Files.createTempDir();
+      File jarFile = createDocumentJarFile(document, workDir);
+      Files.copy(jarFile, docFile);
+      if (workDir.delete())
+      {
+        log.debug("delete temp work dir {}", workDir);
+      }
     }
   }
 
 
-  private @Nullable File createDocumentJarFile(@NotNull IGraphDocument document, @NotNull File workDir)
+  private @NotNull File createDocumentJarFile(@NotNull IGraphDocument document, @NotNull File workDir) throws EncodeException
   {
     log.debug("create document jar file");
     File temp = new File(workDir, "tmp");
@@ -423,7 +403,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
   }
 
 
-  private void createDocumentStyleFile(@NotNull IGraphDocument document, @NotNull File workDir)
+  private void createDocumentStyleFile(@NotNull IGraphDocument document, @NotNull File workDir) throws EncodeException
   {
     GraphStyleCodecImpl codec = new GraphStyleCodecImpl();
     Serializable data = codec.encode(document.getGraphStyle());

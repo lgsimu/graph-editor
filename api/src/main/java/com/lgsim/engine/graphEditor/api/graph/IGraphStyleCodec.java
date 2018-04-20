@@ -1,5 +1,7 @@
 package com.lgsim.engine.graphEditor.api.graph;
 
+import com.lgsim.engine.graphEditor.api.exception.DecodeException;
+import com.lgsim.engine.graphEditor.api.exception.EncodeException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
@@ -12,7 +14,7 @@ public interface IGraphStyleCodec
    * @param style 图样式
    * @return 可序列化的对象
    */
-  @NotNull Serializable encode(@NotNull IGraphStyle style);
+  @NotNull Serializable encode(@NotNull IGraphStyle style) throws EncodeException;
 
 
   /**
@@ -21,5 +23,5 @@ public interface IGraphStyleCodec
    * @param serializable 可序列化对象
    * @return 图样式
    */
-  @NotNull IGraphStyle decode(@NotNull Serializable serializable);
+  @NotNull IGraphStyle decode(@NotNull Serializable serializable) throws DecodeException;
 }

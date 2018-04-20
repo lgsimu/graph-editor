@@ -1,5 +1,7 @@
 package com.lgsim.engine.graphEditor.api.exception;
 
-public class CodecException extends Exception
+import java.io.IOException;
+
+public class CodecException extends IOException
 {
 }

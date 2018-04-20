@@ -1,16 +1,16 @@
 package com.lgsim.engine.graphEditor.api.graph;
 
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
 public interface IGraphDocumentFile
 {
-  @Nullable File getEntryFile();
+  @NotNull File getEntryFile();
 
 
-  @Nullable File getModelFile();
+  @NotNull File getModelFile();
 
 
-  @Nullable File getStyleFile();
+  @NotNull File getStyleFile();
 }

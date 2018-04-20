@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public interface IGraphEditor
@@ -38,7 +39,7 @@ public interface IGraphEditor
    *
    * @param document 要保存的图文档
    */
-  void saveOpenedGraphDocument(@NotNull IGraphDocument document);
+  void saveOpenedGraphDocument(@NotNull IGraphDocument document) throws IOException;
 
 
   /**
