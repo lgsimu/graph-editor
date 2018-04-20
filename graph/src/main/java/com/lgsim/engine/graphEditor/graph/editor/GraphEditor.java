@@ -4,6 +4,7 @@ import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
+import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
@@ -33,6 +34,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
 {
   private static final Logger log = LoggerFactory.getLogger(GraphEditor.class);
   private static final int defaultDividerSize = 1;
+  private final IGraphDocumentSpec spec;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
   private final EditorStatusBar statusBar = new EditorStatusBar(MessageBundleUtil.get("ready"))
@@ -52,8 +54,9 @@ public class GraphEditor extends JPanel implements IGraphEditor
   private transient int currentDocumentIndex;
 
 
-  public GraphEditor()
+  public GraphEditor(@NotNull IGraphDocumentSpec spec)
   {
+    this.spec = spec;
     loadStencils();
     loadDocuments();
     initUIComponents();
@@ -61,6 +64,12 @@ public class GraphEditor extends JPanel implements IGraphEditor
     installPaletteListeners();
     installOutlineListeners();
     installGraphComponentListeners();
+  }
+
+
+  public IGraphDocumentSpec getSpec()
+  {
+    return spec;
   }
 
 
