@@ -1,9 +1,9 @@
 package com.lgsim.engine.graphEditor.api.graph.impl;
 
-import com.lgsim.engine.graphEditor.api.exception.DecodeException;
-import com.lgsim.engine.graphEditor.api.exception.EncodeException;
 import com.lgsim.engine.graphEditor.api.graph.IGraphStyle;
 import com.lgsim.engine.graphEditor.api.graph.IGraphStyleCodec;
+import com.lgsim.engine.graphEditor.util.exception.DecodeException;
+import com.lgsim.engine.graphEditor.util.exception.EncodeException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
