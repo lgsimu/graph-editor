@@ -1,20 +1,25 @@
 package com.lgsim.engine.graphEditor.app;
 
 import com.bulenkov.darcula.DarculaLaf;
+import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
 import com.lgsim.engine.graphEditor.graph.editor.EditorMenuBar;
 import com.lgsim.engine.graphEditor.graph.editor.GraphEditor;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import com.lgsim.engine.graphEditor.util.ExceptionManager;
 import com.mxgraph.swing.util.mxSwingConstants;
 import com.mxgraph.util.mxConstants;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Application
+public class Application implements IGraphDocumentSpec
 {
+  private static final String corporationName = "LGSimulator";
+  private static final String artifactName = "GraphEditor";
+  private static final String version = "1.0";
   private static final Configuration CONFIGURATION =
-      new Configuration("LGSimulator", "GraphEditor", "1.0");
+      new Configuration(corporationName, artifactName, version);
 
 
   private Application()
@@ -23,7 +28,7 @@ public class Application
     mxConstants.W3C_SHADOWCOLOR = "#D3D3D3";
 
     JFrame frame = new JFrame();
-    GraphEditor editor = new GraphEditor();
+    GraphEditor editor = new GraphEditor(this);
     frame.setJMenuBar(new EditorMenuBar(editor));
     frame.getContentPane().add(editor);
     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -50,5 +55,26 @@ public class Application
         ExceptionManager.INSTANCE.dealWith(e);
       }
     });
+  }
+
+
+  @Override
+  public @NotNull String getImplementationTitle()
+  {
+    return artifactName;
+  }
+
+
+  @Override
+  public @NotNull String getImplementationVersion()
+  {
+    return version;
+  }
+
+
+  @Override
+  public @NotNull String getImplementationVendor()
+  {
+    return corporationName;
   }
 }
