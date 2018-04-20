@@ -12,10 +12,10 @@ import java.util.ArrayList;
 public class YhyTest {
     public static void main(String[] args) throws Exception {
 
-        /*ComponentsTest com = new ComponentsTest();
-        ArrayList<IVertexStencil> list = com.getPredefinedStencils();*/
+        ComponentsTest com = new ComponentsTest();
+        ArrayList<IVertexStencil> list = com.getPredefinedStencils();
 
-        Components coms = new Components();
+       /* Components coms = new Components();
         ArrayList<IVertexStencil> list1 = coms.getPredefinedStencils();
 
         WriteJson wr = new WriteJson();
@@ -26,12 +26,12 @@ public class YhyTest {
         Ptlos_111 ptlos_111 = new Ptlos_111();
 
         System.out.println(ptlos_111.getType());
-        System.out.println(ptlos_111.getArguments());
+        System.out.println(ptlos_111.getArguments());*/
 
-//        System.out.println(list);
+        System.out.println(list);
 //        System.out.println(list.size());
         System.out.println("---------------------------------");
-        System.out.println(list1);
+        //System.out.println(list1);
 
 
     }
