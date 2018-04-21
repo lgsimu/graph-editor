@@ -1,7 +1,6 @@
 package com.lgsim.engine.graphEditor.app;
 
 import com.lgsim.engine.graphEditor.api.IRegistry;
-import com.mxgraph.util.mxResources;
 
 public class ResourceRegistry implements IRegistry
 {
@@ -11,6 +10,5 @@ public class ResourceRegistry implements IRegistry
   @Override
   public void registerAll()
   {
-    mxResources.add("com/lgsim/engine/graphEditor/graph/messages");
   }
 }
