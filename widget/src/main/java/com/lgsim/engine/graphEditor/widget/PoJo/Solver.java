@@ -1,7 +1,12 @@
 package com.lgsim.engine.graphEditor.widget.PoJo;
 
+import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
+import com.lgsim.engine.graphEditor.api.data.IGraph;
+import com.lgsim.engine.graphEditor.api.data.IGraphCodec;
+import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.widget.Component.SolverOutputPanel;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,16 +34,25 @@ public class Solver {
         thread = new Thread() {
             public void run() {
                 File exeDir = environment.getExecutableFile();//获取求解器的目录
-                File inputFile = null;//获取文件的目录
-//                try {
-//                    inputFile = environment.getSolverInputFile();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-                String caseName = environment.getCaseName();//文件名称
+                String inputFile="";
+                try {
+                    IGraph graph = environment.getGraph();
+                    IGraphCodec codec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
+                    @NotNull byte[] encode = codec.encode(graph);
+                    File outFile = new File(Files.createTempDir(), "tmp.out");
+                    inputFile = outFile.getPath()+"/"+outFile.getName();
+                    Files.write(encode, outFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                }
+
+               // String caseName = environment.getCaseName();//文件名称
                 String cmdArgument = environment.getSolverCommandlineArguments();//获取命令
-                String exeCmd = "LGSAS " + inputFile.toString() + "/" + caseName + " " + cmdArgument;
+                String exeCmd = "LGSAS " + inputFile + "/" + " " + cmdArgument;
                 Runtime runtime = Runtime.getRuntime();
+
                 try {
                     process = runtime.exec("cmd /c " + exeCmd, null, exeDir);
                 } catch (IOException e) {

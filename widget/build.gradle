@@ -3,5 +3,6 @@ version '1.0-SNAPSHOT'
 dependencies {
     compile project(':api')
     compile project(':util')
+    compile group: 'com.google.guava', name: 'guava', version: '23.6-jre'
     compile group: 'org.mariuszgromada.math', name: 'MathParser.org-mXparser', version: '4.1.1'
 }
