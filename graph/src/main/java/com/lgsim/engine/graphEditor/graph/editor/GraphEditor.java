@@ -347,7 +347,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   @Override
   public IGraphDocument getCurrentGraphDocument()
   {
-    return null;
+    return getCurrentDocument();
   }
 
 
@@ -474,10 +474,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   public @NotNull File getExecutableFile()
   {
     // TODO: 从设置面板获取
-    File graph = new File(GraphEditor.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-    File widget = new File(graph.getParentFile(), "widget");
-    File exe = new File(widget, "exe");
-    return new File(exe, "LGSAS.exe");
+    return new File("C:\\lgsas\\LGSAS.exe");
   }
 
 

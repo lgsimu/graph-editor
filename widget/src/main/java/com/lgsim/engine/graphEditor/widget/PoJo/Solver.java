@@ -33,7 +33,8 @@ public class Solver {
         final int[] status = {0};
         thread = new Thread() {
             public void run() {
-                File exeDir = environment.getExecutableFile();//获取求解器的目录
+              File exeFile = environment.getExecutableFile();//获取求解器的目录
+              File exeDir = exeFile.getParentFile();
                 File outFile = null;
                 try {
                     IGraph graph = environment.getGraph();
