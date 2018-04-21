@@ -1,5 +1,6 @@
-version '1.0-SNAPSHOT'
+setVersion('1.0-SNAPSHOT')
 
 dependencies {
+    compile files("${rootDir}/lib/darcula.jar")
     compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
 }

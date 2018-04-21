@@ -1,10 +1,10 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
+import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentFileImpl;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentImpl;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleImpl;
-import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
 import com.mxgraph.swing.mxGraphComponent;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +28,7 @@ class GraphDocument extends GraphDocumentImpl
     final File file = getGraphDocumentFile().getEntryFile();
     if (file == null)
     {
-      return MessageBundleUtil.get("newDiagram") + (isModified() ? "*" : "");
+      return MessageBundle.get("newDiagram") + (isModified() ? "*" : "");
     }
     else
     {

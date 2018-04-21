@@ -1,10 +1,21 @@
 package com.lgsim.engine.graphEditor.api.graph;
 
+import com.lgsim.engine.graphEditor.api.IconBundle;
+import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
+
 public interface IGraphDocument
 {
+  String nameText = MessageBundle.get("graphDocument.name");
+
+  String saveText = MessageBundle.get("graphDocument.save");
+
+  Icon saveIcon = IconBundle.get("graphDocument.save");
+
+
   /**
    * 获取标题
    *

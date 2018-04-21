@@ -1,6 +1,7 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.google.common.io.Files;
+import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
@@ -10,9 +11,7 @@ import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleCodecImpl;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
-import com.lgsim.engine.graphEditor.graph.util.MessageBundleUtil;
 import com.lgsim.engine.graphEditor.util.JarUtil;
-import com.lgsim.engine.graphEditor.util.ResourceUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
@@ -45,7 +44,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
   private final IGraphDocumentSpec spec;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
-  private final EditorStatusBar statusBar = new EditorStatusBar(MessageBundleUtil.get("ready"))
+  private final EditorStatusBar statusBar = new EditorStatusBar(MessageBundle.get("ready"))
   {
     {
       setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
@@ -56,8 +55,8 @@ public class GraphEditor extends JPanel implements IGraphEditor
   private final JSplitPane westPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, libraryPane, graphOutline);
   private final JSplitPane centerPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, westPane, docTabbedPane);
   private final JSplitPane eastPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPane, vertexTable.getSwingComponent());
-  private final EditorPalette predefinedPalette = addPalette(MessageBundleUtil.get("predefined"));
-  private final EditorPalette userDefinedPalette = addPalette(MessageBundleUtil.get("userDefined"));
+  private final EditorPalette predefinedPalette = addPalette(MessageBundle.get("predefined"));
+  private final EditorPalette userDefinedPalette = addPalette(MessageBundle.get("userDefined"));
   private List<GraphDocument> graphDocuments = new Vector<>();
   private transient int currentDocumentIndex;
 
@@ -82,7 +81,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
 
   @NotNull
-  EditorPalette addPalette(@NotNull String title)
+  private EditorPalette addPalette(@NotNull String title)
   {
     final EditorPalette palette = new EditorPalette();
     final JScrollPane scrollPane = new JScrollPane(palette);
@@ -199,7 +198,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
           comp.zoomOut();
         }
         int scale = (int) (100 * comp.getGraph().getView().getScale());
-        String msg = MessageBundleUtil.get("scale", scale);
+        String msg = MessageBundle.get("scale", scale);
         status(msg);
       }
     });
@@ -286,34 +285,20 @@ public class GraphEditor extends JPanel implements IGraphEditor
   }
 
 
-  mxGraphOutline getGraphOutline()
-  {
-    return graphOutline;
-  }
-
-
   @NotNull
-  GraphDocument getCurrentDocument()
+  private GraphDocument getCurrentDocument()
   {
     return graphDocuments.get(currentDocumentIndex);
   }
 
 
-  Action bind(String name, final Action action)
-  {
-    return bind(name, action, null);
-  }
-
-
-  Action bind(String name, final Action action, String iconPath)
+  Action bind(@NotNull String name, @NotNull Action action, @NotNull Icon icon)
   {
     final mxGraphComponent graphComp = getCurrentDocument().getGraphComponent();
-    Icon icon = (iconPath == null) ? null : ResourceUtil.lookupImageIcon(iconPath);
     AbstractAction newAction = new AbstractAction(name, icon)
     {
       public void actionPerformed(ActionEvent e)
       {
-
         action.actionPerformed(new ActionEvent(graphComp, e.getID(), e.getActionCommand()));
       }
     };
@@ -325,7 +310,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
 
   @NotNull
-  mxGraphComponent getGraphComponent()
+  private mxGraphComponent getGraphComponent()
   {
     return getCurrentDocument().getGraphComponent();
   }
@@ -421,7 +406,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
   private void updateDocumentJarFile(@NotNull IGraphDocument document)
   {
-    log.debug("update document jar file");
+    log.debug("update document jar file, {}", document);
   }
 
 

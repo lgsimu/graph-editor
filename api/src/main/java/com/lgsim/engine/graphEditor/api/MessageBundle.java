@@ -1,18 +1,18 @@
-package com.lgsim.engine.graphEditor.graph.util;
+package com.lgsim.engine.graphEditor.api;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
-public class MessageBundleUtil
+public class MessageBundle
 {
-  private static final ResourceBundle MSG = ResourceBundle.getBundle("com/lgsim/engine/graphEditor/graph/messages");
+  private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("com/lgsim/engine/graphEditor/api/messages");
 
 
   public static String get(@NotNull String key, @NotNull Object... arguments)
   {
-    String val = MSG.getString(key);
+    String val = BUNDLE.getString(key);
     if (arguments.length == 0)
     {
       return val;
