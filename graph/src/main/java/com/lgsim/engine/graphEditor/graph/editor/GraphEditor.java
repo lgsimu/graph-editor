@@ -381,7 +381,8 @@ public class GraphEditor extends JPanel implements IGraphEditor
     createDocumentModelFile(document, temp);
     createDocumentStyleFile(document, temp);
     Manifest manifestFile = createManifest();
-    return JarUtil.pack(temp, jarFile, manifestFile);
+    JarUtil.pack(temp, jarFile, manifestFile);
+    return jarFile;
   }
 
 
