@@ -22,6 +22,7 @@ public class Component implements IVertexStencil {
     private List<Parameter> arguments;//输入参数
     private List<Parameter> outputs;//输出参数
     private ComponentArm componentArms;//元件端口
+    private List<String> armNodes = new ArrayList<String>();//端口集合
 
     public Component() {
         this.isPredefined = false;
@@ -32,6 +33,7 @@ public class Component implements IVertexStencil {
         this.arguments = new ArrayList<Parameter>();
         this.outputs = new ArrayList<Parameter>();
         this.componentArms = new ComponentArm();
+        this.armNodes.add(componentArms.getComponentArmNodeName());
     }
 
     public Component(Component component) {
@@ -143,5 +145,17 @@ public class Component implements IVertexStencil {
     @Override
     public @NotNull IVertexRestriction getRestriction() {
         return componentArms;
+    }
+
+    public String toString() {
+        return  //"{\"Component\":" +
+                "{" +
+                        "\"Name\":\"" + componentName + '\"' +
+                        ",\"Type\":\"" + componentType + '\"' +
+                        ",\"ArmNodes\":" + armNodes +
+                        ",\"Feature\":[{" + "\"Name\":\"" + arguments.get(0).getParameterIOType() + '\"' +
+                        ",\"Value\":" + arguments.get(0).getValues() + "}]" +
+                        //'}' +
+                        '}' ;
     }
 }
