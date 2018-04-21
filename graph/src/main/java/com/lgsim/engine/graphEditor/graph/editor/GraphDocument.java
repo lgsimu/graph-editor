@@ -8,8 +8,6 @@ import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleImpl;
 import com.mxgraph.swing.mxGraphComponent;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-
 class GraphDocument extends GraphDocumentImpl
 {
   private mxGraphComponent graphComponent;
@@ -25,15 +23,7 @@ class GraphDocument extends GraphDocumentImpl
   @Override
   public @NotNull String getTitle()
   {
-    final File file = getGraphDocumentFile().getEntryFile();
-    if (file == null)
-    {
-      return MessageBundle.get("newDiagram") + (isModified() ? "*" : "");
-    }
-    else
-    {
-      return file.getAbsolutePath();
-    }
+    return MessageBundle.get("graphDocument.newDocumentTitle") + (isModified() ? "*" : "");
   }
 
 

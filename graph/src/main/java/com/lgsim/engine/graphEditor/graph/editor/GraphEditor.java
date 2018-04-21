@@ -1,6 +1,7 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.google.common.io.Files;
+import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
@@ -44,7 +45,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
   private final IGraphDocumentSpec spec;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
-  private final EditorStatusBar statusBar = new EditorStatusBar(MessageBundle.get("ready"))
+  private final EditorStatusBar statusBar = new EditorStatusBar(IApplication.statusText)
   {
     {
       setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
@@ -55,8 +56,8 @@ public class GraphEditor extends JPanel implements IGraphEditor
   private final JSplitPane westPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, libraryPane, graphOutline);
   private final JSplitPane centerPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, westPane, docTabbedPane);
   private final JSplitPane eastPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPane, vertexTable.getSwingComponent());
-  private final EditorPalette predefinedPalette = addPalette(MessageBundle.get("predefined"));
-  private final EditorPalette userDefinedPalette = addPalette(MessageBundle.get("userDefined"));
+  private final EditorPalette predefinedPalette = addPalette(IVertexStencil.predefinedText);
+  private final EditorPalette userDefinedPalette = addPalette(IVertexStencil.userDefinedText);
   private List<GraphDocument> graphDocuments = new Vector<>();
   private transient int currentDocumentIndex;
 

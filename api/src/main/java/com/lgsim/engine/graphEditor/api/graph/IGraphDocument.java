@@ -13,6 +13,8 @@ public interface IGraphDocument
 
   String saveText = MessageBundle.get("graphDocument.save");
 
+  String newDocumentTitleText = MessageBundle.get("graphDocument.newDocumentTitle");
+
   Icon saveIcon = IconBundle.get("graphDocument.save");
 
 

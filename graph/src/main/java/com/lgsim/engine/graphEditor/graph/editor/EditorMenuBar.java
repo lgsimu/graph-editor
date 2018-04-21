@@ -1,7 +1,7 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
-import com.lgsim.engine.graphEditor.api.calc.ISolver;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
+import com.lgsim.engine.graphEditor.api.IconBundle;
+import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.graph.editor.action.DocumentSaveAction;
 import com.lgsim.engine.graphEditor.graph.editor.action.SolverCalcAction;
 import com.lgsim.engine.graphEditor.graph.editor.action.SolverSettingAction;
@@ -24,8 +24,8 @@ public class EditorMenuBar extends JMenuBar
 
   private void addFileMenu()
   {
-    JMenu doc = new JMenu(IGraphDocument.nameText);
-    Action save = editor.bind(IGraphDocument.saveText, new DocumentSaveAction(), IGraphDocument.saveIcon);
+    JMenu doc = new JMenu(MessageBundle.get("graphDocument.name"));
+    Action save = editor.bind(MessageBundle.get("graphDocument.save"), new DocumentSaveAction(), IconBundle.get("graphDocument.save"));
     doc.add(save);
     add(doc);
   }
@@ -33,9 +33,9 @@ public class EditorMenuBar extends JMenuBar
 
   private void addSolverMenu()
   {
-    JMenu solver = new JMenu(ISolver.nameText);
-    Action calc = editor.bind(ISolver.calcText, new SolverCalcAction(), ISolver.calcIcon);
-    Action settings = editor.bind(ISolver.settingsText, new SolverSettingAction(), ISolver.settingsIcon);
+    JMenu solver = new JMenu(MessageBundle.get("solver.name"));
+    Action calc = editor.bind(MessageBundle.get("solver.calc"), new SolverCalcAction(), IconBundle.get("solver.calc"));
+    Action settings = editor.bind(MessageBundle.get("solver.settings"), new SolverSettingAction(), IconBundle.get("solver.settings"));
     solver.add(calc);
     solver.add(settings);
     add(solver);

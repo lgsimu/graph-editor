@@ -1,7 +1,8 @@
 package com.lgsim.engine.graphEditor.app;
 
 import com.bulenkov.darcula.DarculaLaf;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
+import com.lgsim.engine.graphEditor.api.IApplication;
+import com.lgsim.engine.graphEditor.api.IconBundle;
 import com.lgsim.engine.graphEditor.graph.editor.EditorMenuBar;
 import com.lgsim.engine.graphEditor.graph.editor.GraphEditor;
 import com.lgsim.engine.graphEditor.util.Configuration;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 import java.awt.*;
 
-public class Application implements IGraphDocumentSpec
+public class Application implements IApplication
 {
   private static final String corporationName = "LGSimulator";
   private static final String artifactName = "GraphEditor";
@@ -41,6 +42,7 @@ public class Application implements IGraphDocumentSpec
 
   public static void main(String[] args)
   {
+    IconBundle.newInstance().registerAll();
     ResourceRegistry.INSTANCE.registerAll();
     ImplementationRegistry.INSTANCE.registerAll();
     CONFIGURATION.applyIfPossible();
