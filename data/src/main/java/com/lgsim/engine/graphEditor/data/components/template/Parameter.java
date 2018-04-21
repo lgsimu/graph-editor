@@ -5,6 +5,9 @@ import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 参数类
  */
@@ -17,6 +20,7 @@ public class Parameter implements IVertexArgument,IVertexOutput {
     private double parameterValue;//参数值，后期需要支持表达式
     private String parameterUnitID;//参数单位ID，从单位中获取
     private String parameterDescription;//参数备注
+    private List<Double> values = new ArrayList<Double>();//参数值集合
 
     public Parameter() {
         this.parameterName = "";
@@ -25,6 +29,15 @@ public class Parameter implements IVertexArgument,IVertexOutput {
         this.parameterValue = 0.0;
         this.parameterUnitID = "";
         this.parameterDescription = "";
+        this.values.add(parameterValue);
+    }
+
+    public List<Double> getValues() {
+        return values;
+    }
+
+    public void setValues(List<Double> values) {
+        this.values = values;
     }
 
     public String getParameterName() {

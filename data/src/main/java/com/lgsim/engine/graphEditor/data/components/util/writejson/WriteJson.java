@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by admin on 2018/4/14.
@@ -22,7 +23,7 @@ public class WriteJson {
      * @param path 生成json文件路径
      * @throws IOException
      */
-    public void writeJson(ArrayList<IVertexStencil> object,String path) throws IOException {
+    public void writeJson(List<IVertexStencil> object, String path) throws IOException {
 
         /*ArrayList<Ptlos> ptlos = new ArrayList<Ptlos>();
         ReadPtlosJson rptlos = new ReadPtlosJson();
@@ -46,7 +47,7 @@ public class WriteJson {
         String str3 = "}";
         String json = tool.formatJson(str1 + object.toString() + str2 + str3);
         //{"Component":
-        System.out.println(str1 + object.toString() + str2);
+        //System.out.println(str1 + object.toString() + str2);
         //将字符串转化成byte[]数组
         byte[] bjson = json.getBytes();
         //将byte数据写入文件

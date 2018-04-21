@@ -3,6 +3,7 @@ package com.lgsim.engine.graphEditor.data.components.impl;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.data.IGraphCodec;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
+import com.lgsim.engine.graphEditor.data.components.util.jsonformattool.JsonFormatTool;
 import com.lgsim.engine.graphEditor.util.exception.DecodeException;
 import com.lgsim.engine.graphEditor.util.exception.EncodeException;
 import org.jetbrains.annotations.NotNull;
@@ -16,16 +17,20 @@ import java.util.Collection;
 public class GraphCodecImpl implements IGraphCodec
 {
   @Override
-  public @NotNull byte[] encode(@NotNull IGraph graph) throws EncodeException
-  {
-    try
-    {
-      FileOutputStream fos = new FileOutputStream("graph.out");
-      ObjectOutputStream oos = new ObjectOutputStream(fos);
+  public @NotNull byte[] encode(@NotNull IGraph graph) throws EncodeException {
 
-      oos.writeObject(graph);
-      oos.close();
-      return null;
+      JsonFormatTool jsonFormatTool = new JsonFormatTool();
+      try {
+        FileOutputStream fos = new FileOutputStream("graph.out");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        String str = jsonFormatTool.formatJson(graph.toString());
+
+        byte[] bjson = str.getBytes();
+        oos.writeObject(bjson);
+        oos.close();
+
+      return bjson;
     }
     catch (Exception e)
     {
@@ -35,24 +40,17 @@ public class GraphCodecImpl implements IGraphCodec
 
 
   @Override
-  public @NotNull IGraph decode(@NotNull byte[] bytes) throws DecodeException
-  {
-    try
-    {
-      FileInputStream fis = new FileInputStream("graph.out");
-      ObjectInputStream ois = new ObjectInputStream(fis);
+  public @NotNull IGraph decode(@NotNull byte[] bytes) throws DecodeException {
 
-      bytes = (byte[]) ois.readObject();
-      ois.close();
+      IGraphImpl iGraph = new IGraphImpl();
+      try {
+          FileInputStream fis = new FileInputStream("graph.out");
+          ObjectInputStream ois = new ObjectInputStream(fis);
 
-      return new IGraph()
-      {
-        @Override
-        public Collection<IVertex> getAllVertexes()
-        {
-          return null;
-        }
-      };
+          bytes = (byte[]) ois.readObject();
+          ois.close();
+
+          return iGraph;
     }
     catch (Exception e)
     {

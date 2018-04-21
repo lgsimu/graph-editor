@@ -3,8 +3,13 @@ package com.lgsim.engine.graphEditor.data.components.template;
 
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +18,7 @@ import java.util.Map;
 public class Template implements IStencilContext {
 
     private List<IVertexStencil> componentsTemplates;//元件库模板
-    private Map<String,Component> allComponents;//使用的所有元件
+    private List<IVertexStencil> allComponents;//使用的所有元件
     private Map<String,Unit> units;
 
 
@@ -91,7 +96,125 @@ public class Template implements IStencilContext {
 
     @Override
     public @NotNull List<IVertexStencil> getUserDefinedStencils() {
-        return new ArrayList<IVertexStencil>();
+
+        allComponents = new ArrayList<IVertexStencil>();
+
+
+        //读取文件
+        String path = "";
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+
+        //将json文件转化为字符串
+        String jsonStr = null;
+
+        //System.out.println(jsonStr);
+        try {
+            jsonStr = IOUtils.toString(in);
+            //jsonStr = FileUtils.readFileToString(file, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //解析jsonStr
+        JSONObject jsonObject = JSONObject.fromObject(jsonStr);
+        JSONObject components = JSONObject.fromObject(jsonObject.get("Components"));
+        JSONArray coms = JSONArray.fromObject(components.get("Component"));
+
+
+        for (int i = 0;i < coms.size();i++) {
+            Component component = new Component();
+
+            JSONObject com = JSONObject.fromObject(coms.getJSONObject(i));
+            JSONArray results = JSONArray.fromObject(com.get("Result"));
+            for (int j = 0;j < results.size();j++) {
+                JSONObject res = JSONObject.fromObject(results.getJSONObject(j));
+
+                ArrayList<Parameter> parameters = new ArrayList<>();
+                Parameter parameter = new Parameter();
+
+                if(res.containsKey("AA1")) {
+                    parameter.setParameterValue(res.getDouble("AA1"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("AA2")) {
+                    parameter.setParameterValue(res.getDouble("AA2"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("M1")) {
+                    parameter.setParameterValue(res.getDouble("M1"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("M2")) {
+                    parameter.setParameterValue(res.getDouble("M2"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("TP1")) {
+                    parameter.setParameterValue(res.getDouble("TP1"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("TP2")) {
+                    parameter.setParameterValue(res.getDouble("TP2"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("TT1")) {
+                    parameter.setParameterValue(res.getDouble("TT1"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("TT2")) {
+                    parameter.setParameterValue(res.getDouble("TT2"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("SP1")) {
+                    parameter.setParameterValue(res.getDouble("SP1"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("SP2")) {
+                    parameter.setParameterValue(res.getDouble("SP2"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("ST1")) {
+                    parameter.setParameterValue(res.getDouble("ST1"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("ST2")) {
+                    parameter.setParameterValue(res.getDouble("ST2"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("MA1")) {
+                    parameter.setParameterValue(res.getDouble("MA1"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("MA2")) {
+                    parameter.setParameterValue(res.getDouble("MA2"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("V1")) {
+                    parameter.setParameterValue(res.getDouble("V1"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("V2")) {
+                    parameter.setParameterValue(res.getDouble("V2"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("DEN1")) {
+                    parameter.setParameterValue(res.getDouble("DEN1"));
+                    parameters.add(parameter);
+                }
+                if(res.containsKey("DEN2")) {
+                    parameter.setParameterValue(res.getDouble("DEN2"));
+                    parameters.add(parameter);
+                }
+
+                component.setArguments(parameters);
+            }
+
+            component.setComponentName(com.getString("Name"));
+            component.setComponentType(com.getString("Type"));
+
+            allComponents.add(component);
+        }
+
+        return allComponents;
     }
 
     @Override

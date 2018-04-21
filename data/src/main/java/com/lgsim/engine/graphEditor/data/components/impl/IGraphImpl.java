@@ -9,8 +9,11 @@ import java.util.Collection;
 public class IGraphImpl implements IGraph {
     @Override
     public Collection<IVertex> getAllVertexes() {
+
         IVertexImpl iVertexImpl = new IVertexImpl();
         Collection<IVertex> iVertices = new ArrayList<IVertex>();
+        iVertices.add(iVertexImpl);
+
         return iVertices;
     }
 }

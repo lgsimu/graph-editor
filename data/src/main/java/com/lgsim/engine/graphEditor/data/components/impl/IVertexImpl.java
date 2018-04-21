@@ -21,17 +21,15 @@ public class IVertexImpl implements IVertex {
     private List<IVertex> outputPorts = new ArrayList<IVertex>();//该接口输出的节点
     private boolean isCavity;//是否是腔节点
 
-    public IVertexImpl() {
-    }
 
-    public IVertexImpl(String iD, String typeID, ArrayList<IVertexArgument> arguments, ArrayList<IVertexOutput> outputs, List<IVertex> inputPorts, List<IVertex> onputPorts, boolean isCavity) {
-        this.ID = iD;
-        this.typeID = typeID;
-        this.arguments = arguments;
-        this.outputs = outputs;
-        this.inputPorts = inputPorts;
-        this.outputPorts = onputPorts;
-        this.isCavity = isCavity;
+    public IVertexImpl() {
+        this.ID = "";
+        this.typeID = "";
+        this.arguments = new ArrayList<IVertexArgument>();
+        this.outputs = new ArrayList<>();
+        this.inputPorts = new ArrayList<>();
+        this.outputPorts = new ArrayList<>();
+        this.isCavity = false;
     }
 
     public @NotNull String getID() {
