@@ -65,7 +65,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
   public GraphEditor(@NotNull IGraphDocumentSpec spec)
   {
     this.spec = spec;
-//    loadStencils();
+    loadStencils();
     loadDocuments();
     initUIComponents();
     installToolBar();
