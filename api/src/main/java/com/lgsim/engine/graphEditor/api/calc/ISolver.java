@@ -1,23 +1,15 @@
 package com.lgsim.engine.graphEditor.api.calc;
 
-import com.lgsim.engine.graphEditor.api.IconBundle;
-import com.lgsim.engine.graphEditor.api.MessageBundle;
+import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
+import com.lgsim.engine.graphEditor.util.exception.CalcException;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
+import java.util.List;
 
 public interface ISolver
 {
-  String nameText = MessageBundle.get("solver.name");
-
-  String calcText = MessageBundle.get("solver.calc");
-
-  String settingsText = MessageBundle.get("solver.settings");
-
-  Icon calcIcon = IconBundle.get("solver.calc");
-
-  Icon settingsIcon = IconBundle.get("solver.settings");
+  List<IVertexOutput> calc(@NotNull ISolverEnvironment environment) throws CalcException;
 
 
-  int calc(@NotNull ISolverEnvironment environment);
+  InvokeCalcExecutableResult invokeCalcExecutable(@NotNull ISolverEnvironment environment);
 }

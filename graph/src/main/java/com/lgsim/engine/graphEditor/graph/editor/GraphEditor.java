@@ -240,6 +240,7 @@ public class GraphEditor extends JPanel implements IGraphEditor
 
   private void renderVertexTable(@NotNull IVertex vertex)
   {
+    log.debug("render vertex {}", vertex);
     vertexTable.render(vertex);
   }
 
