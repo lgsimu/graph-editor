@@ -101,7 +101,7 @@ public class Template implements IStencilContext {
 
 
         //读取文件
-        String path = "";
+        String path = "com/lgsim/engine/graphEditor/data/simpleCase.inp";
         InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 
         //将json文件转化为字符串
