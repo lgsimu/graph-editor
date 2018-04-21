@@ -1,15 +1,20 @@
 package com.lgsim.engine.graphEditor.api.calc;
 
-import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
+import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.util.exception.CalcException;
 import com.lgsim.engine.graphEditor.util.exception.InvokeExecutableException;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 public interface ISolver
 {
-  List<IVertexOutput> calc(@NotNull ISolverEnvironment environment) throws CalcException;
+  /**
+   * 计算
+   *
+   * @param environment
+   * @return
+   * @throws CalcException
+   */
+  @NotNull IGraph calc(@NotNull ISolverEnvironment environment) throws CalcException;
 
 
   /**
@@ -19,5 +24,5 @@ public interface ISolver
    * @return 执行结果
    * @throws InvokeExecutableException 如果调用中出现异常
    */
-  InvokeCalcExecutableResult invokeCalcExecutable(@NotNull ISolverEnvironment environment) throws InvokeExecutableException;
+  @NotNull InvokeCalcExecutableResult invokeCalcExecutable(@NotNull ISolverEnvironment environment) throws InvokeExecutableException;
 }

@@ -29,11 +29,11 @@ public class Solver {
             public void run() {
                 File exeDir = environment.getExecutableFile();//获取求解器的目录
                 File inputFile = null;//获取文件的目录
-                try {
-                    inputFile = environment.getSolverInputFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    inputFile = environment.getSolverInputFile();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 String caseName = environment.getCaseName();//文件名称
                 String cmdArgument = environment.getSolverCommandlineArguments();//获取命令
                 String exeCmd = "LGSAS " + inputFile.toString() + "/" + caseName + " " + cmdArgument;

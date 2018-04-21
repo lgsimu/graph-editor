@@ -4,7 +4,7 @@ import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
-import com.lgsim.engine.graphEditor.api.data.IGraphCodec;
+import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
@@ -458,21 +458,16 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
 
 
   @Override
-  public @NotNull File getSolverInputFile() throws IOException
+  public @Nullable IGraph getGraph()
   {
-    final IGraphDocument document = getCurrentGraphDocument();
+    IGraphDocument document = getCurrentGraphDocument();
     if (document == null)
     {
-      log.debug("document is null");
-      throw new IOException();
+      return null;
     }
     else
     {
-      IGraphCodec codec = ImplementationContext.INSTANCE.getGraphCodec();
-      byte[] output = codec.encode(document.getGraph());
-      File outFile = new File(Files.createTempDir(), "out");
-      Files.write(output, outFile);
-      return outFile;
+      return document.getGraph();
     }
   }
 

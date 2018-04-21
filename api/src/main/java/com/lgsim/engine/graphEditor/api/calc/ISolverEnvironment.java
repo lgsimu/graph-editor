@@ -1,9 +1,10 @@
 package com.lgsim.engine.graphEditor.api.calc;
 
+import com.lgsim.engine.graphEditor.api.data.IGraph;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * 求解器执行环境
@@ -19,11 +20,11 @@ public interface ISolverEnvironment
 
 
   /**
-   * 获取求解器输入文件
+   * 获取要计算的图
    *
-   * @return 输入文件
+   * @return 图，如果没有，返回{@code null}
    */
-  @NotNull File getSolverInputFile() throws IOException;
+  @Nullable IGraph getGraph();
 
 
   /**
