@@ -1,16 +1,18 @@
 package com.lgsim.engine.graphEditor.util;
 
+import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 
 public class JarUtil
 {
+  private static final int BUFF_SIZE = 2048;
+
+
   /**
    * 打包jar包
    *
@@ -32,9 +34,7 @@ public class JarUtil
   {
     if (maybeDir.isDirectory())
     {
-      JarEntry entry = createJarEntry(maybeDir);
-      target.putNextEntry(entry);
-      target.closeEntry();
+      putEntry(maybeDir, target, true);
       File[] files = maybeDir.listFiles();
       if (files != null)
       {
@@ -46,26 +46,53 @@ public class JarUtil
     }
     else
     {
-
+      try (BufferedInputStream in = IOUtils.buffer(new FileInputStream(maybeDir)))
+      {
+        byte[] buff = new byte[BUFF_SIZE];
+        int offset = 0;
+        while (in.available() != 0)
+        {
+          int count = in.read(buff, offset, buff.length);
+          target.write(buff, offset, count);
+          offset += count;
+        }
+        createJarEntry(maybeDir, false);
+        target.closeEntry();
+      }
     }
   }
 
 
-  private static @NotNull JarEntry createJarEntry(@NotNull File src)
+  private static void putEntry(@NotNull File file, @NotNull JarOutputStream target, boolean dir) throws IOException
   {
-    String path = createEntryPath(src);
+    JarEntry entry = createJarEntry(file, dir);
+    target.putNextEntry(entry);
+    target.closeEntry();
+  }
+
+
+  private static @NotNull JarEntry createJarEntry(@NotNull File src, boolean dir)
+  {
+    String path = createEntryPath(src, dir);
     JarEntry entry = new JarEntry(path);
     entry.setTime(src.lastModified());
     return entry;
   }
 
 
-  private static @NotNull String createEntryPath(@NotNull File src)
+  private static @NotNull String createEntryPath(@NotNull File src, boolean dir)
   {
     String name = src.getPath().replace("\\", "/");
-    if (!name.endsWith("/"))
+    if (dir)
     {
-      return name + "/";
+      if (!name.endsWith("/"))
+      {
+        return name + "/";
+      }
+      else
+      {
+        return name;
+      }
     }
     else
     {
