@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
+import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
@@ -26,10 +27,18 @@ public class JarUtil
    */
   public static void pack(@NotNull File dir, @NotNull File jarFile, @NotNull Manifest manifest) throws IOException
   {
+    supplementManifest(manifest);
     try (JarOutputStream os = new JarOutputStream(new FileOutputStream(jarFile), manifest))
     {
       pack0(dir, os, null);
     }
+  }
+
+
+  private static void supplementManifest(@NotNull Manifest manifest)
+  {
+    manifest.getMainAttributes().putIfAbsent(Attributes.Name.MANIFEST_VERSION, "1.0");
+    manifest.getMainAttributes().putIfAbsent(new Attributes.Name("Created-By"), System.getProperty("user.name"));
   }
 
 

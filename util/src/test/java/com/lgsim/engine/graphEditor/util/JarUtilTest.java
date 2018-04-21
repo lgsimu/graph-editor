@@ -33,7 +33,7 @@ public class JarUtilTest
     {
       File testJar = new File(testDir, "test.jar");
       Manifest manifest = new Manifest();
-      manifest.getMainAttributes().put(Attributes.Name.IMPLEMENTATION_VENDOR, "lgsim");
+      manifest.getMainAttributes().put(Attributes.Name.IMPLEMENTATION_VENDOR, "LGSIM");
       JarUtil.pack(comDir, testJar, manifest);
     }
   }
