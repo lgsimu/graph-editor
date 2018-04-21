@@ -34,7 +34,7 @@ public class EditorMenuBar extends JMenuBar
   private void addSolverMenu()
   {
     JMenu solver = new JMenu(MessageBundle.get("solver.name"));
-    Action calc = editor.bind(MessageBundle.get("solver.calc"), new SolverCalcAction(editor), IconBundle.get("solver.calc"));
+    Action calc = editor.bind(MessageBundle.get("solver.calc"), new SolverCalcAction(editor, editor), IconBundle.get("solver.calc"));
     Action settings = editor.bind(MessageBundle.get("solver.settings"), new SolverSettingAction(), IconBundle.get("solver.settings"));
     solver.add(calc);
     solver.add(settings);

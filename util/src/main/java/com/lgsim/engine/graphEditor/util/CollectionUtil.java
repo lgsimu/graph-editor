@@ -20,4 +20,12 @@ public class CollectionUtil
     }
     return output;
   }
+
+
+  @SuppressWarnings("unchecked")
+  public static <T extends Serializable> T clone(@NotNull T t)
+  {
+    Object clone = SerializationUtils.clone(t);
+    return (T) clone;
+  }
 }

@@ -1,5 +1,6 @@
 package com.lgsim.engine.graphEditor.api.graph;
 
+import com.lgsim.engine.graphEditor.api.data.IVertex;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,4 +58,20 @@ public interface IGraphEditor
    * @return 如果被测试文件是图文档文件，返回{@code true}，否则返回{code false}
    */
   boolean isGraphDocumentFile(@NotNull File file);
+
+
+  /**
+   * 绘制节点
+   *
+   * @param vertex 节点
+   */
+  void renderVertex(@NotNull IVertex vertex);
+
+
+  /**
+   * 获取当前选中的节点
+   *
+   * @return 选中的节点，如果没有选中，返回{@code null}
+   */
+  @Nullable IVertex getCurrentVertex();
 }

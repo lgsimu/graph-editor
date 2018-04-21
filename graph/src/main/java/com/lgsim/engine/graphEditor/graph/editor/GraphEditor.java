@@ -432,6 +432,21 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
 
 
   @Override
+  public void renderVertex(@NotNull IVertex vertex)
+  {
+    vertexTable.render(vertex);
+  }
+
+
+  @Override
+  public @Nullable IVertex getCurrentVertex()
+  {
+    // TODO: 获取当前节点
+    return null;
+  }
+
+
+  @Override
   public @NotNull File getExecutableFile()
   {
     // TODO: 从设置面板获取
