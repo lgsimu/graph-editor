@@ -1,6 +1,7 @@
 package com.lgsim.engine.graphEditor.app;
 
 import com.lgsim.engine.graphEditor.api.IRegistry;
+import com.lgsim.engine.graphEditor.api.calc.ISolver;
 import com.lgsim.engine.graphEditor.api.data.*;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
 import com.lgsim.engine.graphEditor.api.widget.console.IConsole;
@@ -12,6 +13,7 @@ import com.lgsim.engine.graphEditor.data.components.template.ComponentArm;
 import com.lgsim.engine.graphEditor.data.components.template.Parameter;
 import com.lgsim.engine.graphEditor.data.components.template.Template;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
+import com.lgsim.engine.graphEditor.widget.IWidegtImp.ISolverImp;
 import com.lgsim.engine.graphEditor.widget.IWidegtImp.SolverPanelImp;
 import com.lgsim.engine.graphEditor.widget.IWidegtImp.TablePanelImp;
 
@@ -39,5 +41,6 @@ class ImplementationRegistry implements IRegistry
     ImplementationUtil.put(IVertexStencil.class, Component.class);
     ImplementationUtil.put(IVertexTable.class, TablePanelImp.class);
     ImplementationUtil.put(IConsole.class, SolverPanelImp.class);
+    ImplementationUtil.put(ISolver.class, ISolverImp.class);
   }
 }
