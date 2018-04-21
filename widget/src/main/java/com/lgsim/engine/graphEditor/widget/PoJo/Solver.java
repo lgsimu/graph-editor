@@ -34,13 +34,12 @@ public class Solver {
         thread = new Thread() {
             public void run() {
                 File exeDir = environment.getExecutableFile();//获取求解器的目录
-                String inputFile="";
+                File outFile = null;
                 try {
                     IGraph graph = environment.getGraph();
                     IGraphCodec codec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
                     @NotNull byte[] encode = codec.encode(graph);
-                    File outFile = new File(Files.createTempDir(), "tmp.out");
-                    inputFile = outFile.getPath()+"/"+outFile.getName();
+                    outFile= new File(Files.createTempDir(), "tmp.out");
                     Files.write(encode, outFile);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -50,7 +49,7 @@ public class Solver {
 
                // String caseName = environment.getCaseName();//文件名称
                 String cmdArgument = environment.getSolverCommandlineArguments();//获取命令
-                String exeCmd = "LGSAS " + inputFile + "/" + " " + cmdArgument;
+                String exeCmd = "LGSAS " + outFile.toString() + " " + cmdArgument;
                 Runtime runtime = Runtime.getRuntime();
 
                 try {
