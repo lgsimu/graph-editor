@@ -2,6 +2,7 @@ package com.lgsim.engine.graphEditor.util;
 
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.util.jar.JarEntry;
@@ -11,6 +12,7 @@ import java.util.jar.Manifest;
 public class JarUtil
 {
   private static final int BUFF_SIZE = 2048;
+  private static final String sep = "/";
 
 
   /**
@@ -26,29 +28,29 @@ public class JarUtil
   {
     try (JarOutputStream os = new JarOutputStream(new FileOutputStream(jarFile), manifest))
     {
-      pack0(dir, os);
+      pack0(dir, os, null);
     }
   }
 
 
-  private static void pack0(@NotNull File maybeDir, @NotNull JarOutputStream target) throws IOException
+  private static void pack0(@NotNull File maybeDir, @NotNull JarOutputStream target, @Nullable String root) throws IOException
   {
     if (maybeDir.isDirectory())
     {
-      putEntry(maybeDir, target, true);
+      String path = putEntry(maybeDir, target, true, root);
       target.closeEntry();
       File[] files = maybeDir.listFiles();
       if (files != null)
       {
         for (File file : files)
         {
-          pack0(file, target);
+          pack0(file, target, path);
         }
       }
     }
     else
     {
-      putEntry(maybeDir, target, false);
+      putEntry(maybeDir, target, false, root);
       try (BufferedInputStream in = IOUtils.buffer(new FileInputStream(maybeDir)))
       {
         byte[] buff = new byte[BUFF_SIZE];
@@ -65,39 +67,44 @@ public class JarUtil
   }
 
 
-  private static void putEntry(@NotNull File file, @NotNull JarOutputStream target, boolean dir) throws IOException
+  private static String putEntry(@NotNull File file, @NotNull JarOutputStream target,
+                                 boolean dir, @Nullable String root) throws IOException
   {
-    JarEntry entry = createJarEntry(file, dir);
-    target.putNextEntry(entry);
-  }
-
-
-  private static @NotNull JarEntry createJarEntry(@NotNull File src, boolean dir)
-  {
-    String path = createEntryPath(src, dir);
+    String path = createEntryPath(file, dir, root);
     JarEntry entry = new JarEntry(path);
-    entry.setTime(src.lastModified());
-    return entry;
+    entry.setTime(file.lastModified());
+    target.putNextEntry(entry);
+    return path;
   }
 
 
-  private static @NotNull String createEntryPath(@NotNull File src, boolean dir)
+  private static @NotNull String createEntryPath(@NotNull File src, boolean dir, @Nullable String root)
   {
-    String name = src.getPath().replace("\\", "/");
-    if (dir)
+    String name = src.getName();
+    if (dir && (!name.endsWith(sep)))
     {
-      if (!name.endsWith("/"))
-      {
-        return name + "/";
-      }
-      else
-      {
-        return name;
-      }
+      name += sep;
+    }
+    return concatPath(root, name);
+  }
+
+
+  private static String concatPath(@Nullable String root, @NotNull String name)
+  {
+    if (root == null)
+    {
+      return name;
     }
     else
     {
-      return name;
+      if (root.endsWith(sep))
+      {
+        return root + name;
+      }
+      else
+      {
+        return root + sep + name;
+      }
     }
   }
 
