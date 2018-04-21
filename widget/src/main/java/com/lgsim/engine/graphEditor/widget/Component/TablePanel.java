@@ -62,9 +62,6 @@ public class TablePanel extends JPanel {
         setTextListener();
         setTableContent(vector, rowContent, comboBoxLen);
 
-
-       //boolean flag = true;
-
        if(false) {
            if (rowContent != null && lenList.contains(rowContent.getUnit())) {
                 unitLen = new ArrayList<>();

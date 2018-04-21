@@ -19,5 +19,4 @@ public class SolverPanelImp implements IConsole {
         return new SolverOutputPanel();
     }
 
-
 }
