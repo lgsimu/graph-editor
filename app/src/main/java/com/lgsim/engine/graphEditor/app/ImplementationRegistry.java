@@ -5,6 +5,7 @@ import com.lgsim.engine.graphEditor.api.data.*;
 import com.lgsim.engine.graphEditor.api.widget.console.IConsole;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.data.components.impl.GraphCodecImpl;
+import com.lgsim.engine.graphEditor.data.components.impl.IGraphImpl;
 import com.lgsim.engine.graphEditor.data.components.impl.IVertexImpl;
 import com.lgsim.engine.graphEditor.data.components.template.Component;
 import com.lgsim.engine.graphEditor.data.components.template.ComponentArm;
@@ -23,7 +24,8 @@ class ImplementationRegistry implements IRegistry
   @Override
   public void registerAll()
   {
-    ImplementationUtil.put(IGraph.class, EditorGraph.class);
+    //ImplementationUtil.put(IGraph.class, EditorGraph.class);
+    ImplementationUtil.put(IGraph.class, IGraphImpl.class);
     ImplementationUtil.put(IGraphCodec.class, GraphCodecImpl.class);
     //ImplementationUtil.put(IStencilContext.class, ComponentsTest.class);
     ImplementationUtil.put(IStencilContext.class, Template.class);
