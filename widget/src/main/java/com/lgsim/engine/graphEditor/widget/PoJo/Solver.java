@@ -24,7 +24,8 @@ public class Solver {
         outputPanel.add(scrollPane);
     }
 
-    public void executeCmd(ISolverEnvironment environment) {
+    public int executeCmd(ISolverEnvironment environment) {
+        final int[] status = {0};
         thread = new Thread() {
             public void run() {
                 File exeDir = environment.getExecutableFile();//获取求解器的目录
@@ -41,7 +42,8 @@ public class Solver {
                 try {
                     process = runtime.exec("cmd /c " + exeCmd, null, exeDir);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    status[0] = 1;
+                  e.printStackTrace();
                 }
                 BufferedReader br = null;
                 setAreaText();//设置需要输出的面板
@@ -52,13 +54,16 @@ public class Solver {
                         textArea.append(line + "\r\n");
                     }
                 } catch (UnsupportedEncodingException e) {
+                    status[0] = 1;
                     e.printStackTrace();
                 } catch (IOException e) {
+                    status[0] = 1;
                     e.printStackTrace();
                 }
             }
         };
         thread.start();
+        return status[0];
     }
 }
 
