@@ -14,12 +14,13 @@ public class JarUtil
 
 
   /**
-   * 打包jar包
+   * 打包jar
    *
    * @param dir      要打包的目录，不包含该目录本身
-   * @param jarFile  要生成的jar包文件
+   * @param jarFile  要生成的jar文件
    * @param manifest 清单
-   * @throws IOException 如果jar包文件未找到，或I/O异常
+   * @throws IOException               如果jar文件未找到，或I/O异常
+   * @throws IndexOutOfBoundsException 要生成的jar文件不能在要打包的目录中
    */
   public static void pack(@NotNull File dir, @NotNull File jarFile, @NotNull Manifest manifest) throws IOException
   {
@@ -35,6 +36,7 @@ public class JarUtil
     if (maybeDir.isDirectory())
     {
       putEntry(maybeDir, target, true);
+      target.closeEntry();
       File[] files = maybeDir.listFiles();
       if (files != null)
       {
@@ -46,6 +48,7 @@ public class JarUtil
     }
     else
     {
+      putEntry(maybeDir, target, false);
       try (BufferedInputStream in = IOUtils.buffer(new FileInputStream(maybeDir)))
       {
         byte[] buff = new byte[BUFF_SIZE];
@@ -56,7 +59,6 @@ public class JarUtil
           target.write(buff, offset, count);
           offset += count;
         }
-        createJarEntry(maybeDir, false);
         target.closeEntry();
       }
     }
@@ -67,7 +69,6 @@ public class JarUtil
   {
     JarEntry entry = createJarEntry(file, dir);
     target.putNextEntry(entry);
-    target.closeEntry();
   }
 
 
@@ -102,9 +103,9 @@ public class JarUtil
 
 
   /**
-   * 解压jar包至目标目录
+   * 解压jar至目标目录
    *
-   * @param jarFile jar包文件
+   * @param jarFile jar文件
    * @param target  目标目录
    */
   public static void unpack(@NotNull File jarFile, @NotNull File target)
