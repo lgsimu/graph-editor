@@ -12,10 +12,7 @@ public class TablePanelImp implements IVertexTable
   private TablePanel tablePanel = new TablePanel();
 
 
-  public TablePanelImp()
-  {
-  }
-
+  public TablePanelImp() {}
 
   @Override
   public JComponent getSwingComponent()
