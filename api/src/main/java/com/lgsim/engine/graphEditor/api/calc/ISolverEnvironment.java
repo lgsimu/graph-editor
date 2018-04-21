@@ -3,6 +3,7 @@ package com.lgsim.engine.graphEditor.api.calc;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * 求解器执行环境
@@ -22,7 +23,7 @@ public interface ISolverEnvironment
    *
    * @return 输入文件
    */
-  @NotNull File getSolverInputFile();
+  @NotNull File getSolverInputFile() throws IOException;
 
 
   /**

@@ -24,7 +24,7 @@ public class ImplementationContext
       stencilContext = ImplementationUtil.getInstanceOf(IStencilContext.class);
       vertexTable = ImplementationUtil.getInstanceOf(IVertexTable.class);
       graphCodec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
-//      solver = ImplementationUtil.getInstanceOf(ISolver.class);
+      solver = ImplementationUtil.getInstanceOf(ISolver.class);
     }
     catch (InstantiationException e)
     {

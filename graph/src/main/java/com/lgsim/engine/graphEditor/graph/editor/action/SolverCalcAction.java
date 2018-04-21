@@ -1,7 +1,11 @@
 package com.lgsim.engine.graphEditor.graph.editor.action;
 
+import com.lgsim.engine.graphEditor.api.calc.ISolver;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.api.calc.impl.SolverEnvironmentImpl;
+import com.lgsim.engine.graphEditor.graph.ImplementationContext;
+import com.lgsim.engine.graphEditor.util.ExceptionManager;
+import com.lgsim.engine.graphEditor.util.exception.CalcException;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +20,19 @@ public class SolverCalcAction extends AbstractAction
 
 
   @Override
-  public void actionPerformed(ActionEvent e)
+  public void actionPerformed(ActionEvent evt)
   {
     log.debug("perform solver calc action");
-//    ISolver solver = ImplementationContext.INSTANCE.getSolver();
-//    ISolverEnvironment env = createSolverEnv();
-//    int status = solver.calc(env);
-//    log.debug("calc status {}", status);
+    ISolver solver = ImplementationContext.INSTANCE.getSolver();
+    ISolverEnvironment env = createSolverEnv();
+    try
+    {
+      solver.calc(env);
+    }
+    catch (CalcException e)
+    {
+      ExceptionManager.INSTANCE.dealWith(e);
+    }
   }
 
 

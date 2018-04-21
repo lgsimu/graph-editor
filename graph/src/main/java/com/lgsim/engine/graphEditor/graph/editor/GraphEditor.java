@@ -3,6 +3,8 @@ package com.lgsim.engine.graphEditor.graph.editor;
 import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
+import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
+import com.lgsim.engine.graphEditor.api.data.IGraphCodec;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
@@ -36,7 +38,7 @@ import java.util.Vector;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
-public class GraphEditor extends JPanel implements IGraphEditor
+public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironment
 {
   private static final Logger log = LoggerFactory.getLogger(GraphEditor.class);
   private static final String modelFileName = "model";
@@ -426,5 +428,59 @@ public class GraphEditor extends JPanel implements IGraphEditor
   public boolean isGraphDocumentFile(@NotNull File file)
   {
     return false;
+  }
+
+
+  @Override
+  public @NotNull File getExecutableFile()
+  {
+    // TODO: 从设置面板获取
+    File graph = new File(GraphEditor.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+    File widget = new File(graph.getParentFile(), "widget");
+    File exe = new File(widget, "exe");
+    return new File(exe, "LGSAS.exe");
+  }
+
+
+  @Override
+  public @NotNull File getSolverInputFile() throws IOException
+  {
+    final IGraphDocument document = getCurrentGraphDocument();
+    if (document == null)
+    {
+      log.debug("document is null");
+      throw new IOException();
+    }
+    else
+    {
+      IGraphCodec codec = ImplementationContext.INSTANCE.getGraphCodec();
+      byte[] output = codec.encode(document.getGraph());
+      File outFile = new File(Files.createTempDir(), "out");
+      Files.write(output, outFile);
+      return outFile;
+    }
+  }
+
+
+  @Override
+  public @NotNull String getCaseName()
+  {
+    final IGraphDocument document = getCurrentGraphDocument();
+    if (document == null)
+    {
+      return "<empty>";
+    }
+    else
+    {
+      return document.getTitle();
+    }
+  }
+
+
+  @Override
+  public @NotNull String getSolverCommandlineArguments()
+  {
+    // TODO: 从设置面板获取
+    return "";
   }
 }
