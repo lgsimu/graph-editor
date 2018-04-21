@@ -3,6 +3,7 @@ package com.lgsim.engine.graphEditor.graph.editor.action;
 import com.lgsim.engine.graphEditor.api.calc.ISolver;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
+import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.util.ExceptionManager;
@@ -35,8 +36,12 @@ public class SolverCalcAction extends AbstractAction
     ISolver solver = ImplementationContext.INSTANCE.getSolver();
     try
     {
-//      TODO:
       IGraph graph = solver.calc(env);
+      IGraphDocument document = editor.getCurrentGraphDocument();
+      if (document != null)
+      {
+        document.setGraph(graph);
+      }
     }
     catch (CalcException e)
     {

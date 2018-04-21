@@ -8,11 +8,11 @@ import org.jetbrains.annotations.NotNull;
 public interface ISolver
 {
   /**
-   * 计算
+   * 计算当前图
    *
-   * @param environment
-   * @return
-   * @throws CalcException
+   * @param environment 计算环境
+   * @return 携带节点输出的图
+   * @throws CalcException 如果计算中出现异常
    */
   @NotNull IGraph calc(@NotNull ISolverEnvironment environment) throws CalcException;
 

@@ -70,7 +70,7 @@ public class GraphDocumentImpl implements IGraphDocument
   }
 
 
-  public void setGraph(IGraph graph)
+  public void setGraph(@NotNull IGraph graph)
   {
     this.graph = graph;
   }
