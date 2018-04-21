@@ -33,6 +33,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 import java.util.jar.Attributes;
@@ -225,6 +226,15 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
             if (cell.getValue() instanceof IVertex)
             {
               IVertex vertex = (IVertex) cell.getValue();
+              final IGraph graph = getGraph();
+              if (graph != null)
+              {
+                IVertex peer = lookupPeerVertex(vertex, graph);
+                if (peer != null)
+                {
+                  vertex.setOutputs(peer.getOutputs());
+                }
+              }
               renderVertexTable(vertex);
             }
             log.debug("load cell data to table");
@@ -237,6 +247,20 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
       docTabbedPane.setTitleAt(currentDocumentIndex, getCurrentDocument().getTitle());
       log.debug("document {} changed", currentDocumentIndex);
     });
+  }
+
+
+  private @Nullable IVertex lookupPeerVertex(@NotNull IVertex vertex, @NotNull IGraph graph)
+  {
+    Collection<IVertex> vertexes = graph.getAllVertexes();
+    for (IVertex v : vertexes)
+    {
+      if (v.getID().equals(vertex.getID()))
+      {
+        return v;
+      }
+    }
+    return null;
   }
 
 

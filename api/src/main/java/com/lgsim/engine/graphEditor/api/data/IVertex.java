@@ -35,6 +35,9 @@ public interface IVertex extends Serializable
   List<IVertexOutput> getOutputs();
 
 
+  void setOutputs(@NotNull List<IVertexOutput> outputs);
+
+
   /**
    * 输入到该节点的节点
    */
