@@ -24,7 +24,7 @@ public class TablePanel extends JPanel {
     JScrollPane scrollPane;
     static JTable table;
     JComboBox comboBoxLen, comboBoxArea, comboBoxPa, comboBoxTem, comboBoxSwirl;
-    List<Unit> unitLen, unitArea, unitPa, unitTem, unitSwirl;
+    List<Unit> unitLen,unitLen2, unitArea, unitPa, unitTem, unitSwirl;
     private static List<TableCellEditor> editors = new ArrayList<>();
     private static List<TableCellEditor> editor2 = new ArrayList<>();
     JTextField textField = new JTextField();
@@ -54,63 +54,78 @@ public class TablePanel extends JPanel {
     public Vector setComboBoxCell(Vector vector, IVertexArgument rowContent) {
         String[] lenUnit = {"m", "dm", "cm", "mm"};
         List lenList = Arrays.asList(lenUnit);
-        if (rowContent != null && lenList.contains(rowContent.getUnit())) {
-            unitLen = new ArrayList<>();
-            unitLen.add(new Unit("m", 1.0));
-            unitLen.add(new Unit("mm", 0.001));
-            comboBoxLen = new JComboBox(setComboBoxArray(unitLen));
-            setListener(comboBoxLen);
-            setTextListener();
-            setTableContent(vector, rowContent, comboBoxLen);
-        }
-
-        String[] areaUnit = {"m2", "dm2", "cm2", "mm2"};
-        List areaList = Arrays.asList(areaUnit);
-        if (rowContent != null && areaList.contains(rowContent.getUnit())) {
-            unitArea = new ArrayList<>();
-            unitArea.add(new Unit("m2", 1.0));
-            unitArea.add(new Unit("mm2", 0.001 * 0.001));
-            comboBoxArea = new JComboBox(setComboBoxArray(unitArea));
-            setListener(comboBoxArea);
-            setTextListener();
-            setTableContent(vector, rowContent, comboBoxArea);
-        }
+        unitLen2 = new ArrayList<>();
+        unitLen2.add(new Unit("m", 1.0));
+        unitLen2.add(new Unit("mm", 0.001));
+        comboBoxLen = new JComboBox(setComboBoxArray(unitLen2));
+        setListener(comboBoxLen);
+        setTextListener();
+        setTableContent(vector, rowContent, comboBoxLen);
 
 
-        String[] paUnit = {"Pa", "Bar"};
-        List paList = Arrays.asList(paUnit);
-        if (rowContent != null && paList.contains(rowContent.getUnit())) {
-            unitPa = new ArrayList<>();
-            unitPa.add(new Unit("Pa", 1.0));
-            unitPa.add(new Unit("Bar", 100 * 100));
-            comboBoxPa = new JComboBox(setComboBoxArray(unitPa));
-            setListener(comboBoxPa);
-            setTextListener();
-            setTableContent(vector, rowContent, comboBoxPa);
+       //boolean flag = true;
+
+       if(false) {
+           if (rowContent != null && lenList.contains(rowContent.getUnit())) {
+                unitLen = new ArrayList<>();
+                unitLen.add(new Unit("m", 1.0));
+                unitLen.add(new Unit("mm", 0.001));
+                comboBoxLen = new JComboBox(setComboBoxArray(unitLen));
+                setListener(comboBoxLen);
+                setTextListener();
+                setTableContent(vector, rowContent, comboBoxLen);
+            }
+
+            String[] areaUnit = {"m2", "dm2", "cm2", "mm2"};
+            List areaList = Arrays.asList(areaUnit);
+            if (rowContent != null && areaList.contains(rowContent.getUnit())) {
+                unitArea = new ArrayList<>();
+                unitArea.add(new Unit("m2", 1.0));
+                unitArea.add(new Unit("mm2", 0.001 * 0.001));
+                comboBoxArea = new JComboBox(setComboBoxArray(unitArea));
+                setListener(comboBoxArea);
+                setTextListener();
+                setTableContent(vector, rowContent, comboBoxArea);
+            }
+
+
+            String[] paUnit = {"Pa", "Bar"};
+            List paList = Arrays.asList(paUnit);
+            if (rowContent != null && paList.contains(rowContent.getUnit())) {
+                unitPa = new ArrayList<>();
+                unitPa.add(new Unit("Pa", 1.0));
+                unitPa.add(new Unit("Bar", 100 * 100));
+                comboBoxPa = new JComboBox(setComboBoxArray(unitPa));
+                setListener(comboBoxPa);
+                setTextListener();
+                setTableContent(vector, rowContent, comboBoxPa);
+            }
+
+            String[] temUnit = {"K", "℃"};
+            List temList = Arrays.asList(temUnit);
+            if (rowContent != null && temList.contains(rowContent.getUnit())) {
+                unitTem = new ArrayList<>();
+                unitTem.add(new Unit("℃", rowContent.getValue() * 28.315));
+                unitTem.add(new Unit("K", 1));
+                comboBoxTem = new JComboBox(setComboBoxArray(unitTem));
+                setListener(comboBoxTem);
+                setTextListener();
+                setTableContent(vector, rowContent, comboBoxTem);
+            }
+
+            String[] swirlUnit = {"m2/s"};
+            List swirlList = Arrays.asList(swirlUnit);
+            if (rowContent != null && swirlList.contains(rowContent.getUnit())) {
+                unitSwirl = new ArrayList<>();
+                unitSwirl.add(new Unit("m2/s", 1.0));
+                comboBoxSwirl = new JComboBox(setComboBoxArray(unitSwirl));
+                setListener(comboBoxSwirl);
+                setTextListener();
+                setTableContent(vector, rowContent, comboBoxSwirl);
+            }
+            return vector;
         }
 
-        String[] temUnit = {"K", "℃"};
-        List temList = Arrays.asList(temUnit);
-        if (rowContent != null && temList.contains(rowContent.getUnit())) {
-            unitTem = new ArrayList<>();
-            unitTem.add(new Unit("℃", rowContent.getValue() * 28.315));
-            unitTem.add(new Unit("K", 1));
-            comboBoxTem = new JComboBox(setComboBoxArray(unitTem));
-            setListener(comboBoxTem);
-            setTextListener();
-            setTableContent(vector, rowContent, comboBoxTem);
-        }
-
-        String[] swirlUnit = {"m2/s"};
-        List swirlList = Arrays.asList(swirlUnit);
-        if (rowContent != null && swirlList.contains(rowContent.getUnit())) {
-            unitSwirl = new ArrayList<>();
-            unitSwirl.add(new Unit("m2/s", 1.0));
-            comboBoxSwirl = new JComboBox(setComboBoxArray(unitSwirl));
-            setListener(comboBoxSwirl);
-            setTextListener();
-            setTableContent(vector, rowContent, comboBoxSwirl);
-        }
         return vector;
     }
 
