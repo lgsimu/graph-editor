@@ -80,7 +80,6 @@ public class Template implements IStencilContext {
         parameters2.add(parameter24);
 
         component2.setComponentTemplateName("PSOURCE");
-        //component2.setComponentName("1");
         component2.setComponentType("1");
         component2.setImageSource("com/lgsim/engine/graphEditor/data/testjpg/PSOURCE.png");
         component2.setArguments(parameters2);

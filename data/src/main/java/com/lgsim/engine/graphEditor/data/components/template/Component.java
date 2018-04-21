@@ -109,7 +109,7 @@ public class Component implements IVertexStencil {
 
     @Override
     public @NotNull String getName() {
-        return componentName;
+        return componentTemplateName;
     }
 
     @Override
