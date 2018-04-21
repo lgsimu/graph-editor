@@ -91,6 +91,7 @@ public class Template implements IStencilContext {
 
         componentsTemplates.add(component1);
         componentsTemplates.add(component2);
+        //System.out.println(componentsTemplates.size());
         return componentsTemplates;
     }
 
