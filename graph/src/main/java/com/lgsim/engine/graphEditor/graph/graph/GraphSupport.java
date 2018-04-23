@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.graph.editor;
+package com.lgsim.engine.graphEditor.graph.graph;
 
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
 import com.lgsim.engine.graphEditor.graph.IntCounter;
@@ -6,8 +6,8 @@ import com.mxgraph.model.mxCell;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-class GraphSupport {
-  static void modifyCell(@NotNull mxCell cell, @NotNull IntCounter counter) {
+public class GraphSupport {
+  public static void modifyCell(@NotNull mxCell cell, @NotNull IntCounter counter) {
     VertexImpl vertex = extractVertexImpl(cell);
     if (vertex != null) {
       String id = counter.get() + "";

@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.graph.editor;
+package com.lgsim.engine.graphEditor.graph.graph;
 
 import com.lgsim.engine.graphEditor.util.ResourceUtil;
 import com.mxgraph.io.mxCodec;
@@ -19,7 +19,7 @@ public class GraphComponent extends mxGraphComponent
   private static final Logger log = LoggerFactory.getLogger(GraphComponent.class);
 
 
-  GraphComponent(mxGraph graph)
+  public GraphComponent(mxGraph graph)
   {
     super(graph);
     setPageVisible(true);

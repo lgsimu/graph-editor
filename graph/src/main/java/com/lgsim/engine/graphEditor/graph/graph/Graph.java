@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.graph.editor;
+package com.lgsim.engine.graphEditor.graph.graph;
 
 import com.lgsim.engine.graphEditor.api.data.*;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
@@ -29,7 +29,7 @@ public class Graph extends mxGraph implements IGraph {
   private mxCell toNode;
   private mxCell autogenEdge;
 
-  Graph()
+  public Graph()
   {
     setAlternateEdgeStyle("edgeStyle=mxEdgeStyle.ElbowConnector;elbow=vertical");
     setSplitEnabled(false);
