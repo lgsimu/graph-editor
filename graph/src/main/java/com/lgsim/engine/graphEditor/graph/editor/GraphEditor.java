@@ -16,12 +16,14 @@ import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleCodecImpl;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.util.JarUtil;
+import com.lgsim.engine.graphEditor.util.StringUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.mxGraphOutline;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.view.mxGraphSelectionModel;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -37,14 +39,13 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
 public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private static final Logger log = LoggerFactory.getLogger(GraphEditor.class);
-  private static final String modelFileName = "model";
-  private static final String styleFileName = "style";
-  private static final int defaultDividerSize = 1;
   private final IGraphDocumentSpec spec;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
@@ -58,21 +59,17 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   private final JSplitPane westPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, libraryPane, graphOutline);
   private final JSplitPane centerPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, westPane, docTabbedPane);
   private final JSplitPane eastPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPane, vertexTable.getSwingComponent());
-  private final EditorPalette predefinedPalette = addPalette(IVertexStencil.predefinedText);
-  private final EditorPalette userDefinedPalette = addPalette(IVertexStencil.userDefinedText);
+  private final StencilPalette predefinedPalette = Builder.createStencilPalette();
+  private final StencilPalette userDefinedPalette = Builder.createStencilPalette();
   private List<GraphDocument> graphDocuments = new Vector<>();
   private transient int currentDocumentIndex;
 
   public GraphEditor(@NotNull IGraphDocumentSpec spec)
   {
     this.spec = spec;
+    initUIComponents();
     loadStencils();
     loadDocuments();
-    initUIComponents();
-    installToolBar();
-    installPaletteListeners();
-    installOutlineListeners();
-    installGraphComponentListeners();
   }
 
   public IGraphDocumentSpec getSpec()
@@ -80,49 +77,18 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     return spec;
   }
 
-  @NotNull
-  private EditorPalette addPalette(@NotNull String title)
-  {
-    final EditorPalette palette = new EditorPalette();
-    final JScrollPane scrollPane = new JScrollPane(palette);
-    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-    libraryPane.add(title, scrollPane);
-    libraryPane.addComponentListener(new ComponentAdapter() {
-      public void componentResized(ComponentEvent e)
-      {
-        int w = scrollPane.getWidth() - scrollPane.getVerticalScrollBar().getWidth();
-        palette.setPreferredWidth(w);
-      }
-    });
-    return palette;
-  }
-
-  private void loadStencils()
-  {
-    final IStencilContext context = ImplementationContext.INSTANCE.getStencilContext();
-    final List<IVertexStencil> predefinedStencils = context.getPredefinedStencils();
-    final List<IVertexStencil> userDefinedStencils = context.getUserDefinedStencils();
-    addStencils(predefinedPalette, predefinedStencils);
-    // TODO: uncomment
-//    addStencils(userDefinedPalette, userDefinedStencils);
-  }
-
-  private void addStencils(EditorPalette palette, List<IVertexStencil> stencils)
-  {
-    for (IVertexStencil stencil : stencils) {
-      palette.addStencil(stencil);
-    }
-  }
-
   private void initUIComponents()
   {
+    /* install toolbar */
+    add(new EditorToolBar(this, JToolBar.HORIZONTAL), BorderLayout.NORTH);
+
     setLayout(new BorderLayout());
 
     westPane.setContinuousLayout(true);
     centerPane.setContinuousLayout(true);
     eastPane.setContinuousLayout(true);
 
+    final int defaultDividerSize = 1;
     westPane.setDividerSize(defaultDividerSize);
     centerPane.setDividerSize(defaultDividerSize);
     eastPane.setDividerSize(defaultDividerSize);
@@ -147,36 +113,76 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     libraryPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
     docTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
-    for (GraphDocument doc : graphDocuments) {
-      docTabbedPane.add(doc.getTitle(), doc.getGraphComponent());
-      docTabbedPane.setTabComponentAt(currentDocumentIndex, new ButtonTabComponent(docTabbedPane));
-      doc.getGraphComponent().setMinimumSize(new Dimension(0, 0));
-    }
-
-    final mxGraphComponent comp = getGraphComponent();
-    comp.setColumnHeaderView(new EditorRuler(comp, EditorRuler.ORIENTATION_HORIZONTAL));
-    comp.setRowHeaderView(new EditorRuler(comp, EditorRuler.ORIENTATION_VERTICAL));
-
-    graphOutline.setGraphComponent(getGraphComponent());
-
     /* eastPane is outer-most split pane */
     add(eastPane, BorderLayout.CENTER);
     add(statusBar, BorderLayout.SOUTH);
+
+    loadStencilPalettes();
   }
 
-  private void installToolBar()
-  {
-    add(new EditorToolBar(this, JToolBar.HORIZONTAL), BorderLayout.NORTH);
+  private void loadStencilPalettes() {
+    BiConsumer<StencilPalette, String> loadStencilPalette = (palette, title) -> {
+      final JScrollPane scrollPane = new JScrollPane(palette);
+      scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+      scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+      libraryPane.add(title, scrollPane);
+      libraryPane.addComponentListener(new ComponentAdapter() {
+        public void componentResized(ComponentEvent e)
+        {
+          int w = scrollPane.getWidth() - scrollPane.getVerticalScrollBar().getWidth();
+          palette.setPreferredWidth(w);
+        }
+      });
+    };
+    loadStencilPalette.accept(predefinedPalette, MessageBundle.get("vertexStencil.predefined"));
+    loadStencilPalette.accept(userDefinedPalette, MessageBundle.get("vertexStencil.userDefined"));
   }
 
-  private void installPaletteListeners()
+  private void loadStencils()
   {
-    predefinedPalette.addListener(mxEvent.SELECT, (sender, evt) -> log.debug("palette select event fired"));
+    final IStencilContext context = ImplementationContext.INSTANCE.getStencilContext();
+    final List<IVertexStencil> predefinedStencils = context.getPredefinedStencils();
+    final List<IVertexStencil> userDefinedStencils = context.getUserDefinedStencils();
+    BiConsumer<StencilPalette, List<IVertexStencil>> addStencils = (palette, stencils) -> {
+      for (IVertexStencil stencil : stencils) {
+        palette.addStencil(stencil);
+      }
+    };
+    addStencils.accept(predefinedPalette, predefinedStencils);
+    // TODO: uncomment
+//    addStencils.accept(userDefinedPalette, userDefinedStencils);
   }
 
-  private void installOutlineListeners()
+  private void loadDocuments()
   {
-    final mxGraphComponent comp = getGraphComponent();
+    final List<GraphDocument> documents = getLastDocuments();
+    if (documents == null) {
+      GraphDocument document = openNewDocument();
+      currentDocumentIndex = graphDocuments.size();
+      graphDocuments.add(currentDocumentIndex, document);
+    } else {
+      openLastDocuments();
+    }
+  }
+
+  @Contract(pure = true)
+  private GraphDocument openNewDocument()
+  {
+    mxGraphComponent comp = new EditorGraphComponent(new EditorGraph());
+    final GraphDocument document = new GraphDocument(comp);
+    comp.setColumnHeaderView(new GraphDocumentRuler(comp, GraphDocumentRuler.ORIENTATION_HORIZONTAL));
+    comp.setRowHeaderView(new GraphDocumentRuler(comp, GraphDocumentRuler.ORIENTATION_VERTICAL));
+    installOutlineListeners(comp);
+    installGraphDocumentListeners(document);
+    docTabbedPane.add(document.getTitle(), document.getGraphComponent());
+    docTabbedPane.setTabComponentAt(currentDocumentIndex, new ButtonTabComponent(docTabbedPane));
+    document.getGraphComponent().setMinimumSize(new Dimension(0, 0));
+    return document;
+  }
+
+  private void installOutlineListeners(@NotNull mxGraphComponent comp)
+  {
+    graphOutline.setGraphComponent(comp);
     graphOutline.addMouseWheelListener(e -> {
       if (e.getSource() instanceof mxGraphOutline || e.isControlDown()) {
         if (e.getWheelRotation() < 0) {
@@ -191,10 +197,13 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     });
   }
 
-  private void installGraphComponentListeners()
+  private void installGraphDocumentListeners(@NotNull GraphDocument document)
   {
-    new mxRubberband(getGraphComponent());
-    getGraphComponent().getGraph().getSelectionModel().addListener(mxEvent.CHANGE, (sender, evt) -> {
+    mxGraphComponent comp = document.getGraphComponent();
+
+    new mxRubberband(comp);
+
+    comp.getGraph().getSelectionModel().addListener(mxEvent.CHANGE, (sender, evt) -> {
       if ((sender instanceof mxGraphSelectionModel)) {
         mxGraphSelectionModel selectionModel = (mxGraphSelectionModel) sender;
         Object[] cells = selectionModel.getCells();
@@ -218,11 +227,23 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
         }
       }
     });
-    getGraphComponent().getGraph().getModel().addListener(mxEvent.CHANGE, (sender, evt) -> {
-      getCurrentDocument().setModified(true);
-      docTabbedPane.setTitleAt(currentDocumentIndex, getCurrentDocument().getTitle());
+
+    comp.getGraph().getModel().addListener(mxEvent.CHANGE, (sender, evt) -> {
+      document.setModified(true);
+      docTabbedPane.setTitleAt(currentDocumentIndex, document.getTitle());
       log.debug("document {} changed", currentDocumentIndex);
     });
+  }
+
+  private void openLastDocuments()
+  {
+    log.debug("load last documents");
+  }
+
+  @Nullable
+  private List<GraphDocument> getLastDocuments()
+  {
+    return null;
   }
 
   private @Nullable IVertex lookupPeerVertex(@NotNull IVertex vertex, @NotNull IGraph graph)
@@ -239,7 +260,13 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   private void renderVertexTable(@NotNull IVertex vertex)
   {
     log.debug("render vertex {}", vertex);
-    vertexTable.render(vertex);
+    Function<IVertex, Boolean> isValid = (v) -> {
+      // TODO: to be complete
+      return false;
+    };
+    if (isValid.apply(vertex)) {
+      vertexTable.render(vertex);
+    }
   }
 
   private void status(String msg)
@@ -247,46 +274,11 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     statusBar.setText(msg);
   }
 
-  private void loadDocuments()
-  {
-    final List<GraphDocument> documents = getLastDocuments();
-    if (documents == null) {
-      openNewDocument();
-    } else {
-      openLastDocuments();
-    }
-  }
-
-  private void openNewDocument()
-  {
-    currentDocumentIndex = graphDocuments.size();
-    mxGraphComponent comp = new EditorGraphComponent(new EditorGraph());
-    GraphDocument graphDocument = new GraphDocument(comp);
-    graphDocuments.add(currentDocumentIndex, graphDocument);
-  }
-
-  private void openLastDocuments()
-  {
-
-  }
-
-  @Nullable
-  private List<GraphDocument> getLastDocuments()
-  {
-    return null;
-  }
-
-  @NotNull
-  private GraphDocument getCurrentDocument()
-  {
-    return graphDocuments.get(currentDocumentIndex);
-  }
-
   Action bind(@NotNull String bundle, @NotNull Action action)
   {
     String name = MessageBundle.get(bundle);
     Icon icon = IconBundle.get(bundle);
-    final mxGraphComponent graphComp = getCurrentDocument().getGraphComponent();
+    final mxGraphComponent graphComp = getCurrentGraphDocument().getGraphComponent();
     AbstractAction newAction = new AbstractAction(name, icon) {
       public void actionPerformed(ActionEvent e)
       {
@@ -299,16 +291,14 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     return newAction;
   }
 
-  @NotNull
-  private mxGraphComponent getGraphComponent()
-  {
-    return getCurrentDocument().getGraphComponent();
-  }
-
   @Override
-  public IGraphDocument getCurrentGraphDocument()
+  public @Nullable GraphDocument getCurrentGraphDocument()
   {
-    return getCurrentDocument();
+    if (graphDocuments.size() > 0) {
+      return graphDocuments.get(currentDocumentIndex);
+    } else {
+      return null;
+    }
   }
 
   @Override
@@ -354,7 +344,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   private void createDocumentModelFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
   {
     byte[] data = ImplementationContext.INSTANCE.getGraphCodec().encode(document.getGraph());
-    File file = new File(workDir, modelFileName);
+    File file = new File(workDir, "model");
     writeToFile(data, file);
   }
 
@@ -362,7 +352,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   {
     GraphStyleCodecImpl codec = new GraphStyleCodecImpl();
     byte[] data = codec.encode(document.getGraphStyle());
-    File file = new File(workDir, styleFileName);
+    File file = new File(workDir, "style");
     writeToFile(data, file);
   }
 
@@ -435,7 +425,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   {
     final IGraphDocument document = getCurrentGraphDocument();
     if (document == null) {
-      return "<empty>";
+      return StringUtil.emptyString();
     } else {
       return document.getTitle();
     }

@@ -18,10 +18,8 @@ import java.util.Map;
 /**
  * @author leiqiao
  */
-public class ResourceUtil
-{
+public class ResourceUtil {
   private static final Map<String, ImageIcon> imageIconCache = new Hashtable<>(64);
-
 
   /**
    * 查找资源uri
@@ -32,25 +30,18 @@ public class ResourceUtil
   @Nullable
   public static URI lookup(@NotNull String path)
   {
-    try
-    {
+    try {
       URL url = Thread.currentThread().getContextClassLoader().getResource(path);
-      if (url != null)
-      {
+      if (url != null) {
         return url.toURI();
-      }
-      else
-      {
+      } else {
         throw new NullPointerException();
       }
-    }
-    catch (URISyntaxException | NullPointerException e)
-    {
+    } catch (URISyntaxException | NullPointerException e) {
       ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException());
       return null;
     }
   }
-
 
   /**
    * 查询ImageIcon
@@ -62,26 +53,17 @@ public class ResourceUtil
   public static ImageIcon lookupImageIcon(@NotNull String path)
   {
     ImageIcon icon = imageIconCache.get(path);
-    if (icon != null)
-    {
+    if (icon != null) {
       return icon;
-    }
-    else
-    {
+    } else {
       URI uri = lookup(path);
-      try
-      {
-        if (uri != null)
-        {
+      try {
+        if (uri != null) {
           icon = new ImageIcon(uri.toURL());
-        }
-        else
-        {
+        } else {
           throw new NullPointerException();
         }
-      }
-      catch (MalformedURLException | NullPointerException e)
-      {
+      } catch (MalformedURLException | NullPointerException e) {
         ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException());
         icon = new ImageIcon();
       }
@@ -90,27 +72,20 @@ public class ResourceUtil
     }
   }
 
-
   // TODO: cache
   public static @NotNull String lookupText(@NotNull String path)
   {
     URI uri = lookup(path);
-    try
-    {
-      if (uri != null)
-      {
+    try {
+      if (uri != null) {
         InputStream in = uri.toURL().openStream();
         return IOUtils.toString(in, "utf-8");
-      }
-      else
-      {
+      } else {
         throw new NullPointerException();
       }
-    }
-    catch (IOException e)
-    {
+    } catch (IOException e) {
       ExceptionManager.INSTANCE.dealWith(e);
-      return "<empty>";
+      return StringUtil.emptyString();
     }
   }
 }

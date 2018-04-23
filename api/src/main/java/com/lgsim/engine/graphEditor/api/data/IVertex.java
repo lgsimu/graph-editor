@@ -6,8 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public interface IVertex extends Serializable
-{
+public interface IVertex extends Serializable {
   /**
    * 节点id
    */
@@ -57,4 +56,12 @@ public interface IVertex extends Serializable
    * 是否是腔节点
    */
   boolean isCavity();
+
+
+  /**
+   * 获取显示名
+   *
+   * @return 显示名
+   */
+  @NotNull String getDisplayName();
 }
