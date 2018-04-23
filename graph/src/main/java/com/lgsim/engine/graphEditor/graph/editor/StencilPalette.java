@@ -126,7 +126,7 @@ class StencilPalette extends JPanel {
     eventSource.removeListener(listener);
   }
 
-  public int getLoadStencilCount() {
+  int getLoadStencilCount() {
     return loadStencilCount;
   }
 }

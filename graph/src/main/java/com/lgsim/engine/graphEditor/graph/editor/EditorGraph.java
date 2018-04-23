@@ -103,7 +103,7 @@ public class EditorGraph extends mxGraph implements IGraph {
     final IVertexStencil stencil = stencilContext.getCavityStencil();
     VertexImpl value = Builder.createVertex(stencil, true);
     mxCell cell = (mxCell) insertVertex(p, null, value, position.x, position.y, 48, 48);
-    setCellDisplayName(cell);
+    GraphSupport.modifyCell(cell, vertexCounter);
     settingCavityCellStyle(cell, stencil);
     return cell;
   }
@@ -138,23 +138,11 @@ public class EditorGraph extends mxGraph implements IGraph {
       for (Object x : cells) {
         if (x instanceof mxCell) {
           mxCell cell = (mxCell) x;
-          setCellDisplayName(cell);
+          GraphHook.cellAdded(cell, vertexCounter);
         }
       }
     }
     super.cellsAdded(cells, parent, index, source, target, absolute);
-  }
-
-  private void setCellDisplayName(@NotNull mxCell cell) {
-    Object value = cell.getValue();
-    if (value instanceof VertexImpl) {
-      VertexImpl vertex = (VertexImpl) value;
-      String id = vertexCounter.get() + "";
-      vertexCounter.inc();
-      cell.setId(id);
-      vertex.setID(id);
-      vertex.setDisplayName(id);
-    }
   }
 
   @Override
