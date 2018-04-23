@@ -37,7 +37,7 @@ public class ResourceUtil {
         throw new NullPointerException();
       }
     } catch (URISyntaxException | NullPointerException e) {
-      ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException(path));
+      ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException(path, ResourceType.URI));
       return null;
     }
   }
@@ -64,7 +64,7 @@ public class ResourceUtil {
         }
       } catch (Exception e) {
 
-        ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException(path));
+        ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException(path, ResourceType.ICON));
         icon = new ImageIcon();
       }
       imageIconCache.put(path, icon);

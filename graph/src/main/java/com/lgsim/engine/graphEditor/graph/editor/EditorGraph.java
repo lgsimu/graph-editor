@@ -108,6 +108,7 @@ public class EditorGraph extends mxGraph implements IGraph {
 //    TODO
 //    1.3 将腔节点cell的外观改成圆形(32x32)，高亮和其它的元件一致，背景设置为1中获取的图标，并将该图标缩放为(32x32)
 //    1.3.1 找到其它元件是在哪里绘制的，样式是怎么获取的，怎么应用上去的
+    cavity.setStyle("glass=1");
   }
 
   private static Point getCavityPosition(Point from, Point to)
