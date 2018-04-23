@@ -5,6 +5,7 @@ import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentFileImpl;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentImpl;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleImpl;
+import com.lgsim.engine.graphEditor.graph.IntCounter;
 import com.mxgraph.swing.mxGraphComponent;
 import org.jetbrains.annotations.NotNull;
 

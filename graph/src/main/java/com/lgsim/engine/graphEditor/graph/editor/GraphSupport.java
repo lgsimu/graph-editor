@@ -1,6 +1,7 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
+import com.lgsim.engine.graphEditor.graph.IntCounter;
 import com.mxgraph.model.mxCell;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

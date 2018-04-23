@@ -1,20 +1,20 @@
-package com.lgsim.engine.graphEditor.graph.editor;
+package com.lgsim.engine.graphEditor.graph;
 
-// TODO: multiple thread?
+// TODO: thread safe?
 @SuppressWarnings("unused")
-class IntCounter {
+public class IntCounter {
   private int count;
 
-  IntCounter()
+  public IntCounter()
   {
     this(0);
   }
 
-  IntCounter(int count) {
+  public IntCounter(int count) {
     this.count = count;
   }
 
-  void inc()
+  public void inc()
   {
     if (count != Integer.MAX_VALUE) {
       count += 1;
@@ -23,14 +23,14 @@ class IntCounter {
     }
   }
 
-  void dec()
+  public void dec()
   {
     if (count != 0) {
       count -= 1;
     }
   }
 
-  int get() {
+  public int get() {
     return count;
   }
 }

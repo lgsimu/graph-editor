@@ -3,6 +3,7 @@ package com.lgsim.engine.graphEditor.graph.editor;
 import com.lgsim.engine.graphEditor.api.data.*;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
+import com.lgsim.engine.graphEditor.graph.IntCounter;
 import com.lgsim.engine.graphEditor.util.CollectionUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxEvent;
