@@ -2,6 +2,7 @@ package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.IApplication;
+import com.lgsim.engine.graphEditor.api.IconBundle;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
@@ -39,8 +40,7 @@ import java.util.Vector;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
-public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironment
-{
+public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private static final Logger log = LoggerFactory.getLogger(GraphEditor.class);
   private static final String modelFileName = "model";
   private static final String styleFileName = "style";
@@ -48,8 +48,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   private final IGraphDocumentSpec spec;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
-  private final EditorStatusBar statusBar = new EditorStatusBar(IApplication.statusText)
-  {
+  private final EditorStatusBar statusBar = new EditorStatusBar(IApplication.statusText) {
     {
       setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
     }
@@ -64,7 +63,6 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   private List<GraphDocument> graphDocuments = new Vector<>();
   private transient int currentDocumentIndex;
 
-
   public GraphEditor(@NotNull IGraphDocumentSpec spec)
   {
     this.spec = spec;
@@ -77,12 +75,10 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     installGraphComponentListeners();
   }
 
-
   public IGraphDocumentSpec getSpec()
   {
     return spec;
   }
-
 
   @NotNull
   private EditorPalette addPalette(@NotNull String title)
@@ -92,8 +88,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
     scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     libraryPane.add(title, scrollPane);
-    libraryPane.addComponentListener(new ComponentAdapter()
-    {
+    libraryPane.addComponentListener(new ComponentAdapter() {
       public void componentResized(ComponentEvent e)
       {
         int w = scrollPane.getWidth() - scrollPane.getVerticalScrollBar().getWidth();
@@ -102,7 +97,6 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     });
     return palette;
   }
-
 
   private void loadStencils()
   {
@@ -114,15 +108,12 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
 //    addStencils(userDefinedPalette, userDefinedStencils);
   }
 
-
   private void addStencils(EditorPalette palette, List<IVertexStencil> stencils)
   {
-    for (IVertexStencil stencil : stencils)
-    {
+    for (IVertexStencil stencil : stencils) {
       palette.addStencil(stencil);
     }
   }
-
 
   private void initUIComponents()
   {
@@ -156,8 +147,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     libraryPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
     docTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
-    for (GraphDocument doc : graphDocuments)
-    {
+    for (GraphDocument doc : graphDocuments) {
       docTabbedPane.add(doc.getTitle(), doc.getGraphComponent());
       docTabbedPane.setTabComponentAt(currentDocumentIndex, new ButtonTabComponent(docTabbedPane));
       doc.getGraphComponent().setMinimumSize(new Dimension(0, 0));
@@ -174,31 +164,24 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     add(statusBar, BorderLayout.SOUTH);
   }
 
-
   private void installToolBar()
   {
     add(new EditorToolBar(this, JToolBar.HORIZONTAL), BorderLayout.NORTH);
   }
-
 
   private void installPaletteListeners()
   {
     predefinedPalette.addListener(mxEvent.SELECT, (sender, evt) -> log.debug("palette select event fired"));
   }
 
-
   private void installOutlineListeners()
   {
     final mxGraphComponent comp = getGraphComponent();
     graphOutline.addMouseWheelListener(e -> {
-      if (e.getSource() instanceof mxGraphOutline || e.isControlDown())
-      {
-        if (e.getWheelRotation() < 0)
-        {
+      if (e.getSource() instanceof mxGraphOutline || e.isControlDown()) {
+        if (e.getWheelRotation() < 0) {
           comp.zoomIn();
-        }
-        else
-        {
+        } else {
           comp.zoomOut();
         }
         int scale = (int) (100 * comp.getGraph().getView().getScale());
@@ -208,30 +191,23 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     });
   }
 
-
   private void installGraphComponentListeners()
   {
     new mxRubberband(getGraphComponent());
     getGraphComponent().getGraph().getSelectionModel().addListener(mxEvent.CHANGE, (sender, evt) -> {
-      if ((sender instanceof mxGraphSelectionModel))
-      {
+      if ((sender instanceof mxGraphSelectionModel)) {
         mxGraphSelectionModel selectionModel = (mxGraphSelectionModel) sender;
         Object[] cells = selectionModel.getCells();
-        if (cells != null)
-        {
-          if (cells.length == 1)
-          {
+        if (cells != null) {
+          if (cells.length == 1) {
             mxCell cell = (mxCell) cells[0];
             log.debug("select cell {} value is {}", cell, cell.getValue());
-            if (cell.getValue() instanceof IVertex)
-            {
+            if (cell.getValue() instanceof IVertex) {
               IVertex vertex = (IVertex) cell.getValue();
               final IGraph graph = getGraph();
-              if (graph != null)
-              {
+              if (graph != null) {
                 IVertex peer = lookupPeerVertex(vertex, graph);
-                if (peer != null)
-                {
+                if (peer != null) {
                   vertex.setOutputs(peer.getOutputs());
                 }
               }
@@ -249,20 +225,16 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     });
   }
 
-
   private @Nullable IVertex lookupPeerVertex(@NotNull IVertex vertex, @NotNull IGraph graph)
   {
     Collection<IVertex> vertexes = graph.getAllVertexes();
-    for (IVertex v : vertexes)
-    {
-      if (v.getID().equals(vertex.getID()))
-      {
+    for (IVertex v : vertexes) {
+      if (v.getID().equals(vertex.getID())) {
         return v;
       }
     }
     return null;
   }
-
 
   private void renderVertexTable(@NotNull IVertex vertex)
   {
@@ -270,26 +242,20 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     vertexTable.render(vertex);
   }
 
-
   private void status(String msg)
   {
     statusBar.setText(msg);
   }
 
-
   private void loadDocuments()
   {
     final List<GraphDocument> documents = getLastDocuments();
-    if (documents == null)
-    {
+    if (documents == null) {
       openNewDocument();
-    }
-    else
-    {
+    } else {
       openLastDocuments();
     }
   }
-
 
   private void openNewDocument()
   {
@@ -299,12 +265,10 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     graphDocuments.add(currentDocumentIndex, graphDocument);
   }
 
-
   private void openLastDocuments()
   {
 
   }
-
 
   @Nullable
   private List<GraphDocument> getLastDocuments()
@@ -312,19 +276,18 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     return null;
   }
 
-
   @NotNull
   private GraphDocument getCurrentDocument()
   {
     return graphDocuments.get(currentDocumentIndex);
   }
 
-
-  Action bind(@NotNull String name, @NotNull Action action, @NotNull Icon icon)
+  Action bind(@NotNull String bundle, @NotNull Action action)
   {
+    String name = MessageBundle.get(bundle);
+    Icon icon = IconBundle.get(bundle);
     final mxGraphComponent graphComp = getCurrentDocument().getGraphComponent();
-    AbstractAction newAction = new AbstractAction(name, icon)
-    {
+    AbstractAction newAction = new AbstractAction(name, icon) {
       public void actionPerformed(ActionEvent e)
       {
         action.actionPerformed(new ActionEvent(graphComp, e.getID(), e.getActionCommand()));
@@ -336,13 +299,11 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     return newAction;
   }
 
-
   @NotNull
   private mxGraphComponent getGraphComponent()
   {
     return getCurrentDocument().getGraphComponent();
   }
-
 
   @Override
   public IGraphDocument getCurrentGraphDocument()
@@ -350,13 +311,11 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     return getCurrentDocument();
   }
 
-
   @Override
   public @NotNull List<IGraphDocument> getOpenedGraphDocuments()
   {
     return new Vector<>();
   }
-
 
   @Override
   public IGraphDocument openGraphDocument(@NotNull File file)
@@ -364,27 +323,21 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     return null;
   }
 
-
   @Override
   public void saveOpenedGraphDocument(@NotNull IGraphDocument document) throws IOException
   {
     final File docFile = document.getGraphDocumentFile().getEntryFile();
-    if (docFile.exists())
-    {
+    if (docFile.exists()) {
       updateDocumentJarFile(document);
-    }
-    else
-    {
+    } else {
       File workDir = Files.createTempDir();
       File jarFile = createDocumentJarFile(document, workDir);
       Files.copy(jarFile, docFile);
-      if (workDir.delete())
-      {
+      if (workDir.delete()) {
         log.debug("delete temp work dir {}", workDir);
       }
     }
   }
-
 
   private @NotNull File createDocumentJarFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
   {
@@ -398,14 +351,12 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     return jarFile;
   }
 
-
   private void createDocumentModelFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
   {
     byte[] data = ImplementationContext.INSTANCE.getGraphCodec().encode(document.getGraph());
     File file = new File(workDir, modelFileName);
     writeToFile(data, file);
   }
-
 
   private void createDocumentStyleFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
   {
@@ -415,12 +366,10 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     writeToFile(data, file);
   }
 
-
   private void writeToFile(byte[] data, @NotNull File file) throws IOException
   {
     Files.write(data, file);
   }
-
 
   private @NotNull Manifest createManifest()
   {
@@ -431,22 +380,18 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     return manifest;
   }
 
-
   private void updateDocumentJarFile(@NotNull IGraphDocument document)
   {
     log.debug("update document jar file, {}", document);
   }
 
-
   @Override
   public void saveOpenedGraphDocuments(@NotNull List<IGraphDocument> documents) throws IOException
   {
-    for (IGraphDocument document : documents)
-    {
+    for (IGraphDocument document : documents) {
       saveOpenedGraphDocument(document);
     }
   }
-
 
   @Override
   public boolean isGraphDocumentFile(@NotNull File file)
@@ -454,13 +399,11 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     return false;
   }
 
-
   @Override
   public void renderVertex(@NotNull IVertex vertex)
   {
     vertexTable.render(vertex);
   }
-
 
   @Override
   public @Nullable IVertex getCurrentVertex()
@@ -469,7 +412,6 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     return null;
   }
 
-
   @Override
   public @NotNull File getExecutableFile()
   {
@@ -477,36 +419,27 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     return new File("C:\\lgsas\\LGSAS.exe");
   }
 
-
   @Override
   public @Nullable IGraph getGraph()
   {
     IGraphDocument document = getCurrentGraphDocument();
-    if (document == null)
-    {
+    if (document == null) {
       return null;
-    }
-    else
-    {
+    } else {
       return document.getGraph();
     }
   }
-
 
   @Override
   public @NotNull String getCaseName()
   {
     final IGraphDocument document = getCurrentGraphDocument();
-    if (document == null)
-    {
+    if (document == null) {
       return "<empty>";
-    }
-    else
-    {
+    } else {
       return document.getTitle();
     }
   }
-
 
   @Override
   public @NotNull String getSolverCommandlineArguments()
