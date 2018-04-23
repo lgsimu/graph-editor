@@ -3301,5 +3301,97 @@
         }
       ]
     }
+  ],
+  "Result":[
+    {
+      "ParameterName": "AA1",
+      "ParameterUnitID": "2",
+      "ParameterDescription": "端口1面积"
+    },
+    {
+      "ParameterName": "AA2",
+      "ParameterUnitID": "2",
+      "ParameterDescription": "端口2面积"
+    },
+    {
+      "ParameterName": "M1",
+      "ParameterUnitID": "31",
+      "ParameterDescription": "端口1质量流量"
+    },
+    {
+      "ParameterName": "M2",
+      "ParameterUnitID": "31",
+      "ParameterDescription": "端口2质量流量"
+    },
+    {
+      "ParameterName": "TP1",
+      "ParameterUnitID": "4",
+      "ParameterDescription": "端口1总压"
+    },
+    {
+      "ParameterName": "TP2",
+      "ParameterUnitID": "4",
+      "ParameterDescription": "端口2总压"
+    },
+    {
+      "ParameterName": "TT1",
+      "ParameterUnitID": "24",
+      "ParameterDescription": "端口1总温"
+    },
+    {
+      "ParameterName": "TT2",
+      "ParameterUnitID": "24",
+      "ParameterDescription": "端口2总温"
+    },
+    {
+      "ParameterName": "SP1",
+      "ParameterUnitID": "4",
+      "ParameterDescription": "端口1静压"
+    },
+    {
+      "ParameterName": "SP2",
+      "ParameterUnitID": "4",
+      "ParameterDescription": "端口2静压"
+    },
+    {
+      "ParameterName": "ST1",
+      "ParameterUnitID": "24",
+      "ParameterDescription": "端口1静温"
+    },
+    {
+      "ParameterName": "ST2",
+      "ParameterUnitID": "24",
+      "ParameterDescription": "端口2静温"
+    },
+    {
+      "ParameterName": "MA1",
+      "ParameterUnitID": "0",
+      "ParameterDescription": "端口1马赫数"
+    },
+    {
+      "ParameterName": "MA2",
+      "ParameterUnitID": "0",
+      "ParameterDescription": "端口2马赫数"
+    },
+    {
+      "ParameterName": "V1",
+      "ParameterUnitID": "21",
+      "ParameterDescription": "端口1速度"
+    },
+    {
+      "ParameterName": "V2",
+      "ParameterUnitID": "21",
+      "ParameterDescription": "端口2速度"
+    },
+    {
+      "ParameterName": "DEN1",
+      "ParameterUnitID": "7",
+      "ParameterDescription": "端口1密度"
+    },
+    {
+      "ParameterName": "DEN2",
+      "ParameterUnitID": "7",
+      "ParameterDescription": "端口2密度"
+    }
   ]
 }

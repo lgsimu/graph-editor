@@ -122,4 +122,17 @@ public class Parameter implements IVertexArgument,IVertexOutput {
     public @NotNull String getDescription() {
         return parameterDescription;
     }
+
+    @Override
+    public String toString() {
+        return "Parameter{" +
+                "parameterName='" + parameterName + '\'' +
+                ", parameterIOType=" + parameterIOType +
+                ", parameterValueType=" + parameterValueType +
+                ", parameterValue=" + parameterValue +
+                ", parameterUnitID='" + parameterUnitID + '\'' +
+                ", parameterDescription='" + parameterDescription + '\'' +
+                ", values=" + values +
+                '}';
+    }
 }

@@ -51,24 +51,40 @@ public class Element implements IStencilContext {
             for (Object objectType : types) {
                 JSONObject jObjectType = (JSONObject)objectType;
                 JSONArray arguments = JSONArray.fromObject(jObjectType.get("arguments"));
+                JSONArray results = JSONArray.fromObject(jsonObject.get("Result"));
+                List<Parameter> parameters = new ArrayList<Parameter>();
+                List<Parameter> outParameters = new ArrayList<Parameter>();
 
                 for (Object objectArgument : arguments) {
                     Parameter parameter = new Parameter();
-                    List<Parameter> parameters = new ArrayList<Parameter>();
 
-                    JSONObject jObjectArgument = (JSONObject) objectArgument;
+                    JSONObject jObjectArgument = (JSONObject)objectArgument;
 
                     parameter.setParameterName(jObjectArgument.getString("ParameterName"));
                     parameter.setParameterUnitID(jObjectArgument.getString("ParameterUnitID"));
                     parameter.setParameterDescription(jObjectArgument.getString("ParameterDescription"));
 
                     parameters.add(parameter);
-                    component.setArguments(parameters);
+
 
                 }
 
-                component.setComponentType(jObjectType.getString("Type"));
+                for (Object objectResult : results) {
+                    Parameter outParameter = new Parameter();
 
+
+                    JSONObject jResult = (JSONObject)objectResult;
+
+                    outParameter.setParameterName(jResult.getString("ParameterName"));
+                    outParameter.setParameterUnitID(jResult.getString("ParameterUnitID"));
+                    outParameter.setParameterDescription(jResult.getString("ParameterDescription"));
+
+                    outParameters.add(outParameter);
+                }
+
+                component.setComponentType(jObjectType.getString("Type"));
+                component.setArguments(parameters);
+                component.setOutputs(outParameters);
             }
 
             component.setComponentTemplateName(jObject.getString("ComponentTemplateName"));
