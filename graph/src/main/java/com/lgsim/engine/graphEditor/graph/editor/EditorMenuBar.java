@@ -21,8 +21,8 @@ public class EditorMenuBar extends JMenuBar {
 
   private void addFileMenu() {
     JMenu doc = new JMenu(MessageBundle.get("graphDocument.name"));
-    Action save = editor.bind("graphDocument.save", new DocumentSaveAction());
-    Action open = editor.bind("graphDocument.open", new DocumentOpenAction());
+    Action save = Builder.createAction("graphDocument.save", new DocumentSaveAction(), editor);
+    Action open = Builder.createAction("graphDocument.open", new DocumentOpenAction(), editor);
 
     doc.add(open);
     doc.add(save);
@@ -32,8 +32,8 @@ public class EditorMenuBar extends JMenuBar {
 
   private void addSolverMenu() {
     JMenu solver = new JMenu(MessageBundle.get("solver.name"));
-    Action calc = editor.bind("solver.calc", new SolverCalcAction(editor, editor));
-    Action settings = editor.bind("solver.settings", new SolverSettingAction());
+    Action calc = Builder.createAction("solver.calc", new SolverCalcAction(editor, editor), editor);
+    Action settings = Builder.createAction("solver.settings", new SolverSettingAction(), editor);
     solver.add(calc);
     solver.add(settings);
     add(solver);

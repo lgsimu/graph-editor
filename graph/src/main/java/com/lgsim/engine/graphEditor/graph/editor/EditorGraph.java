@@ -78,37 +78,39 @@ public class EditorGraph extends mxGraph implements IGraph {
 
   private void paintCavityNodeBetween()
   {
-    log.debug("paint cavity node");
-    getModel().beginUpdate();
-    try {
-      final Point position = getCavityPosition(fromNode.getGeometry().getPoint(), toNode.getGeometry().getPoint());
-      final Object p = getDefaultParent();
-      mxCell cavity = createCavityCell(position, p);
-      autogenEdge.setTerminal(cavity, false);
-      removeListener(cellConnectedListener);
-      insertEdge(getDefaultParent(), null, null, cavity, toNode);
-      addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
-    } finally {
-      getModel().endUpdate();
+    Object toNodeValue = toNode.getValue();
+    if (toNodeValue instanceof IVertex) {
+      boolean notCavity = !((IVertex) toNodeValue).isCavity();
+      if (notCavity) {
+        log.debug("paint cavity node");
+        getModel().beginUpdate();
+        try {
+          final Point position = getCavityPosition(fromNode.getGeometry().getPoint(), toNode.getGeometry().getPoint());
+          final Object p = getDefaultParent();
+          mxCell cavityCell = createCavityCell(position, p);
+          autogenEdge.setTerminal(cavityCell, false);
+          removeListener(cellConnectedListener);
+          insertEdge(getDefaultParent(), null, null, cavityCell, toNode);
+          addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
+        } finally {
+          getModel().endUpdate();
+        }
+      }
     }
   }
 
   private @NotNull mxCell createCavityCell(@NotNull Point position, @NotNull Object p) {
-    final int square = 32;
     final IVertexStencil stencil = stencilContext.getCavityStencil();
-    IVertex value = Builder.createVertex(stencil, vertexCounter, true);
-
-    final String id = null; // auto-generate id when created vertex
-    mxCell cell = (mxCell) insertVertex(p, id, value, position.x, position.y, square, square);
+    VertexImpl value = Builder.createVertex(stencil, true);
+    mxCell cell = (mxCell) insertVertex(p, null, value, position.x, position.y, 48, 48);
+    setCellDisplayName(cell);
     settingCavityCellStyle(cell, stencil);
     return cell;
   }
 
   private void settingCavityCellStyle(@NotNull mxCell cavity, @NotNull IVertexStencil stencil) {
-//    TODO
-//    1.3 将腔节点cell的外观改成圆形(32x32)，高亮和其它的元件一致，背景设置为1中获取的图标，并将该图标缩放为(32x32)
-//    1.3.1 找到其它元件是在哪里绘制的，样式是怎么获取的，怎么应用上去的
-    cavity.setStyle("glass=1");
+    String icon = stencil.getGraphIcon();
+    cavity.setStyle("glass=1;rounded=1;shadow=1;imageWidth=32;imageHeight=32;arcSize=48;icon;image=/" + icon);
   }
 
   private static Point getCavityPosition(Point from, Point to)
@@ -136,22 +138,22 @@ public class EditorGraph extends mxGraph implements IGraph {
       for (Object x : cells) {
         if (x instanceof mxCell) {
           mxCell cell = (mxCell) x;
-          setCellID(cell);
+          setCellDisplayName(cell);
         }
       }
     }
     super.cellsAdded(cells, parent, index, source, target, absolute);
   }
 
-  private void setCellID(@NotNull mxCell cell) {
+  private void setCellDisplayName(@NotNull mxCell cell) {
     Object value = cell.getValue();
-    if (value instanceof IVertex) {
-      IVertex vertex = (IVertex) value;
-      if (!vertex.isCavity()) {
-        String id = vertexCounter.get() + "";
-        vertexCounter.inc();
-        cell.setId(id);
-      }
+    if (value instanceof VertexImpl) {
+      VertexImpl vertex = (VertexImpl) value;
+      String id = vertexCounter.get() + "";
+      vertexCounter.inc();
+      cell.setId(id);
+      vertex.setID(id);
+      vertex.setDisplayName(id);
     }
   }
 

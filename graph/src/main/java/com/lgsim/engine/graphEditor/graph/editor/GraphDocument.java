@@ -11,12 +11,14 @@ import org.jetbrains.annotations.NotNull;
 class GraphDocument extends GraphDocumentImpl
 {
   private mxGraphComponent graphComponent;
+  private final IntCounter vertexCounter;
 
 
   GraphDocument(@NotNull mxGraphComponent comp)
   {
     super(null, new GraphDocumentFileImpl(), (IGraph) comp.getGraph(), new GraphStyleImpl(), false);
     setGraphComponent(comp);
+    this.vertexCounter = new IntCounter();
   }
 
 
@@ -36,5 +38,9 @@ class GraphDocument extends GraphDocumentImpl
   private void setGraphComponent(@NotNull mxGraphComponent graphComponent)
   {
     this.graphComponent = graphComponent;
+  }
+
+  public IntCounter getVertexCounter() {
+    return vertexCounter;
   }
 }

@@ -27,7 +27,7 @@ import java.awt.event.MouseEvent;
 class StencilPalette extends JPanel {
   private mxEventSource eventSource = new mxEventSource(this);
   private JLabel selectedEntry;
-  private IntCounter vertexCounter;
+  private int loadStencilCount = 0;
 
   StencilPalette() {
     setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
@@ -55,7 +55,7 @@ class StencilPalette extends JPanel {
 
   void addStencil(@NotNull final IVertexStencil stencil)
   {
-    IVertex cellVal = Builder.createVertex(stencil, vertexCounter, false);
+    IVertex cellVal = Builder.createVertex(stencil, false);
     mxCell cell = new mxCell(cellVal, new mxGeometry(0, 0, 64, 64),
         "icon;image=/" + stencil.getGraphIcon());
     cell.setVertex(true);
@@ -91,6 +91,7 @@ class StencilPalette extends JPanel {
     DragSource dragSource = new DragSource();
     dragSource.createDefaultDragGestureRecognizer(entry, DnDConstants.ACTION_COPY, dragGestureListener);
     add(entry);
+    loadStencilCount += 1;
   }
 
   @SuppressWarnings("SameParameterValue")
@@ -113,7 +114,7 @@ class StencilPalette extends JPanel {
         "transferable", t, "previous", previous));
   }
 
-  @SuppressWarnings("SameParameterValue")
+  @SuppressWarnings({"SameParameterValue", "unused"})
   void addListener(@NotNull String eventName, @NotNull mxIEventListener listener)
   {
     eventSource.addListener(eventName, listener);
@@ -125,10 +126,7 @@ class StencilPalette extends JPanel {
     eventSource.removeListener(listener);
   }
 
-  public IntCounter getVertexCounter() {
-    return vertexCounter;
-  }
-  public void setVertexCounter(IntCounter vertexCounter) {
-    this.vertexCounter = vertexCounter;
+  public int getLoadStencilCount() {
+    return loadStencilCount;
   }
 }

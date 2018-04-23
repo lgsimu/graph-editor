@@ -21,6 +21,7 @@
     <add as="label">
         <add as="shape" value="label"/>
         <add as="perimeter" value="rectanglePerimeter"/>
+        <add as="fontSize" value="13"/>
         <add as="fontStyle" value="1"/>
         <add as="align" value="left"/>
         <add as="verticalAlign" value="middle"/>
@@ -41,9 +42,12 @@
         <add as="spacing" value="0"/>
         <add as="spacingLeft" value="0"/>
         <add as="spacingTop" value="6"/>
-        <add as="fontStyle" value="0"/>
+        <add as="fontSize" value="28"/>
+        <add as="fontStyle" value="1"/>
         <add as="imageWidth" value="48"/>
         <add as="imageHeight" value="48"/>
+        <add as="gradientColor" value="#FFFFFF"/>
+        <add as="fontColor" value="#0F0F0F"/>
     </add>
     <add as="entity">
         <add as="edgeStyle" value="entityRelationEdgeStyle"/>
