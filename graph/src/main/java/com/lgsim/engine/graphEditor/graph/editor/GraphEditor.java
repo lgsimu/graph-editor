@@ -174,6 +174,9 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     comp.setRowHeaderView(new GraphDocumentRuler(comp, GraphDocumentRuler.ORIENTATION_VERTICAL));
     installOutlineListeners(comp);
     installGraphDocumentListeners(document);
+    docTabbedPane.add(document.getTitle(), document.getGraphComponent());
+    docTabbedPane.setTabComponentAt(currentDocumentIndex, new ButtonTabComponent(docTabbedPane));
+    document.getGraphComponent().setMinimumSize(new Dimension(0, 0));
     return document;
   }
 
