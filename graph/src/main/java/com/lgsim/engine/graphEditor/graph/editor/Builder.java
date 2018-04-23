@@ -29,6 +29,6 @@ class Builder {
     List<IVertexOutput> outputs = CollectionUtil.cloneList(stencil.getOutputs());
     List<IVertex> inputPorts = CollectionUtil.emptyList();
     List<IVertex> outputPorts = CollectionUtil.emptyList();
-    return new VertexImpl(ID, typeID, arguments, outputs, inputPorts, outputPorts, cavity);
+    return new VertexImpl(ID, typeID, arguments, outputs, inputPorts, outputPorts, cavity, ID);
   }
 }

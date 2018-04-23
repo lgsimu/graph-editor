@@ -17,6 +17,7 @@ public class VertexImpl implements IVertex {
   private List<IVertex> inputPorts;
   private List<IVertex> outputPorts;
   private boolean cavity;
+  private String displayName;
 
   public VertexImpl()
   {
@@ -28,7 +29,7 @@ public class VertexImpl implements IVertex {
     outputs = CollectionUtil.emptyList();
   }
 
-  public VertexImpl(@NotNull String ID, @NotNull String typeID, @NotNull List<IVertexArgument> arguments, @NotNull List<IVertexOutput> outputs, @NotNull List<IVertex> inputPorts, @NotNull List<IVertex> outputPorts, boolean cavity)
+  public VertexImpl(@NotNull String ID, @NotNull String typeID, @NotNull List<IVertexArgument> arguments, @NotNull List<IVertexOutput> outputs, @NotNull List<IVertex> inputPorts, @NotNull List<IVertex> outputPorts, boolean cavity, @NotNull String displayName)
   {
     this.ID = ID;
     this.typeID = typeID;
@@ -37,6 +38,7 @@ public class VertexImpl implements IVertex {
     this.inputPorts = inputPorts;
     this.outputPorts = outputPorts;
     this.cavity = cavity;
+    this.displayName = displayName;
   }
 
   @Override
@@ -122,9 +124,23 @@ public class VertexImpl implements IVertex {
     this.cavity = cavity;
   }
 
+  @NotNull
+  @Override
+  public String getDisplayName() {
+    return displayName;
+  }
+
+  public void setDisplayName(String displayName) {
+    this.displayName = displayName;
+  }
+
   @Override
   public String toString()
   {
-    return "";
+    if (isCavity()) {
+      return getDisplayName();
+    } else {
+      return "";
+    }
   }
 }
