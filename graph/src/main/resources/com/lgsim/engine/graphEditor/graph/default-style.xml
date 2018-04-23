@@ -35,11 +35,9 @@
     <add as="icon" extend="label">
         <add as="align" value="center"/>
         <add as="imageAlign" value="center"/>
-        <!--<add as="verticalLabelPosition" value="center"/>-->
         <add as="labelPosition" value="center"/>
         <add as="verticalAlign" value="middle"/>
         <add as="spacingTop" value="4"/>
-        <!--<add as="labelBackgroundColor" value="#FFFFFF"/>-->
         <add as="spacing" value="0"/>
         <add as="spacingLeft" value="0"/>
         <add as="spacingTop" value="6"/>

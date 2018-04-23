@@ -8,7 +8,6 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -38,7 +37,7 @@ public class ResourceUtil {
         throw new NullPointerException();
       }
     } catch (URISyntaxException | NullPointerException e) {
-      ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException());
+      ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException(path));
       return null;
     }
   }
@@ -63,8 +62,9 @@ public class ResourceUtil {
         } else {
           throw new NullPointerException();
         }
-      } catch (MalformedURLException | NullPointerException e) {
-        ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException());
+      } catch (Exception e) {
+
+        ExceptionManager.INSTANCE.dealWith(new ResourceFileMissingException(path));
         icon = new ImageIcon();
       }
       imageIconCache.put(path, icon);
