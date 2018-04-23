@@ -217,8 +217,4 @@ public class Graph extends mxGraph implements IGraph {
   {
     return (cell.getSource() != null) && (cell.getTarget() != null);
   }
-
-  public IntCounter getVertexCounter() {
-    return vertexCounter;
-  }
 }
