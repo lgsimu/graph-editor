@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.graph.editor;
+package com.lgsim.engine.graphEditor.graph.document;
 
 import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
@@ -30,7 +30,7 @@ public class GraphDocument extends GraphDocumentImpl
   }
 
 
-  @NotNull mxGraphComponent getGraphComponent()
+  public @NotNull mxGraphComponent getGraphComponent()
   {
     return graphComponent;
   }

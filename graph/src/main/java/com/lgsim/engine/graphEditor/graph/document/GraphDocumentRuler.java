@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.graph.editor;
+package com.lgsim.engine.graphEditor.graph.document;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxEvent;
@@ -40,7 +40,7 @@ public class GraphDocumentRuler extends JComponent
   private Point mouse = new Point();
   private double increment;
 
-  GraphDocumentRuler(mxGraphComponent graphComponent, int orientation)
+  public GraphDocumentRuler(mxGraphComponent graphComponent, int orientation)
   {
     this.orientation = orientation;
     this.graphComponent = graphComponent;

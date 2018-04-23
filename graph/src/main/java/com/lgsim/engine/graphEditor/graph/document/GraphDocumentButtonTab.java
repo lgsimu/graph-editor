@@ -1,16 +1,16 @@
-package com.lgsim.engine.graphEditor.graph.editor;
+package com.lgsim.engine.graphEditor.graph.document;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.*;
 
-class GraphDocumentButtonTab extends JPanel
+public class GraphDocumentButtonTab extends JPanel
 {
   private final JTabbedPane pane;
 
 
-  GraphDocumentButtonTab(final JTabbedPane pane)
+  public GraphDocumentButtonTab(final JTabbedPane pane)
   {
     super(new FlowLayout(FlowLayout.LEFT, 0, 0));
     if (pane == null)
