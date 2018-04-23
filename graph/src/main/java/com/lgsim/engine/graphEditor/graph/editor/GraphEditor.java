@@ -101,8 +101,9 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     centerPane.setResizeWeight(0);
     eastPane.setResizeWeight(1);
 
-    libraryPane.setMinimumSize(new Dimension(0, 0));
-    graphOutline.setMinimumSize(new Dimension(0, 0));
+    libraryPane.setMinimumSize(new Dimension(320, 0));
+    graphOutline.setMinimumSize(new Dimension(320, 0));
+    vertexTable.getSwingComponent().setMinimumSize(new Dimension(320, 0));
 
     westPane.getRightComponent().setPreferredSize(
         new Dimension((int) vertexTable.getSwingComponent().getPreferredSize().getWidth(), 320)

@@ -49,6 +49,8 @@ public class Application implements IApplication
     SwingUtilities.invokeLater(() -> {
       try
       {
+        // workaround due to bug in initializer (bulenkov/Darcula issue #29)
+        UIManager.getFont("Label.font");
         UIManager.setLookAndFeel(new DarculaLaf());
         new Application();
       }
