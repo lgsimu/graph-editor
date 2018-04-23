@@ -101,10 +101,9 @@ public class EditorGraph extends mxGraph implements IGraph {
 
   private @NotNull mxCell createCavityCell(@NotNull Point position, @NotNull Object p) {
     final IVertexStencil stencil = stencilContext.getCavityStencil();
-    IVertex value = Builder.createVertex(stencil, true);
-
-    final String id = null; // auto-generate id when created vertex
-    mxCell cell = (mxCell) insertVertex(p, id, value, position.x, position.y, 48, 48);
+    VertexImpl value = Builder.createVertex(stencil, true);
+    mxCell cell = (mxCell) insertVertex(p, null, value, position.x, position.y, 48, 48);
+    setCellDisplayName(cell);
     settingCavityCellStyle(cell, stencil);
     return cell;
   }
@@ -139,22 +138,22 @@ public class EditorGraph extends mxGraph implements IGraph {
       for (Object x : cells) {
         if (x instanceof mxCell) {
           mxCell cell = (mxCell) x;
-          setCellID(cell);
+          setCellDisplayName(cell);
         }
       }
     }
     super.cellsAdded(cells, parent, index, source, target, absolute);
   }
 
-  private void setCellID(@NotNull mxCell cell) {
+  private void setCellDisplayName(@NotNull mxCell cell) {
     Object value = cell.getValue();
-    if (value instanceof IVertex) {
-      IVertex vertex = (IVertex) value;
-      if (!vertex.isCavity()) {
-        String id = vertexCounter.get() + "";
-        vertexCounter.inc();
-        cell.setId(id);
-      }
+    if (value instanceof VertexImpl) {
+      VertexImpl vertex = (VertexImpl) value;
+      String id = vertexCounter.get() + "";
+      vertexCounter.inc();
+      cell.setId(id);
+      vertex.setID(id);
+      vertex.setDisplayName(id);
     }
   }
 

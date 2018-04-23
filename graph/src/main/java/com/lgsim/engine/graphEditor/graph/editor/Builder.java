@@ -8,7 +8,6 @@ import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
 import com.lgsim.engine.graphEditor.util.CollectionUtil;
-import com.lgsim.engine.graphEditor.util.StringUtil;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,9 +18,9 @@ import java.util.List;
 @SuppressWarnings("unused")
 class Builder {
   @Contract(pure = true)
-  static @NotNull IVertex createVertex(@NotNull IVertexStencil stencil, boolean cavity)
+  static @NotNull VertexImpl createVertex(@NotNull IVertexStencil stencil, boolean cavity)
   {
-    String ID = StringUtil.emptyString();
+    String ID = "";
     String typeID = stencil.getID();
     List<IVertexArgument> arguments = CollectionUtil.cloneList(stencil.getArguments());
     List<IVertexOutput> outputs = CollectionUtil.cloneList(stencil.getOutputs());
