@@ -102,7 +102,7 @@ public class Template implements IStencilContext {
 
 
         //读取文件
-        String path = "com/lgsim/engine/graphEditor/data/simpleCase.inp";
+        String path = "com/lgsim/engine/graphEditor/data/simpleCase.out";
         InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 
         //将json文件转化为字符串
@@ -115,7 +115,7 @@ public class Template implements IStencilContext {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        //System.out.println(jsonStr);
         //解析jsonStr
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
         JSONObject components = JSONObject.fromObject(jsonObject.get("Components"));
@@ -206,7 +206,7 @@ public class Template implements IStencilContext {
                     parameters.add(parameter);
                 }
 
-                component.setArguments(parameters);
+                component.setOutputs(parameters);
             }
 
             component.setComponentName(com.getString("Name"));
