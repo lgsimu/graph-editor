@@ -102,7 +102,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     eastPane.setResizeWeight(1);
 
     libraryPane.setMinimumSize(new Dimension(320, 0));
-    graphOutline.setMinimumSize(new Dimension(320, 0));
+    graphOutline.setMinimumSize(new Dimension(320, 320));
     vertexTable.getSwingComponent().setMinimumSize(new Dimension(320, 0));
 
     westPane.getRightComponent().setPreferredSize(
@@ -194,7 +194,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
           comp.zoomOut();
         }
         int scale = (int) (100 * comp.getGraph().getView().getScale());
-        String msg = MessageBundle.get("scale", scale);
+        String msg = MessageBundle.get("graphDocument.graph.scale", scale);
         status(msg);
       }
     });

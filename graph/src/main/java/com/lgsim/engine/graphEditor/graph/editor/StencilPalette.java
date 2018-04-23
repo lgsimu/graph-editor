@@ -62,8 +62,9 @@ class StencilPalette extends JPanel {
     mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
     final mxGraphTransferable t = new mxGraphTransferable(new Object[]{cell}, bounds);
     ImageIcon icon = ResourceUtil.lookupImageIcon(stencil.getStencilIcon());
-    if (icon.getIconWidth() > 32 || icon.getIconHeight() > 32) {
-      icon = new ImageIcon(icon.getImage().getScaledInstance(32, 32, 0));
+    final int squareIcon = 32;
+    if ((icon.getIconWidth() != squareIcon) || (icon.getIconHeight() != squareIcon)) {
+      icon = new ImageIcon(icon.getImage().getScaledInstance(squareIcon, squareIcon, 0));
     }
     final JLabel entry = new JLabel(icon);
     entry.setPreferredSize(new Dimension(50, 50));
