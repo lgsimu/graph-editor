@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.graph.editor;
+package com.lgsim.engine.graphEditor.graph;
 
 import com.lgsim.engine.graphEditor.api.IconBundle;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
@@ -7,6 +7,7 @@ import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
+import com.lgsim.engine.graphEditor.graph.editor.StencilPalette;
 import com.lgsim.engine.graphEditor.util.CollectionUtil;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -16,9 +17,9 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 @SuppressWarnings("unused")
-class PureCons {
+public class PureCons {
   @Contract(pure = true)
-  static @NotNull VertexImpl createVertex(@NotNull IVertexStencil stencil, boolean cavity)
+  public static @NotNull VertexImpl createVertex(@NotNull IVertexStencil stencil, boolean cavity)
   {
     String ID = "";
     String typeID = stencil.getID();
@@ -30,12 +31,12 @@ class PureCons {
   }
 
   @Contract(pure = true)
-  static @NotNull StencilPalette createStencilPalette() {
+  public static @NotNull StencilPalette createStencilPalette() {
     return new StencilPalette();
   }
 
   @Contract(pure = true)
-  static @NotNull Action createAction(@NotNull String bundle, @NotNull Action action, @NotNull Object comp) {
+  public static @NotNull Action createAction(@NotNull String bundle, @NotNull Action action, @NotNull Object comp) {
     String name = MessageBundle.get(bundle);
     Icon icon = IconBundle.get(bundle);
     AbstractAction newAction = new AbstractAction(name, icon) {

@@ -2,6 +2,7 @@ package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
+import com.lgsim.engine.graphEditor.graph.PureCons;
 import com.lgsim.engine.graphEditor.util.ResourceUtil;
 import com.lgsim.engine.graphEditor.util.ui.UIUtil;
 import com.mxgraph.model.mxCell;
@@ -25,12 +26,12 @@ import java.awt.dnd.DragSource;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-class StencilPalette extends JPanel {
+public class StencilPalette extends JPanel {
   private mxEventSource eventSource = new mxEventSource(this);
   private JLabel selectedEntry;
   private int loadStencilCount = 0;
 
-  StencilPalette() {
+  public StencilPalette() {
     setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
     setTransferHandler(new TransferHandler() {
       public boolean canImport(JComponent comp, DataFlavor[] flavors)

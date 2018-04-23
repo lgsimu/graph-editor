@@ -1,6 +1,7 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.lgsim.engine.graphEditor.api.MessageBundle;
+import com.lgsim.engine.graphEditor.graph.PureCons;
 import com.lgsim.engine.graphEditor.graph.action.DocumentOpenAction;
 import com.lgsim.engine.graphEditor.graph.action.DocumentSaveAction;
 import com.lgsim.engine.graphEditor.graph.action.SolverCalcAction;
