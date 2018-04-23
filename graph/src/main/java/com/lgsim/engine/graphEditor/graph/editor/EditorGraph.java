@@ -31,6 +31,7 @@ public class EditorGraph extends mxGraph implements IGraph {
   {
     setAlternateEdgeStyle("edgeStyle=mxEdgeStyle.ElbowConnector;elbow=vertical");
     setSplitEnabled(false);
+    setAllowDanglingEdges(false);
     setCellsResizable(false);
     setCellsEditable(true);
     setKeepEdgesInForeground(true);

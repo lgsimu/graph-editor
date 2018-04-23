@@ -25,7 +25,7 @@ public class EditorGraphComponent extends mxGraphComponent
     setPageVisible(true);
     setGridVisible(true);
     setToolTips(true);
-    getConnectionHandler().setCreateTarget(true);
+    getConnectionHandler().setCreateTarget(false);
     mxCodec codec = new mxCodec();
     URI defaultStyle = ResourceUtil.lookup("com/lgsim/engine/graphEditor/graph/default-style.xml");
     if (defaultStyle != null)
