@@ -54,7 +54,7 @@ class EditorPalette extends JPanel {
 
   void addStencil(@NotNull final IVertexStencil stencil)
   {
-    IVertex cellVal = Builder.createVertex(stencil, null);
+    IVertex cellVal = Builder.createVertex(stencil, null, false);
     mxCell cell = new mxCell(cellVal, new mxGeometry(0, 0, 64, 64),
         "icon;image=/" + stencil.getGraphIcon());
     cell.setVertex(true);

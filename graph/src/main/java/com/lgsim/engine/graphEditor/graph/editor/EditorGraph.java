@@ -48,6 +48,32 @@ public class EditorGraph extends mxGraph implements IGraph {
       }
     };
     addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
+    addListener(mxEvent.CELLS_MOVED, ((sender, evt) -> {
+      log.debug("cells moved");
+      Object[] xs = (Object[]) evt.getProperties().get("cells");
+      if (xs != null) {
+        for (Object x : xs) {
+          if (x instanceof mxCell) {
+            mxCell cell = (mxCell) x;
+            if (cell.isVertex()) {
+              Object value = cell.getValue();
+              if (value instanceof IVertex) {
+                IVertex vertex = (IVertex) value;
+                if (vertex.isCavity()) {
+                  log.debug("move cavity {}", cell);
+                  repaintCavityEdges();
+                }
+              }
+            }
+          }
+        }
+      }
+    }));
+  }
+
+  private void repaintCavityEdges() {
+    log.debug("repaint cavity edges");
+    refresh();
   }
 
   private void paintCavityNodeBetween()
@@ -69,7 +95,8 @@ public class EditorGraph extends mxGraph implements IGraph {
   private @NotNull mxCell createCavityCell(@NotNull Point position, @NotNull Object p) {
     final int square = 32;
     final IVertexStencil stencil = stencilContext.getCavityStencil();
-    IVertex value = Builder.createVertex(stencil, vertexCounter);
+    IVertex value = Builder.createVertex(stencil, vertexCounter, true);
+
     final String id = null; // auto-generate id when created vertex
     mxCell cell = (mxCell) insertVertex(p, id, value, position.x, position.y, square, square);
     settingCavityCellStyle(cell, stencil);

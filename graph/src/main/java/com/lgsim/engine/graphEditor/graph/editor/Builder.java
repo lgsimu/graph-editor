@@ -16,7 +16,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 class Builder {
   @Contract(pure = true)
-  static @NotNull IVertex createVertex(@NotNull IVertexStencil stencil, @Nullable Counter vertexCounter)
+  static @NotNull IVertex createVertex(@NotNull IVertexStencil stencil, @Nullable Counter vertexCounter, boolean cavity)
   {
     String ID;
     if (vertexCounter == null) {
@@ -29,6 +29,6 @@ class Builder {
     List<IVertexOutput> outputs = CollectionUtil.cloneList(stencil.getOutputs());
     List<IVertex> inputPorts = CollectionUtil.emptyList();
     List<IVertex> outputPorts = CollectionUtil.emptyList();
-    return new VertexImpl(ID, typeID, arguments, outputs, inputPorts, outputPorts, false);
+    return new VertexImpl(ID, typeID, arguments, outputs, inputPorts, outputPorts, cavity);
   }
 }
