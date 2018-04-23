@@ -3,12 +3,13 @@ package com.lgsim.engine.graphEditor.api.data.impl;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
+import com.lgsim.engine.graphEditor.util.CollectionUtil;
+import com.lgsim.engine.graphEditor.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class VertexImpl implements IVertex
-{
+public class VertexImpl implements IVertex {
   private String ID;
   private String typeID;
   private List<IVertexArgument> arguments;
@@ -17,11 +18,15 @@ public class VertexImpl implements IVertex
   private List<IVertex> outputPorts;
   private boolean cavity;
 
-
   public VertexImpl()
   {
+    ID = StringUtil.emptyString();
+    typeID = StringUtil.emptyString();
+    arguments = CollectionUtil.emptyList();
+    outputs = CollectionUtil.emptyList();
+    inputPorts = CollectionUtil.emptyList();
+    outputs = CollectionUtil.emptyList();
   }
-
 
   public VertexImpl(@NotNull String ID, @NotNull String typeID, @NotNull List<IVertexArgument> arguments, @NotNull List<IVertexOutput> outputs, @NotNull List<IVertex> inputPorts, @NotNull List<IVertex> outputPorts, boolean cavity)
   {
@@ -34,7 +39,6 @@ public class VertexImpl implements IVertex
     this.cavity = cavity;
   }
 
-
   @Override
   @NotNull
   public String getID()
@@ -42,12 +46,10 @@ public class VertexImpl implements IVertex
     return ID;
   }
 
-
   public void setID(@NotNull String ID)
   {
     this.ID = ID;
   }
-
 
   @Override
   @NotNull
@@ -56,12 +58,10 @@ public class VertexImpl implements IVertex
     return typeID;
   }
 
-
   public void setTypeID(@NotNull String typeID)
   {
     this.typeID = typeID;
   }
-
 
   @Override
   @NotNull
@@ -70,12 +70,10 @@ public class VertexImpl implements IVertex
     return arguments;
   }
 
-
   public void setArguments(@NotNull List<IVertexArgument> arguments)
   {
     this.arguments = arguments;
   }
-
 
   @Override
   @NotNull
@@ -84,12 +82,10 @@ public class VertexImpl implements IVertex
     return outputs;
   }
 
-
   public void setOutputs(@NotNull List<IVertexOutput> outputs)
   {
     this.outputs = outputs;
   }
-
 
   @Override
   @NotNull
@@ -98,12 +94,10 @@ public class VertexImpl implements IVertex
     return inputPorts;
   }
 
-
   public void setInputPorts(@NotNull List<IVertex> inputPorts)
   {
     this.inputPorts = inputPorts;
   }
-
 
   @Override
   @NotNull
@@ -112,12 +106,10 @@ public class VertexImpl implements IVertex
     return outputPorts;
   }
 
-
   public void setOutputPorts(@NotNull List<IVertex> outputPorts)
   {
     this.outputPorts = outputPorts;
   }
-
 
   @Override
   public boolean isCavity()
@@ -125,12 +117,10 @@ public class VertexImpl implements IVertex
     return cavity;
   }
 
-
   public void setCavity(boolean cavity)
   {
     this.cavity = cavity;
   }
-
 
   @Override
   public String toString()

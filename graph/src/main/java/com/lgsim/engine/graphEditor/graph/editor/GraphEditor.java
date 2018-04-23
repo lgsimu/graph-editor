@@ -16,6 +16,7 @@ import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleCodecImpl;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.util.JarUtil;
+import com.lgsim.engine.graphEditor.util.StringUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
@@ -442,7 +443,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   {
     final IGraphDocument document = getCurrentGraphDocument();
     if (document == null) {
-      return "<empty>";
+      return StringUtil.emptyString();
     } else {
       return document.getTitle();
     }

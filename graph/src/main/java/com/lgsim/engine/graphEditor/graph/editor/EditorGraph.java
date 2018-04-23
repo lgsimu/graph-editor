@@ -21,12 +21,11 @@ import java.util.Vector;
 public class EditorGraph extends mxGraph implements IGraph {
   private static final Logger log = LoggerFactory.getLogger(EditorGraph.class);
   private static final IStencilContext stencilContext = ImplementationContext.INSTANCE.getStencilContext();
+  private final mxIEventListener cellConnectedListener;
+  private final Counter vertexCounter = new Counter();
   private mxCell fromNode;
   private mxCell toNode;
   private mxCell autogenEdge;
-  private final mxIEventListener cellConnectedListener;
-  private final Counter cavityCounter = new Counter();
-  private final Counter edgeCounter = new Counter();
 
   EditorGraph()
   {
@@ -61,18 +60,26 @@ public class EditorGraph extends mxGraph implements IGraph {
       mxCell cavity = createCavityCell(position, p);
       autogenEdge.setTerminal(cavity, false);
       removeListener(cellConnectedListener);
-      String edgeId = edgeCounter.incInt() + "";
-      insertEdge(getDefaultParent(), edgeId, null, cavity, toNode);
+      insertEdge(getDefaultParent(), null, null, cavity, toNode);
     } finally {
       getModel().endUpdate();
     }
   }
 
   private @NotNull mxCell createCavityCell(@NotNull Point position, @NotNull Object p) {
+    final int square = 32;
     final IVertexStencil stencil = stencilContext.getCavityStencil();
-    final String id = cavityCounter.incInt() + "";
-    final IVertex value = new VertexImpl();
-    return (mxCell) insertVertex(p, id, value, position.x, position.y, 64, 64);
+    IVertex value = Builder.createVertex(stencil, vertexCounter);
+    final String id = null; // auto-generate id when created vertex
+    mxCell cell = (mxCell) insertVertex(p, id, value, position.x, position.y, square, square);
+    settingCavityCellStyle(cell, stencil);
+    return cell;
+  }
+
+  private void settingCavityCellStyle(@NotNull mxCell cavity, @NotNull IVertexStencil stencil) {
+//    TODO
+//    1.3 将腔节点cell的外观改成圆形(32x32)，高亮和其它的元件一致，背景设置为1中获取的图标，并将该图标缩放为(32x32)
+//    1.3.1 找到其它元件是在哪里绘制的，样式是怎么获取的，怎么应用上去的
   }
 
   private static Point getCavityPosition(Point from, Point to)
@@ -92,6 +99,15 @@ public class EditorGraph extends mxGraph implements IGraph {
   public boolean isCellSelectable(Object cell)
   {
     return !model.isEdge(cell);
+  }
+
+  @Override
+  public Object createVertex(Object parent, String id, Object value,
+                             double x, double y, double width, double height,
+                             String style, boolean relative)
+  {
+    id = "" + vertexCounter.incInt();
+    return super.createVertex(parent, id, value, x, y, width, height, style, relative);
   }
 
   @Override
@@ -183,5 +199,9 @@ public class EditorGraph extends mxGraph implements IGraph {
   private boolean notOrphanEdge(@NotNull mxCell cell)
   {
     return (cell.getSource() != null) && (cell.getTarget() != null);
+  }
+
+  public Counter getVertexCounter() {
+    return vertexCounter;
   }
 }
