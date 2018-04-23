@@ -1,6 +1,5 @@
 package com.lgsim.engine.graphEditor.api.data;
 
-import com.lgsim.engine.graphEditor.api.MessageBundle;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
@@ -9,12 +8,7 @@ import java.util.List;
 /**
  * 元件模板
  */
-public interface IVertexStencil extends Serializable
-{
-  String predefinedText = MessageBundle.get("vertexStencil.predefined");
-
-  String userDefinedText = MessageBundle.get("vertexStencil.userDefined");
-
+public interface IVertexStencil extends Serializable {
 
   /**
    * 是否是预定义的

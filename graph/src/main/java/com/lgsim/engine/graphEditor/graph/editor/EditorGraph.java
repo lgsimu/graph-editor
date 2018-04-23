@@ -22,7 +22,7 @@ public class EditorGraph extends mxGraph implements IGraph {
   private static final Logger log = LoggerFactory.getLogger(EditorGraph.class);
   private static final IStencilContext stencilContext = ImplementationContext.INSTANCE.getStencilContext();
   private final mxIEventListener cellConnectedListener;
-  private final Counter vertexCounter = new Counter();
+  private final IntCounter vertexCounter = new IntCounter(1);
   private mxCell fromNode;
   private mxCell toNode;
   private mxCell autogenEdge;
@@ -87,6 +87,7 @@ public class EditorGraph extends mxGraph implements IGraph {
       autogenEdge.setTerminal(cavity, false);
       removeListener(cellConnectedListener);
       insertEdge(getDefaultParent(), null, null, cavity, toNode);
+      addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
     } finally {
       getModel().endUpdate();
     }
@@ -129,12 +130,28 @@ public class EditorGraph extends mxGraph implements IGraph {
   }
 
   @Override
-  public Object createVertex(Object parent, String id, Object value,
-                             double x, double y, double width, double height,
-                             String style, boolean relative)
-  {
-    id = "" + vertexCounter.incInt();
-    return super.createVertex(parent, id, value, x, y, width, height, style, relative);
+  public void cellsAdded(Object[] cells, Object parent, Integer index, Object source, Object target, boolean absolute) {
+    if (cells != null) {
+      for (Object x : cells) {
+        if (x instanceof mxCell) {
+          mxCell cell = (mxCell) x;
+          setCellID(cell);
+        }
+      }
+    }
+    super.cellsAdded(cells, parent, index, source, target, absolute);
+  }
+
+  private void setCellID(@NotNull mxCell cell) {
+    Object value = cell.getValue();
+    if (value instanceof IVertex) {
+      IVertex vertex = (IVertex) value;
+      if (!vertex.isCavity()) {
+        String id = vertexCounter.get() + "";
+        vertexCounter.inc();
+        cell.setId(id);
+      }
+    }
   }
 
   @Override
@@ -228,7 +245,7 @@ public class EditorGraph extends mxGraph implements IGraph {
     return (cell.getSource() != null) && (cell.getTarget() != null);
   }
 
-  public Counter getVertexCounter() {
+  public IntCounter getVertexCounter() {
     return vertexCounter;
   }
 }

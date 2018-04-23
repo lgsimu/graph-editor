@@ -24,11 +24,12 @@ import java.awt.dnd.DragSource;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-class EditorPalette extends JPanel {
+class StencilPalette extends JPanel {
   private mxEventSource eventSource = new mxEventSource(this);
   private JLabel selectedEntry;
+  private IntCounter vertexCounter;
 
-  EditorPalette() {
+  StencilPalette() {
     setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
     setTransferHandler(new TransferHandler() {
       public boolean canImport(JComponent comp, DataFlavor[] flavors)
@@ -54,7 +55,7 @@ class EditorPalette extends JPanel {
 
   void addStencil(@NotNull final IVertexStencil stencil)
   {
-    IVertex cellVal = Builder.createVertex(stencil, null, false);
+    IVertex cellVal = Builder.createVertex(stencil, vertexCounter, false);
     mxCell cell = new mxCell(cellVal, new mxGeometry(0, 0, 64, 64),
         "icon;image=/" + stencil.getGraphIcon());
     cell.setVertex(true);
@@ -66,7 +67,7 @@ class EditorPalette extends JPanel {
     }
     final JLabel entry = new JLabel(icon);
     entry.setPreferredSize(new Dimension(50, 50));
-    entry.setBackground(EditorPalette.this.getBackground().brighter());
+    entry.setBackground(StencilPalette.this.getBackground().brighter());
     entry.setFont(new Font(entry.getFont().getFamily(), Font.PLAIN, 10));
 
     entry.setVerticalTextPosition(JLabel.BOTTOM);
@@ -122,5 +123,12 @@ class EditorPalette extends JPanel {
   void removeListener(mxIEventListener listener)
   {
     eventSource.removeListener(listener);
+  }
+
+  public IntCounter getVertexCounter() {
+    return vertexCounter;
+  }
+  public void setVertexCounter(IntCounter vertexCounter) {
+    this.vertexCounter = vertexCounter;
   }
 }

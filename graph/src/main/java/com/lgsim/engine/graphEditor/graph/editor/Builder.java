@@ -16,13 +16,14 @@ import java.util.List;
 @SuppressWarnings("unused")
 class Builder {
   @Contract(pure = true)
-  static @NotNull IVertex createVertex(@NotNull IVertexStencil stencil, @Nullable Counter vertexCounter, boolean cavity)
+  static @NotNull IVertex createVertex(@NotNull IVertexStencil stencil, @Nullable IntCounter vertexCounter, boolean cavity)
   {
     String ID;
     if (vertexCounter == null) {
       ID = StringUtil.emptyString();
     } else {
-      ID = vertexCounter.incInt() + "";
+      ID = vertexCounter.get() + "";
+      vertexCounter.inc();
     }
     String typeID = stencil.getID();
     List<IVertexArgument> arguments = CollectionUtil.cloneList(stencil.getArguments());
@@ -30,5 +31,10 @@ class Builder {
     List<IVertex> inputPorts = CollectionUtil.emptyList();
     List<IVertex> outputPorts = CollectionUtil.emptyList();
     return new VertexImpl(ID, typeID, arguments, outputs, inputPorts, outputPorts, cavity, ID);
+  }
+
+  @Contract(pure = true)
+  static @NotNull StencilPalette createStencilPalette() {
+    return new StencilPalette();
   }
 }

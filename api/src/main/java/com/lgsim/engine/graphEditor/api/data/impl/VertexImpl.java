@@ -137,10 +137,6 @@ public class VertexImpl implements IVertex {
   @Override
   public String toString()
   {
-    if (isCavity()) {
-      return getDisplayName();
-    } else {
-      return "";
-    }
+    return getDisplayName();
   }
 }
