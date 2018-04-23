@@ -2,7 +2,6 @@ package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.IApplication;
-import com.lgsim.engine.graphEditor.api.IconBundle;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
@@ -31,7 +30,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
@@ -72,6 +70,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     loadDocuments();
   }
 
+  @SuppressWarnings("unused")
   public IGraphDocumentSpec getSpec()
   {
     return spec;
@@ -142,7 +141,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   {
     final IStencilContext context = ImplementationContext.INSTANCE.getStencilContext();
     final List<IVertexStencil> predefinedStencils = context.getPredefinedStencils();
-    final List<IVertexStencil> userDefinedStencils = context.getUserDefinedStencils();
+//    final List<IVertexStencil> userDefinedStencils = context.getUserDefinedStencils();
     BiConsumer<StencilPalette, List<IVertexStencil>> addStencils = (palette, stencils) -> {
       for (IVertexStencil stencil : stencils) {
         palette.addStencil(stencil);
@@ -272,23 +271,6 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   private void status(String msg)
   {
     statusBar.setText(msg);
-  }
-
-  Action bind(@NotNull String bundle, @NotNull Action action)
-  {
-    String name = MessageBundle.get(bundle);
-    Icon icon = IconBundle.get(bundle);
-    final mxGraphComponent graphComp = getCurrentGraphDocument().getGraphComponent();
-    AbstractAction newAction = new AbstractAction(name, icon) {
-      public void actionPerformed(ActionEvent e)
-      {
-        action.actionPerformed(new ActionEvent(graphComp, e.getID(), e.getActionCommand()));
-      }
-    };
-
-    newAction.putValue(Action.SHORT_DESCRIPTION, action.getValue(Action.SHORT_DESCRIPTION));
-
-    return newAction;
   }
 
   @Override
