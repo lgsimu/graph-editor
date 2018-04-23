@@ -22,7 +22,7 @@ class ImplementationRegistry implements IRegistry
   @Override
   public void registerAll()
   {
-    //ImplementationUtil.put(IGraph.class, EditorGraph.class);
+    //ImplementationUtil.put(IGraph.class, Graph.class);
     ImplementationUtil.put(IGraph.class, IGraphImpl.class);
     ImplementationUtil.put(IGraphCodec.class, GraphCodecImpl.class);
     //ImplementationUtil.put(IStencilContext.class, ComponentsTest.class);

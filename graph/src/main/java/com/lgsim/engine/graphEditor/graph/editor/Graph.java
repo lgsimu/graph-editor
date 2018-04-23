@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-public class EditorGraph extends mxGraph implements IGraph {
-  private static final Logger log = LoggerFactory.getLogger(EditorGraph.class);
+public class Graph extends mxGraph implements IGraph {
+  private static final Logger log = LoggerFactory.getLogger(Graph.class);
   private static final IStencilContext stencilContext = ImplementationContext.INSTANCE.getStencilContext();
   private final mxIEventListener cellConnectedListener;
   private final IntCounter vertexCounter = new IntCounter(1);
@@ -27,7 +27,7 @@ public class EditorGraph extends mxGraph implements IGraph {
   private mxCell toNode;
   private mxCell autogenEdge;
 
-  EditorGraph()
+  Graph()
   {
     setAlternateEdgeStyle("edgeStyle=mxEdgeStyle.ElbowConnector;elbow=vertical");
     setSplitEnabled(false);
