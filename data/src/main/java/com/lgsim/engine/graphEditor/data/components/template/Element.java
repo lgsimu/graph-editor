@@ -43,12 +43,13 @@ public class Element implements IStencilContext {
         JSONArray coms = JSONArray.fromObject(jsonObject.get("Components"));
 
         for (Object object : coms) {
-            Component component = new Component();
 
             JSONObject jObject = (JSONObject)object;
             JSONArray types = JSONArray.fromObject(jObject.get("ComponentType"));
 
             for (Object objectType : types) {
+                Component component = new Component();
+
                 JSONObject jObjectType = (JSONObject)objectType;
                 JSONArray arguments = JSONArray.fromObject(jObjectType.get("arguments"));
                 JSONArray results = JSONArray.fromObject(jsonObject.get("Result"));
@@ -85,14 +86,12 @@ public class Element implements IStencilContext {
                 component.setComponentType(jObjectType.getString("Type"));
                 component.setArguments(parameters);
                 component.setOutputs(outParameters);
+                component.setComponentTemplateName(jObject.getString("ComponentTemplateName"));
+                component.setImageSource(jObject.getString("ImageSource"));
+
+                elements.add(component);
             }
-
-            component.setComponentTemplateName(jObject.getString("ComponentTemplateName"));
-            component.setImageSource(jObject.getString("ImageSource"));
-
-            elements.add(component);
         }
-
         return elements;
     }
 

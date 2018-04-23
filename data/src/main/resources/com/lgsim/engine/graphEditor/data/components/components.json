@@ -411,7 +411,7 @@
       "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
       "ComponentType":[
         {
-          "Type":"108",
+          "Type":"110",
           "arguments":[
             {
               "ParameterName":"AA",
@@ -1381,7 +1381,7 @@
     },
     {
       "ComponentTemplateName":"SEALW",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/SEALW.png",
+      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/SEAL2.png",
       "ComponentType":[
         {
           "Type":"140",
@@ -3287,7 +3287,8 @@
     },
     {
       "ComponentTemplateName":"PDISSIPATION",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/PDISSIPATION.png",
+      //"ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/PDISSIPATION.png",
+      "ImageSource":"",
       "ComponentType":[
         {
           "Type":"201",
