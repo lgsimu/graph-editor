@@ -264,7 +264,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     log.debug("render vertex {}", vertex);
     Function<IVertex, Boolean> isValid = (v) -> {
       // TODO: to be complete
-      return false;
+      return true;
     };
     if (isValid.apply(vertex)) {
       vertexTable.render(vertex);
