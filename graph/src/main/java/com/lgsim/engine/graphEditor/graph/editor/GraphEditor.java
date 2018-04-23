@@ -171,7 +171,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   @Contract(pure = true)
   private GraphDocument openNewDocument()
   {
-    mxGraphComponent comp = new EditorGraphComponent(new Graph());
+    mxGraphComponent comp = new GraphComponent(new Graph());
     final GraphDocument document = new GraphDocument(comp);
     comp.setColumnHeaderView(new GraphDocumentRuler(comp, GraphDocumentRuler.ORIENTATION_HORIZONTAL));
     comp.setRowHeaderView(new GraphDocumentRuler(comp, GraphDocumentRuler.ORIENTATION_VERTICAL));

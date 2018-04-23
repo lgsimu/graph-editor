@@ -14,12 +14,12 @@ import org.w3c.dom.Document;
 import java.awt.*;
 import java.net.URI;
 
-public class EditorGraphComponent extends mxGraphComponent
+public class GraphComponent extends mxGraphComponent
 {
-  private static final Logger log = LoggerFactory.getLogger(EditorGraphComponent.class);
+  private static final Logger log = LoggerFactory.getLogger(GraphComponent.class);
 
 
-  EditorGraphComponent(mxGraph graph)
+  GraphComponent(mxGraph graph)
   {
     super(graph);
     setPageVisible(true);
