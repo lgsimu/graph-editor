@@ -27,6 +27,7 @@ import java.awt.event.MouseEvent;
 class StencilPalette extends JPanel {
   private mxEventSource eventSource = new mxEventSource(this);
   private JLabel selectedEntry;
+  private int loadStencilCount = 0;
 
   StencilPalette() {
     setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
@@ -90,6 +91,7 @@ class StencilPalette extends JPanel {
     DragSource dragSource = new DragSource();
     dragSource.createDefaultDragGestureRecognizer(entry, DnDConstants.ACTION_COPY, dragGestureListener);
     add(entry);
+    loadStencilCount += 1;
   }
 
   @SuppressWarnings("SameParameterValue")
@@ -122,5 +124,9 @@ class StencilPalette extends JPanel {
   void removeListener(mxIEventListener listener)
   {
     eventSource.removeListener(listener);
+  }
+
+  public int getLoadStencilCount() {
+    return loadStencilCount;
   }
 }

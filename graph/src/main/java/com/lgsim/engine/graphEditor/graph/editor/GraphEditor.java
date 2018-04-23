@@ -147,9 +147,12 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
         palette.addStencil(stencil);
       }
     };
+
     addStencils.accept(predefinedPalette, predefinedStencils);
+    log.debug("load {} predefined stencils", predefinedPalette.getLoadStencilCount());
     // TODO: uncomment
 //    addStencils.accept(userDefinedPalette, userDefinedStencils);
+    log.debug("load {} user defined stencils", userDefinedPalette.getLoadStencilCount());
   }
 
   private void loadDocuments()
