@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.graph.editor.action;
+package com.lgsim.engine.graphEditor.graph.action;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

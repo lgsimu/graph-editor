@@ -3,6 +3,7 @@ package com.lgsim.engine.graphEditor.graph.editor;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.util.ResourceUtil;
+import com.lgsim.engine.graphEditor.util.ui.UIUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.util.mxGraphTransferable;
@@ -55,7 +56,7 @@ class StencilPalette extends JPanel {
 
   void addStencil(@NotNull final IVertexStencil stencil)
   {
-    IVertex cellVal = Builder.createVertex(stencil, false);
+    IVertex cellVal = PureCons.createVertex(stencil, false);
     mxCell cell = new mxCell(cellVal, new mxGeometry(0, 0, 64, 64),
         "icon;image=/" + stencil.getGraphIcon());
     cell.setVertex(true);
@@ -107,7 +108,7 @@ class StencilPalette extends JPanel {
     }
 
     if (selectedEntry != null) {
-      selectedEntry.setBorder(ShadowBorder.getSharedInstance());
+      selectedEntry.setBorder(UIUtil.getShadowBorder());
       selectedEntry.setOpaque(true);
     }
 

@@ -1,45 +1,37 @@
-package com.lgsim.engine.graphEditor.graph.editor;
+package com.lgsim.engine.graphEditor.util.ui;
 
 import javax.swing.border.Border;
 import java.awt.*;
 import java.io.Serializable;
 
-public class ShadowBorder implements Border, Serializable
-{
+class ShadowBorder implements Border, Serializable {
   private Insets insets;
-  public static ShadowBorder sharedInstance = new ShadowBorder();
 
-
-  private ShadowBorder()
+  ShadowBorder()
   {
     insets = new Insets(0, 0, 2, 2);
   }
-
 
   public Insets getBorderInsets(Component c)
   {
     return insets;
   }
 
-
   public boolean isBorderOpaque()
   {
     return false;
   }
-
 
   public void paintBorder(Component c, Graphics g, int x, int y, int w, int h)
   {
 
     Color bg = c.getBackground();
 
-    if (c.getParent() != null)
-    {
+    if (c.getParent() != null) {
       bg = c.getParent().getBackground();
     }
 
-    if (bg != null)
-    {
+    if (bg != null) {
       Color mid = bg.darker();
       Color edge = average(mid, bg);
 
@@ -59,18 +51,11 @@ public class ShadowBorder implements Border, Serializable
     }
   }
 
-
   private static Color average(Color c1, Color c2)
   {
     int red = c1.getRed() + (c2.getRed() - c1.getRed()) / 2;
     int green = c1.getGreen() + (c2.getGreen() - c1.getGreen()) / 2;
     int blue = c1.getBlue() + (c2.getBlue() - c1.getBlue()) / 2;
     return new Color(red, green, blue);
-  }
-
-
-  public static ShadowBorder getSharedInstance()
-  {
-    return sharedInstance;
   }
 }

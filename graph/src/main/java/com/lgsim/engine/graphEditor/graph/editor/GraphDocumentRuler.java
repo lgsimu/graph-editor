@@ -24,8 +24,7 @@ public class GraphDocumentRuler extends JComponent
   private static boolean DEFAULT_IS_METRIC = true;
   private static final NumberFormat numberFormat = NumberFormat.getInstance();
 
-  static
-  {
+  static {
     numberFormat.setMaximumFractionDigits(2);
   }
 
@@ -56,38 +55,30 @@ public class GraphDocumentRuler extends JComponent
 
     DropTarget dropTarget = graphComponent.getDropTarget();
 
-    try
-    {
-      if (dropTarget != null)
-      {
+    try {
+      if (dropTarget != null) {
         dropTarget.addDropTargetListener(this);
       }
-    }
-    catch (TooManyListenersException ignored)
-    {
+    } catch (TooManyListenersException ignored) {
     }
 
     setBorder(BorderFactory.createLineBorder(Color.black));
   }
-
 
   public void setActiveOffset(int offset)
   {
     activeOffset = (int) (offset * scale);
   }
 
-
   public void setActiveLength(int length)
   {
     activeLength = (int) (length * scale);
   }
 
-
   public boolean isMetric()
   {
     return metric;
   }
-
 
   public void setMetric(boolean isMetric)
   {
@@ -96,89 +87,73 @@ public class GraphDocumentRuler extends JComponent
     repaint();
   }
 
-
   public int getRulerSize()
   {
     return rulerSize;
   }
-
 
   public void setRulerSize(int rulerSize)
   {
     this.rulerSize = rulerSize;
   }
 
-
   public void setTickDistance(int tickDistance)
   {
     this.tickDistance = tickDistance;
   }
-
 
   public int getTickDistance()
   {
     return tickDistance;
   }
 
-
   public Dimension getPreferredSize()
   {
     Dimension dim = graphComponent.getGraphControl().getPreferredSize();
 
-    if (orientation == ORIENTATION_VERTICAL)
-    {
+    if (orientation == ORIENTATION_VERTICAL) {
       dim.width = rulerSize;
-    }
-    else
-    {
+    } else {
       dim.height = rulerSize;
     }
 
     return dim;
   }
 
-
   public void dragEnter(DropTargetDragEvent arg0)
   {
 
   }
-
 
   public void dragExit(DropTargetEvent arg0)
   {
 
   }
 
-
   public void dragOver(final DropTargetDragEvent arg0)
   {
     updateMousePosition(arg0.getLocation());
   }
-
 
   public void drop(DropTargetDropEvent arg0)
   {
 
   }
 
-
   public void dropActionChanged(DropTargetDragEvent arg0)
   {
 
   }
-
 
   public void mouseMoved(MouseEvent e)
   {
     updateMousePosition(e.getPoint());
   }
 
-
   public void mouseDragged(MouseEvent e)
   {
     updateMousePosition(e.getPoint());
   }
-
 
   private void updateMousePosition(Point pt)
   {
@@ -188,40 +163,31 @@ public class GraphDocumentRuler extends JComponent
     repaint(mouse.x, mouse.y);
   }
 
-
   private void updateIncrementAndUnits()
   {
     double graphScale = graphComponent.getGraph().getView().getScale();
 
     int inch = 72;
     double units;
-    if (metric)
-    {
+    if (metric) {
       units = inch / 2.54;
       units *= graphComponent.getPageScale() * graphScale;
       increment = units;
-    }
-    else
-    {
+    } else {
       units = inch;
       units *= graphComponent.getPageScale() * graphScale;
       increment = units / 2;
     }
   }
 
-
   private void repaint(int x, int y)
   {
-    if (orientation == ORIENTATION_VERTICAL)
-    {
+    if (orientation == ORIENTATION_VERTICAL) {
       repaint(0, y, rulerSize, 1);
-    }
-    else
-    {
+    } else {
       repaint(x, 0, 1, rulerSize);
     }
   }
-
 
   public void paintComponent(Graphics g)
   {
@@ -229,12 +195,9 @@ public class GraphDocumentRuler extends JComponent
     Rectangle clip = g.getClipBounds();
     updateIncrementAndUnits();
 
-    if (activeLength > 0 && inactiveBackground != null)
-    {
+    if (activeLength > 0 && inactiveBackground != null) {
       g.setColor(inactiveBackground);
-    }
-    else
-    {
+    } else {
       g.setColor(getBackground());
     }
 
@@ -243,12 +206,9 @@ public class GraphDocumentRuler extends JComponent
     g.setColor(getBackground());
     Point2D pt = new Point2D.Double(activeOffset, activeLength);
 
-    if (orientation == ORIENTATION_HORIZONTAL)
-    {
+    if (orientation == ORIENTATION_HORIZONTAL) {
       g.fillRect((int) pt.getX(), clip.y, (int) pt.getY(), clip.height);
-    }
-    else
-    {
+    } else {
       g.fillRect(clip.x, (int) pt.getX(), clip.width, (int) pt.getY());
     }
 
@@ -264,29 +224,26 @@ public class GraphDocumentRuler extends JComponent
 
     double stepping = increment;
 
-    if (stepping < tickDistance)
-    {
+    if (stepping < tickDistance) {
       int count = (int) Math
           .round(Math.ceil(tickDistance / stepping) / 2) * 2;
       stepping = count * stepping;
     }
 
     ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                                      RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     g.setFont(labelFont);
     g.setColor(Color.black);
 
     int smallTick = rulerSize - rulerSize / 3;
     int middleTick = rulerSize / 2;
 
-    if (orientation == ORIENTATION_HORIZONTAL)
-    {
+    if (orientation == ORIENTATION_HORIZONTAL) {
       double xs = Math.floor((left - tx) / stepping) * stepping + tx;
       double xe = Math.ceil(right / stepping) * stepping;
       xe += (int) Math.ceil(stepping);
 
-      for (double x = xs; x <= xe; x += stepping)
-      {
+      for (double x = xs;x <= xe;x += stepping) {
 
         double xx = Math.round((x - tx) / stepping) * stepping + tx;
 
@@ -305,15 +262,12 @@ public class GraphDocumentRuler extends JComponent
         ix += (int) Math.round(stepping / 4);
         g.drawLine(ix, rulerSize, ix, smallTick);
       }
-    }
-    else
-    {
+    } else {
       double ys = Math.floor((top - ty) / stepping) * stepping + ty;
       double ye = Math.ceil(bottom / stepping) * stepping;
       ye += (int) Math.ceil(stepping);
 
-      for (double y = ys; y <= ye; y += stepping)
-      {
+      for (double y = ys;y <= ye;y += stepping) {
 
         y = Math.round((y - ty) / stepping) * stepping + ty;
 
@@ -340,23 +294,18 @@ public class GraphDocumentRuler extends JComponent
 
     g.setColor(Color.green);
 
-    if (orientation == ORIENTATION_HORIZONTAL)
-    {
+    if (orientation == ORIENTATION_HORIZONTAL) {
       g.drawLine(mouse.x, rulerSize, mouse.x, 0);
-    }
-    else
-    {
+    } else {
       g.drawLine(rulerSize, mouse.y, 0, mouse.y);
     }
   }
-
 
   private String format(double value)
   {
     String text = numberFormat.format(value);
 
-    if (text.equals("-0"))
-    {
+    if (text.equals("-0")) {
       text = "0";
     }
 

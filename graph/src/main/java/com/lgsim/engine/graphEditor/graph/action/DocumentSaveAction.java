@@ -1,9 +1,9 @@
-package com.lgsim.engine.graphEditor.graph.editor.action;
+package com.lgsim.engine.graphEditor.graph.action;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class SolverSettingAction extends AbstractAction
+public class DocumentSaveAction extends AbstractAction
 {
   @Override
   public void actionPerformed(ActionEvent e)

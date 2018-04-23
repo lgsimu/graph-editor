@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 @SuppressWarnings("unused")
-class Builder {
+class PureCons {
   @Contract(pure = true)
   static @NotNull VertexImpl createVertex(@NotNull IVertexStencil stencil, boolean cavity)
   {

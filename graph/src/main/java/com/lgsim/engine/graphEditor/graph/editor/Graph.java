@@ -103,7 +103,7 @@ public class Graph extends mxGraph implements IGraph {
 
   private @NotNull mxCell createCavityCell(@NotNull Point position, @NotNull Object p) {
     final IVertexStencil stencil = stencilContext.getCavityStencil();
-    VertexImpl value = Builder.createVertex(stencil, true);
+    VertexImpl value = PureCons.createVertex(stencil, true);
     mxCell cell = (mxCell) insertVertex(p, null, value, position.x, position.y, 48, 48);
     GraphSupport.modifyCell(cell, vertexCounter);
     settingCavityCellStyle(cell, stencil);

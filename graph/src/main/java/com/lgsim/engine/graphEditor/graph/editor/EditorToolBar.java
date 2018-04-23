@@ -4,7 +4,7 @@ import javax.swing.*;
 
 class EditorToolBar extends JToolBar
 {
-  EditorToolBar(GraphEditor editor, int orientation)
+  EditorToolBar(Editor editor, int orientation)
   {
     super(orientation);
     setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3),

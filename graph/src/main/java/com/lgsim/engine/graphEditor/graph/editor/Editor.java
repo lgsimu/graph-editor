@@ -42,8 +42,8 @@ import java.util.function.Function;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
-public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironment {
-  private static final Logger log = LoggerFactory.getLogger(GraphEditor.class);
+public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
+  private static final Logger log = LoggerFactory.getLogger(Editor.class);
   private final IGraphDocumentSpec spec;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
@@ -57,12 +57,12 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   private final JSplitPane westPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, libraryPane, graphOutline);
   private final JSplitPane centerPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, westPane, docTabbedPane);
   private final JSplitPane eastPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPane, vertexTable.getSwingComponent());
-  private final StencilPalette predefinedPalette = Builder.createStencilPalette();
-  private final StencilPalette userDefinedPalette = Builder.createStencilPalette();
+  private final StencilPalette predefinedPalette = PureCons.createStencilPalette();
+  private final StencilPalette userDefinedPalette = PureCons.createStencilPalette();
   private List<GraphDocument> graphDocuments = new Vector<>();
   private transient int currentDocumentIndex;
 
-  public GraphEditor(@NotNull IGraphDocumentSpec spec)
+  public Editor(@NotNull IGraphDocumentSpec spec)
   {
     this.spec = spec;
     initUIComponents();
@@ -178,7 +178,7 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
     installOutlineListeners(comp);
     installGraphDocumentListeners(document);
     docTabbedPane.add(document.getTitle(), document.getGraphComponent());
-    docTabbedPane.setTabComponentAt(currentDocumentIndex, new ButtonTabComponent(docTabbedPane));
+    docTabbedPane.setTabComponentAt(currentDocumentIndex, new GraphDocumentButtonTab(docTabbedPane));
     document.getGraphComponent().setMinimumSize(new Dimension(0, 0));
     return document;
   }

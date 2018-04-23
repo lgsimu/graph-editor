@@ -8,13 +8,13 @@ import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleImpl;
 import com.mxgraph.swing.mxGraphComponent;
 import org.jetbrains.annotations.NotNull;
 
-class GraphDocument extends GraphDocumentImpl
+public class GraphDocument extends GraphDocumentImpl
 {
   private mxGraphComponent graphComponent;
   private final IntCounter vertexCounter;
 
 
-  GraphDocument(@NotNull mxGraphComponent comp)
+  public GraphDocument(@NotNull mxGraphComponent comp)
   {
     super(null, new GraphDocumentFileImpl(), (IGraph) comp.getGraph(), new GraphStyleImpl(), false);
     setGraphComponent(comp);

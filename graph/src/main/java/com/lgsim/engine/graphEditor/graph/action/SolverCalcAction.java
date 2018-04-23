@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.graph.editor.action;
+package com.lgsim.engine.graphEditor.graph.action;
 
 import com.lgsim.engine.graphEditor.api.calc.ISolver;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;

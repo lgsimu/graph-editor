@@ -4,7 +4,7 @@ import com.bulenkov.darcula.DarculaLaf;
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.IconBundle;
 import com.lgsim.engine.graphEditor.graph.editor.EditorMenuBar;
-import com.lgsim.engine.graphEditor.graph.editor.GraphEditor;
+import com.lgsim.engine.graphEditor.graph.editor.Editor;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import com.lgsim.engine.graphEditor.util.ExceptionManager;
 import com.mxgraph.swing.util.mxSwingConstants;
@@ -29,7 +29,7 @@ public class Application implements IApplication
     mxConstants.W3C_SHADOWCOLOR = "#D3D3D3";
 
     JFrame frame = new JFrame();
-    GraphEditor editor = new GraphEditor(this);
+    Editor editor = new Editor(this);
     frame.setJMenuBar(new EditorMenuBar(editor));
     frame.getContentPane().add(editor);
     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);

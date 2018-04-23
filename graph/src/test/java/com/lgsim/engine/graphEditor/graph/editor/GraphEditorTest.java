@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class GraphEditorTest
 {
-  private GraphEditor editor;
+  private Editor editor;
 
 
   @Before
