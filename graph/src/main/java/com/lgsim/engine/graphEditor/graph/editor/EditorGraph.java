@@ -123,15 +123,17 @@ public class EditorGraph extends mxGraph implements IGraph
     final List<IVertex> output = new Vector<>();
     for (Object vertex : vertices)
     {
-      mxCell in = (mxCell) vertex;
-      IVertex v = (IVertex) in.getValue();
-      VertexImpl out = new VertexImpl();
-      cloneIfPossible(v, out);
-      List<IVertex> inputVertexes = lookupInputPorts(vertex, edges);
-      List<IVertex> outputVertexes = lookupOutputPorts(vertex, edges);
-      out.setInputPorts(inputVertexes);
-      out.setOutputPorts(outputVertexes);
-      output.add(out);
+      if (vertex instanceof IVertex) {
+        mxCell in = (mxCell) vertex;
+        IVertex v = (IVertex) in.getValue();
+        VertexImpl out = new VertexImpl();
+        cloneIfPossible(v, out);
+        List<IVertex> inputVertexes = lookupInputPorts(vertex, edges);
+        List<IVertex> outputVertexes = lookupOutputPorts(vertex, edges);
+        out.setInputPorts(inputVertexes);
+        out.setOutputPorts(outputVertexes);
+        output.add(out);
+      }
     }
     return output;
   }
