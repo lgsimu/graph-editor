@@ -115,7 +115,7 @@ public class Template implements IStencilContext {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        //System.out.println(jsonStr);
         //解析jsonStr
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
         JSONObject components = JSONObject.fromObject(jsonObject.get("Components"));

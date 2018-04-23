@@ -1416,228 +1416,1890 @@
       ]
     },
     {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
+      "ComponentTemplateName":"ATR2",
+      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/ATR2.png",
       "ComponentType":[
         {
-          "Type":"108",
+          "Type":"141",
           "arguments":[
             {
               "ParameterName":"AA",
               "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
+              "ParameterDescription":"流通面积"
             },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"计算半径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔出口径向位置"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔内径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔外径"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔宽度"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"盘面摩阻系数修正系数"
+            }
+          ]
+        },
+        {
+          "Type":"142",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"流通面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"计算半径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔出口径向位置"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔内径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔外径"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔宽度"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"盘面摩阻系数修正系数"
+            }
+          ]
+        },
+        {
+          "Type":"143",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"流通面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"计算半径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔出口径向位置"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔内径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔外径"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔宽度"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"盘面摩阻系数修正系数"
+            }
+          ]
+        },
+        {
+          "Type":"144",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"流通面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"计算半径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔出口径向位置"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔内径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔外径"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔宽度"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"盘面摩阻系数修正系数"
+            }
+          ]
+        },
+        {
+          "Type":"145",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"流通面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"计算半径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔出口径向位置"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔内径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔外径"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"预旋腔宽度"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"盘面摩阻系数修正系数"
+            }
           ]
         }
       ]
     },
     {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
+      "ComponentTemplateName":"VOR",
+      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/VOR.png",
       "ComponentType":[
         {
-          "Type":"108",
+          "Type":"151",
           "arguments":[
             {
-              "ParameterName":"AA",
-              "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"进口半径"
             },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"出口半径"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"旋转比"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"右盘转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"左盘转速"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"输入温升"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盘间距"
+            }
+          ]
+        },
+        {
+          "Type":"152",
+          "arguments":[
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"进口半径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"出口半径"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"旋转比"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"右盘转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"左盘转速"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盘间距"
+            }
+          ]
+        },
+        {
+          "Type":"153",
+          "arguments":[
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"进口半径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"出口半径"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"旋转比"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"右盘转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"左盘转速"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盘间距"
+            },
+            {
+              "ParameterName":"GEO8",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"左侧壁温"
+            },
+            {
+              "ParameterName":"GEO9",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"右侧壁温"
+            }
+          ]
+        },
+        {
+          "Type":"154",
+          "arguments":[
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"进口半径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"出口半径"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"旋转比"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"右盘转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"左盘转速"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盘间距"
+            }
           ]
         }
       ]
     },
     {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
+      "ComponentTemplateName":"VORC",
+      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/VORC.png",
       "ComponentType":[
         {
-          "Type":"108",
+          "Type":"156",
           "arguments":[
             {
-              "ParameterName":"AA",
-              "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"接受孔中心径向位置"
             },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盖板腔顶部半径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盖板腔平均宽度"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"叶片冷气进口气流旋转比"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"接受孔旋转比变化用系数"
+            }
+          ]
+        },
+        {
+          "Type":"157",
+          "arguments":[
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"接受孔中心径向位置"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盖板腔顶部半径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盖板腔平均宽度"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"叶片冷气进口气流旋转比"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"接受孔旋转比变化用系数"
+            }
+          ]
+        },
+        {
+          "Type":"158",
+          "arguments":[
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"接受孔中心径向位置"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盖板腔顶部半径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盖板腔平均宽度"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"叶片冷气进口气流旋转比"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"接受孔旋转比变化用系数"
+            }
+          ]
+        },
+        {
+          "Type":"159",
+          "arguments":[
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"接受孔中心径向位置"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盖板腔顶部半径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盖板腔平均宽度"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"叶片冷气进口气流旋转比"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"接受孔旋转比变化用系数"
+            }
           ]
         }
       ]
     },
     {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
+      "ComponentTemplateName":"HEAT",
+      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/HEAT.png",
       "ComponentType":[
         {
-          "Type":"108",
+          "Type":"162",
           "arguments":[
             {
-              "ParameterName":"AA",
-              "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"T2/T1"
             },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"T2-T1"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"13",
+              "ParameterDescription":"热流量"
+            }
+          ]
+        },
+        {
+          "Type":"164",
+          "arguments":[
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盘外半径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"盘内半径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"转速"
+            }
+          ]
+        },
+        {
+          "Type":"166",
+          "arguments":[
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"直径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"长度"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"转速"
+            }
+          ]
+        },
+        {
+          "Type":"168",
+          "arguments":[
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"齿尖半径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"齿根半径"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"篦齿长度"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"转速"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"齿数"
+            }
           ]
         }
       ]
     },
     {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
+      "ComponentTemplateName":"IMPLE",
+      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/IMPLE.png",
       "ComponentType":[
         {
-          "Type":"108",
+          "Type":"171",
           "arguments":[
             {
               "ParameterName":"AA",
               "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
+              "ParameterDescription":"射流孔面积"
             },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"射流孔直径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"靶面高度"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"孔间距"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"靶面内腔直径"
+            }
+          ]
+        },
+        {
+          "Type":"172",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"射流孔面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"射流孔直径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"靶面高度"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"孔间距"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"靶面内腔直径"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"靶面换热面积"
+            },
+            {
+              "ParameterName":"GEO11",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO12",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"燃气总温"
+            },
+            {
+              "ParameterName":"GEO13",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO14",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO15",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁冷气换热面积比"
+            }
+          ]
+        },
+        {
+          "Type":"173",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"射流孔面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"射流孔直径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"靶面高度"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"孔间距"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"靶面内腔直径"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"靶面换热面积"
+            },
+            {
+              "ParameterName":"GEO11",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO12",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"燃气总温"
+            },
+            {
+              "ParameterName":"GEO13",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO14",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO15",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁冷气换热面积比"
+            }
+          ]
+        },
+        {
+          "Type":"174",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"射流孔面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"射流孔直径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"靶面高度"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"孔间距"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"靶面内腔直径"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"靶面换热面积"
+            },
+            {
+              "ParameterName":"GEO11",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO12",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"燃气总温"
+            },
+            {
+              "ParameterName":"GEO13",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO14",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO15",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁冷气换热面积比"
+            }
+          ]
+        },
+        {
+          "Type":"175",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"射流孔面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"射流孔直径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"靶面高度"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"孔间距"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"靶面内腔直径"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"靶面换热面积"
+            },
+            {
+              "ParameterName":"GEO11",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO12",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"燃气总温"
+            },
+            {
+              "ParameterName":"GEO13",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO14",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO15",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁冷气换热面积比"
+            }
           ]
         }
       ]
     },
     {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
+      "ComponentTemplateName":"IMPMC",
+      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/IMPMC.png",
       "ComponentType":[
         {
-          "Type":"108",
+          "Type":"176",
           "arguments":[
             {
               "ParameterName":"AA",
               "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
+              "ParameterDescription":"射流孔面积"
             },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"射流孔直径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"靶面高度与射流孔直径比"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"弦向孔间距/孔径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"径向孔间距/孔径"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"流向元件长度"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"径向元件长度"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"相关管元件面积"
+            }
+          ]
+        },
+        {
+          "Type":"177",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"射流孔面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"射流孔直径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"靶面高度与射流孔直径比"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"弦向孔间距/孔径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"径向孔间距/孔径"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"流向元件长度"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"径向元件长度"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"相关管元件面积"
+            },
+            {
+              "ParameterName":"GEO11",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO12",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"燃气总温"
+            },
+            {
+              "ParameterName":"GEO13",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO14",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO15",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁冷气换热面积比"
+            }
+          ]
+        },
+        {
+          "Type":"178",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"射流孔面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"射流孔直径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"靶面高度与射流孔直径比"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"弦向孔间距/孔径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"径向孔间距/孔径"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"流向元件长度"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"径向元件长度"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"相关管元件面积"
+            },
+            {
+              "ParameterName":"GEO11",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO12",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"燃气总温"
+            },
+            {
+              "ParameterName":"GEO13",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO14",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO15",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁冷气换热面积比"
+            }
+          ]
+        },
+        {
+          "Type":"179",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"射流孔面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"射流孔直径"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"靶面高度与射流孔直径比"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"弦向孔间距/孔径"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"径向孔间距/孔径"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"流向元件长度"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"径向元件长度"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"相关管元件面积"
+            },
+            {
+              "ParameterName":"GEO11",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO12",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"燃气总温"
+            },
+            {
+              "ParameterName":"GEO13",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO14",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO15",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁冷气换热面积比"
+            }
           ]
         }
       ]
     },
     {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
-      "ComponentType":[
+      "ComponentTemplateName": "IMPTUB",
+      "ImageSource": "com/lgsim/engine/graphEditor/data/testjpg/IMPTUB.png",
+      "ComponentType": [
         {
-          "Type":"108",
-          "arguments":[
+          "Type": "181",
+          "arguments": [
             {
-              "ParameterName":"AA",
-              "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
+              "ParameterName": "AA",
+              "ParameterUnitID": "2",
+              "ParameterDescription": "通道进口面积"
             },
+            {
+              "ParameterName": "GEO1",
+              "ParameterUnitID": "2",
+              "ParameterDescription": "通道出口面积"
+            },
+            {
+              "ParameterName": "GEO2",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道高度"
+            },
+            {
+              "ParameterName": "GEO3",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道长度"
+            },
+            {
+              "ParameterName": "GEO4",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道宽度"
+            }
+          ]
+        },
+        {
+          "Type": "182",
+          "arguments": [
+            {
+              "ParameterName": "AA",
+              "ParameterUnitID": "2",
+              "ParameterDescription": "通道进口面积"
+            },
+            {
+              "ParameterName": "GEO1",
+              "ParameterUnitID": "2",
+              "ParameterDescription": "通道出口面积"
+            },
+            {
+              "ParameterName": "GEO2",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道高度"
+            },
+            {
+              "ParameterName": "GEO3",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道长度"
+            },
+            {
+              "ParameterName": "GEO4",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道宽度"
+            }
+          ]
+        },
+        {
+          "Type": "183",
+          "arguments": [
+            {
+              "ParameterName": "AA",
+              "ParameterUnitID": "2",
+              "ParameterDescription": "通道进口面积"
+            },
+            {
+              "ParameterName": "GEO1",
+              "ParameterUnitID": "2",
+              "ParameterDescription": "通道出口面积"
+            },
+            {
+              "ParameterName": "GEO2",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道高度"
+            },
+            {
+              "ParameterName": "GEO3",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道长度"
+            },
+            {
+              "ParameterName": "GEO4",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道宽度"
+            }
+          ]
+        },
+        {
+          "Type": "184",
+          "arguments": [
+            {
+              "ParameterName": "AA",
+              "ParameterUnitID": "2",
+              "ParameterDescription": "通道进口面积"
+            },
+            {
+              "ParameterName": "GEO1",
+              "ParameterUnitID": "2",
+              "ParameterDescription": "通道出口面积"
+            },
+            {
+              "ParameterName": "GEO2",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道高度"
+            },
+            {
+              "ParameterName": "GEO3",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道长度"
+            },
+            {
+              "ParameterName": "GEO4",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道宽度"
+            }
+          ]
+        },
+        {
+          "Type": "185",
+          "arguments": [
+            {
+              "ParameterName": "AA",
+              "ParameterUnitID": "2",
+              "ParameterDescription": "通道进口面积"
+            },
+            {
+              "ParameterName": "GEO1",
+              "ParameterUnitID": "2",
+              "ParameterDescription": "通道出口面积"
+            },
+            {
+              "ParameterName": "GEO2",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道高度"
+            },
+            {
+              "ParameterName": "GEO3",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道长度"
+            },
+            {
+              "ParameterName": "GEO4",
+              "ParameterUnitID": "1",
+              "ParameterDescription": "通道宽度"
+            }
           ]
         }
       ]
     },
     {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
+      "ComponentTemplateName":"PINFIN",
+      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/PINFIN.png",
       "ComponentType":[
         {
-          "Type":"108",
+          "Type":"186",
           "arguments":[
             {
               "ParameterName":"AA",
               "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
+              "ParameterDescription":"通道进口面积"
             },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"通道出口面积"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"扰流柱直径"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"通道高度"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"弦向间距"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"径向间距"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"弦向排数"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"径向排数"
+            },
+            {
+              "ParameterName":"GEO8",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"元件高度"
+            },
+            {
+              "ParameterName":"GEO9",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"吸力面元件长度"
+            },
+            {
+              "ParameterName":"GEO10",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"压力面元件长度"
+            }
+          ]
+        },
+        {
+          "Type":"187",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"通道进口面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"通道出口面积"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"扰流柱直径"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"通道高度"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"弦向间距"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"径向间距"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"弦向排数"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"径向排数"
+            },
+            {
+              "ParameterName":"GEO8",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"元件高度"
+            },
+            {
+              "ParameterName":"GEO9",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"吸力面元件长度"
+            },
+            {
+              "ParameterName":"GEO10",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"压力面元件长度"
+            }
+          ]
+        },
+        {
+          "Type":"188",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"通道进口面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"通道出口面积"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"扰流柱直径"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"通道高度"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"弦向间距"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"径向间距"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"弦向排数"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"径向排数"
+            },
+            {
+              "ParameterName":"GEO8",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"元件高度"
+            },
+            {
+              "ParameterName":"GEO9",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"吸力面元件长度"
+            },
+            {
+              "ParameterName":"GEO10",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"压力面元件长度"
+            },
+            {
+              "ParameterName":"GEO11",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"吸力面燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO12",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"吸力面燃气温度"
+            },
+            {
+              "ParameterName":"GEO13",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"吸力面壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO14",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气与冷气面换热积比"
+            },
+            {
+              "ParameterName":"GEO15",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁导热与冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO17",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"压力面燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO18",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"压力面燃气温度"
+            },
+            {
+              "ParameterName":"GEO19",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"压力面壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO20",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气与冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO21",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁导热与冷气换热面积比"
+            }
+          ]
+        },
+        {
+          "Type":"189",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"通道进口面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"通道出口面积"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"扰流柱直径"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"通道高度"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"弦向间距"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"径向间距"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"弦向排数"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"径向排数"
+            },
+            {
+              "ParameterName":"GEO8",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"元件高度"
+            },
+            {
+              "ParameterName":"GEO9",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"吸力面元件长度"
+            },
+            {
+              "ParameterName":"GEO10",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"压力面元件长度"
+            },
+            {
+              "ParameterName":"GEO11",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"吸力面燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO12",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"吸力面燃气温度"
+            },
+            {
+              "ParameterName":"GEO13",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"吸力面壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO14",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气与冷气面换热积比"
+            },
+            {
+              "ParameterName":"GEO15",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁导热与冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO17",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"压力面燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO18",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"压力面燃气温度"
+            },
+            {
+              "ParameterName":"GEO19",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"压力面壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO20",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气与冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO21",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁导热与冷气换热面积比"
+            }
+          ]
+        },
+        {
+          "Type":"190",
+          "arguments":[
+            {
+              "ParameterName":"AA",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"通道进口面积"
+            },
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"通道出口面积"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"扰流柱直径"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"通道高度"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"弦向间距"
+            },
+            {
+              "ParameterName":"GEO5",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"径向间距"
+            },
+            {
+              "ParameterName":"GEO6",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"弦向排数"
+            },
+            {
+              "ParameterName":"GEO7",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"径向排数"
+            },
+            {
+              "ParameterName":"GEO8",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"元件高度"
+            },
+            {
+              "ParameterName":"GEO9",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"吸力面元件长度"
+            },
+            {
+              "ParameterName":"GEO10",
+              "ParameterUnitID":"1",
+              "ParameterDescription":"压力面元件长度"
+            },
+            {
+              "ParameterName":"GEO11",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"吸力面燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO12",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"吸力面燃气温度"
+            },
+            {
+              "ParameterName":"GEO13",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"吸力面壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO14",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气与冷气面换热积比"
+            },
+            {
+              "ParameterName":"GEO15",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁导热与冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO17",
+              "ParameterUnitID":"14",
+              "ParameterDescription":"压力面燃气换热系数"
+            },
+            {
+              "ParameterName":"GEO18",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"压力面燃气温度"
+            },
+            {
+              "ParameterName":"GEO19",
+              "ParameterUnitID":"29",
+              "ParameterDescription":"压力面壁厚与导热系数比"
+            },
+            {
+              "ParameterName":"GEO20",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"燃气与冷气换热面积比"
+            },
+            {
+              "ParameterName":"GEO21",
+              "ParameterUnitID":"0",
+              "ParameterDescription":"壁导热与冷气换热面积比"
+            }
           ]
         }
       ]
     },
     {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
+      "ComponentTemplateName":"PSOURCE",
+      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/PSOURCE.png",
       "ComponentType":[
         {
-          "Type":"108",
+          "Type":"1",
           "arguments":[
             {
-              "ParameterName":"AA",
-              "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"4",
+              "ParameterDescription":"总压"
             },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"总温"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"流通面积"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"30",
+              "ParameterDescription":"涡量"
+            }
+          ]
+        },
+        {
+          "Type":"2 ",
+          "arguments":[
+            {
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"4",
+              "ParameterDescription":"静压"
+            },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"总温"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"流通面积"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"30",
+              "ParameterDescription":"涡量"
+            }
           ]
         }
       ]
     },
     {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
+      "ComponentTemplateName":"MSOURCE",
+      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/MSOURCE.png",
       "ComponentType":[
         {
-          "Type":"108",
+          "Type":"3",
           "arguments":[
             {
-              "ParameterName":"AA",
-              "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
+              "ParameterName":"GEO1",
+              "ParameterUnitID":"31",
+              "ParameterDescription":"质量流量"
             },
+            {
+              "ParameterName":"GEO2",
+              "ParameterUnitID":"24",
+              "ParameterDescription":"总温"
+            },
+            {
+              "ParameterName":"GEO3",
+              "ParameterUnitID":"2",
+              "ParameterDescription":"流通面积"
+            },
+            {
+              "ParameterName":"GEO4",
+              "ParameterUnitID":"31",
+              "ParameterDescription":"涡量"
+            }
           ]
         }
       ]
     },
     {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
+      "ComponentTemplateName":"PDISSIPATION",
+      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/PDISSIPATION.png",
       "ComponentType":[
         {
-          "Type":"108",
+          "Type":"201",
           "arguments":[
             {
               "ParameterName":"AA",
               "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
-            },
+              "ParameterDescription":"流通面积"
+            }
           ]
         }
       ]
-    },
-    {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
-      "ComponentType":[
-        {
-          "Type":"108",
-          "arguments":[
-            {
-              "ParameterName":"AA",
-              "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
-            },
-          ]
-        }
-      ]
-    },
-    {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
-      "ComponentType":[
-        {
-          "Type":"108",
-          "arguments":[
-            {
-              "ParameterName":"AA",
-              "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
-            },
-          ]
-        }
-      ]
-    },
-    {
-      "ComponentTemplateName":"TUBEP2",
-      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/TUBEP2.png",
-      "ComponentType":[
-        {
-          "Type":"108",
-          "arguments":[
-            {
-              "ParameterName":"AA",
-              "ParameterUnitID":"2",
-              "ParameterDescription":"进口面积"
-            },
-          ]
-        }
-      ]
-    },
+    }
   ]
 }
