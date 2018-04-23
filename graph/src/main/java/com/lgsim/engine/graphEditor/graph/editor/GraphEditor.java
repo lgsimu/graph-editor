@@ -239,7 +239,14 @@ public class GraphEditor extends JPanel implements IGraphEditor, ISolverEnvironm
   private void renderVertexTable(@NotNull IVertex vertex)
   {
     log.debug("render vertex {}", vertex);
-    vertexTable.render(vertex);
+    if (isValidVertex(vertex)) {
+      vertexTable.render(vertex);
+    }
+  }
+
+  private boolean isValidVertex(@NotNull IVertex vertex) {
+    // TODO: to be complete
+    return false;
   }
 
   private void status(String msg)
