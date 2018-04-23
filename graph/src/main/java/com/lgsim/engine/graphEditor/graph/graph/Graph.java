@@ -25,18 +25,13 @@ public class Graph extends mxGraph implements IGraph {
   private static final IStencilContext stencilContext = ImplementationContext.INSTANCE.getStencilContext();
   private final mxIEventListener cellConnectedListener;
   private final IntCounter vertexCounter = new IntCounter(1);
-  private mxCell fromNode;
-  private mxCell toNode;
-  private mxCell autogenEdge;
+  private mxCell sourceNode;
+  private mxCell targetNode;
+  private mxCell handDrawnEdge;
 
   public Graph()
   {
-    setAlternateEdgeStyle("edgeStyle=mxEdgeStyle.ElbowConnector;elbow=vertical");
-    setSplitEnabled(false);
-    setAllowDanglingEdges(false);
-    setCellsResizable(false);
-    setCellsEditable(true);
-    setKeepEdgesInForeground(true);
+    GraphSupport.applyGraphSettings(this);
     cellConnectedListener = (sender, evt) -> {
       log.debug("cell connected, event {}", evt.getName());
       Map<String, Object> properties = evt.getProperties();
@@ -44,10 +39,10 @@ public class Graph extends mxGraph implements IGraph {
       mxCell edge = (mxCell) properties.get("edge");
       boolean source = (boolean) properties.get("source");
       if (source) {
-        fromNode = terminal;
-        autogenEdge = edge;
+        sourceNode = terminal;
+        handDrawnEdge = edge;
       } else {
-        toNode = terminal;
+        targetNode = terminal;
         paintCavityNodeBetween();
       }
     };
@@ -57,44 +52,27 @@ public class Graph extends mxGraph implements IGraph {
       Object[] xs = (Object[]) evt.getProperties().get("cells");
       if (xs != null) {
         for (Object x : xs) {
-          if (x instanceof mxCell) {
-            mxCell cell = (mxCell) x;
-            if (cell.isVertex()) {
-              Object value = cell.getValue();
-              if (value instanceof IVertex) {
-                IVertex vertex = (IVertex) value;
-                if (vertex.isCavity()) {
-                  log.debug("move cavity {}", cell);
-                  repaintCavityEdges();
-                }
-              }
-            }
-          }
+          GraphHook.cavityCellMoved(x, Graph.this);
         }
       }
     }));
   }
 
-  private void repaintCavityEdges() {
-    log.debug("repaint cavity edges");
-    refresh();
-  }
-
   private void paintCavityNodeBetween()
   {
-    Object toNodeValue = toNode.getValue();
+    Object toNodeValue = targetNode.getValue();
     if (toNodeValue instanceof IVertex) {
       boolean notCavity = !((IVertex) toNodeValue).isCavity();
       if (notCavity) {
         log.debug("paint cavity node");
         getModel().beginUpdate();
         try {
-          final Point position = getCavityPosition(fromNode.getGeometry().getPoint(), toNode.getGeometry().getPoint());
+          final Point position = getCavityPosition(sourceNode.getGeometry().getPoint(), targetNode.getGeometry().getPoint());
           final Object p = getDefaultParent();
           mxCell cavityCell = createCavityCell(position, p);
-          autogenEdge.setTerminal(cavityCell, false);
+          handDrawnEdge.setTerminal(cavityCell, false);
           removeListener(cellConnectedListener);
-          insertEdge(getDefaultParent(), null, null, cavityCell, toNode);
+          insertEdge(getDefaultParent(), null, null, cavityCell, targetNode);
           addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
         } finally {
           getModel().endUpdate();
@@ -107,7 +85,7 @@ public class Graph extends mxGraph implements IGraph {
     final IVertexStencil stencil = stencilContext.getCavityStencil();
     VertexImpl value = PureCons.createVertex(stencil, true);
     mxCell cell = (mxCell) insertVertex(p, null, value, position.x, position.y, 48, 48);
-    GraphSupport.modifyCell(cell, vertexCounter);
+    GraphSupport.applyCellSettings(cell, vertexCounter);
     settingCavityCellStyle(cell, stencil);
     return cell;
   }
