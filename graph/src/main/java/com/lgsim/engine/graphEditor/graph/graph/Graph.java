@@ -17,13 +17,14 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
+@SuppressWarnings("WeakerAccess")
 public class Graph extends mxGraph implements IGraph {
   private static final Logger log = LoggerFactory.getLogger(Graph.class);
   private static final IStencilContext stencilContext = ImplementationContext.INSTANCE.getStencilContext();
-  private final mxIEventListener cellConnectedListener;
+  private static final boolean disableContainsCavities = true;
+  private final mxIEventListener cellConnectedListener = GraphSupport.cellConnectedListener(this, this::paintCavityBetween);
   private final IntCounter vertexCounter = new IntCounter(1);
   private mxCell sourceNode;
   private mxCell targetNode;
@@ -32,52 +33,45 @@ public class Graph extends mxGraph implements IGraph {
   public Graph()
   {
     GraphSupport.applyGraphSettings(this);
-    cellConnectedListener = (sender, evt) -> {
-      log.debug("cell connected, event {}", evt.getName());
-      Map<String, Object> properties = evt.getProperties();
-      mxCell terminal = (mxCell) properties.get("terminal");
-      mxCell edge = (mxCell) properties.get("edge");
-      boolean source = (boolean) properties.get("source");
-      if (source) {
-        sourceNode = terminal;
-        handDrawnEdge = edge;
-      } else {
-        targetNode = terminal;
-        paintCavityNodeBetween();
-      }
-    };
     addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
-    addListener(mxEvent.CELLS_MOVED, ((sender, evt) -> {
-      log.debug("cells moved");
-      Object[] xs = (Object[]) evt.getProperties().get("cells");
-      if (xs != null) {
-        for (Object x : xs) {
-          GraphHook.cavityCellMoved(x, Graph.this);
-        }
-      }
-    }));
+    addListener(mxEvent.CELLS_MOVED, GraphSupport.cellsMovedListener(this));
   }
 
-  private void paintCavityNodeBetween()
+  public void setSourceNode(mxCell sourceNode) {
+    this.sourceNode = sourceNode;
+  }
+  public void setTargetNode(mxCell targetNode) {
+    this.targetNode = targetNode;
+  }
+  public void setHandDrawnEdge(mxCell handDrawnEdge) {
+    this.handDrawnEdge = handDrawnEdge;
+  }
+
+  public void paintCavityBetween()
   {
-    Object toNodeValue = targetNode.getValue();
-    if (toNodeValue instanceof IVertex) {
-      boolean notCavity = !((IVertex) toNodeValue).isCavity();
-      if (notCavity) {
-        log.debug("paint cavity node");
-        getModel().beginUpdate();
-        try {
-          final Point position = getCavityPosition(sourceNode.getGeometry().getPoint(), targetNode.getGeometry().getPoint());
-          final Object p = getDefaultParent();
-          mxCell cavityCell = createCavityCell(position, p);
-          handDrawnEdge.setTerminal(cavityCell, false);
-          removeListener(cellConnectedListener);
-          insertEdge(getDefaultParent(), null, null, cavityCell, targetNode);
-          addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
-        } finally {
-          getModel().endUpdate();
-        }
+    if (disableContainsCavities) {
+      boolean notContains = !GraphSupport.isCavity(sourceNode) && !GraphSupport.isCavity(targetNode);
+      if (notContains) {
+        paintCavityBetween0();
       }
+    } else {
+      paintCavityBetween0();
+    }
+  }
+
+  private void paintCavityBetween0() {
+    log.debug("paint cavity node");
+    getModel().beginUpdate();
+    try {
+      final Point position = getCavityPosition(sourceNode.getGeometry().getPoint(), targetNode.getGeometry().getPoint());
+      final Object p = getDefaultParent();
+      mxCell cavityCell = createCavityCell(position, p);
+      handDrawnEdge.setTerminal(cavityCell, false);
+      insertEdge(getDefaultParent(), null, null, cavityCell, targetNode);
+    } finally {
+      removeListener(cellConnectedListener);
+      getModel().endUpdate();
+      addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
     }
   }
 
