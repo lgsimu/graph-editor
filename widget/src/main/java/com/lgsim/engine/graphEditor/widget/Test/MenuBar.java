@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.widget.Component;
+package com.lgsim.engine.graphEditor.widget.Test;
 
 import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
