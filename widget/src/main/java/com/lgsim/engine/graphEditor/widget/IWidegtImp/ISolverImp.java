@@ -49,10 +49,9 @@ public class ISolverImp implements ISolver
   @Override
   public @NotNull InvokeCalcExecutableResult invokeCalcExecutable(@NotNull ISolverEnvironment environment) throws InvokeExecutableException
   {
-    Object[] exeResult = solver.executeCmd(environment);
-    int status = Integer.parseInt(exeResult[0].toString());
-    File file = new File(exeResult[1].toString()+".inp");
-    InvokeCalcExecutableResult result = new InvokeCalcExecutableResult(status, file);
+    File file = new File(environment.getCaseName() + ".out");
+    InvokeCalcExecutableResult result = new InvokeCalcExecutableResult(0, file);
+    solver.executeCmd(environment);
     return result;
   }
 }
