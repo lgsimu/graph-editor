@@ -6,42 +6,47 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 
 public class ApplicationActionImpl implements IApplicationAction {
-  private static final Action defaultAction = ActionSupport.defaultAction();
-
   @Override
   public @NotNull Action getVertexCellCopyAction() {
-    return defaultAction;
+    return new VertexCellCopyAction();
   }
+
   @Override
   public @NotNull Action getVertexCellPasteAction() {
-    return defaultAction;
+    return new VertexCellPasteAction();
   }
+
   @Override
   public @NotNull Action getVertexCellDeleteAction() {
-    return defaultAction;
+    return new VertexCellDeleteAction();
   }
+
   @Override
   public @NotNull Action getVertexCellCutAction() {
-    return defaultAction;
+    return new VertexCellCutAction();
   }
+
   @Override
   public @NotNull Action getDocumentNewAction() {
-    return defaultAction;
+    return new DocumentNewAction();
   }
+
   @Override
   public @NotNull Action getDocumentOpenAction() {
-    return defaultAction;
+    return new DocumentOpenAction();
   }
+
   @Override
   public @NotNull Action getDocumentCloseAction() {
-    return defaultAction;
+    return new DocumentCloseAction();
   }
   @Override
   public @NotNull Action getDocumentSaveAction() {
-    return defaultAction;
+    return new DocumentSaveAction();
   }
+
   @Override
   public @NotNull Action getApplicationExitAction() {
-    return defaultAction;
+    return new ApplicationExitAction();
   }
 }
