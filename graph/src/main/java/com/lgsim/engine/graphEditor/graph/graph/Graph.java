@@ -17,13 +17,13 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
+@SuppressWarnings("WeakerAccess")
 public class Graph extends mxGraph implements IGraph {
   private static final Logger log = LoggerFactory.getLogger(Graph.class);
   private static final IStencilContext stencilContext = ImplementationContext.INSTANCE.getStencilContext();
-  private final mxIEventListener cellConnectedListener;
+  private final mxIEventListener cellConnectedListener = GraphSupport.cellConnectedListener(this, this::paintCavityNodeBetween);
   private final IntCounter vertexCounter = new IntCounter(1);
   private mxCell sourceNode;
   private mxCell targetNode;
@@ -32,20 +32,6 @@ public class Graph extends mxGraph implements IGraph {
   public Graph()
   {
     GraphSupport.applyGraphSettings(this);
-    cellConnectedListener = (sender, evt) -> {
-      log.debug("cell connected, event {}", evt.getName());
-      Map<String, Object> properties = evt.getProperties();
-      mxCell terminal = (mxCell) properties.get("terminal");
-      mxCell edge = (mxCell) properties.get("edge");
-      boolean source = (boolean) properties.get("source");
-      if (source) {
-        sourceNode = terminal;
-        handDrawnEdge = edge;
-      } else {
-        targetNode = terminal;
-        paintCavityNodeBetween();
-      }
-    };
     addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
     addListener(mxEvent.CELLS_MOVED, ((sender, evt) -> {
       log.debug("cells moved");
@@ -58,7 +44,17 @@ public class Graph extends mxGraph implements IGraph {
     }));
   }
 
-  private void paintCavityNodeBetween()
+  public void setSourceNode(mxCell sourceNode) {
+    this.sourceNode = sourceNode;
+  }
+  public void setTargetNode(mxCell targetNode) {
+    this.targetNode = targetNode;
+  }
+  public void setHandDrawnEdge(mxCell handDrawnEdge) {
+    this.handDrawnEdge = handDrawnEdge;
+  }
+
+  public void paintCavityNodeBetween()
   {
     Object toNodeValue = targetNode.getValue();
     if (toNodeValue instanceof IVertex) {

@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("WeakerAccess")
 public class GraphHook {
   private static final Logger log = LoggerFactory.getLogger(GraphHook.class);
 
