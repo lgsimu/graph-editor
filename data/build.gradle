@@ -13,6 +13,8 @@ dependencies {
     compile files('lib/org.apache.commons.io.jar')
     compile files('lib/org.json.jar')
     compile files('lib/xom-1.0d10.jar')
-
+    compile files('lib/jfreechart.jar')
+    compile files('lib/gnujaxp-1.0.0.jar')
+    compile files('lib/jcommon-1.0.16.jar')
 
 }
