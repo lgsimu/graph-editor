@@ -105,8 +105,13 @@ public class Element implements IStencilContext {
 
     }
 
+    /**
+     * 获取腔节点
+     * @return cavity对象
+     */
     @Override
     public @NotNull IVertexStencil getCavityStencil() {
-        return new Component();
+        Cavity cavity = new Cavity();
+        return cavity;
     }
 }
