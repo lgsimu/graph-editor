@@ -50,7 +50,6 @@ public class ISolverImp implements ISolver
   public @NotNull InvokeCalcExecutableResult invokeCalcExecutable(@NotNull ISolverEnvironment environment) throws InvokeExecutableException
   {
     File file = new File(environment.getCaseName() + ".out");
-    System.out.print(file.getPath());
     InvokeCalcExecutableResult result = new InvokeCalcExecutableResult(0, file);
     solver.executeCmd(environment);
     return result;

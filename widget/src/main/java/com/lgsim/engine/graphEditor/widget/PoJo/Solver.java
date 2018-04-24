@@ -29,62 +29,55 @@ public class Solver {
         outputPanel.add(scrollPane);
     }
 
-
-    public File getInputFileLoad(ISolverEnvironment environment) {
-        File inputFile = null;
-
-        try {
-
-            IGraph graph = environment.getGraph();
-            IGraphCodec codec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
-            @NotNull byte[] encode = codec.encode(graph);
-            inputFile = new File(Files.createTempDir(), "case.dat");
-            Files.write(encode, inputFile);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
-
-        return inputFile;
-    }
-
-    public int dealExeCmdException(String exeCmd, Runtime runtime, File exeDir) {
-        int status = 0;
-        try {
-            process = runtime.exec("cmd /c " + exeCmd, null, exeDir);
-        } catch (IOException e) {
-            status = 1;
-            e.printStackTrace();
-        }
-        BufferedReader br = null;
-        setAreaText();//设置需要输出的面板
-        try {
-            br = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
-            String line = null;
-            while ((line = br.readLine()) != null) {
-               // textArea.append(line + "\r\n");
-            }
-        } catch (UnsupportedEncodingException e) {
-            status = 1;
-            e.printStackTrace();
-        } catch (IOException e) {
-            status = 1;
-            e.printStackTrace();
-        }
-        return status;
-    }
-
     public int executeCmd(ISolverEnvironment environment) {
-        int status = 0;
-        File exeDir = environment.getExecutableFile().getParentFile();//获取求解器的目录
-        File inputFile = getInputFileLoad(environment);
-        String cmdArgument = environment.getSolverCommandlineArguments();//获取命令
-        String exeCmd = "LGSAS " + inputFile.toString() + " " + cmdArgument;
-        Runtime runtime = Runtime.getRuntime();
-        status = dealExeCmdException(exeCmd, runtime, exeDir);
-        return status;
+        final int[] status = {0};
+        thread = new Thread() {
+            public void run() {
+                File exeFile = environment.getExecutableFile();//获取求解器的目录
+                File exeDir = exeFile.getParentFile();
+                File outFile = null;
+                try {
+                    IGraph graph = environment.getGraph();
+                    IGraphCodec codec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
+                    @NotNull byte[] encode = codec.encode(graph);
+                    outFile = new File(Files.createTempDir(), "tmp.out");
+                    Files.write(encode, outFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                }
+
+                // String caseName = environment.getCaseName();//文件名称
+                String cmdArgument = environment.getSolverCommandlineArguments();//获取命令
+                String exeCmd = "LGSAS " + outFile.toString() + " " + cmdArgument;
+                Runtime runtime = Runtime.getRuntime();
+
+                try {
+                    process = runtime.exec("cmd /c " + exeCmd, null, exeDir);
+                } catch (IOException e) {
+                    status[0] = 1;
+                    e.printStackTrace();
+                }
+                BufferedReader br = null;
+                setAreaText();//设置需要输出的面板
+                try {
+                    br = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
+                    String line = null;
+                    while ((line = br.readLine()) != null) {
+                        textArea.append(line + "\r\n");
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    status[0] = 1;
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    status[0] = 1;
+                    e.printStackTrace();
+                }
+            }
+        };
+        thread.start();
+        return status[0];
     }
 }
 
