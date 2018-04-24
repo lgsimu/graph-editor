@@ -32,6 +32,12 @@ public class Parameter implements IVertexArgument,IVertexOutput {
         this.values.add(parameterValue);
     }
 
+    public Parameter(String parameterName, String parameterUnitID, double parameterValue) {
+        this.parameterName = parameterName;
+        this.parameterUnitID = parameterUnitID;
+        this.parameterValue = parameterValue;
+    }
+
     public List<Double> getValues() {
         return values;
     }
@@ -123,7 +129,7 @@ public class Parameter implements IVertexArgument,IVertexOutput {
         return parameterDescription;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Parameter{" +
                 "parameterName='" + parameterName + '\'' +
@@ -134,5 +140,5 @@ public class Parameter implements IVertexArgument,IVertexOutput {
                 ", parameterDescription='" + parameterDescription + '\'' +
                 ", values=" + values +
                 '}';
-    }
+    }*/
 }
