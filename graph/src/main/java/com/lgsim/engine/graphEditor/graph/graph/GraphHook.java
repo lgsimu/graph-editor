@@ -19,4 +19,8 @@ public class GraphHook {
     log.debug("refresh after cavity cell {} moved", cell);
     graph.refresh();
   }
+
+  public static void cellSelected(@NotNull mxCell cell) {
+
+  }
 }

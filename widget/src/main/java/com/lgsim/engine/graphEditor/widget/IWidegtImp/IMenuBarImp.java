@@ -16,4 +16,9 @@ public class IMenuBarImp implements IMenuBar{
     }
 
     public IMenuBarImp(){}
+
+    @Override
+    public @NotNull JMenuBar getMenuBar() {
+        return menuBar;
+    }
 }

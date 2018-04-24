@@ -3,7 +3,8 @@ package com.lgsim.engine.graphEditor.app;
 import com.bulenkov.darcula.DarculaLaf;
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.IconBundle;
-import com.lgsim.engine.graphEditor.graph.editor.EditorMenuBar;
+import com.lgsim.engine.graphEditor.api.widget.topLevel.IMenuBar;
+import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.editor.Editor;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import com.lgsim.engine.graphEditor.util.ExceptionManager;
@@ -30,7 +31,8 @@ public class Application implements IApplication
 
     JFrame frame = new JFrame();
     Editor editor = new Editor(this);
-    frame.setJMenuBar(new EditorMenuBar(editor));
+    IMenuBar menuBar = ImplementationContext.INSTANCE.getMenuBar();
+    frame.setJMenuBar(menuBar.getMenuBar());
     frame.getContentPane().add(editor);
     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
