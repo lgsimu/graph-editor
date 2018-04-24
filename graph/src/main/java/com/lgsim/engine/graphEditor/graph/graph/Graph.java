@@ -23,7 +23,8 @@ import java.util.Vector;
 public class Graph extends mxGraph implements IGraph {
   private static final Logger log = LoggerFactory.getLogger(Graph.class);
   private static final IStencilContext stencilContext = ImplementationContext.INSTANCE.getStencilContext();
-  private final mxIEventListener cellConnectedListener = GraphSupport.cellConnectedListener(this, this::paintCavityNodeBetween);
+  private static final boolean disableContainsCavities = true;
+  private final mxIEventListener cellConnectedListener = GraphSupport.cellConnectedListener(this, this::paintCavityBetween);
   private final IntCounter vertexCounter = new IntCounter(1);
   private mxCell sourceNode;
   private mxCell targetNode;
@@ -46,26 +47,31 @@ public class Graph extends mxGraph implements IGraph {
     this.handDrawnEdge = handDrawnEdge;
   }
 
-  public void paintCavityNodeBetween()
+  public void paintCavityBetween()
   {
-    Object toNodeValue = targetNode.getValue();
-    if (toNodeValue instanceof IVertex) {
-      boolean notCavity = !((IVertex) toNodeValue).isCavity();
-      if (notCavity) {
-        log.debug("paint cavity node");
-        getModel().beginUpdate();
-        try {
-          final Point position = getCavityPosition(sourceNode.getGeometry().getPoint(), targetNode.getGeometry().getPoint());
-          final Object p = getDefaultParent();
-          mxCell cavityCell = createCavityCell(position, p);
-          handDrawnEdge.setTerminal(cavityCell, false);
-          removeListener(cellConnectedListener);
-          insertEdge(getDefaultParent(), null, null, cavityCell, targetNode);
-          addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
-        } finally {
-          getModel().endUpdate();
-        }
+    if (disableContainsCavities) {
+      boolean notContains = !GraphSupport.isCavity(sourceNode) && !GraphSupport.isCavity(targetNode);
+      if (notContains) {
+        paintCavityBetween0();
       }
+    } else {
+      paintCavityBetween0();
+    }
+  }
+
+  private void paintCavityBetween0() {
+    log.debug("paint cavity node");
+    getModel().beginUpdate();
+    try {
+      final Point position = getCavityPosition(sourceNode.getGeometry().getPoint(), targetNode.getGeometry().getPoint());
+      final Object p = getDefaultParent();
+      mxCell cavityCell = createCavityCell(position, p);
+      handDrawnEdge.setTerminal(cavityCell, false);
+      insertEdge(getDefaultParent(), null, null, cavityCell, targetNode);
+    } finally {
+      removeListener(cellConnectedListener);
+      getModel().endUpdate();
+      addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
     }
   }
 
