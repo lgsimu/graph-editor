@@ -1,8 +1,8 @@
 package com.lgsim.engine.graphEditor.widget.Component;
 
-import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
+import com.lgsim.engine.graphEditor.widget.ActionBundle;
 
 import javax.swing.*;
 import java.net.URL;
@@ -41,7 +41,7 @@ public class MenuBar extends JMenuBar {
 
 
     private void addFileMenu() {
-        JMenu doc = new JMenu(MessageBundle.get("file.name"));
+        JMenu doc = new JMenu(ActionBundle.get("file.name"));
 
         JMenuItem save = createMenuItem("file.save", iApplicationAction.getDocumentSaveAction(), "file.save");
         JMenuItem news = createMenuItem("file.new", iApplicationAction.getDocumentNewAction(), "file.new");
@@ -74,7 +74,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addEditorMenu() {
-        JMenu doc = new JMenu(MessageBundle.get("editor.name"));
+        JMenu doc = new JMenu(ActionBundle.get("editor.name"));
 
         JMenuItem undo = createMenuItem("editor.undo", null, "editor.undo");
         JMenuItem redo = createMenuItem("editor.redo", null, "editor.redo");
@@ -97,7 +97,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addViewMenu() {
-        JMenu doc = new JMenu(MessageBundle.get("view.name"));
+        JMenu doc = new JMenu(ActionBundle.get("view.name"));
 
 
         JMenuItem scale = createMenuItem("view.scale", null, "view.scale");
@@ -109,7 +109,7 @@ public class MenuBar extends JMenuBar {
         JMenuItem library = createMenuItem("view.component,library.browser", null, "view.component,library.browser");
         JMenuItem property = createMenuItem("view.property.browser", null, "view.property.browser");
 
-        JMenu subGridStyle = new JMenu(MessageBundle.get("view.grid.style"));
+        JMenu subGridStyle = new JMenu(ActionBundle.get("view.grid.style"));
 
         JMenuItem mainLine = createMenuItem("grid.style.main.line", null, "grid.style.main.line");
         JMenuItem secondLine = createMenuItem("grid.style.main.second.line", null, "grid.style.main.second.line");
@@ -122,7 +122,7 @@ public class MenuBar extends JMenuBar {
         List<JMenuItem> gridSubActionList = Arrays.asList(gridSubActions);
         addMenuItem(gridSubActionList, subGridStyle, null, null);
 
-        JMenu subLookLayout = new JMenu(MessageBundle.get("view.lookLayout"));
+        JMenu subLookLayout = new JMenu(ActionBundle.get("view.lookLayout"));
         JMenuItem common = createMenuItem("lookLayout.common", null, "lookLayout.common");
         JMenuItem suit = createMenuItem("lookLayout.suit", null, "lookLayout.suit");
         JMenuItem stretch = createMenuItem("lookLayout.stretch", null, "lookLayout.stretch");
@@ -159,7 +159,7 @@ public class MenuBar extends JMenuBar {
 
 
     private void addFormatMenu() {
-        JMenu doc = new JMenu(MessageBundle.get("format.name"));
+        JMenu doc = new JMenu(ActionBundle.get("format.name"));
 
         JMenuItem fill = createMenuItem("format.fill.style", null, "format.fill.style");
         JMenuItem brush = createMenuItem("format.brush.style", null, "format.brush.style");
@@ -183,9 +183,9 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addMoveMenu() {
-        JMenu doc = new JMenu(MessageBundle.get("move.name"));
+        JMenu doc = new JMenu(ActionBundle.get("move.name"));
 
-        JMenu operate = new JMenu(MessageBundle.get("move.operate"));
+        JMenu operate = new JMenu(ActionBundle.get("move.operate"));
         JMenuItem relink = createMenuItem("operate.relink", null, "operate.relink");
         JMenuItem reverse = createMenuItem("operate.reverse", null, "operate.reverse");
         JMenuItem refect = createMenuItem("operate.refect", null, "operate.refect");
@@ -194,7 +194,7 @@ public class MenuBar extends JMenuBar {
         List<JMenuItem> operateList = Arrays.asList(operateArr);
         addMenuItem(operateList, operate, null, null);
 
-        JMenu group = new JMenu(MessageBundle.get("move.group"));
+        JMenu group = new JMenu(ActionBundle.get("move.group"));
         JMenuItem group2 = createMenuItem("group.group", null, "group.group");
         JMenuItem cancel = createMenuItem("group.cancel", null, "group.cancel");
         List<JMenuItem> groupList = Arrays.asList(group2, cancel);
@@ -202,7 +202,7 @@ public class MenuBar extends JMenuBar {
 
         JMenuItem layout = createMenuItem("move.layout", null, "move.layout");
 
-        JMenu order = new JMenu(MessageBundle.get("move.order"));
+        JMenu order = new JMenu(ActionBundle.get("move.order"));
         JMenuItem first = createMenuItem("order.first", null, "order.first");
         JMenuItem last = createMenuItem("order.last", null, "order.last");
         JMenuItem previous = createMenuItem("order.previous", null, "order.previous");
@@ -210,7 +210,7 @@ public class MenuBar extends JMenuBar {
         List<JMenuItem> orderList = Arrays.asList(first, last, previous, next);
         addMenuItem(orderList, order, null, null);
 
-        JMenu turn = new JMenu(MessageBundle.get("move.turn"));
+        JMenu turn = new JMenu(ActionBundle.get("move.turn"));
         JMenuItem left = createMenuItem("turn.left", null, "turn.left");
         JMenuItem right = createMenuItem("turn.right", null, "turn.right");
         JMenuItem hFlip = createMenuItem("turn.H.flip", null, "turn.H.flip");
@@ -219,7 +219,7 @@ public class MenuBar extends JMenuBar {
         List<JMenuItem> turnList = Arrays.asList(turnArr);
         addMenuItem(turnList, turn, null, null);
 
-        JMenu tiny = new JMenu(MessageBundle.get("move.tiny"));
+        JMenu tiny = new JMenu(ActionBundle.get("move.tiny"));
         JMenuItem tLeft = createMenuItem("tiny.left", null, "tiny.left");
         JMenuItem tRight = createMenuItem("tiny.right", null, "tiny.right");
         JMenuItem tTop = createMenuItem("tiny.top", null, "tiny.top");
@@ -242,7 +242,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addLayoutMenu() {
-        JMenu doc = new JMenu(MessageBundle.get("layout.name"));
+        JMenu doc = new JMenu(ActionBundle.get("layout.name"));
 
         JMenuItem search = createMenuItem("layout.search.branch", null, "layout.search.branch");
         JMenuItem last = createMenuItem("layout.last", null, "layout.last");
@@ -250,7 +250,7 @@ public class MenuBar extends JMenuBar {
         JMenuItem bgp = createMenuItem("layout.bgp", null, "layout.bgp");
 
 
-        JMenu align = new JMenu(MessageBundle.get("layout.align"));
+        JMenu align = new JMenu(ActionBundle.get("layout.align"));
         JMenuItem left = createMenuItem("align.left", null, "align.left");
         JMenuItem center = createMenuItem("align.center", null, "align.center");
         JMenuItem right = createMenuItem("align.right", null, "align.right");
@@ -262,7 +262,7 @@ public class MenuBar extends JMenuBar {
         List<JMenuItem> alignList = Arrays.asList(alignArr);
         addMenuItem(alignList, align, null, null);
 
-        JMenu size = new JMenu(MessageBundle.get("layout.size"));
+        JMenu size = new JMenu(ActionBundle.get("layout.size"));
         JMenuItem width = createMenuItem("size.same.width", null, "size.same.width");
         JMenuItem height = createMenuItem("size.same.height", null, "size.same.height");
         JMenuItem sSize = createMenuItem("size.same.size", null, "size.same.size");
@@ -270,13 +270,13 @@ public class MenuBar extends JMenuBar {
         List<JMenuItem> sizeList = Arrays.asList(width, height, sSize, sGrid);
         addMenuItem(sizeList, size, null, null);
 
-        JMenu textCenter = new JMenu(MessageBundle.get("layout.center"));
+        JMenu textCenter = new JMenu(ActionBundle.get("layout.center"));
         JMenuItem hFile = createMenuItem("center.file.H", null, "center.file.H");
         JMenuItem vFile = createMenuItem("center.file.V", null, "center.file.V");
         List<JMenuItem> centerList = Arrays.asList(hFile, vFile);
         addMenuItem(centerList, textCenter, null, null);
 
-        JMenu gap = new JMenu(MessageBundle.get("layout.gap"));
+        JMenu gap = new JMenu(ActionBundle.get("layout.gap"));
         JMenuItem sameH = createMenuItem("gap.H.same", null, "gap.H.same");
         JMenuItem addH = createMenuItem("gap.H.add", null, "gap.H.add");
         JMenuItem reduceH = createMenuItem("gap.H.reduce", null, "gap.H.reduce");
@@ -306,7 +306,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addDrawMenu() {
-        JMenu doc = new JMenu(MessageBundle.get("tool.name"));
+        JMenu doc = new JMenu(ActionBundle.get("tool.name"));
 
         JMenuItem pointer = createMenuItem("tool.pointer", null, "tool.pointer");
         JMenuItem rectangular = createMenuItem("tool.rectangular", null, "tool.rectangular");
@@ -335,7 +335,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addDefine() {
-        JMenu doc = new JMenu(MessageBundle.get("define.name"));
+        JMenu doc = new JMenu(ActionBundle.get("define.name"));
         JMenuItem var = createMenuItem("define.var", null, "define.var");
 
         List<JMenuItem> actionList = Arrays.asList(var);
@@ -345,7 +345,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addCalc() {
-        JMenu doc = new JMenu(MessageBundle.get("calc.name"));
+        JMenu doc = new JMenu(ActionBundle.get("calc.name"));
 
         JMenuItem start = createMenuItem("calc.start", null, "calc.start");
         JMenuItem argument = createMenuItem("calc.argument", null, "calc.argument");
@@ -359,7 +359,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addToolMenu() {
-        JMenu doc = new JMenu(MessageBundle.get("box.name"));
+        JMenu doc = new JMenu(ActionBundle.get("box.name"));
         JMenuItem note = createMenuItem("box.note", null, "box.note");
         JMenuItem calc = createMenuItem("box.calc", null, "box.calc");
         JMenuItem word = createMenuItem("box.word", null, "box.word");
@@ -374,7 +374,7 @@ public class MenuBar extends JMenuBar {
 
 
     private void addCoupCalcMenu() {
-        JMenu doc = new JMenu(MessageBundle.get("coup.calc.name"));
+        JMenu doc = new JMenu(ActionBundle.get("coup.calc.name"));
 
         JMenuItem source = createMenuItem("coup.calc.source", null, "coup.calc.source");
         JMenuItem solve = createMenuItem("coup.calc.solve", null, "coup.calc.solve");
@@ -386,7 +386,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addHelpMenu(){
-        JMenu doc = new JMenu(MessageBundle.get("help.name"));
+        JMenu doc = new JMenu(ActionBundle.get("help.name"));
         JMenuItem instructions = createMenuItem("help.instructions", null, "help.instructions");
         JMenuItem about = createMenuItem("help.about",null,"help.about");
 
@@ -397,9 +397,9 @@ public class MenuBar extends JMenuBar {
 
 
     public JMenuItem createMenuItem(String key, Action action, String icon) {
-        icon="address";
-        URL o = this.getClass().getResource("/com/lgsim/engine/graphEditor/widget/page/" + icon + ".png");
-        JMenuItem menuItem = new JMenuItem(MessageBundle.get(key), new ImageIcon(o, ""));
+        icon="monkey";
+        URL o = this.getClass().getResource("/com/lgsim/engine/graphEditor/widget/png/" + icon + ".png");
+        JMenuItem menuItem = new JMenuItem(ActionBundle.get(key), new ImageIcon(o, ""));
         menuItem.addActionListener(action);
         return menuItem;
     }
