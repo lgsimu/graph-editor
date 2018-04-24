@@ -24,15 +24,16 @@ public class LineChartTest {
         dataset.setValue(7,"a","7");
         //获得JFreeChart对象
         /*JFreeChart chart=ChartFactory.createLineChart(
-                "",  //图表标题
-                "",  //X轴lable
-                "",  //Y轴lable
-                dataset, //数据集
-                PlotOrientation.VERTICAL,//图表放置模式水平/垂直
-                true, //显示lable
-                false,  //显示提示
-                false //显示urls
-        );*/
+                        "",  //图表标题
+                        "",  //X轴lable
+                        "",  //Y轴lable
+                        dataset, //数据集
+                        PlotOrientation.VERTICAL,//图表放置模式水平/垂直
+                        true, //显示lable
+                        false,  //显示提示
+                        false //显示urls
+                );*/
+
         JFreeChart chart = ChartFactory.createLineChart("test","X","Y",dataset,PlotOrientation.VERTICAL,true,false,false);
         //使用输出流输出图表
         try {

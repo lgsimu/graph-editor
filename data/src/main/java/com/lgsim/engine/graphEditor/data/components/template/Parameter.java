@@ -32,10 +32,11 @@ public class Parameter implements IVertexArgument,IVertexOutput {
         this.values.add(parameterValue);
     }
 
-    public Parameter(String parameterName, String parameterUnitID, double parameterValue) {
+    public Parameter(String parameterName, String parameterUnitID, double parameterValue, String parameterDescription) {
         this.parameterName = parameterName;
         this.parameterUnitID = parameterUnitID;
         this.parameterValue = parameterValue;
+        this.parameterDescription = parameterDescription;
     }
 
     public List<Double> getValues() {

@@ -87,10 +87,10 @@ public class Cavity implements IVertexStencil {
     @Override
     public @NotNull List<IVertexArgument> getArguments() {
         List<IVertexArgument> cavityInps = new ArrayList<IVertexArgument>();
-        Parameter parameter1 = new Parameter("x","1",0.0);
-        Parameter parameter2 = new Parameter("y","1",0.0);
-        Parameter parameter3 = new Parameter("z","1",0.0);
-        Parameter parameter4 = new Parameter("p","4",0.0);
+        Parameter parameter1 = new Parameter("x","1",0.0,"");
+        Parameter parameter2 = new Parameter("y","1",0.0,"");
+        Parameter parameter3 = new Parameter("z","1",0.0,"");
+        Parameter parameter4 = new Parameter("p","4",0.0,"");
 
         cavityInps.add(parameter1);
         cavityInps.add(parameter2);
@@ -102,8 +102,8 @@ public class Cavity implements IVertexStencil {
     @Override
     public @NotNull List<IVertexOutput> getOutputs() {
         List<IVertexOutput> cavityOutps = new ArrayList<>();
-        Parameter parameter1 = new Parameter("TT","24",0.0);
-        Parameter parameter2 = new Parameter("TP","4",0.0);
+        Parameter parameter1 = new Parameter("TT","24",0.0,"");
+        Parameter parameter2 = new Parameter("TP","4",0.0,"");
 
         cavityOutps.add(parameter1);
         cavityOutps.add(parameter2);
