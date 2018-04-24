@@ -3,6 +3,7 @@ package com.lgsim.engine.graphEditor.graph.action;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class VertexCellCopyAction extends VertexCellAction {
@@ -11,5 +12,7 @@ public class VertexCellCopyAction extends VertexCellAction {
   @Override
   public void actionPerformed(ActionEvent e) {
     log.debug("vertex cell copy action performed");
+    Action copyAction = TransferHandler.getCopyAction();
+    copyAction.actionPerformed(e);
   }
 }

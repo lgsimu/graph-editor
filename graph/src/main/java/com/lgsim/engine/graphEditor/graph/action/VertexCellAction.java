@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 
+@SuppressWarnings("WeakerAccess")
 public abstract class VertexCellAction extends AbstractAction {
   private static final Logger log = LoggerFactory.getLogger(VertexCellAction.class);
 

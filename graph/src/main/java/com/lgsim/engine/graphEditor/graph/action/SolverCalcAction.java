@@ -12,15 +12,12 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class SolverCalcAction extends AbstractAction
-{
+public class SolverCalcAction extends SolverAction {
   private static final Logger log = LoggerFactory.getLogger(SolverCalcAction.class);
   private ISolverEnvironment env;
   private IGraphEditor editor;
-
 
   public SolverCalcAction(@NotNull ISolverEnvironment env, @NotNull IGraphEditor editor)
   {
@@ -28,23 +25,18 @@ public class SolverCalcAction extends AbstractAction
     this.editor = editor;
   }
 
-
   @Override
   public void actionPerformed(ActionEvent evt)
   {
     log.debug("perform solver calc action");
     ISolver solver = ImplementationContext.INSTANCE.getSolver();
-    try
-    {
+    try {
       IGraph graph = solver.calc(env);
       IGraphDocument document = editor.getCurrentGraphDocument();
-      if (document != null)
-      {
+      if (document != null) {
         document.setGraph(graph);
       }
-    }
-    catch (CalcException e)
-    {
+    } catch (CalcException e) {
       ExceptionManager.INSTANCE.dealWith(e);
     }
   }
