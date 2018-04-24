@@ -52,19 +52,24 @@ public class Solver {
 
     public int dealExeCmdException(String exeCmd, Runtime runtime, File exeDir) {
         int status = 0;
+
         try {
             process = runtime.exec("cmd /c " + exeCmd, null, exeDir);
         } catch (IOException e) {
             status = 1;
             e.printStackTrace();
         }
+
         BufferedReader br = null;
-        setAreaText();//设置需要输出的面板
+        //setAreaText();//设置需要输出的面板
+        StringBuilder builder = new StringBuilder();
         try {
             br = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
             String line = null;
+
             while ((line = br.readLine()) != null) {
-               // textArea.append(line + "\r\n");
+                // textArea.append(line + "\r\n");
+                builder.append(line + "\r\n");
             }
         } catch (UnsupportedEncodingException e) {
             status = 1;
@@ -73,18 +78,25 @@ public class Solver {
             status = 1;
             e.printStackTrace();
         }
+       System.out.print(builder);
         return status;
     }
 
-    public int executeCmd(ISolverEnvironment environment) {
-        int status = 0;
+    public Object[] executeCmd(ISolverEnvironment environment) {
+
+        Object[] objects = new Object[2];
         File exeDir = environment.getExecutableFile().getParentFile();//获取求解器的目录
         File inputFile = getInputFileLoad(environment);
         String cmdArgument = environment.getSolverCommandlineArguments();//获取命令
-        String exeCmd = "LGSAS " + inputFile.toString() + " " + cmdArgument;
+
+        String outFile = inputFile.toString().replace(".dat", "");
+        // outFile.replace(".dat","");
+        String exeCmd = "LGSAS " + outFile + " " + "2 3 1";
         Runtime runtime = Runtime.getRuntime();
-        status = dealExeCmdException(exeCmd, runtime, exeDir);
-        return status;
+        int status = dealExeCmdException(exeCmd, runtime, exeDir);
+        objects[0] = status;
+        objects[1] = outFile;
+        return objects;
     }
 }
 
