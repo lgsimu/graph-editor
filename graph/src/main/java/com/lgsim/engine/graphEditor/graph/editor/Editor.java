@@ -14,6 +14,7 @@ import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleCodecImpl;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
+import com.lgsim.engine.graphEditor.graph.document.GraphDocument;
 import com.lgsim.engine.graphEditor.util.JarUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
