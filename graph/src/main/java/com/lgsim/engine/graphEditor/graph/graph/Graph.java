@@ -33,15 +33,7 @@ public class Graph extends mxGraph implements IGraph {
   {
     GraphSupport.applyGraphSettings(this);
     addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
-    addListener(mxEvent.CELLS_MOVED, ((sender, evt) -> {
-      log.debug("cells moved");
-      Object[] xs = (Object[]) evt.getProperties().get("cells");
-      if (xs != null) {
-        for (Object x : xs) {
-          GraphHook.cavityCellMoved(x, Graph.this);
-        }
-      }
-    }));
+    addListener(mxEvent.CELLS_MOVED, GraphSupport.cellsMovedListener(this));
   }
 
   public void setSourceNode(mxCell sourceNode) {

@@ -1,5 +1,6 @@
 package com.lgsim.engine.graphEditor.graph.graph;
 
+import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
 import com.lgsim.engine.graphEditor.graph.IntCounter;
 import com.mxgraph.model.mxCell;
@@ -10,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -39,6 +41,15 @@ public class GraphSupport {
       }
     }
     return null;
+  }
+
+  public static @Nullable IVertex extractVertex(@NotNull mxCell cell) {
+    Object value = cell.getValue();
+    if (value instanceof IVertex) {
+      return (IVertex) value;
+    } else {
+      return null;
+    }
   }
 
   public static void applyGraphSettings(@NotNull Graph graph) {
@@ -77,9 +88,40 @@ public class GraphSupport {
     };
   }
 
-  private static mxEventSource.mxIEventListener cellsMovedListener() {
-    return (sender, evt) -> {
+  public static mxEventSource.mxIEventListener cellsMovedListener(@NotNull Graph graph) {
+    return cellsMovedListener(cells -> {
+      for (mxCell cell : cells) {
+        if (isCavity(cell)) {
+          GraphHook.cavityCellMoved(cell, graph);
+        }
+      }
+    });
+  }
 
+  private static mxEventSource.mxIEventListener cellsMovedListener(@NotNull Consumer<mxCell[]> movedCellsConsumer) {
+    return (sender, evt) -> {
+      Object[] xs = (Object[]) evt.getProperties().get("cells");
+      if (xs != null) {
+        mxCell[] cells = new mxCell[xs.length];
+        int idx = 0;
+        for (Object x : xs) {
+          if (x instanceof mxCell) {
+            cells[idx] = (mxCell) x;
+            idx += 1;
+          }
+        }
+        movedCellsConsumer.accept(Arrays.copyOfRange(cells, 0, idx));
+      }
     };
+  }
+
+  /* predicates */
+  public static boolean isCavity(@NotNull mxCell cell) {
+    IVertex vertex = extractVertex(cell);
+    if (vertex == null) {
+      return false;
+    } else {
+      return vertex.isCavity();
+    }
   }
 }
