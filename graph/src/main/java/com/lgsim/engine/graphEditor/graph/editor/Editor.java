@@ -1,6 +1,7 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.lgsim.engine.graphEditor.api.IApplication;
+import com.lgsim.engine.graphEditor.api.IToolbar;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
@@ -12,7 +13,6 @@ import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
-import com.lgsim.engine.graphEditor.api.widget.topLevel.IToolBar;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.PureCons;
 import com.lgsim.engine.graphEditor.graph.action.ApplicationActionImpl;
@@ -65,7 +65,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private transient int currentDocumentIndex;
   private transient IApplicationAction applicationAction;
   private transient DocumentContext documentContext;
-  private IToolBar iToolBar;
+  private IToolbar iToolBar;
 
   public Editor(@NotNull IGraphDocumentSpec spec)
   {
@@ -85,7 +85,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private void initUIComponents()
   {
     try {
-      iToolBar = ImplementationUtil.getInstanceOf(IToolBar.class);
+      iToolBar = ImplementationUtil.getInstanceOf(IToolbar.class);
       iToolBar.setActionSupplier(this::getApplicationAction);
       JToolBar toolBar = iToolBar.getToolBar();
       toolBar.setOrientation(JToolBar.HORIZONTAL);
