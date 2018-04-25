@@ -2,10 +2,10 @@ package com.lgsim.engine.graphEditor.widget.Component;
 
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
+import com.lgsim.engine.graphEditor.util.ResourceUtil;
 import com.lgsim.engine.graphEditor.widget.ActionBundle;
 
 import javax.swing.*;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -395,11 +395,10 @@ public class MenuBar extends JMenuBar {
         add(doc);
     }
 
-
-    public JMenuItem createMenuItem(String key, Action action, String icon) {
-        icon="monkey";
-        URL o = this.getClass().getResource("/com/lgsim/engine/graphEditor/widget/png/" + icon + ".png");
-        JMenuItem menuItem = new JMenuItem(ActionBundle.get(key), new ImageIcon(o, ""));
+    public JMenuItem createMenuItem(String key, Action action, String iconPath) {
+        iconPath = "com/lgsim/engine/graphEditor/widget/png/monkey.png";
+        Icon icon = ResourceUtil.lookupImageIcon(iconPath);
+        JMenuItem menuItem = new JMenuItem(ActionBundle.get(key), icon);
         menuItem.addActionListener(action);
         return menuItem;
     }
