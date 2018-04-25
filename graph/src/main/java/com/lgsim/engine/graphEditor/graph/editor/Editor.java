@@ -3,6 +3,7 @@ package com.lgsim.engine.graphEditor.graph.editor;
 import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
+import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
@@ -15,10 +16,12 @@ import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleCodecImpl;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.PureCons;
+import com.lgsim.engine.graphEditor.graph.action.ApplicationActionImpl;
 import com.lgsim.engine.graphEditor.graph.document.DocumentSupport;
 import com.lgsim.engine.graphEditor.graph.document.GraphDocument;
 import com.lgsim.engine.graphEditor.graph.document.GraphDocumentButtonTab;
 import com.lgsim.engine.graphEditor.graph.event.KeyEventCapture;
+import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.util.JarUtil;
 import com.lgsim.engine.graphEditor.util.StringUtil;
 import com.mxgraph.model.mxCell;
@@ -180,6 +183,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     graphDocuments.add(currentDocumentIndex, document);
     installOutlineListeners(comp);
     installGraphDocumentListeners(document);
+    installMenuBarActions(document);
   }
 
   private void installOutlineListeners(@NotNull mxGraphComponent comp)
@@ -236,6 +240,11 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
       docTabbedPane.setTitleAt(currentDocumentIndex, document.getTitle());
       log.debug("document {} changed", currentDocumentIndex);
     });
+  }
+
+  private void installMenuBarActions(@NotNull GraphDocument document) {
+    ApplicationActionImpl instance = new ApplicationActionImpl(document);
+    ImplementationUtil.putInstance(IApplicationAction.class, instance);
   }
 
   private void openLastDocuments()

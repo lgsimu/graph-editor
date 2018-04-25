@@ -7,7 +7,7 @@ public class ImplementationUtilTest
   @Test
   public void test() throws InstantiationException
   {
-    ImplementationUtil.put(IFoo.class, FooImpl.class);
+    ImplementationUtil.putType(IFoo.class, FooImpl.class);
     IFoo foo = ImplementationUtil.getInstanceOf(IFoo.class);
     foo.foo();
   }
