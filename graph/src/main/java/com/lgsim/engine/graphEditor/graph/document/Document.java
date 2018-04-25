@@ -9,6 +9,7 @@ import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleImpl;
 import com.mxgraph.swing.mxGraphComponent;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.function.Supplier;
 
 @SuppressWarnings("WeakerAccess")
@@ -45,7 +46,7 @@ public class Document extends GraphDocumentImpl {
     return actionSupplier.get();
   }
 
-  public void save() {
+  public void save() throws IOException {
     context.put(this);
   }
 }

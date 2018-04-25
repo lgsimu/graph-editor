@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 @SuppressWarnings("WeakerAccess")
 public class DocumentSaveAction extends DocumentAction {
@@ -15,9 +16,13 @@ public class DocumentSaveAction extends DocumentAction {
   }
 
   @Override
-  public void actionPerformed(ActionEvent e)
+  public void actionPerformed(ActionEvent event)
   {
     log.debug("save document {}", document);
-    document.save();
+    try {
+      document.save();
+    } catch (IOException e) {
+      log.debug("save document failed {}", e.getMessage());
+    }
   }
 }

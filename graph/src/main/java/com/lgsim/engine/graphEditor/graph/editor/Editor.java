@@ -1,6 +1,5 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
-import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
@@ -12,14 +11,15 @@ import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
-import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleCodecImpl;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.api.widget.topLevel.IToolBar;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.PureCons;
 import com.lgsim.engine.graphEditor.graph.action.ApplicationActionImpl;
 import com.lgsim.engine.graphEditor.graph.document.*;
-import com.lgsim.engine.graphEditor.util.*;
+import com.lgsim.engine.graphEditor.util.ExceptionManager;
+import com.lgsim.engine.graphEditor.util.ImplementationUtil;
+import com.lgsim.engine.graphEditor.util.StringUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
@@ -42,8 +42,6 @@ import java.util.List;
 import java.util.Vector;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import java.util.jar.Attributes;
-import java.util.jar.Manifest;
 
 @SuppressWarnings("WeakerAccess")
 public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
@@ -72,9 +70,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   public Editor(@NotNull IGraphDocumentSpec spec)
   {
     this.spec = spec;
-    Configuration configuration = spec.getConfiguration();
-    String workDirectory = configuration.getWorkDirectory();
-    this.documentContext = new DocumentContext(new File(workDirectory));
+    this.documentContext = new DocumentContext(spec);
     initUIComponents();
     loadStencils();
     loadDocuments();
@@ -322,63 +318,11 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   @Override
   public void saveOpenedGraphDocument(@NotNull IGraphDocument document) throws IOException
   {
-    final File docFile = document.getGraphDocumentFile().getEntryFile();
-    if (docFile.exists()) {
-      updateDocumentJarFile(document);
+    if (document instanceof Document) {
+      documentContext.put((Document) document);
     } else {
-      File workDir = Files.createTempDir();
-      File jarFile = createDocumentJarFile(document, workDir);
-      Files.copy(jarFile, docFile);
-      if (workDir.delete()) {
-        log.debug("delete temp work dir {}", workDir);
-      }
+      log.debug("un-support document type");
     }
-  }
-
-  private @NotNull File createDocumentJarFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
-  {
-    log.debug("create document jar file");
-    File temp = new File(workDir, "tmp");
-    File jarFile = new File(workDir, document.getTitle() + ".jar");
-    createDocumentModelFile(document, temp);
-    createDocumentStyleFile(document, temp);
-    Manifest manifestFile = createManifest();
-    JarUtil.pack(temp, jarFile, manifestFile);
-    return jarFile;
-  }
-
-  private void createDocumentModelFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
-  {
-    byte[] data = ImplementationContext.INSTANCE.getGraphCodec().encode(document.getGraph());
-    File file = new File(workDir, "model");
-    writeToFile(data, file);
-  }
-
-  private void createDocumentStyleFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
-  {
-    GraphStyleCodecImpl codec = new GraphStyleCodecImpl();
-    byte[] data = codec.encode(document.getGraphStyle());
-    File file = new File(workDir, "style");
-    writeToFile(data, file);
-  }
-
-  private void writeToFile(byte[] data, @NotNull File file) throws IOException
-  {
-    Files.write(data, file);
-  }
-
-  private @NotNull Manifest createManifest()
-  {
-    Manifest manifest = new Manifest();
-    manifest.getMainAttributes().put(Attributes.Name.IMPLEMENTATION_TITLE, spec.getImplementationTitle());
-    manifest.getMainAttributes().put(Attributes.Name.IMPLEMENTATION_VERSION, spec.getImplementationVersion());
-    manifest.getMainAttributes().put(Attributes.Name.IMPLEMENTATION_VENDOR, spec.getImplementationVendor());
-    return manifest;
-  }
-
-  private void updateDocumentJarFile(@NotNull IGraphDocument document)
-  {
-    log.debug("update document jar file, {}", document);
   }
 
   @Override
