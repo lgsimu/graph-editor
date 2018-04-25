@@ -17,8 +17,7 @@ public class Application implements IApplication {
   private static final String corporationName = "LGSimulator";
   private static final String artifactName = "GraphEditor";
   private static final String version = "1.0";
-  private static final Configuration CONFIGURATION =
-      new Configuration(corporationName, artifactName, version);
+  private static final Configuration CONFIGURATION = new Configuration(corporationName, artifactName, version);
 
   private Application() throws InstantiationException
   {
@@ -71,5 +70,10 @@ public class Application implements IApplication {
   public @NotNull String getImplementationVendor()
   {
     return corporationName;
+  }
+
+  @Override
+  public @NotNull Configuration getConfiguration() {
+    return CONFIGURATION;
   }
 }

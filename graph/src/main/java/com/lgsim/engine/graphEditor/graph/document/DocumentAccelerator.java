@@ -7,10 +7,10 @@ import java.awt.event.KeyEvent;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class DocumentAccelerator extends KeyAdapter {
-  protected final GraphDocument document;
+  protected final Document document;
   protected final DocumentAcceleratorConsumer keyPressedConsumer;
 
-  public DocumentAccelerator(@NotNull GraphDocument document) {
+  public DocumentAccelerator(@NotNull Document document) {
     this.document = document;
     this.keyPressedConsumer = DocumentSupport.createKeyPressedConsumer(document);
     document.getGraphComponent().addKeyListener(this);
@@ -21,7 +21,7 @@ public class DocumentAccelerator extends KeyAdapter {
     keyPressedConsumer.consume(event);
   }
 
-  public GraphDocument getDocument() {
+  public Document getDocument() {
     return document;
   }
 

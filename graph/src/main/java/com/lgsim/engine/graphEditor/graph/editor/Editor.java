@@ -14,16 +14,12 @@ import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleCodecImpl;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
+import com.lgsim.engine.graphEditor.api.widget.topLevel.IToolBar;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.PureCons;
 import com.lgsim.engine.graphEditor.graph.action.ApplicationActionImpl;
-import com.lgsim.engine.graphEditor.graph.document.DocumentAccelerator;
-import com.lgsim.engine.graphEditor.graph.document.DocumentSupport;
-import com.lgsim.engine.graphEditor.graph.document.GraphDocument;
-import com.lgsim.engine.graphEditor.graph.document.GraphDocumentButtonTab;
-import com.lgsim.engine.graphEditor.util.ImplementationUtil;
-import com.lgsim.engine.graphEditor.util.JarUtil;
-import com.lgsim.engine.graphEditor.util.StringUtil;
+import com.lgsim.engine.graphEditor.graph.document.*;
+import com.lgsim.engine.graphEditor.util.*;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
@@ -67,13 +63,17 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private final JSplitPane eastPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPane, vertexTable.getSwingComponent());
   private final StencilPalette predefinedPalette = PureCons.createStencilPalette();
   private final StencilPalette userDefinedPalette = PureCons.createStencilPalette();
-  private List<GraphDocument> graphDocuments = new Vector<>();
+  private List<Document> documents = new Vector<>();
   private transient int currentDocumentIndex;
   private transient IApplicationAction applicationAction;
+  private transient DocumentContext documentContext;
 
   public Editor(@NotNull IGraphDocumentSpec spec)
   {
     this.spec = spec;
+    Configuration configuration = spec.getConfiguration();
+    String workDirectory = configuration.getWorkDirectory();
+    this.documentContext = new DocumentContext(new File(workDirectory));
     initUIComponents();
     loadStencils();
     loadDocuments();
@@ -87,8 +87,16 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
   private void initUIComponents()
   {
-    /* install toolbar */
-    add(new EditorToolBar(this, JToolBar.HORIZONTAL), BorderLayout.NORTH);
+    try {
+      IToolBar iToolBar = ImplementationUtil.getInstanceOf(IToolBar.class);
+      iToolBar.setActionSupplier(this::getApplicationAction);
+      JToolBar toolBar = iToolBar.getToolBar();
+      toolBar.setOrientation(JToolBar.HORIZONTAL);
+      add(toolBar, BorderLayout.NORTH);
+    } catch (InstantiationException e) {
+      log.debug("install toolbar failed");
+      ExceptionManager.INSTANCE.dealWith(e);
+    }
 
     setLayout(new BorderLayout());
 
@@ -166,7 +174,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
   private void loadDocuments()
   {
-    final List<GraphDocument> documents = getLastDocuments();
+    final List<Document> documents = getLastDocuments();
     if (documents == null) {
       openNewDocument();
     } else {
@@ -176,14 +184,14 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
   public void openNewDocument()
   {
-    GraphDocument document = DocumentSupport.createDocument(this::getApplicationAction);
+    Document document = DocumentSupport.createDocument(documentContext, this::getApplicationAction);
     applicationAction = new ApplicationActionImpl(document);
     ImplementationUtil.putInstance(IApplicationAction.class, applicationAction);
     mxGraphComponent comp = document.getGraphComponent();
     docTabbedPane.add(document.getTitle(), comp);
-    docTabbedPane.setTabComponentAt(currentDocumentIndex, new GraphDocumentButtonTab(docTabbedPane));
-    currentDocumentIndex = graphDocuments.size();
-    graphDocuments.add(currentDocumentIndex, document);
+    docTabbedPane.setTabComponentAt(currentDocumentIndex, new DocumentButtonTab(docTabbedPane));
+    currentDocumentIndex = documents.size();
+    documents.add(currentDocumentIndex, document);
     installOutlineListeners(comp);
     installGraphDocumentListeners(document);
   }
@@ -209,7 +217,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     });
   }
 
-  private void installGraphDocumentListeners(@NotNull GraphDocument document)
+  private void installGraphDocumentListeners(@NotNull Document document)
   {
     mxGraphComponent comp = document.getGraphComponent();
 
@@ -254,7 +262,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   }
 
   @Nullable
-  private List<GraphDocument> getLastDocuments()
+  private List<Document> getLastDocuments()
   {
     return null;
   }
@@ -288,10 +296,10 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   }
 
   @Override
-  public @Nullable GraphDocument getCurrentGraphDocument()
+  public @Nullable Document getCurrentGraphDocument()
   {
-    if (graphDocuments.size() > 0) {
-      return graphDocuments.get(currentDocumentIndex);
+    if (documents.size() > 0) {
+      return documents.get(currentDocumentIndex);
     } else {
       return null;
     }

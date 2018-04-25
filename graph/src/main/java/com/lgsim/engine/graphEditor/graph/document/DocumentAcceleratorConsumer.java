@@ -7,9 +7,9 @@ import java.awt.event.KeyEvent;
 @SuppressWarnings("WeakerAccess")
 public abstract class DocumentAcceleratorConsumer {
 
-  protected GraphDocument document;
+  protected Document document;
 
-  public DocumentAcceleratorConsumer(GraphDocument document) {
+  public DocumentAcceleratorConsumer(Document document) {
     this.document = document;
   }
 

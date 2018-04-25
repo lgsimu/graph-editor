@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 @SuppressWarnings("WeakerAccess")
 public class DocumentAcceleratorKeyPressedConsumer extends DocumentAcceleratorConsumer {
 
-  public DocumentAcceleratorKeyPressedConsumer(@NotNull GraphDocument document) {
+  public DocumentAcceleratorKeyPressedConsumer(@NotNull Document document) {
     super(document);
   }
 
@@ -29,6 +29,10 @@ public class DocumentAcceleratorKeyPressedConsumer extends DocumentAcceleratorCo
         }
         case KeyEvent.VK_X: {
           cutVertexes(event);
+          break;
+        }
+        case KeyEvent.VK_S: {
+          saveDocument(event);
           break;
         }
       }
@@ -61,6 +65,12 @@ public class DocumentAcceleratorKeyPressedConsumer extends DocumentAcceleratorCo
 
   private void deleteVertexes(@NotNull KeyEvent event) {
     Action action = document.getApplicationAction().getVertexCellDeleteAction();
+    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getGraphComponent(), event);
+    action.actionPerformed(actionEvent);
+  }
+
+  private void saveDocument(@NotNull KeyEvent event) {
+    Action action = document.getApplicationAction().getDocumentSaveAction();
     ActionEvent actionEvent = ActionSupport.createActionEvent(document.getGraphComponent(), event);
     action.actionPerformed(actionEvent);
   }

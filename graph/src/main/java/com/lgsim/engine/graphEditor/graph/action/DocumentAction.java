@@ -1,6 +1,6 @@
 package com.lgsim.engine.graphEditor.graph.action;
 
-import com.lgsim.engine.graphEditor.graph.document.GraphDocument;
+import com.lgsim.engine.graphEditor.graph.document.Document;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -8,9 +8,9 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class DocumentAction extends AbstractAction {
-  protected GraphDocument document;
+  protected Document document;
 
-  public DocumentAction(@NotNull GraphDocument document) {
+  public DocumentAction(@NotNull Document document) {
     this.document = document;
   }
 
@@ -18,7 +18,7 @@ public abstract class DocumentAction extends AbstractAction {
   public void actionPerformed(ActionEvent e) {
   }
 
-  public GraphDocument getDocument() {
+  public Document getDocument() {
     return document;
   }
 }
