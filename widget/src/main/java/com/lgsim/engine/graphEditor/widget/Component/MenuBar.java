@@ -1,9 +1,11 @@
 package com.lgsim.engine.graphEditor.widget.Component;
 
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
+import com.lgsim.engine.graphEditor.util.ExceptionManager;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.util.ResourceUtil;
 import com.lgsim.engine.graphEditor.widget.ActionBundle;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.swing.*;
 import java.util.Arrays;
@@ -13,10 +15,11 @@ import java.util.Map;
 
 public class MenuBar extends JMenuBar {
 
-    private static IApplicationAction iApplicationAction;
+    private IApplicationAction iApplicationAction;
 
     public MenuBar() {
 
+        getActionInstance();
         addFileMenu();
         addEditorMenu();
         addViewMenu();
@@ -31,14 +34,16 @@ public class MenuBar extends JMenuBar {
         addHelpMenu();
     }
 
-    static {
+    public IApplicationAction getActionInstance() {
+
         try {
             iApplicationAction = ImplementationUtil.getInstanceOf(IApplicationAction.class);
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            ExceptionManager.INSTANCE.dealWith(e);
         }
-    }
 
+        return iApplicationAction;
+    }
 
     private void addFileMenu() {
         JMenu doc = new JMenu(ActionBundle.get("file.name"));
@@ -61,7 +66,7 @@ public class MenuBar extends JMenuBar {
         JMenuItem print = createMenuItem("file.print", null, "file.print");
         JMenuItem set = createMenuItem("file.set", null, "file.set");
         JMenuItem close = createMenuItem("file.close", null, "file.close");
-        JMenuItem exit = createMenuItem("file.exit", null, "file.exit");
+        JMenuItem exit = createMenuItem("file.exit", iApplicationAction.getApplicationExitAction(), "file.exit");
 
         JMenuItem[] actions = {news, open, save, saveAs, pictureOut, network, input, out, auto, svg, flash,
                 sliver, pdf, pageSet, preview, print, set, close, exit};
@@ -78,10 +83,10 @@ public class MenuBar extends JMenuBar {
 
         JMenuItem undo = createMenuItem("editor.undo", null, "editor.undo");
         JMenuItem redo = createMenuItem("editor.redo", null, "editor.redo");
-        JMenuItem cut = createMenuItem("editor.cut", null, "editor.cut");
-        JMenuItem copy = createMenuItem("editor.copy", null, "editor.copy");
-        JMenuItem paste = createMenuItem("editor.paste", null, "editor.paste");
-        JMenuItem delete = createMenuItem("editor.delete", null, "editor.delete");
+        JMenuItem cut = createMenuItem("editor.cut", iApplicationAction.getVertexCellCutAction(), "editor.cut");
+        JMenuItem copy = createMenuItem("editor.copy", iApplicationAction.getVertexCellCopyAction(), "editor.copy");
+        JMenuItem paste = createMenuItem("editor.paste", iApplicationAction.getVertexCellPasteAction(), "editor.paste");
+        JMenuItem delete = createMenuItem("editor.delete", iApplicationAction.getVertexCellDeleteAction(), "editor.delete");
         JMenuItem selectAll = createMenuItem("editor.selectAll", null, "editor.selectAll");
         JMenuItem dimensional = createMenuItem("editor.one.dimensional.shape", null, "editor.one.dimensional.shape");
         JMenuItem dimensional2 = createMenuItem("editor.two.dimensional.shape", null, "editor.two.dimensional.shape");
@@ -385,13 +390,13 @@ public class MenuBar extends JMenuBar {
         add(doc);
     }
 
-    private void addHelpMenu(){
+    private void addHelpMenu() {
         JMenu doc = new JMenu(ActionBundle.get("help.name"));
         JMenuItem instructions = createMenuItem("help.instructions", null, "help.instructions");
-        JMenuItem about = createMenuItem("help.about",null,"help.about");
+        JMenuItem about = createMenuItem("help.about", null, "help.about");
 
         List<JMenuItem> actionList = Arrays.asList(instructions, about);
-        addMenuItem(actionList,doc,null,null);
+        addMenuItem(actionList, doc, null, null);
         add(doc);
     }
 
