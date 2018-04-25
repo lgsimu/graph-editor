@@ -50,7 +50,7 @@ public class TablePanel extends JPanel {
     /**
      * 根据单位设置下拉框
      */
-    public void setComboBoxCell(IVertexArgument rowContent,JTextField textField) {
+    public void setComboBoxCell(IVertexArgument rowContent, JTextField textField) {
         String[] lenUnit = {"m", "dm", "cm", "mm"};
         List lenList = Arrays.asList(lenUnit);
         if (rowContent != null && lenList.contains(rowContent.getUnit())) {
@@ -59,7 +59,7 @@ public class TablePanel extends JPanel {
             unitLen.add(new Unit("mm", 0.001));
             comboBoxLen = new JComboBox(setComboBoxArray(unitLen));
             createComboBox(comboBoxLen);
-            setListener(comboBoxLen,textField);
+            setListener(comboBoxLen, textField);
 
         }
 
@@ -71,7 +71,7 @@ public class TablePanel extends JPanel {
             unitArea.add(new Unit("mm2", 0.001 * 0.001));
             comboBoxArea = new JComboBox(setComboBoxArray(unitArea));
             createComboBox(comboBoxArea);
-            setListener(comboBoxArea,textField);
+            setListener(comboBoxArea, textField);
         }
 
 
@@ -83,7 +83,7 @@ public class TablePanel extends JPanel {
             unitPa.add(new Unit("Bar", 100 * 100));
             comboBoxPa = new JComboBox(setComboBoxArray(unitPa));
             createComboBox(comboBoxPa);
-            setListener(comboBoxPa,textField);
+            setListener(comboBoxPa, textField);
         }
 
         String[] temUnit = {"K", "℃"};
@@ -94,7 +94,7 @@ public class TablePanel extends JPanel {
             unitTem.add(new Unit("K", 1));
             comboBoxTem = new JComboBox(setComboBoxArray(unitTem));
             createComboBox(comboBoxTem);
-            setListener(comboBoxTem,textField);
+            setListener(comboBoxTem, textField);
         }
 
         String[] swirlUnit = {"m2/s"};
@@ -104,10 +104,10 @@ public class TablePanel extends JPanel {
             unitSwirl.add(new Unit("m2/s", 1.0));
             comboBoxSwirl = new JComboBox(setComboBoxArray(unitSwirl));
             createComboBox(comboBoxSwirl);
-            setListener(comboBoxSwirl,textField);
+            setListener(comboBoxSwirl, textField);
         }
 
-        }
+    }
 
     /**
      * 设置表格显示的内容
@@ -122,8 +122,8 @@ public class TablePanel extends JPanel {
         vector.add(rowContent.getValue());
         vector.add(rowContent.getUnit());
         vector.add(rowContent.getDescription());
-        JTextField textField = setTextListener();
-        setComboBoxCell(rowContent,textField);
+        JTextField textField = setTextListener(rowContent);
+        setComboBoxCell(rowContent, textField);
 
         return vector;
     }
@@ -131,7 +131,7 @@ public class TablePanel extends JPanel {
     public void createComboBox(JComboBox comboBox) {
         DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
         editors.add(cellEditor);
-}
+    }
 
     /**
      * 验证数字是否合法
@@ -153,7 +153,7 @@ public class TablePanel extends JPanel {
         }
     }
 
-    public JTextField setTextListener() {
+    public JTextField setTextListener(IVertexArgument rowContent) {
         JTextField textField = new JTextField();
         textField.addFocusListener(new FocusListener() {
             @Override
@@ -164,6 +164,8 @@ public class TablePanel extends JPanel {
             public void focusLost(FocusEvent e) {
                 if (!isNumber(textField.getText())) {
                     JOptionPane.showMessageDialog(null, "请输入数字!");
+                } else {
+                    rowContent.setValue(Double.parseDouble(textField.getText()));
                 }
             }
         });
@@ -184,7 +186,7 @@ public class TablePanel extends JPanel {
      *
      * @param comboBox
      */
-    public void setListener(JComboBox comboBox,JTextField textField) {
+    public void setListener(JComboBox comboBox, JTextField textField) {
         comboBox.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 JComboBox<Unit> combo = (JComboBox<Unit>) e.getSource();
@@ -203,7 +205,7 @@ public class TablePanel extends JPanel {
         table = new JTable(model) {
             public TableCellEditor getCellEditor(int row, int column) {
                 int modelColumn = convertColumnIndexToModel(column);
-                if (modelColumn == 2 &&  row < editors.size())
+                if (modelColumn == 2 && row < editors.size())
                     return editors.get(row);
                 if (modelColumn == 1 && row < editor2.size()) {
                     return editor2.get(row);
@@ -228,7 +230,6 @@ public class TablePanel extends JPanel {
         model.setColumnIdentifiers(columns);
         shows(model);
         scrollPane = new JScrollPane(table);
-        this.setSize(300, 300);
         this.add(scrollPane);
     }
 }
