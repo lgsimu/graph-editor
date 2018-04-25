@@ -27,7 +27,7 @@ public class ExceptionManager {
   public void dealWith(@NotNull InstantiationException e)
   {
     dealWith((Exception) e);
-    System.exit(1);
+//    System.exit(1);
   }
 
   public void dealWith(@NotNull IOException e)
