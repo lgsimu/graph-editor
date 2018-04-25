@@ -10,16 +10,16 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("WeakerAccess")
 public class VertexCellPasteAction extends VertexCellAction {
-  private static final Logger log = LoggerFactory.getLogger(VertexCellCopyAction.class);
+  private static final Logger log = LoggerFactory.getLogger(VertexCellPasteAction.class);
 
   public VertexCellPasteAction(@NotNull GraphDocument document) {
     super(document);
   }
 
   @Override
-  public void actionPerformed(ActionEvent e) {
+  public void actionPerformed(ActionEvent evt) {
     log.debug("vertex cell paste action performed");
     Action pasteAction = TransferHandler.getPasteAction();
-    pasteAction.actionPerformed(new ActionEvent(graphComponent, e.getID(), e.getActionCommand()));
+    pasteAction.actionPerformed(ActionSupport.createActionEvent(graphComponent, evt));
   }
 }

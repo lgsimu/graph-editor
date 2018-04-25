@@ -17,9 +17,9 @@ public class VertexCellCopyAction extends VertexCellAction {
   }
 
   @Override
-  public void actionPerformed(ActionEvent e) {
+  public void actionPerformed(ActionEvent evt) {
     log.debug("vertex cell copy action performed");
     Action copyAction = TransferHandler.getCopyAction();
-    copyAction.actionPerformed(new ActionEvent(graphComponent, e.getID(), e.getActionCommand()));
+    copyAction.actionPerformed(ActionSupport.createActionEvent(graphComponent, evt));
   }
 }
