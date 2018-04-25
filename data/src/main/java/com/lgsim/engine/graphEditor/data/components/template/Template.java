@@ -2,6 +2,7 @@ package com.lgsim.engine.graphEditor.data.components.template;
 
 
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
+import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -131,7 +132,7 @@ public class Template implements IStencilContext {
             for (int j = 0;j < results.size();j++) {
                 JSONObject res = JSONObject.fromObject(results.getJSONObject(j));
 
-                ArrayList<Parameter> parameters = new ArrayList<>();
+                ArrayList<IVertexOutput> parameters = new ArrayList<>();
                 Parameter parameter = new Parameter();
 
                 if(res.containsKey("AA1")) {

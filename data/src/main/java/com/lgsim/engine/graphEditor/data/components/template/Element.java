@@ -1,6 +1,7 @@
 package com.lgsim.engine.graphEditor.data.components.template;
 
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
+import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -54,7 +55,7 @@ public class Element implements IStencilContext {
                 JSONArray arguments = JSONArray.fromObject(jObjectType.get("arguments"));
                 JSONArray results = JSONArray.fromObject(jsonObject.get("Result"));
                 List<Parameter> parameters = new ArrayList<Parameter>();
-                List<Parameter> outParameters = new ArrayList<Parameter>();
+                List<IVertexOutput> outParameters = new ArrayList<IVertexOutput>();
 
                 for (Object objectArgument : arguments) {
                     Parameter parameter = new Parameter();
@@ -97,6 +98,9 @@ public class Element implements IStencilContext {
 
     @Override
     public @NotNull List<IVertexStencil> getUserDefinedStencils() {
+
+
+
         return new ArrayList<IVertexStencil>();
     }
 

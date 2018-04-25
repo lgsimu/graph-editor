@@ -6,6 +6,8 @@ import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.data.components.util.jsonformattool.JsonFormatTool;
 import com.lgsim.engine.graphEditor.util.exception.DecodeException;
 import com.lgsim.engine.graphEditor.util.exception.EncodeException;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileInputStream;
@@ -19,16 +21,19 @@ public class GraphCodecImpl implements IGraphCodec
   @Override
   public @NotNull byte[] encode(@NotNull IGraph graph) throws EncodeException {
 
+
+
       JsonFormatTool jsonFormatTool = new JsonFormatTool();
       try {
-        FileOutputStream fos = new FileOutputStream("graph.out");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
+          FileOutputStream fos = new FileOutputStream("com/lgsim/engine/graphEditor/data/test/graph.out");
+          ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-        String str = jsonFormatTool.formatJson(graph.toString());
+          //String str = jsonFormatTool.formatJson(graph.toString());
+          String str = com.alibaba.fastjson.JSONObject.toJSONString(graph);
+          byte[] bjson = str.getBytes();
 
-        byte[] bjson = str.getBytes();
-        oos.writeObject(bjson);
-        oos.close();
+          oos.writeObject(bjson);
+          oos.close();
 
       return bjson;
     }
@@ -42,12 +47,17 @@ public class GraphCodecImpl implements IGraphCodec
   @Override
   public @NotNull IGraph decode(@NotNull byte[] bytes) throws DecodeException {
 
-      IGraphImpl iGraph = new IGraphImpl();
+      //IGraphImpl iGraph1 = new IGraphImpl();
       try {
-          FileInputStream fis = new FileInputStream("graph.out");
+          FileInputStream fis = new FileInputStream("com/lgsim/engine/graphEditor/data/test/graph.out");
           ObjectInputStream ois = new ObjectInputStream(fis);
 
-          bytes = (byte[]) ois.readObject();
+          //String str = new String(bytes);
+          IGraph iGraph = com.alibaba.fastjson.JSON.parseObject(bytes,IGraph.class);
+          //bytes = (byte[]) ois.readObject();
+
+          JSONObject jsonObject = JSONObject.fromObject(bytes);
+
           ois.close();
 
           return iGraph;

@@ -20,7 +20,7 @@ public class ExceptionManager {
   {
     dealWith((Exception) e);
     if (!e.triggerByIcon() && !e.triggerByURI()) {
-      System.exit(1);
+//      System.exit(1);
     }
   }
 
