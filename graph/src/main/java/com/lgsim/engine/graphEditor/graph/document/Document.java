@@ -15,10 +15,12 @@ import java.util.function.Supplier;
 public class Document extends GraphDocumentImpl {
   private mxGraphComponent graphComponent;
   private final Supplier<IApplicationAction> actionSupplier;
+  private final DocumentContext context;
 
-  public Document(@NotNull mxGraphComponent comp, @NotNull Supplier<IApplicationAction> actionSupplier)
+  public Document(@NotNull DocumentContext context, @NotNull mxGraphComponent comp, @NotNull Supplier<IApplicationAction> actionSupplier)
   {
     super(null, new GraphDocumentFileImpl(), (IGraph) comp.getGraph(), new GraphStyleImpl(), false);
+    this.context = context;
     this.actionSupplier = actionSupplier;
     setGraphComponent(comp);
   }
@@ -44,6 +46,6 @@ public class Document extends GraphDocumentImpl {
   }
 
   public void save() {
-
+    context.put(this);
   }
 }

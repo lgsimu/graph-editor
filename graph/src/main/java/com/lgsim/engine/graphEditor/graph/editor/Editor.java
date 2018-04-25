@@ -17,10 +17,8 @@ import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.PureCons;
 import com.lgsim.engine.graphEditor.graph.action.ApplicationActionImpl;
-import com.lgsim.engine.graphEditor.graph.document.Document;
-import com.lgsim.engine.graphEditor.graph.document.DocumentAccelerator;
-import com.lgsim.engine.graphEditor.graph.document.DocumentButtonTab;
-import com.lgsim.engine.graphEditor.graph.document.DocumentSupport;
+import com.lgsim.engine.graphEditor.graph.document.*;
+import com.lgsim.engine.graphEditor.util.Configuration;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.util.JarUtil;
 import com.lgsim.engine.graphEditor.util.StringUtil;
@@ -70,10 +68,14 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private List<Document> documents = new Vector<>();
   private transient int currentDocumentIndex;
   private transient IApplicationAction applicationAction;
+  private transient DocumentContext documentContext;
 
   public Editor(@NotNull IGraphDocumentSpec spec)
   {
     this.spec = spec;
+    Configuration configuration = spec.getConfiguration();
+    String workDirectory = configuration.getWorkDirectory();
+    this.documentContext = new DocumentContext(new File(workDirectory));
     initUIComponents();
     loadStencils();
     loadDocuments();
@@ -176,7 +178,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
   public void openNewDocument()
   {
-    Document document = DocumentSupport.createDocument(this::getApplicationAction);
+    Document document = DocumentSupport.createDocument(documentContext, this::getApplicationAction);
     applicationAction = new ApplicationActionImpl(document);
     ImplementationUtil.putInstance(IApplicationAction.class, applicationAction);
     mxGraphComponent comp = document.getGraphComponent();

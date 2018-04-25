@@ -13,9 +13,9 @@ import java.util.function.Supplier;
 @SuppressWarnings({"WeakerAccess"})
 public class DocumentSupport {
   @Contract(pure = true)
-  public static @NotNull Document createDocument(@NotNull Supplier<IApplicationAction> actionSupplier) {
+  public static @NotNull Document createDocument(@NotNull DocumentContext context, @NotNull Supplier<IApplicationAction> actionSupplier) {
     mxGraphComponent comp = new GraphComponent(new Graph());
-    final Document document = new Document(comp, actionSupplier);
+    final Document document = new Document(context, comp, actionSupplier);
     comp.setColumnHeaderView(new DocumentRuler(comp, DocumentRuler.ORIENTATION_HORIZONTAL));
     comp.setRowHeaderView(new DocumentRuler(comp, DocumentRuler.ORIENTATION_VERTICAL));
     document.getGraphComponent().setMinimumSize(new Dimension(320, 320));
