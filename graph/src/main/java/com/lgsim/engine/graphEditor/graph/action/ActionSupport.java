@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class ActionSupport {
@@ -23,7 +24,12 @@ public class ActionSupport {
   }
 
   @Contract(pure = true)
-  public static @NotNull ActionEvent createActionEvent(@NotNull JComponent comp, @NotNull ActionEvent evt) {
-    return new ActionEvent(comp, evt.getID(), evt.getActionCommand());
+  public static @NotNull ActionEvent createActionEvent(@NotNull JComponent comp, @NotNull ActionEvent event) {
+    return new ActionEvent(comp, event.getID(), event.getActionCommand());
+  }
+
+  @Contract(pure = true)
+  public static @NotNull ActionEvent createActionEvent(@NotNull JComponent comp, @NotNull KeyEvent event) {
+    return new ActionEvent(comp, event.getID(), "copy");
   }
 }

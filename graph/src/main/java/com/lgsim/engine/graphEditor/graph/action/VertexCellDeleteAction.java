@@ -17,7 +17,7 @@ public class VertexCellDeleteAction extends VertexCellAction {
 
   @Override
   public void actionPerformed(ActionEvent evt) {
-    log.debug("vertex cell copy action performed");
+    log.debug("vertex cell delete action performed");
     VertexCellCutAction cutAction = new VertexCellCutAction(document);
     cutAction.actionPerformed(evt);
   }

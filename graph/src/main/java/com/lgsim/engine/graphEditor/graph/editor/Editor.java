@@ -17,10 +17,10 @@ import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.PureCons;
 import com.lgsim.engine.graphEditor.graph.action.ApplicationActionImpl;
+import com.lgsim.engine.graphEditor.graph.document.DocumentAccelerator;
 import com.lgsim.engine.graphEditor.graph.document.DocumentSupport;
 import com.lgsim.engine.graphEditor.graph.document.GraphDocument;
 import com.lgsim.engine.graphEditor.graph.document.GraphDocumentButtonTab;
-import com.lgsim.engine.graphEditor.graph.event.KeyEventCapture;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.util.JarUtil;
 import com.lgsim.engine.graphEditor.util.StringUtil;
@@ -69,6 +69,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private final StencilPalette userDefinedPalette = PureCons.createStencilPalette();
   private List<GraphDocument> graphDocuments = new Vector<>();
   private transient int currentDocumentIndex;
+  private transient IApplicationAction applicationAction;
 
   public Editor(@NotNull IGraphDocumentSpec spec)
   {
@@ -175,7 +176,9 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
   public void openNewDocument()
   {
-    GraphDocument document = DocumentSupport.createDocument();
+    GraphDocument document = DocumentSupport.createDocument(this::getApplicationAction);
+    applicationAction = new ApplicationActionImpl(document);
+    ImplementationUtil.putInstance(IApplicationAction.class, applicationAction);
     mxGraphComponent comp = document.getGraphComponent();
     docTabbedPane.add(document.getTitle(), comp);
     docTabbedPane.setTabComponentAt(currentDocumentIndex, new GraphDocumentButtonTab(docTabbedPane));
@@ -183,7 +186,10 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     graphDocuments.add(currentDocumentIndex, document);
     installOutlineListeners(comp);
     installGraphDocumentListeners(document);
-    installMenuBarActions(document);
+  }
+
+  public IApplicationAction getApplicationAction() {
+    return applicationAction;
   }
 
   private void installOutlineListeners(@NotNull mxGraphComponent comp)
@@ -208,7 +214,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     mxGraphComponent comp = document.getGraphComponent();
 
     new mxRubberband(comp);
-    new KeyEventCapture(comp);
+    new DocumentAccelerator(document);
 
     comp.getGraph().getSelectionModel().addListener(mxEvent.CHANGE, (sender, evt) -> {
       if ((sender instanceof mxGraphSelectionModel)) {
@@ -240,11 +246,6 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
       docTabbedPane.setTitleAt(currentDocumentIndex, document.getTitle());
       log.debug("document {} changed", currentDocumentIndex);
     });
-  }
-
-  private void installMenuBarActions(@NotNull GraphDocument document) {
-    ApplicationActionImpl instance = new ApplicationActionImpl(document);
-    ImplementationUtil.putInstance(IApplicationAction.class, instance);
   }
 
   private void openLastDocuments()
