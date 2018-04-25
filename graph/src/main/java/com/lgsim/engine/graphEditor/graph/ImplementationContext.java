@@ -4,7 +4,6 @@ import com.lgsim.engine.graphEditor.api.calc.ISolver;
 import com.lgsim.engine.graphEditor.api.data.IGraphCodec;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
-import com.lgsim.engine.graphEditor.api.widget.topLevel.IMenuBar;
 import com.lgsim.engine.graphEditor.util.ExceptionManager;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +14,6 @@ public class ImplementationContext {
   private IVertexTable vertexTable;
   private IGraphCodec graphCodec;
   private ISolver solver;
-  private IMenuBar menuBar;
 
   private ImplementationContext()
   {
@@ -24,7 +22,6 @@ public class ImplementationContext {
       vertexTable = ImplementationUtil.getInstanceOf(IVertexTable.class);
       graphCodec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
       solver = ImplementationUtil.getInstanceOf(ISolver.class);
-      menuBar = ImplementationUtil.getInstanceOf(IMenuBar.class);
     } catch (InstantiationException e) {
       ExceptionManager.INSTANCE.dealWith(e);
     }
@@ -50,9 +47,5 @@ public class ImplementationContext {
   public @NotNull ISolver getSolver()
   {
     return solver;
-  }
-
-  public @NotNull IMenuBar getMenuBar() {
-    return menuBar;
   }
 }
