@@ -14,14 +14,12 @@ import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleCodecImpl;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
+import com.lgsim.engine.graphEditor.api.widget.topLevel.IToolBar;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.PureCons;
 import com.lgsim.engine.graphEditor.graph.action.ApplicationActionImpl;
 import com.lgsim.engine.graphEditor.graph.document.*;
-import com.lgsim.engine.graphEditor.util.Configuration;
-import com.lgsim.engine.graphEditor.util.ImplementationUtil;
-import com.lgsim.engine.graphEditor.util.JarUtil;
-import com.lgsim.engine.graphEditor.util.StringUtil;
+import com.lgsim.engine.graphEditor.util.*;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
@@ -89,8 +87,16 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
   private void initUIComponents()
   {
-    /* install toolbar */
-    add(new EditorToolBar(this, JToolBar.HORIZONTAL), BorderLayout.NORTH);
+    try {
+      IToolBar iToolBar = ImplementationUtil.getInstanceOf(IToolBar.class);
+      iToolBar.setActionSupplier(this::getApplicationAction);
+      JToolBar toolBar = iToolBar.getToolBar();
+      toolBar.setOrientation(JToolBar.HORIZONTAL);
+      add(toolBar, BorderLayout.NORTH);
+    } catch (InstantiationException e) {
+      log.debug("install toolbar failed");
+      ExceptionManager.INSTANCE.dealWith(e);
+    }
 
     setLayout(new BorderLayout());
 
