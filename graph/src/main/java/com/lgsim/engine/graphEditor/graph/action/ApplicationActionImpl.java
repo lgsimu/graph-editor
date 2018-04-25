@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class ApplicationActionImpl implements IApplicationAction {
   private GraphDocument document;
 
@@ -15,45 +16,53 @@ public class ApplicationActionImpl implements IApplicationAction {
 
   @Override
   public @NotNull Action getVertexCellCopyAction() {
-    return new VertexCellCopyAction();
+    return new VertexCellCopyAction(document);
   }
 
   @Override
   public @NotNull Action getVertexCellPasteAction() {
-    return new VertexCellPasteAction();
+    return new VertexCellPasteAction(document);
   }
 
   @Override
   public @NotNull Action getVertexCellDeleteAction() {
-    return new VertexCellDeleteAction();
+    return new VertexCellDeleteAction(document);
   }
 
   @Override
   public @NotNull Action getVertexCellCutAction() {
-    return new VertexCellCutAction();
+    return new VertexCellCutAction(document);
   }
 
   @Override
   public @NotNull Action getDocumentNewAction() {
-    return new DocumentNewAction();
+    return new DocumentNewAction(document);
   }
 
   @Override
   public @NotNull Action getDocumentOpenAction() {
-    return new DocumentOpenAction();
+    return new DocumentOpenAction(document);
   }
 
   @Override
   public @NotNull Action getDocumentCloseAction() {
-    return new DocumentCloseAction();
+    return new DocumentCloseAction(document);
   }
   @Override
   public @NotNull Action getDocumentSaveAction() {
-    return new DocumentSaveAction();
+    return new DocumentSaveAction(document);
   }
 
   @Override
   public @NotNull Action getApplicationExitAction() {
     return new ApplicationExitAction();
+  }
+
+  public GraphDocument getDocument() {
+    return document;
+  }
+
+  public void setDocument(GraphDocument document) {
+    this.document = document;
   }
 }

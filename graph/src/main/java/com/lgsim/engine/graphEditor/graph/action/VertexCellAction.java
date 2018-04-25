@@ -1,15 +1,15 @@
 package com.lgsim.engine.graphEditor.graph.action;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.swing.*;
+import com.lgsim.engine.graphEditor.graph.document.GraphDocument;
+import com.mxgraph.swing.mxGraphComponent;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("WeakerAccess")
-public abstract class VertexCellAction extends AbstractAction {
-  private static final Logger log = LoggerFactory.getLogger(VertexCellAction.class);
+public abstract class VertexCellAction extends DocumentAction {
+  protected mxGraphComponent graphComponent;
 
-  public VertexCellAction() {
-    log.debug("cell action performed");
+  public VertexCellAction(@NotNull GraphDocument document) {
+    super(document);
+    graphComponent = document.getGraphComponent();
   }
 }
