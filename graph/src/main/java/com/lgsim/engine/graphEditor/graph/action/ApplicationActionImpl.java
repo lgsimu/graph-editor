@@ -1,11 +1,18 @@
 package com.lgsim.engine.graphEditor.graph.action;
 
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
+import com.lgsim.engine.graphEditor.graph.document.GraphDocument;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
 public class ApplicationActionImpl implements IApplicationAction {
+  private GraphDocument document;
+
+  public ApplicationActionImpl(@NotNull GraphDocument document) {
+    this.document = document;
+  }
+
   @Override
   public @NotNull Action getVertexCellCopyAction() {
     return new VertexCellCopyAction();
