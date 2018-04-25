@@ -27,6 +27,16 @@ public class DocumentAcceleratorKeyPressedConsumer extends DocumentAcceleratorCo
           pasteVertexes(event);
           break;
         }
+        case KeyEvent.VK_X: {
+          cutVertexes(event);
+          break;
+        }
+      }
+    } else {
+      switch (code) {
+        case KeyEvent.VK_DELETE: {
+          deleteVertexes(event);
+        }
       }
     }
   }
@@ -39,6 +49,18 @@ public class DocumentAcceleratorKeyPressedConsumer extends DocumentAcceleratorCo
 
   private void pasteVertexes(@NotNull KeyEvent event) {
     Action action = document.getApplicationAction().getVertexCellPasteAction();
+    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getGraphComponent(), event);
+    action.actionPerformed(actionEvent);
+  }
+
+  private void cutVertexes(KeyEvent event) {
+    Action action = document.getApplicationAction().getVertexCellCutAction();
+    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getGraphComponent(), event);
+    action.actionPerformed(actionEvent);
+  }
+
+  private void deleteVertexes(@NotNull KeyEvent event) {
+    Action action = document.getApplicationAction().getVertexCellDeleteAction();
     ActionEvent actionEvent = ActionSupport.createActionEvent(document.getGraphComponent(), event);
     action.actionPerformed(actionEvent);
   }
