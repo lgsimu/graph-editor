@@ -10,7 +10,6 @@ import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
@@ -46,10 +45,10 @@ import java.util.function.Function;
 @SuppressWarnings("WeakerAccess")
 public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private static final Logger log = LoggerFactory.getLogger(Editor.class);
-  private final IGraphDocumentSpec spec;
+  private final IApplication spec;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
-  private final StatusBar statusBar = new StatusBar(IApplication.statusText) {
+  private final StatusBar statusBar = new StatusBar(MessageBundle.get("application.status.ready")) {
     {
       setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
     }
@@ -67,7 +66,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private transient DocumentContext documentContext;
   private IToolbar iToolBar;
 
-  public Editor(@NotNull IGraphDocumentSpec spec)
+  public Editor(@NotNull IApplication spec)
   {
     this.spec = spec;
     this.documentContext = new DocumentContext(spec);
@@ -77,7 +76,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   }
 
   @SuppressWarnings("unused")
-  public IGraphDocumentSpec getSpec()
+  public IApplication getSpec()
   {
     return spec;
   }
