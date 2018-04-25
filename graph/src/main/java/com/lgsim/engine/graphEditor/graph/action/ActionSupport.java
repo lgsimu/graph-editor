@@ -30,6 +30,6 @@ public class ActionSupport {
 
   @Contract(pure = true)
   public static @NotNull ActionEvent createActionEvent(@NotNull JComponent comp, @NotNull KeyEvent event) {
-    return new ActionEvent(comp, event.getID(), "copy");
+    return new ActionEvent(comp, event.getID(), "");
   }
 }

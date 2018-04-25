@@ -31,6 +31,10 @@ public class DocumentAcceleratorKeyPressedConsumer extends DocumentAcceleratorCo
           cutVertexes(event);
           break;
         }
+        case KeyEvent.VK_S: {
+          saveDocument(event);
+          break;
+        }
       }
     } else {
       switch (code) {
@@ -61,6 +65,12 @@ public class DocumentAcceleratorKeyPressedConsumer extends DocumentAcceleratorCo
 
   private void deleteVertexes(@NotNull KeyEvent event) {
     Action action = document.getApplicationAction().getVertexCellDeleteAction();
+    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getGraphComponent(), event);
+    action.actionPerformed(actionEvent);
+  }
+
+  private void saveDocument(@NotNull KeyEvent event) {
+    Action action = document.getApplicationAction().getDocumentSaveAction();
     ActionEvent actionEvent = ActionSupport.createActionEvent(document.getGraphComponent(), event);
     action.actionPerformed(actionEvent);
   }
