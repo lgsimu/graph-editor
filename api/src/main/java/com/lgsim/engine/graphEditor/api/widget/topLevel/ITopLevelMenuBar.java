@@ -6,6 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 
 @SuppressWarnings("unused")
-public interface IMenuBar extends IWidget {
+public interface ITopLevelMenuBar extends IWidget {
   @NotNull JMenuBar getMenuBar();
 }

@@ -58,6 +58,10 @@ public class ApplicationActionImpl implements IApplicationAction {
     return new ApplicationExitAction();
   }
 
+  @Override
+  public @NotNull Action getSolverSettingsAction() {
+    return new SolverSettingAction();
+  }
   public Document getDocument() {
     return document;
   }

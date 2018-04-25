@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.api.widget.topLevel;
+package com.lgsim.engine.graphEditor.api;
 
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import com.lgsim.engine.graphEditor.api.widget.IWidget;
@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 import java.util.function.Supplier;
 
-public interface IToolBar extends IWidget {
+public interface IToolbar extends IWidget {
   @NotNull JToolBar getToolBar();
 
 

@@ -77,4 +77,12 @@ public interface IApplicationAction {
    * @return 动作
    */
   @NotNull Action getApplicationExitAction();
+
+
+  /**
+   * 计算配置
+   *
+   * @return 动作
+   */
+  @NotNull Action getSolverSettingsAction();
 }

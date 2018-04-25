@@ -1,14 +1,14 @@
 package com.lgsim.engine.graphEditor.widget.IWidegtImp;
 
+import com.lgsim.engine.graphEditor.api.IToolbar;
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
-import com.lgsim.engine.graphEditor.api.widget.topLevel.IToolBar;
 import com.lgsim.engine.graphEditor.widget.Component.ToolBox;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.util.function.Supplier;
 
-public class IToolBarImp implements IToolBar {
+public class IToolBarImp implements IToolbar {
 
     private ToolBox box = new ToolBox();
     @Override
