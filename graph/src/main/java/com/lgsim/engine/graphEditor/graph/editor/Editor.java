@@ -1,26 +1,23 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
-import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.IApplication;
+import com.lgsim.engine.graphEditor.api.IToolbar;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
+import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
-import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleCodecImpl;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.PureCons;
-import com.lgsim.engine.graphEditor.graph.document.GraphDocument;
-import com.lgsim.engine.graphEditor.graph.document.GraphDocumentButtonTab;
-import com.lgsim.engine.graphEditor.graph.document.GraphDocumentRuler;
-import com.lgsim.engine.graphEditor.graph.graph.Graph;
-import com.lgsim.engine.graphEditor.graph.graph.GraphComponent;
-import com.lgsim.engine.graphEditor.util.JarUtil;
+import com.lgsim.engine.graphEditor.graph.action.ApplicationActionImpl;
+import com.lgsim.engine.graphEditor.graph.document.*;
+import com.lgsim.engine.graphEditor.util.ExceptionManager;
+import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.util.StringUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
@@ -28,7 +25,6 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.mxGraphOutline;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.view.mxGraphSelectionModel;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -45,15 +41,14 @@ import java.util.List;
 import java.util.Vector;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import java.util.jar.Attributes;
-import java.util.jar.Manifest;
 
+@SuppressWarnings("WeakerAccess")
 public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private static final Logger log = LoggerFactory.getLogger(Editor.class);
-  private final IGraphDocumentSpec spec;
+  private final IApplication application;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
-  private final EditorStatusBar statusBar = new EditorStatusBar(IApplication.statusText) {
+  private final StatusBar statusBar = new StatusBar(MessageBundle.get("application.status.ready")) {
     {
       setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
     }
@@ -65,27 +60,32 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private final JSplitPane eastPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPane, vertexTable.getSwingComponent());
   private final StencilPalette predefinedPalette = PureCons.createStencilPalette();
   private final StencilPalette userDefinedPalette = PureCons.createStencilPalette();
-  private List<GraphDocument> graphDocuments = new Vector<>();
+  private List<Document> documents = new Vector<>();
   private transient int currentDocumentIndex;
+  private transient DocumentContext documentContext;
+  private IToolbar iToolBar;
 
-  public Editor(@NotNull IGraphDocumentSpec spec)
+  public Editor(@NotNull IApplication application)
   {
-    this.spec = spec;
+    this.application = application;
+    this.documentContext = new DocumentContext(application);
     initUIComponents();
     loadStencils();
     loadDocuments();
   }
 
-  @SuppressWarnings("unused")
-  public IGraphDocumentSpec getSpec()
-  {
-    return spec;
-  }
-
   private void initUIComponents()
   {
-    /* install toolbar */
-    add(new EditorToolBar(this, JToolBar.HORIZONTAL), BorderLayout.NORTH);
+    try {
+      iToolBar = ImplementationUtil.getInstanceOf(IToolbar.class);
+      iToolBar.setActionSupplier(this::getApplicationAction);
+      JToolBar toolBar = iToolBar.getToolBar();
+      toolBar.setOrientation(JToolBar.HORIZONTAL);
+      add(toolBar, BorderLayout.NORTH);
+    } catch (InstantiationException e) {
+      log.debug("install toolbar failed");
+      ExceptionManager.INSTANCE.dealWith(e);
+    }
 
     setLayout(new BorderLayout());
 
@@ -148,7 +148,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   {
     final IStencilContext context = ImplementationContext.INSTANCE.getStencilContext();
     final List<IVertexStencil> predefinedStencils = context.getPredefinedStencils();
-//    final List<IVertexStencil> userDefinedStencils = context.getUserDefinedStencils();
+    final List<IVertexStencil> userDefinedStencils = context.getUserDefinedStencils();
     BiConsumer<StencilPalette, List<IVertexStencil>> addStencils = (palette, stencils) -> {
       for (IVertexStencil stencil : stencils) {
         palette.addStencil(stencil);
@@ -157,36 +157,37 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
     addStencils.accept(predefinedPalette, predefinedStencils);
     log.debug("load {} predefined stencils", predefinedPalette.getLoadStencilCount());
-    // TODO: uncomment
-//    addStencils.accept(userDefinedPalette, userDefinedStencils);
+    addStencils.accept(userDefinedPalette, userDefinedStencils);
     log.debug("load {} user defined stencils", userDefinedPalette.getLoadStencilCount());
   }
 
   private void loadDocuments()
   {
-    final List<GraphDocument> documents = getLastDocuments();
+    final List<Document> documents = getLastDocuments();
     if (documents == null) {
-      GraphDocument document = openNewDocument();
-      currentDocumentIndex = graphDocuments.size();
-      graphDocuments.add(currentDocumentIndex, document);
+      openNewDocument();
     } else {
       openLastDocuments();
     }
   }
 
-  @Contract(pure = true)
-  private GraphDocument openNewDocument()
+  public void openNewDocument()
   {
-    mxGraphComponent comp = new GraphComponent(new Graph());
-    final GraphDocument document = new GraphDocument(comp);
-    comp.setColumnHeaderView(new GraphDocumentRuler(comp, GraphDocumentRuler.ORIENTATION_HORIZONTAL));
-    comp.setRowHeaderView(new GraphDocumentRuler(comp, GraphDocumentRuler.ORIENTATION_VERTICAL));
+    Document document = DocumentSupport.createDocument(documentContext, this::getApplicationAction);
+    ApplicationActionImpl action = new ApplicationActionImpl(document);
+    application.setApplicationAction(action);
+    mxGraphComponent comp = document.getGraphComponent();
+    docTabbedPane.add(document.getTitle(), comp);
+    docTabbedPane.setTabComponentAt(currentDocumentIndex, new DocumentButtonTab(docTabbedPane));
+    currentDocumentIndex = documents.size();
+    documents.add(currentDocumentIndex, document);
     installOutlineListeners(comp);
     installGraphDocumentListeners(document);
-    docTabbedPane.add(document.getTitle(), document.getGraphComponent());
-    docTabbedPane.setTabComponentAt(currentDocumentIndex, new GraphDocumentButtonTab(docTabbedPane));
-    document.getGraphComponent().setMinimumSize(new Dimension(0, 0));
-    return document;
+    this.iToolBar.paint();
+  }
+
+  public IApplicationAction getApplicationAction() {
+    return application.getApplicationAction();
   }
 
   private void installOutlineListeners(@NotNull mxGraphComponent comp)
@@ -206,11 +207,12 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     });
   }
 
-  private void installGraphDocumentListeners(@NotNull GraphDocument document)
+  private void installGraphDocumentListeners(@NotNull Document document)
   {
     mxGraphComponent comp = document.getGraphComponent();
 
     new mxRubberband(comp);
+    new DocumentAccelerator(document);
 
     comp.getGraph().getSelectionModel().addListener(mxEvent.CHANGE, (sender, evt) -> {
       if ((sender instanceof mxGraphSelectionModel)) {
@@ -250,7 +252,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   }
 
   @Nullable
-  private List<GraphDocument> getLastDocuments()
+  private List<Document> getLastDocuments()
   {
     return null;
   }
@@ -284,10 +286,10 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   }
 
   @Override
-  public @Nullable GraphDocument getCurrentGraphDocument()
+  public @Nullable Document getCurrentGraphDocument()
   {
-    if (graphDocuments.size() > 0) {
-      return graphDocuments.get(currentDocumentIndex);
+    if (documents.size() > 0) {
+      return documents.get(currentDocumentIndex);
     } else {
       return null;
     }
@@ -308,63 +310,11 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   @Override
   public void saveOpenedGraphDocument(@NotNull IGraphDocument document) throws IOException
   {
-    final File docFile = document.getGraphDocumentFile().getEntryFile();
-    if (docFile.exists()) {
-      updateDocumentJarFile(document);
+    if (document instanceof Document) {
+      documentContext.put((Document) document);
     } else {
-      File workDir = Files.createTempDir();
-      File jarFile = createDocumentJarFile(document, workDir);
-      Files.copy(jarFile, docFile);
-      if (workDir.delete()) {
-        log.debug("delete temp work dir {}", workDir);
-      }
+      log.debug("un-support document type");
     }
-  }
-
-  private @NotNull File createDocumentJarFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
-  {
-    log.debug("create document jar file");
-    File temp = new File(workDir, "tmp");
-    File jarFile = new File(workDir, document.getTitle() + ".jar");
-    createDocumentModelFile(document, temp);
-    createDocumentStyleFile(document, temp);
-    Manifest manifestFile = createManifest();
-    JarUtil.pack(temp, jarFile, manifestFile);
-    return jarFile;
-  }
-
-  private void createDocumentModelFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
-  {
-    byte[] data = ImplementationContext.INSTANCE.getGraphCodec().encode(document.getGraph());
-    File file = new File(workDir, "model");
-    writeToFile(data, file);
-  }
-
-  private void createDocumentStyleFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
-  {
-    GraphStyleCodecImpl codec = new GraphStyleCodecImpl();
-    byte[] data = codec.encode(document.getGraphStyle());
-    File file = new File(workDir, "style");
-    writeToFile(data, file);
-  }
-
-  private void writeToFile(byte[] data, @NotNull File file) throws IOException
-  {
-    Files.write(data, file);
-  }
-
-  private @NotNull Manifest createManifest()
-  {
-    Manifest manifest = new Manifest();
-    manifest.getMainAttributes().put(Attributes.Name.IMPLEMENTATION_TITLE, spec.getImplementationTitle());
-    manifest.getMainAttributes().put(Attributes.Name.IMPLEMENTATION_VERSION, spec.getImplementationVersion());
-    manifest.getMainAttributes().put(Attributes.Name.IMPLEMENTATION_VENDOR, spec.getImplementationVendor());
-    return manifest;
-  }
-
-  private void updateDocumentJarFile(@NotNull IGraphDocument document)
-  {
-    log.debug("update document jar file, {}", document);
   }
 
   @Override

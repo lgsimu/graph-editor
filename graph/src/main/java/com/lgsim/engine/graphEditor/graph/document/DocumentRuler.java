@@ -16,7 +16,7 @@ import java.awt.geom.Point2D;
 import java.text.NumberFormat;
 import java.util.TooManyListenersException;
 
-public class GraphDocumentRuler extends JComponent
+public class DocumentRuler extends JComponent
     implements MouseMotionListener, DropTargetListener
 {
   public static int ORIENTATION_HORIZONTAL = 0, ORIENTATION_VERTICAL = 1;
@@ -40,7 +40,7 @@ public class GraphDocumentRuler extends JComponent
   private Point mouse = new Point();
   private double increment;
 
-  public GraphDocumentRuler(mxGraphComponent graphComponent, int orientation)
+  public DocumentRuler(mxGraphComponent graphComponent, int orientation)
   {
     this.orientation = orientation;
     this.graphComponent = graphComponent;

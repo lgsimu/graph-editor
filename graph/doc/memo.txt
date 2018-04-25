@@ -1,0 +1,1 @@
+* 在新建文档时，设置当前编辑器的applicationAction

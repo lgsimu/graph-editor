@@ -5,12 +5,11 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GraphDocumentButtonTab extends JPanel
+public class DocumentButtonTab extends JPanel
 {
   private final JTabbedPane pane;
 
-
-  public GraphDocumentButtonTab(final JTabbedPane pane)
+  public DocumentButtonTab(final JTabbedPane pane)
   {
     super(new FlowLayout(FlowLayout.LEFT, 0, 0));
     if (pane == null)
@@ -23,7 +22,7 @@ public class GraphDocumentButtonTab extends JPanel
     {
       public String getText()
       {
-        int i = pane.indexOfTabComponent(GraphDocumentButtonTab.this);
+        int i = pane.indexOfTabComponent(DocumentButtonTab.this);
         if (i != -1)
         {
           return pane.getTitleAt(i);
@@ -59,7 +58,7 @@ public class GraphDocumentButtonTab extends JPanel
 
     public void actionPerformed(ActionEvent e)
     {
-      int i = pane.indexOfTabComponent(GraphDocumentButtonTab.this);
+      int i = pane.indexOfTabComponent(DocumentButtonTab.this);
       if (i != -1)
       {
         pane.remove(i);

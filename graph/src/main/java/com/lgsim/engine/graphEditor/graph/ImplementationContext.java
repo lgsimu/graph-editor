@@ -8,30 +8,24 @@ import com.lgsim.engine.graphEditor.util.ExceptionManager;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import org.jetbrains.annotations.NotNull;
 
-public class ImplementationContext
-{
+public class ImplementationContext {
   public static final ImplementationContext INSTANCE = new ImplementationContext();
   private IStencilContext stencilContext;
   private IVertexTable vertexTable;
   private IGraphCodec graphCodec;
   private ISolver solver;
 
-
   private ImplementationContext()
   {
-    try
-    {
+    try {
       stencilContext = ImplementationUtil.getInstanceOf(IStencilContext.class);
       vertexTable = ImplementationUtil.getInstanceOf(IVertexTable.class);
       graphCodec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
       solver = ImplementationUtil.getInstanceOf(ISolver.class);
-    }
-    catch (InstantiationException e)
-    {
+    } catch (InstantiationException e) {
       ExceptionManager.INSTANCE.dealWith(e);
     }
   }
-
 
   @NotNull
   public IStencilContext getStencilContext()
@@ -39,19 +33,16 @@ public class ImplementationContext
     return stencilContext;
   }
 
-
   @NotNull
   public IVertexTable getVertexTable()
   {
     return vertexTable;
   }
 
-
   public @NotNull IGraphCodec getGraphCodec()
   {
     return graphCodec;
   }
-
 
   public @NotNull ISolver getSolver()
   {

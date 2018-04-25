@@ -1,27 +1,30 @@
 package com.lgsim.engine.graphEditor.graph.document;
 
 import com.lgsim.engine.graphEditor.api.MessageBundle;
+import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentFileImpl;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentImpl;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleImpl;
-import com.lgsim.engine.graphEditor.graph.IntCounter;
 import com.mxgraph.swing.mxGraphComponent;
 import org.jetbrains.annotations.NotNull;
 
-public class GraphDocument extends GraphDocumentImpl
-{
+import java.io.IOException;
+import java.util.function.Supplier;
+
+@SuppressWarnings("WeakerAccess")
+public class Document extends GraphDocumentImpl {
   private mxGraphComponent graphComponent;
-  private final IntCounter vertexCounter;
+  private final Supplier<IApplicationAction> actionSupplier;
+  private final DocumentContext context;
 
-
-  public GraphDocument(@NotNull mxGraphComponent comp)
+  public Document(@NotNull DocumentContext context, @NotNull mxGraphComponent comp, @NotNull Supplier<IApplicationAction> actionSupplier)
   {
     super(null, new GraphDocumentFileImpl(), (IGraph) comp.getGraph(), new GraphStyleImpl(), false);
+    this.context = context;
+    this.actionSupplier = actionSupplier;
     setGraphComponent(comp);
-    this.vertexCounter = new IntCounter();
   }
-
 
   @Override
   public @NotNull String getTitle()
@@ -29,19 +32,21 @@ public class GraphDocument extends GraphDocumentImpl
     return MessageBundle.get("graphDocument.newDocumentTitle") + (isModified() ? "*" : "");
   }
 
-
   public @NotNull mxGraphComponent getGraphComponent()
   {
     return graphComponent;
   }
-
 
   private void setGraphComponent(@NotNull mxGraphComponent graphComponent)
   {
     this.graphComponent = graphComponent;
   }
 
-  public IntCounter getVertexCounter() {
-    return vertexCounter;
+  public IApplicationAction getApplicationAction() {
+    return actionSupplier.get();
+  }
+
+  public void save() throws IOException {
+    context.put(this);
   }
 }

@@ -1,14 +1,24 @@
 package com.lgsim.engine.graphEditor.graph.action;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.lgsim.engine.graphEditor.graph.document.Document;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
+@SuppressWarnings("WeakerAccess")
 public abstract class DocumentAction extends AbstractAction {
-  private static final Logger log = LoggerFactory.getLogger(DocumentAction.class);
+  protected Document document;
 
-  public DocumentAction() {
-    log.debug("document action performed");
+  public DocumentAction(@NotNull Document document) {
+    this.document = document;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+  }
+
+  public Document getDocument() {
+    return document;
   }
 }
