@@ -51,7 +51,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private final IGraphDocumentSpec spec;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
-  private final EditorStatusBar statusBar = new EditorStatusBar(IApplication.statusText) {
+  private final StatusBar statusBar = new StatusBar(IApplication.statusText) {
     {
       setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
     }
