@@ -34,7 +34,7 @@ public class MenuBar extends JMenuBar {
         addHelpMenu();
     }
 
-    public IApplicationAction getActionInstance() {
+    public void getActionInstance() {
 
         try {
             iApplicationAction = ImplementationUtil.getInstanceOf(IApplicationAction.class);
@@ -42,7 +42,6 @@ public class MenuBar extends JMenuBar {
             ExceptionManager.INSTANCE.dealWith(e);
         }
 
-        return iApplicationAction;
     }
 
     private void addFileMenu() {
