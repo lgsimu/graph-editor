@@ -1,16 +1,16 @@
 package com.lgsim.engine.graphEditor.graph.action;
 
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
-import com.lgsim.engine.graphEditor.graph.document.GraphDocument;
+import com.lgsim.engine.graphEditor.graph.document.Document;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class ApplicationActionImpl implements IApplicationAction {
-  private GraphDocument document;
+  private Document document;
 
-  public ApplicationActionImpl(@NotNull GraphDocument document) {
+  public ApplicationActionImpl(@NotNull Document document) {
     this.document = document;
   }
 
@@ -58,11 +58,11 @@ public class ApplicationActionImpl implements IApplicationAction {
     return new ApplicationExitAction();
   }
 
-  public GraphDocument getDocument() {
+  public Document getDocument() {
     return document;
   }
 
-  public void setDocument(GraphDocument document) {
+  public void setDocument(Document document) {
     this.document = document;
   }
 }

@@ -327,6 +327,8 @@
 1 完成
 2 完成，原因是多执行了一次`addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);`
 3 完成
+4 完成
+5 完成
 
 =========
 

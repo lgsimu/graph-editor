@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 @SuppressWarnings("WeakerAccess")
 public class DocumentAcceleratorKeyPressedConsumer extends DocumentAcceleratorConsumer {
 
-  public DocumentAcceleratorKeyPressedConsumer(@NotNull GraphDocument document) {
+  public DocumentAcceleratorKeyPressedConsumer(@NotNull Document document) {
     super(document);
   }
 

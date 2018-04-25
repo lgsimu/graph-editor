@@ -12,11 +12,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 @SuppressWarnings("WeakerAccess")
-public class GraphDocument extends GraphDocumentImpl {
+public class Document extends GraphDocumentImpl {
   private mxGraphComponent graphComponent;
   private final Supplier<IApplicationAction> actionSupplier;
 
-  public GraphDocument(@NotNull mxGraphComponent comp, @NotNull Supplier<IApplicationAction> actionSupplier)
+  public Document(@NotNull mxGraphComponent comp, @NotNull Supplier<IApplicationAction> actionSupplier)
   {
     super(null, new GraphDocumentFileImpl(), (IGraph) comp.getGraph(), new GraphStyleImpl(), false);
     this.actionSupplier = actionSupplier;
@@ -41,5 +41,9 @@ public class GraphDocument extends GraphDocumentImpl {
 
   public IApplicationAction getApplicationAction() {
     return actionSupplier.get();
+  }
+
+  public void save() {
+
   }
 }

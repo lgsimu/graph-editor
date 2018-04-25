@@ -13,17 +13,17 @@ import java.util.function.Supplier;
 @SuppressWarnings({"WeakerAccess"})
 public class DocumentSupport {
   @Contract(pure = true)
-  public static @NotNull GraphDocument createDocument(@NotNull Supplier<IApplicationAction> actionSupplier) {
+  public static @NotNull Document createDocument(@NotNull Supplier<IApplicationAction> actionSupplier) {
     mxGraphComponent comp = new GraphComponent(new Graph());
-    final GraphDocument document = new GraphDocument(comp, actionSupplier);
-    comp.setColumnHeaderView(new GraphDocumentRuler(comp, GraphDocumentRuler.ORIENTATION_HORIZONTAL));
-    comp.setRowHeaderView(new GraphDocumentRuler(comp, GraphDocumentRuler.ORIENTATION_VERTICAL));
+    final Document document = new Document(comp, actionSupplier);
+    comp.setColumnHeaderView(new DocumentRuler(comp, DocumentRuler.ORIENTATION_HORIZONTAL));
+    comp.setRowHeaderView(new DocumentRuler(comp, DocumentRuler.ORIENTATION_VERTICAL));
     document.getGraphComponent().setMinimumSize(new Dimension(320, 320));
     return document;
   }
 
   @Contract(pure = true)
-  public static @NotNull DocumentAcceleratorConsumer createKeyPressedConsumer(@NotNull GraphDocument document) {
+  public static @NotNull DocumentAcceleratorConsumer createKeyPressedConsumer(@NotNull Document document) {
     return new DocumentAcceleratorKeyPressedConsumer(document);
   }
 }

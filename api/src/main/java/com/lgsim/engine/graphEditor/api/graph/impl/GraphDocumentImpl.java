@@ -7,14 +7,12 @@ import com.lgsim.engine.graphEditor.api.graph.IGraphStyle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class GraphDocumentImpl implements IGraphDocument
-{
+public class GraphDocumentImpl implements IGraphDocument {
   private String title;
   private IGraphDocumentFile graphDocumentFile;
   private IGraph graph;
   private IGraphStyle graphStyle;
   private boolean modified;
-
 
   public GraphDocumentImpl(@Nullable String title, @NotNull IGraphDocumentFile graphDocumentFile, @NotNull IGraph graph,
                            @NotNull IGraphStyle graphStyle, boolean modified)
@@ -26,27 +24,21 @@ public class GraphDocumentImpl implements IGraphDocument
     this.modified = modified;
   }
 
-
   @NotNull
   @Override
   public String getTitle()
   {
-    if (title == null)
-    {
+    if (title == null) {
       return "";
-    }
-    else
-    {
+    } else {
       return title;
     }
   }
-
 
   public void setTitle(String title)
   {
     this.title = title;
   }
-
 
   @NotNull
   @Override
@@ -55,12 +47,10 @@ public class GraphDocumentImpl implements IGraphDocument
     return graphDocumentFile;
   }
 
-
   public void setGraphDocumentFile(IGraphDocumentFile graphDocumentFile)
   {
     this.graphDocumentFile = graphDocumentFile;
   }
-
 
   @NotNull
   @Override
@@ -69,12 +59,10 @@ public class GraphDocumentImpl implements IGraphDocument
     return graph;
   }
 
-
   public void setGraph(@NotNull IGraph graph)
   {
     this.graph = graph;
   }
-
 
   @NotNull
   @Override
@@ -83,12 +71,10 @@ public class GraphDocumentImpl implements IGraphDocument
     return graphStyle;
   }
 
-
   public void setGraphStyle(IGraphStyle graphStyle)
   {
     this.graphStyle = graphStyle;
   }
-
 
   @Override
   public boolean isModified()
@@ -96,10 +82,14 @@ public class GraphDocumentImpl implements IGraphDocument
     return modified;
   }
 
-
   @Override
   public void setModified(boolean modified)
   {
     this.modified = modified;
+  }
+
+  @Override
+  public String toString() {
+    return getTitle();
   }
 }

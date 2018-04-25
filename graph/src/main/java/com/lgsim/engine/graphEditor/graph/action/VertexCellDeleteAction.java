@@ -1,6 +1,6 @@
 package com.lgsim.engine.graphEditor.graph.action;
 
-import com.lgsim.engine.graphEditor.graph.document.GraphDocument;
+import com.lgsim.engine.graphEditor.graph.document.Document;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 public class VertexCellDeleteAction extends VertexCellAction {
   private static final Logger log = LoggerFactory.getLogger(VertexCellDeleteAction.class);
 
-  public VertexCellDeleteAction(@NotNull GraphDocument document) {
+  public VertexCellDeleteAction(@NotNull Document document) {
     super(document);
   }
 
