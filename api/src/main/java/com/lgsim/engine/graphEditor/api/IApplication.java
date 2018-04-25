@@ -1,5 +1,6 @@
 package com.lgsim.engine.graphEditor.api;
 
+import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,4 +36,20 @@ public interface IApplication {
    * @return 配置
    */
   @NotNull Configuration getConfiguration();
+
+
+  /**
+   * 获取应用动作
+   *
+   * @return 应用动作
+   */
+  @NotNull IApplicationAction getApplicationAction();
+
+
+  /**
+   * 设置应用动作
+   *
+   * @param action 动作
+   */
+  void setApplicationAction(@NotNull IApplicationAction action);
 }

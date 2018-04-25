@@ -3,6 +3,7 @@ package com.lgsim.engine.graphEditor.app;
 import com.bulenkov.darcula.DarculaLaf;
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.IconBundle;
+import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import com.lgsim.engine.graphEditor.graph.editor.Editor;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import com.lgsim.engine.graphEditor.util.ExceptionManager;
@@ -18,6 +19,7 @@ public class Application implements IApplication {
   private static final String artifactName = "GraphEditor";
   private static final String version = "1.0";
   private static final Configuration CONFIGURATION = new Configuration(corporationName, artifactName, version);
+  private IApplicationAction applicationAction;
 
   private Application() throws InstantiationException
   {
@@ -75,5 +77,15 @@ public class Application implements IApplication {
   @Override
   public @NotNull Configuration getConfiguration() {
     return CONFIGURATION;
+  }
+
+  @Override
+  public @NotNull IApplicationAction getApplicationAction() {
+    return applicationAction;
+  }
+
+  @Override
+  public void setApplicationAction(@NotNull IApplicationAction action) {
+    this.applicationAction = action;
   }
 }

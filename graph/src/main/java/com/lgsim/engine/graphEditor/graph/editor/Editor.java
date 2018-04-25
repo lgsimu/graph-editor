@@ -45,7 +45,7 @@ import java.util.function.Function;
 @SuppressWarnings("WeakerAccess")
 public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private static final Logger log = LoggerFactory.getLogger(Editor.class);
-  private final IApplication spec;
+  private final IApplication application;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
   private final StatusBar statusBar = new StatusBar(MessageBundle.get("application.status.ready")) {
@@ -62,23 +62,16 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private final StencilPalette userDefinedPalette = PureCons.createStencilPalette();
   private List<Document> documents = new Vector<>();
   private transient int currentDocumentIndex;
-  private transient IApplicationAction applicationAction;
   private transient DocumentContext documentContext;
   private IToolbar iToolBar;
 
-  public Editor(@NotNull IApplication spec)
+  public Editor(@NotNull IApplication application)
   {
-    this.spec = spec;
-    this.documentContext = new DocumentContext(spec);
+    this.application = application;
+    this.documentContext = new DocumentContext(application);
     initUIComponents();
     loadStencils();
     loadDocuments();
-  }
-
-  @SuppressWarnings("unused")
-  public IApplication getSpec()
-  {
-    return spec;
   }
 
   private void initUIComponents()
@@ -181,8 +174,8 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   public void openNewDocument()
   {
     Document document = DocumentSupport.createDocument(documentContext, this::getApplicationAction);
-    applicationAction = new ApplicationActionImpl(document);
-    ImplementationUtil.putInstance(IApplicationAction.class, applicationAction);
+    ApplicationActionImpl action = new ApplicationActionImpl(document);
+    application.setApplicationAction(action);
     mxGraphComponent comp = document.getGraphComponent();
     docTabbedPane.add(document.getTitle(), comp);
     docTabbedPane.setTabComponentAt(currentDocumentIndex, new DocumentButtonTab(docTabbedPane));
@@ -194,7 +187,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   }
 
   public IApplicationAction getApplicationAction() {
-    return applicationAction;
+    return application.getApplicationAction();
   }
 
   private void installOutlineListeners(@NotNull mxGraphComponent comp)
