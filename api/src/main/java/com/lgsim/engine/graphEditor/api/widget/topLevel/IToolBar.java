@@ -12,4 +12,7 @@ public interface IToolBar extends IWidget {
 
 
   void setActionSupplier(@NotNull Supplier<IApplicationAction> supplier);
+
+
+  void paint();
 }
