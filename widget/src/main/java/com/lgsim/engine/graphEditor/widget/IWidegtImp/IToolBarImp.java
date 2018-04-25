@@ -26,4 +26,9 @@ public class IToolBarImp implements IToolBar {
     public void setActionSupplier(@NotNull Supplier<IApplicationAction> supplier) {
         box.setActionSupplier(supplier);
     }
+
+    @Override
+    public void paint() {
+        box.createTools();
+    }
 }

@@ -51,7 +51,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private final IGraphDocumentSpec spec;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
-  private final EditorStatusBar statusBar = new EditorStatusBar(IApplication.statusText) {
+  private final StatusBar statusBar = new StatusBar(IApplication.statusText) {
     {
       setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
     }
@@ -67,6 +67,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private transient int currentDocumentIndex;
   private transient IApplicationAction applicationAction;
   private transient DocumentContext documentContext;
+  private IToolBar iToolBar;
 
   public Editor(@NotNull IGraphDocumentSpec spec)
   {
@@ -88,7 +89,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private void initUIComponents()
   {
     try {
-      IToolBar iToolBar = ImplementationUtil.getInstanceOf(IToolBar.class);
+      iToolBar = ImplementationUtil.getInstanceOf(IToolBar.class);
       iToolBar.setActionSupplier(this::getApplicationAction);
       JToolBar toolBar = iToolBar.getToolBar();
       toolBar.setOrientation(JToolBar.HORIZONTAL);
@@ -194,6 +195,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     documents.add(currentDocumentIndex, document);
     installOutlineListeners(comp);
     installGraphDocumentListeners(document);
+    this.iToolBar.paint();
   }
 
   public IApplicationAction getApplicationAction() {
