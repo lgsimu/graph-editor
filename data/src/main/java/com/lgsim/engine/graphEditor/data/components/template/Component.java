@@ -1,9 +1,6 @@
 package com.lgsim.engine.graphEditor.data.components.template;
 
-import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
-import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
-import com.lgsim.engine.graphEditor.api.data.IVertexRestriction;
-import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
+import com.lgsim.engine.graphEditor.api.data.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -12,7 +9,7 @@ import java.util.List;
 /**
  * 元件模板
  */
-public class Component implements IVertexStencil {
+public class Component implements IVertexStencil,IVertex {
 
     private boolean isPredefined;//是否是当前定义元件
     private String componentTemplateName;//元件模板名称
@@ -20,9 +17,12 @@ public class Component implements IVertexStencil {
     private String componentType;//元件类型ID
     private String imageSource;//图片所在路径
     private List<Parameter> arguments;//输入参数
-    private List<Parameter> outputs;//输出参数
+    private List<IVertexOutput> outputs;//输出参数
     private ComponentArm componentArms;//元件端口
-    private List<String> armNodes = new ArrayList<String>();//端口集合
+    private List<String> armNodes = new ArrayList<>();//端口集合
+    private List<String> feature = new ArrayList<>();//端口集合
+    private List<IVertex> componentInputPorts;//输入到该节点的端口
+    private List<IVertex> componentOutputPorts;//该节点输出的端口
 
     public Component() {
         this.isPredefined = false;
@@ -31,9 +31,11 @@ public class Component implements IVertexStencil {
         this.componentType = "";
         this.imageSource = "";
         this.arguments = new ArrayList<Parameter>();
-        this.outputs = new ArrayList<Parameter>();
+        this.outputs = new ArrayList<IVertexOutput>();
         this.componentArms = new ComponentArm();
         this.armNodes.add(componentArms.getComponentArmNodeName());
+        this.componentInputPorts = new ArrayList<>();
+        this.componentOutputPorts = new ArrayList<>();
     }
 
     public Component(Component component) {
@@ -45,6 +47,8 @@ public class Component implements IVertexStencil {
         this.arguments = component.arguments;
         this.outputs = component.outputs;
         this.componentArms = component.componentArms;
+        this.componentInputPorts = component.componentInputPorts;
+        this.componentOutputPorts = component.componentOutputPorts;
     }
 
     public void setPredefined(boolean predefined) {
@@ -87,9 +91,6 @@ public class Component implements IVertexStencil {
         this.arguments = arguments;
     }
 
-    public void setOutputs(List<Parameter> outputs) {
-        this.outputs = outputs;
-    }
 
     public ComponentArm getComponentArms() {
         return componentArms;
@@ -99,6 +100,38 @@ public class Component implements IVertexStencil {
         this.componentArms = componentArms;
     }
 
+    public List<String> getArmNodes() {
+        return armNodes;
+    }
+
+    public void setArmNodes(List<String> armNodes) {
+        armNodes = armNodes;
+    }
+
+    public List<String> getFeature() {
+        return feature;
+    }
+
+    public void setFeature(List<String> feature) {
+        this.feature = feature;
+    }
+
+    public List<IVertex> getComponentInputPorts() {
+        return componentInputPorts;
+    }
+
+    public void setComponentInputPorts(List<IVertex> componentInputPorts) {
+        this.componentInputPorts = componentInputPorts;
+    }
+
+    public List<IVertex> getComponentOutputPorts() {
+        return componentOutputPorts;
+    }
+
+    public void setComponentOutputPorts(List<IVertex> componentOutputPorts) {
+        this.componentOutputPorts = componentOutputPorts;
+    }
+
     @Override
     public boolean isPredefined() {
         return isPredefined;
@@ -106,6 +139,11 @@ public class Component implements IVertexStencil {
 
     @Override
     public @NotNull String getID() {
+        return componentType;
+    }
+
+    @Override
+    public @NotNull String getTypeID() {
         return componentType;
     }
 
@@ -143,11 +181,36 @@ public class Component implements IVertexStencil {
     }
 
     @Override
+    public void setOutputs(@NotNull List<IVertexOutput> outputs) {
+        this.outputs = outputs;
+    }
+
+    @Override
+    public @NotNull List<IVertex> getInputPorts() {
+        return componentInputPorts;
+    }
+
+    @Override
+    public @NotNull List<IVertex> getOutputPorts() {
+        return componentOutputPorts;
+    }
+
+    @Override
+    public boolean isCavity() {
+        return false;
+    }
+
+    @Override
+    public @NotNull String getDisplayName() {
+        return componentName;
+    }
+
+    @Override
     public @NotNull IVertexRestriction getRestriction() {
         return componentArms;
     }
 
-    public String toString() {
+    /*public String toString() {
         return  //"{\"Component\":" +
                 "{" +
                         "\"Name\":\"" + componentName + '\"' +
@@ -157,5 +220,15 @@ public class Component implements IVertexStencil {
                         ",\"Value\":" + arguments.get(0).getValues() + "}]" +
                         //'}' +
                         '}' ;
+    }*/
+
+    @Override
+    public String toString() {
+        return "Component{" +
+                "componentName='" + componentName + '\'' +
+                ", componentType='" + componentType + '\'' +
+                ", armNodes=" + armNodes +
+                ", feature=" + feature +
+                '}';
     }
 }

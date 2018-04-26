@@ -10,7 +10,6 @@ import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
@@ -46,10 +45,10 @@ import java.util.function.Function;
 @SuppressWarnings("WeakerAccess")
 public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private static final Logger log = LoggerFactory.getLogger(Editor.class);
-  private final IGraphDocumentSpec spec;
+  private final IApplication application;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
-  private final StatusBar statusBar = new StatusBar(IApplication.statusText) {
+  private final StatusBar statusBar = new StatusBar(MessageBundle.get("application.status.ready")) {
     {
       setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
     }
@@ -63,23 +62,16 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private final StencilPalette userDefinedPalette = PureCons.createStencilPalette();
   private List<Document> documents = new Vector<>();
   private transient int currentDocumentIndex;
-  private transient IApplicationAction applicationAction;
   private transient DocumentContext documentContext;
   private IToolbar iToolBar;
 
-  public Editor(@NotNull IGraphDocumentSpec spec)
+  public Editor(@NotNull IApplication application)
   {
-    this.spec = spec;
-    this.documentContext = new DocumentContext(spec);
+    this.application = application;
+    this.documentContext = new DocumentContext(application);
     initUIComponents();
     loadStencils();
     loadDocuments();
-  }
-
-  @SuppressWarnings("unused")
-  public IGraphDocumentSpec getSpec()
-  {
-    return spec;
   }
 
   private void initUIComponents()
@@ -182,8 +174,8 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   public void openNewDocument()
   {
     Document document = DocumentSupport.createDocument(documentContext, this::getApplicationAction);
-    applicationAction = new ApplicationActionImpl(document);
-    ImplementationUtil.putInstance(IApplicationAction.class, applicationAction);
+    ApplicationActionImpl action = new ApplicationActionImpl(document);
+    application.setApplicationAction(action);
     mxGraphComponent comp = document.getGraphComponent();
     docTabbedPane.add(document.getTitle(), comp);
     docTabbedPane.setTabComponentAt(currentDocumentIndex, new DocumentButtonTab(docTabbedPane));
@@ -195,7 +187,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   }
 
   public IApplicationAction getApplicationAction() {
-    return applicationAction;
+    return application.getApplicationAction();
   }
 
   private void installOutlineListeners(@NotNull mxGraphComponent comp)

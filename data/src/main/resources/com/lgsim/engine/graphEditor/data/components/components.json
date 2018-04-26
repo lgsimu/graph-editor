@@ -3287,8 +3287,8 @@
     },
     {
       "ComponentTemplateName":"PDISSIPATION",
-      //"ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/PDISSIPATION.png",
-      "ImageSource":"",
+      "ImageSource":"com/lgsim/engine/graphEditor/data/testjpg/1.png",
+      //"ImageSource":"",
       "ComponentType":[
         {
           "Type":"201",

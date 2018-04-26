@@ -10,7 +10,8 @@ import java.util.Collection;
 public class IGraphImpl implements IGraph {
     @Override
     public Collection<IVertex> getAllVertexes() {
-      VertexImpl iVertexImpl = new VertexImpl();
+
+        VertexImpl iVertexImpl = new VertexImpl();
         Collection<IVertex> iVertices = new ArrayList<IVertex>();
         iVertices.add(iVertexImpl);
 

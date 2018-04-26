@@ -1,8 +1,8 @@
 package com.lgsim.engine.graphEditor.graph.document;
 
 import com.google.common.io.Files;
+import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentSpec;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleCodecImpl;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.util.JarUtil;
@@ -18,9 +18,9 @@ import java.util.jar.Manifest;
 @SuppressWarnings("WeakerAccess")
 public class DocumentContext {
   private static final Logger log = LoggerFactory.getLogger(DocumentContext.class);
-  private final IGraphDocumentSpec spec;
+  private final IApplication spec;
 
-  public DocumentContext(@NotNull IGraphDocumentSpec spec) {
+  public DocumentContext(@NotNull IApplication spec) {
     this.spec = spec;
   }
 

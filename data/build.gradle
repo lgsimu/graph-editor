@@ -15,5 +15,6 @@ dependencies {
     compile files('lib/xom-1.0d10.jar')
     compile files('lib/jfreechart.jar')
     compile files('lib/jcommon-1.0.16.jar')
+    compile files('lib/fastjson-1.1.6.jar')
 
 }

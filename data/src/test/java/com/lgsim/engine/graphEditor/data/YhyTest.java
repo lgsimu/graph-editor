@@ -1,17 +1,9 @@
 package com.lgsim.engine.graphEditor.data;
 
-import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
-//import com.lgsim.engine.graphEditor.data.components.impl.ComponentImpl;
-import com.lgsim.engine.graphEditor.data.components.component.Components;
-import com.lgsim.engine.graphEditor.data.components.component.ComponentsTest;
-import com.lgsim.engine.graphEditor.data.components.library.ptlos.ptlos_111.Ptlos_111;
-import com.lgsim.engine.graphEditor.data.components.template.Component;
 import com.lgsim.engine.graphEditor.data.components.template.Element;
-import com.lgsim.engine.graphEditor.data.components.template.Template;
-import com.lgsim.engine.graphEditor.data.components.util.writejson.WriteJson;
 
-import java.util.ArrayList;
-import java.util.List;
+//import com.lgsim.engine.graphEditor.data.components.impl.ComponentImpl;
+//import net.sf.json.JSONObject;
 
 public class YhyTest {
     public static void main(String[] args) throws Exception {
@@ -30,17 +22,36 @@ public class YhyTest {
         System.out.println(ptlos_111.getType());
         System.out.println(ptlos_111.getArguments());*/
 
-        Element element = new Element();
-        element.getPredefinedStencils();
+        //Element element = new Element();
+        //element.getPredefinedStencils();
+        //String str = JSONObject.toJSONString(element.getPredefinedStencils().get(1));
         /*List<IVertexStencil> list = new ArrayList<>();
         list = element.getPredefinedStencils();*/
 
+        //String path = "com/lgsim/engine/graphEditor/data/simpleCase.inp";
+        Element element = new Element();
+        String a = element.getPredefinedStencils().get(0).getStencilIcon();
+        System.out.println(a);
+/*        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 
+        String jsonStr = null;
+        try {
+            jsonStr = IOUtils.toString(is);
+        }catch (IOException e) {
+            e.getStackTrace();
+        }
+        JSONArray jsonArray = JSONArray.fromObject(jsonStr);
+        List<Component> components = new ArrayList<>();
+        components = (List<Component>) JSONArray.toCollection(jsonArray,Component.class);*/
         //System.out.println(list.get(0).getArguments().get(0));
         //System.out.println(wr);
 //        System.out.println(list.size());
+        //ReadJson readJson = new ReadJson();
+        //readJson.readJson(path);
         System.out.println("---------------------------------");
-        //System.out.println(list1);
+        //System.out.println(str);
+        //System.out.println(components);
+
 
 
     }
