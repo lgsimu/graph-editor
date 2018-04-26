@@ -171,7 +171,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
   public void openNewDocument()
   {
-    Document document = DocumentSupport.createDocument(documentContext);
+    Document document = DocumentSupport.createDocument(documentContext, application);
     setApplicationAction(document);
     installOutlineListeners(document);
     installGraphDocumentListeners(document);

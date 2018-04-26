@@ -17,12 +17,17 @@ public class ImplementationUtil {
 
   public static void put(@NotNull Class<?> interfaceType, @NotNull Class<?> implType) {
     log.debug("register type {} to {}", interfaceType.getName(), implType.getName());
-    Class<?> type = table.get(interfaceType);
-    if (type == null) {
-      table.put(interfaceType, implType);
+    if (interfaceType.isAssignableFrom(implType)) {
+      Class<?> type = table.get(interfaceType);
+      if (type == null) {
+        table.put(interfaceType, implType);
+      }
+      else {
+        log.error("already register {} to {}", interfaceType, type);
+      }
     }
     else {
-      log.error("already register {} to {}", interfaceType, type);
+      log.error("not capable types {} {}", interfaceType.getCanonicalName(), implType.getCanonicalName());
     }
   }
 
