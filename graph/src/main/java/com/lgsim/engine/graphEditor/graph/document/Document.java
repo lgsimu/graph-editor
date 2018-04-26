@@ -1,5 +1,6 @@
 package com.lgsim.engine.graphEditor.graph.document;
 
+import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
@@ -17,7 +18,7 @@ public class Document extends GraphDocumentImpl implements IApplicationWidget {
 
   private mxGraphComponent graphComponent;
   private final DocumentContext context;
-  private transient IApplicationAction applicationAction;
+  private transient IApplication application;
 
 
   public Document(@NotNull DocumentContext context, @NotNull mxGraphComponent graphComponent)
@@ -43,13 +44,19 @@ public class Document extends GraphDocumentImpl implements IApplicationWidget {
 
 
   public @NotNull IApplicationAction getApplicationAction() {
-    return applicationAction;
+    return getApplication().getApplicationAction();
   }
 
 
   @Override
-  public void setApplicationAction(@NotNull IApplicationAction action) {
-    this.applicationAction = action;
+  public @NotNull IApplication getApplication() {
+    return application;
+  }
+
+
+  @Override
+  public void setApplication(@NotNull IApplication application) {
+    this.application = application;
   }
 
 

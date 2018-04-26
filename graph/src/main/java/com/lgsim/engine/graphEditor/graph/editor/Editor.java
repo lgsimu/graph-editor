@@ -2,7 +2,6 @@ package com.lgsim.engine.graphEditor.graph.editor;
 
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
-import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
@@ -173,26 +172,30 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   public void openNewDocument()
   {
     Document document = DocumentSupport.createDocument(documentContext);
-    ApplicationActionImpl action = new ApplicationActionImpl(document);
-    application.setApplicationAction(action);
-    mxGraphComponent comp = document.getSwingComponent();
-    docTabbedPane.add(document.getTitle(), comp);
+    setApplicationAction(document);
+    installOutlineListeners(document);
+    installGraphDocumentListeners(document);
+    addDocument(document);
+  }
+
+
+  private void addDocument(@NotNull Document document) {
+    docTabbedPane.add(document.getTitle(), document.getSwingComponent());
     docTabbedPane.setTabComponentAt(currentDocumentIndex, new DocumentButtonTab(docTabbedPane));
     currentDocumentIndex = documents.size();
     documents.add(currentDocumentIndex, document);
-    installOutlineListeners(comp);
-    installGraphDocumentListeners(document);
-    applicationToolbar.setApplicationAction(getApplicationAction());
   }
 
 
-  public IApplicationAction getApplicationAction() {
-    return application.getApplicationAction();
+  private void setApplicationAction(@NotNull Document document) {
+    ApplicationActionImpl action = new ApplicationActionImpl(document);
+    application.setApplicationAction(action);
   }
 
 
-  private void installOutlineListeners(@NotNull mxGraphComponent comp)
+  private void installOutlineListeners(@NotNull Document document)
   {
+    final mxGraphComponent comp = document.getSwingComponent();
     graphOutline.setGraphComponent(comp);
     graphOutline.addMouseWheelListener(e -> {
       if (e.getSource() instanceof mxGraphOutline || e.isControlDown()) {
