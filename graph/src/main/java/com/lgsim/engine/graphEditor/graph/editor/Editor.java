@@ -13,8 +13,10 @@ import com.lgsim.engine.graphEditor.api.widget.IApplicationToolbar;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.PureCons;
-import com.lgsim.engine.graphEditor.graph.action.ApplicationActionImpl;
-import com.lgsim.engine.graphEditor.graph.document.*;
+import com.lgsim.engine.graphEditor.graph.document.Document;
+import com.lgsim.engine.graphEditor.graph.document.DocumentAccelerator;
+import com.lgsim.engine.graphEditor.graph.document.DocumentButtonTab;
+import com.lgsim.engine.graphEditor.graph.document.DocumentContext;
 import com.lgsim.engine.graphEditor.util.StringUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
@@ -171,25 +173,17 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
   public void openNewDocument()
   {
-    Document document = DocumentSupport.createDocument(documentContext, application);
-    setApplicationAction(document);
+    Document document = new Document(this);
     installOutlineListeners(document);
     installGraphDocumentListeners(document);
-    addDocument(document);
   }
 
 
-  private void addDocument(@NotNull Document document) {
+  public void addDocument(@NotNull Document document) {
     docTabbedPane.add(document.getTitle(), document.getSwingComponent());
     docTabbedPane.setTabComponentAt(currentDocumentIndex, new DocumentButtonTab(docTabbedPane));
     currentDocumentIndex = documents.size();
     documents.add(currentDocumentIndex, document);
-  }
-
-
-  private void setApplicationAction(@NotNull Document document) {
-    ApplicationActionImpl action = new ApplicationActionImpl(document);
-    application.setApplicationAction(action);
   }
 
 

@@ -5,7 +5,6 @@ import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentFile;
 import com.lgsim.engine.graphEditor.api.graph.IGraphStyle;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class GraphDocumentImpl implements IGraphDocument {
   private String title;
@@ -14,15 +13,10 @@ public class GraphDocumentImpl implements IGraphDocument {
   private IGraphStyle graphStyle;
   private boolean modified;
 
-  public GraphDocumentImpl(@Nullable String title, @NotNull IGraphDocumentFile graphDocumentFile, @NotNull IGraph graph,
-                           @NotNull IGraphStyle graphStyle, boolean modified)
-  {
-    this.title = title;
-    this.graphDocumentFile = graphDocumentFile;
-    this.graph = graph;
-    this.graphStyle = graphStyle;
-    this.modified = modified;
+
+  public GraphDocumentImpl() {
   }
+
 
   @NotNull
   @Override

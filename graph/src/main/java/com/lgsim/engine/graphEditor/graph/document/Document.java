@@ -3,29 +3,40 @@ package com.lgsim.engine.graphEditor.graph.document;
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
-import com.lgsim.engine.graphEditor.api.data.IGraph;
-import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentFileImpl;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentImpl;
-import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleImpl;
 import com.lgsim.engine.graphEditor.api.widget.IApplicationWidget;
+import com.lgsim.engine.graphEditor.graph.action.ApplicationActionImpl;
+import com.lgsim.engine.graphEditor.graph.editor.Editor;
+import com.lgsim.engine.graphEditor.graph.graph.Graph;
+import com.lgsim.engine.graphEditor.graph.graph.GraphComponent;
 import com.mxgraph.swing.mxGraphComponent;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.io.IOException;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class Document extends GraphDocumentImpl implements IApplicationWidget {
 
-  private mxGraphComponent graphComponent;
-  private final DocumentContext context;
-  private transient IApplication application;
+  private Editor editor;
+  private GraphComponent graphComponent;
+  private IApplication application;
 
 
-  public Document(@NotNull DocumentContext context, @NotNull mxGraphComponent graphComponent)
+  public Document(@NotNull Editor editor)
   {
-    super(null, new GraphDocumentFileImpl(), (IGraph) graphComponent.getGraph(), new GraphStyleImpl(), false);
-    this.context = context;
-    this.graphComponent = graphComponent;
+    this.editor = editor;
+    this.graphComponent = new GraphComponent(new Graph());
+    settingGraphComponent();
+    editor.addDocument(this);
+  }
+
+
+  private void settingGraphComponent() {
+    graphComponent.setMinimumSize(new Dimension(320, 320));
+    graphComponent.setColumnHeaderView(new DocumentRuler(graphComponent, DocumentRuler.ORIENTATION_HORIZONTAL));
+    graphComponent.setRowHeaderView(new DocumentRuler(graphComponent, DocumentRuler.ORIENTATION_VERTICAL));
+    application.setApplicationAction(new ApplicationActionImpl(this));
   }
 
 
@@ -61,6 +72,15 @@ public class Document extends GraphDocumentImpl implements IApplicationWidget {
 
 
   public void save() throws IOException {
-    context.put(this);
+  }
+
+
+  public Editor getEditor() {
+    return editor;
+  }
+
+
+  public void setEditor(Editor editor) {
+    this.editor = editor;
   }
 }
