@@ -22,7 +22,7 @@ public class ImplementationUtil {
       table.put(interfaceType, implType);
     }
     else {
-      log.debug("danger: already register {} to {}", interfaceType, type);
+      log.error("already register {} to {}", interfaceType, type);
     }
   }
 
