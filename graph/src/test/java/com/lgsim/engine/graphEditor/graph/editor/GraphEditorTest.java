@@ -1,5 +1,6 @@
 package com.lgsim.engine.graphEditor.graph.editor;
 
+import com.lgsim.engine.graphEditor.graph.Editor;
 import org.junit.Before;
 import org.junit.Test;
 

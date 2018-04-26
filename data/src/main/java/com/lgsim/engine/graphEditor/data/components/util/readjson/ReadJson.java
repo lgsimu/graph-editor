@@ -1,6 +1,6 @@
 package com.lgsim.engine.graphEditor.data.components.util.readjson;
 
-import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
+import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.data.components.template.Component;
 import com.lgsim.engine.graphEditor.data.components.template.Parameter;
 import net.sf.json.JSONArray;
@@ -20,45 +20,65 @@ public class ReadJson {
     public void readJson(String path) {
 
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-        String jstr = null;
+        String jsonstr = null;
         try {
-            jstr = IOUtils.toString(is);
+            jsonstr = IOUtils.toString(is);
         }catch (IOException e) {
             e.getStackTrace();
         }
+        //String jstr = jsonstr.toLowerCase();
 
-        List<Component> list = new ArrayList<>();
-        JSONObject jsonObject = JSONObject.fromObject(jstr);
+        JSONObject jsonObject = JSONObject.fromObject(jsonstr);
 
         if(jsonObject.containsKey("Components")) {
 
-            JSONArray coms = JSONArray.fromObject(jsonObject.get("Components"));
+            JSONObject com = JSONObject.fromObject(jsonObject.get("Components"));
+            JSONArray coms = JSONArray.fromObject(com.get("Component"));
+            List<Component> list = new ArrayList<>();
+            //List<Component> list = (List<Component>)JSONArray.toCollection(coms,Component.class);
 
-            for (Object object : coms) {
-
-                JSONObject jObject = (JSONObject)object;
-                JSONArray com = JSONArray.fromObject(jObject.get("Component"));
-
-                for (Object objectCom : com) {
-                    Component component = new Component();
-
-                    JSONObject jObjectCom = (JSONObject)objectCom;
-
-                    if(jObjectCom.containsKey("Name")) {
-                        component.setComponentName(jObjectCom.getString("Name"));
-                    }
-                    if(jObjectCom.containsKey("Type")) {
-                        component.setComponentType(jObjectCom.getString("Type"));
-                    }
-                    if(jObjectCom.containsKey("ArmNodes")) {
-                        JSONArray arm = JSONArray.fromObject(jObjectCom.get("ArmNodes"));
-                        //component.setArmNodes();
-                    }
+            for (Object objectCom : coms) {
 
 
+                Component component = new Component();
 
-                    list.add(component);
+                JSONObject jObjectCom = (JSONObject)objectCom;
+
+                if(jObjectCom.containsKey("Name")) {
+                    component.setComponentName(jObjectCom.getString("Name"));
                 }
+                if(jObjectCom.containsKey("Type")) {
+                    component.setComponentType(jObjectCom.getString("Type"));
+                }
+                if(jObjectCom.containsKey("ArmNodes")) {
+                    JSONArray arm = JSONArray.fromObject(jObjectCom.get("ArmNodes"));
+                    component.setArmnodes(arm);
+                }
+                if(jObjectCom.containsKey("Feature")) {
+                    JSONArray feature = JSONArray.fromObject(jObjectCom.get("Feature"));
+
+                    for(Object objectFea : feature) {
+                        JSONObject jObjectFea = (JSONObject)objectFea;
+                        if(jObjectFea.containsKey("Name")) {
+                            Parameter parameter = new Parameter();
+                            component.setFeatureName(jObjectFea.getString("Name"));
+                        }
+                        if(jObjectFea.containsKey("Value")) {
+                            JSONArray value = JSONArray.fromObject(jObjectFea.get("Value"));
+                            List<IVertexArgument> arguments = new ArrayList<>();
+
+                            for(int i = 0;i < value.size();i++) {
+                                Parameter parameter = new Parameter();
+                                parameter.setParameterValue(value.getDouble(i));
+                                arguments.add(parameter);
+                            }
+                            component.setArguments(arguments);
+                        }
+                    }
+                    component.setFeature(feature);
+                }
+
+                list.add(component);
             }
 
             //list = (List<Component>) JSONArray.toCollection(component,Component.class);
