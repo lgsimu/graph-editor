@@ -12,17 +12,17 @@ import java.util.Map;
 public class ImplementationUtil {
 
   private static final Logger log = LoggerFactory.getLogger(ImplementationUtil.class);
-  private static final Map<Class<?>, Class<?>> table = new Hashtable<>();
+  private static final Map<Class, Class> table = new Hashtable<>();
 
 
-  public static void put(@NotNull Class<?> interfaceType, @NotNull Class<?> implType) {
-    log.debug("register type {} to {}", interfaceType.getName(), implType.getName());
-    Class<?> type = table.get(interfaceType);
-    if (type == null) {
-      table.put(interfaceType, implType);
+  public static <T> void put(@NotNull Class<T> k, @NotNull Class<? extends T> v) {
+    log.debug("register {} to {}", StringUtil.getName(k), StringUtil.getName(v));
+    Class old = table.get(k);
+    if (old == null) {
+      table.put(k, v);
     }
     else {
-      log.error("already register {} to {}", interfaceType, type);
+      log.error("it has already registered {}, ignore this {}", StringUtil.getName(k), StringUtil.getName(v));
     }
   }
 
@@ -32,13 +32,13 @@ public class ImplementationUtil {
   public static <T> T getInstanceOf(@NotNull Class<T> type) throws InstantiationException
   {
     try {
-      Class<?> implType = table.get(type);
+      Class implType = table.get(type);
       if (implType != null) {
-        Constructor<?> cons = implType.getConstructor();
+        Constructor cons = implType.getConstructor();
         return (T) cons.newInstance();
       }
       else {
-        throw new InstantiationException("unregister type " + type.getName());
+        throw new InstantiationException("unregister " + StringUtil.getName(type));
       }
     }
     catch (InvocationTargetException e) {

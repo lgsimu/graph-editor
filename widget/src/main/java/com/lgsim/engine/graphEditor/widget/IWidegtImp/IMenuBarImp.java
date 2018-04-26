@@ -1,6 +1,6 @@
 package com.lgsim.engine.graphEditor.widget.IWidegtImp;
 
-import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
+import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.widget.IApplicationMenuBar;
 import org.jetbrains.annotations.NotNull;
 
@@ -8,22 +8,23 @@ import javax.swing.*;
 
 public class IMenuBarImp implements IApplicationMenuBar {
 
-    private IApplicationAction action;
-
-    @Override
-    public @NotNull JMenuBar getSwingComponent() {
-        return null;
-    }
+  private IApplication application;
 
 
-    @Override
-    public @NotNull IApplicationAction getApplicationAction() {
-        return action;
-    }
+  @Override
+  public @NotNull JMenuBar getSwingComponent() {
+    return new JMenuBar();
+  }
 
 
-    @Override
-    public void setApplicationAction(@NotNull IApplicationAction action) {
-        this.action = action;
-    }
+  @Override
+  public @NotNull IApplication getApplication() {
+    return application;
+  }
+
+
+  @Override
+  public void setApplication(@NotNull IApplication application) {
+    this.application = application;
+  }
 }
