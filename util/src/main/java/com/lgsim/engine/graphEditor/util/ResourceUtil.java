@@ -4,6 +4,8 @@ import com.lgsim.engine.graphEditor.util.exception.ResourceFileMissingException;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.util.Map;
  * @author leiqiao
  */
 public class ResourceUtil {
+    private static final Logger log = LoggerFactory.getLogger(ResourceUtil.class);
   private static final Map<String, ImageIcon> imageIconCache = new Hashtable<>(64);
 
   /**
@@ -29,6 +32,7 @@ public class ResourceUtil {
   @Nullable
   public static URI lookup(@NotNull String path)
   {
+      log.debug("lookup path {}", path);
     try {
       URL url = Thread.currentThread().getContextClassLoader().getResource(path);
       if (url != null) {
@@ -51,7 +55,9 @@ public class ResourceUtil {
   @NotNull
   public static ImageIcon lookupImageIcon(@NotNull String path)
   {
-    ImageIcon icon = imageIconCache.get(path);
+      log.debug("lookupImageIcon path {}", path);
+//      path += "/";
+      ImageIcon icon = imageIconCache.get(path);
     if (icon != null) {
       return icon;
     } else {

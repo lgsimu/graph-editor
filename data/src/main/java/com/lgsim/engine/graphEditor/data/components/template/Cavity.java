@@ -1,9 +1,6 @@
 package com.lgsim.engine.graphEditor.data.components.template;
 
-import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
-import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
-import com.lgsim.engine.graphEditor.api.data.IVertexRestriction;
-import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
+import com.lgsim.engine.graphEditor.api.data.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -12,17 +9,22 @@ import java.util.List;
 /**
  * 腔类
  */
-public class Cavity implements IVertexStencil {
+public class Cavity implements IVertex,IVertexStencil {
 
     private String cavityId;//id
-    private String cavityName;//name
-
-    private List<Parameter> cavityInps;//输入参数
-    private List<Parameter> cavityOutps;//输出参数
+    private String cavityTypeId;//typeid
+    private List<IVertex> cavityInputPorts;//输入到该腔节点的端口
+    private List<IVertex> cavityOutputPorts;//该腔节点输出的端口
+    private String cavityDisplayName;//显示名
+    private List<IVertexArgument> cavityInps;//输入参数
+    private List<IVertexOutput> cavityOutps;//输出参数
 
     public Cavity() {
         this.cavityId = "";
-        this.cavityName = "";
+        this.cavityTypeId = "";
+        this.cavityInputPorts = new ArrayList<>();
+        this.cavityOutputPorts = new ArrayList<>();
+        this.cavityDisplayName = "";
         this.cavityInps = new ArrayList<>();
         this.cavityOutps = new ArrayList<>();
     }
@@ -35,27 +37,51 @@ public class Cavity implements IVertexStencil {
         this.cavityId = cavityId;
     }
 
-    public String getCavityName() {
-        return cavityName;
+    public String getCavityTypeId() {
+        return cavityTypeId;
     }
 
-    public void setCavityName(String cavityName) {
-        this.cavityName = cavityName;
+    public void setCavityTypeId(String cavityTypeId) {
+        this.cavityTypeId = cavityTypeId;
     }
 
-    public List<Parameter> getCavityInps() {
+    public List<IVertex> getCavityInputPorts() {
+        return cavityInputPorts;
+    }
+
+    public void setCavityInputPorts(List<IVertex> cavityInputPorts) {
+        this.cavityInputPorts = cavityInputPorts;
+    }
+
+    public List<IVertex> getCavityOutputPorts() {
+        return cavityOutputPorts;
+    }
+
+    public void setCavityOutputPorts(List<IVertex> cavityOutputPorts) {
+        this.cavityOutputPorts = cavityOutputPorts;
+    }
+
+    public String getCavityDisplayName() {
+        return cavityDisplayName;
+    }
+
+    public void setCavityDisplayName(String cavityDisplayName) {
+        this.cavityDisplayName = cavityDisplayName;
+    }
+
+    public List<IVertexArgument> getCavityInps() {
         return cavityInps;
     }
 
-    public void setCavityInps(List<Parameter> cavityInps) {
+    public void setCavityInps(List<IVertexArgument> cavityInps) {
         this.cavityInps = cavityInps;
     }
 
-    public List<Parameter> getCavityOutps() {
+    public List<IVertexOutput> getCavityOutps() {
         return cavityOutps;
     }
 
-    public void setCavityOutps(List<Parameter> cavityOutps) {
+    public void setCavityOutps(List<IVertexOutput> cavityOutps) {
         this.cavityOutps = cavityOutps;
     }
 
@@ -71,7 +97,7 @@ public class Cavity implements IVertexStencil {
 
     @Override
     public @NotNull String getName() {
-        return cavityName;
+        return cavityDisplayName;
     }
 
     @Override
@@ -82,6 +108,11 @@ public class Cavity implements IVertexStencil {
     @Override
     public @NotNull String getGraphIcon() {
         return "";
+    }
+
+    @Override
+    public @NotNull String getTypeID() {
+        return cavityTypeId;
     }
 
     @Override
@@ -114,4 +145,30 @@ public class Cavity implements IVertexStencil {
     public @NotNull IVertexRestriction getRestriction() {
         return new ComponentArm();
     }
+
+    @Override
+    public void setOutputs(@NotNull List<IVertexOutput> outputs) {
+        this.cavityOutps = outputs;
+    }
+
+    @Override
+    public @NotNull List<IVertex> getInputPorts() {
+        return cavityInputPorts;
+    }
+
+    @Override
+    public @NotNull List<IVertex> getOutputPorts() {
+        return cavityOutputPorts;
+    }
+
+    @Override
+    public boolean isCavity() {
+        return true;
+    }
+
+    @Override
+    public @NotNull String getDisplayName() {
+        return cavityDisplayName;
+    }
+
 }
