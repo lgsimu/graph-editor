@@ -37,7 +37,8 @@ public interface IStencilContext
   IVertexStencil getCavityStencil();
 
     /**
-     * 获取全局
+     * 获取全局参数
      */
-  //IVertexStencil getGlobalStencil();
+    @NotNull
+  IVertexStencil getGlobalStencil();
 }

@@ -16,7 +16,7 @@ public class Component implements IVertexStencil,IVertex {
     private String componentName;//元件名称
     private String componentType;//元件类型ID
     private String imageSource;//图片所在路径
-    private List<Parameter> arguments;//输入参数
+    private List<IVertexArgument> arguments = new ArrayList<>();//输入参数
     private List<IVertexOutput> outputs;//输出参数
     private ComponentArm componentArms;//元件端口
     private List<String> armNodes = new ArrayList<>();//端口集合
@@ -30,7 +30,7 @@ public class Component implements IVertexStencil,IVertex {
         this.componentName = "";
         this.componentType = "";
         this.imageSource = "";
-        this.arguments = new ArrayList<Parameter>();
+        this.arguments = new ArrayList<>();
         this.outputs = new ArrayList<IVertexOutput>();
         this.componentArms = new ComponentArm();
         this.armNodes.add(componentArms.getComponentArmNodeName());
@@ -87,7 +87,7 @@ public class Component implements IVertexStencil,IVertex {
         this.imageSource = imageSource;
     }
 
-    public void setArguments(List<Parameter> arguments) {
+    public void setArguments(List<IVertexArgument> arguments) {
         this.arguments = arguments;
     }
 
@@ -164,18 +164,18 @@ public class Component implements IVertexStencil,IVertex {
 
     @Override
     public @NotNull List<IVertexArgument> getArguments() {
-        List<IVertexArgument> arguments = new ArrayList<IVertexArgument>();
+        /*List<IVertexArgument> arguments = new ArrayList<IVertexArgument>();
         Parameter parameter = new Parameter();
-        arguments.add(parameter);
+        arguments.add(parameter);*/
 
         return arguments;
     }
 
     @Override
     public @NotNull List<IVertexOutput> getOutputs() {
-        List<IVertexOutput> outputs = new ArrayList<IVertexOutput>();
+        /*List<IVertexOutput> outputs = new ArrayList<IVertexOutput>();
         Parameter parameter = new Parameter();
-        outputs.add(parameter);
+        outputs.add(parameter);*/
 
         return outputs;
     }
@@ -222,13 +222,31 @@ public class Component implements IVertexStencil,IVertex {
                         '}' ;
     }*/
 
-    @Override
+    /*@Override
     public String toString() {
         return "Component{" +
                 "componentName='" + componentName + '\'' +
                 ", componentType='" + componentType + '\'' +
                 ", armNodes=" + armNodes +
                 ", feature=" + feature +
+                '}';
+    }*/
+
+    @Override
+    public String toString() {
+        return "Component{" +
+                "isPredefined=" + isPredefined +
+                ", componentTemplateName='" + componentTemplateName + '\'' +
+                ", componentName='" + componentName + '\'' +
+                ", componentType='" + componentType + '\'' +
+                ", imageSource='" + imageSource + '\'' +
+                ", arguments=" + arguments +
+                ", outputs=" + outputs +
+                ", componentArms=" + componentArms +
+                ", armNodes=" + armNodes +
+                ", feature=" + feature +
+                ", componentInputPorts=" + componentInputPorts +
+                ", componentOutputPorts=" + componentOutputPorts +
                 '}';
     }
 }
