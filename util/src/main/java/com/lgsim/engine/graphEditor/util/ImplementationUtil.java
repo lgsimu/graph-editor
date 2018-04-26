@@ -17,7 +17,7 @@ public class ImplementationUtil {
 
   public static void put(@NotNull Class<?> interfaceType, @NotNull Class<?> implType) {
     log.debug("register type {} to {}", interfaceType.getName(), implType.getName());
-    if (implType.isAssignableFrom(interfaceType)) {
+    if (interfaceType.isAssignableFrom(implType)) {
       Class<?> type = table.get(interfaceType);
       if (type == null) {
         table.put(interfaceType, implType);
