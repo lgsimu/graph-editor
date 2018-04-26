@@ -20,7 +20,7 @@ public class DocumentSaveAction extends DocumentAction {
   {
     log.debug("save document {}", document);
     try {
-      document.save();
+      document.output();
     } catch (IOException e) {
       log.debug("save document failed {}", e.getMessage());
     }

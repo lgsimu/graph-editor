@@ -318,4 +318,9 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   public IVertexTable getVertexTable() {
     return vertexTable;
   }
+
+
+  public DocumentContext getDocumentContext() {
+    return documentContext;
+  }
 }

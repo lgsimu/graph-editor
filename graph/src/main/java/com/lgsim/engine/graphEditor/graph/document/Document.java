@@ -174,7 +174,8 @@ public class Document extends GraphDocumentImpl implements IApplicationWidget {
   }
 
 
-  public void save() throws IOException {
+  public void output() throws IOException {
+    editor.getDocumentContext().put(this);
   }
 
 
