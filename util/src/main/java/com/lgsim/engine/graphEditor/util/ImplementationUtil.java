@@ -16,14 +16,13 @@ public class ImplementationUtil {
 
 
   public static <T> void put(@NotNull Class<T> k, @NotNull Class<? extends T> v) {
-    log.debug("register type {} to {}", StringUtil.getName(k), StringUtil.getName(v));
+    log.debug("register {} to {}", StringUtil.getName(k), StringUtil.getName(v));
     Class old = table.get(k);
     if (old == null) {
       table.put(k, v);
     }
     else {
-      log.error("already register {} to {}, ignore {}",
-                StringUtil.getName(k), StringUtil.getName(old), StringUtil.getName(v));
+      log.error("it has already registered {}, ignore this {}", StringUtil.getName(k), StringUtil.getName(v));
     }
   }
 
@@ -39,7 +38,7 @@ public class ImplementationUtil {
         return (T) cons.newInstance();
       }
       else {
-        throw new InstantiationException("unregister type " + type.getName());
+        throw new InstantiationException("unregister " + StringUtil.getName(type));
       }
     }
     catch (InvocationTargetException e) {
