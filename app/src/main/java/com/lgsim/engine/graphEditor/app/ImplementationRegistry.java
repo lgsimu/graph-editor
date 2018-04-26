@@ -26,24 +26,24 @@ class ImplementationRegistry implements IRegistry
   public void registerAll()
   {
     //ImplementationUtil.put(IGraph.class, Graph.class);
-    ImplementationUtil.putType(IGraph.class, IGraphImpl.class);
-    ImplementationUtil.putType(IGraphCodec.class, GraphCodecImpl.class);
+    ImplementationUtil.put(IGraph.class, IGraphImpl.class);
+    ImplementationUtil.put(IGraphCodec.class, GraphCodecImpl.class);
     //ImplementationUtil.put(IStencilContext.class, ComponentsTest.class);
 //    ImplementationUtil.put(IStencilContext.class, Template.class);
-    ImplementationUtil.putType(IStencilContext.class, Element.class);
-    ImplementationUtil.putType(IVertex.class, VertexImpl.class);
+    ImplementationUtil.put(IStencilContext.class, Element.class);
+    ImplementationUtil.put(IVertex.class, VertexImpl.class);
     //ImplementationUtil.put(IVertexArgument.class, IVertexArgumentImpl.class);
-    ImplementationUtil.putType(IVertexArgument.class, Parameter.class);
+    ImplementationUtil.put(IVertexArgument.class, Parameter.class);
     //ImplementationUtil.put(IVertexOutput.class, IVertexOutputImpl.class);
-    ImplementationUtil.putType(IVertexOutput.class, Parameter.class);
+    ImplementationUtil.put(IVertexOutput.class, Parameter.class);
     //ImplementationUtil.put(IVertexRestriction.class, IVertexRestrictionImpl.class);
-    ImplementationUtil.putType(IVertexRestriction.class, ComponentArm.class);
+    ImplementationUtil.put(IVertexRestriction.class, ComponentArm.class);
     //ImplementationUtil.put(IVertexStencil.class, Ptlos.class);
-    ImplementationUtil.putType(IVertexStencil.class, Component.class);
-    ImplementationUtil.putType(IVertexTable.class, TablePanelImp.class);
-    ImplementationUtil.putType(IConsole.class, SolverPanelImp.class);
-    ImplementationUtil.putType(ISolver.class, ISolverImp.class);
-    ImplementationUtil.putType(ITopLevelMenuBar.class, IMenuBarImp.class);
-    ImplementationUtil.putType(IToolbar.class, IToolBarImp.class);
+    ImplementationUtil.put(IVertexStencil.class, Component.class);
+    ImplementationUtil.put(IVertexTable.class, TablePanelImp.class);
+    ImplementationUtil.put(IConsole.class, SolverPanelImp.class);
+    ImplementationUtil.put(ISolver.class, ISolverImp.class);
+    ImplementationUtil.put(ITopLevelMenuBar.class, IMenuBarImp.class);
+    ImplementationUtil.put(IToolbar.class, IToolBarImp.class);
   }
 }

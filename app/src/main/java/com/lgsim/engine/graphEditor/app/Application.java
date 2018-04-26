@@ -15,11 +15,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Application implements IApplication {
+
   private static final String corporationName = "LGSimulator";
   private static final String artifactName = "GraphEditor";
   private static final String version = "1.0";
   private static final Configuration CONFIGURATION = new Configuration(corporationName, artifactName, version);
   private IApplicationAction applicationAction;
+
 
   private Application() throws InstantiationException
   {
@@ -28,7 +30,7 @@ public class Application implements IApplication {
 
     JFrame frame = new JFrame();
     Editor editor = new Editor(this);
-    JMenuBar menuBar = ApplicationSupport.createApplicationMenuBar();
+    JMenuBar menuBar = ApplicationSupport.createApplicationMenuBar(applicationAction);
     frame.setJMenuBar(menuBar);
     frame.getContentPane().add(editor);
     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -37,6 +39,7 @@ public class Application implements IApplication {
     frame.setVisible(true);
     frame.addWindowListener(new ApplicationListener());
   }
+
 
   public static void main(String[] args)
   {
@@ -50,11 +53,13 @@ public class Application implements IApplication {
         UIManager.getFont("Label.font");
         UIManager.setLookAndFeel(new DarculaLaf());
         new Application();
-      } catch (Exception e) {
+      }
+      catch (Exception e) {
         ExceptionManager.INSTANCE.dealWith(e);
       }
     });
   }
+
 
   @Override
   public @NotNull String getImplementationTitle()
@@ -62,11 +67,13 @@ public class Application implements IApplication {
     return artifactName;
   }
 
+
   @Override
   public @NotNull String getImplementationVersion()
   {
     return version;
   }
+
 
   @Override
   public @NotNull String getImplementationVendor()
@@ -74,15 +81,18 @@ public class Application implements IApplication {
     return corporationName;
   }
 
+
   @Override
   public @NotNull Configuration getConfiguration() {
     return CONFIGURATION;
   }
 
+
   @Override
   public @NotNull IApplicationAction getApplicationAction() {
     return applicationAction;
   }
+
 
   @Override
   public void setApplicationAction(@NotNull IApplicationAction action) {
