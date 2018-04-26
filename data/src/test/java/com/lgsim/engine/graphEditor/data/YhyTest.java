@@ -1,25 +1,9 @@
 package com.lgsim.engine.graphEditor.data;
 
-import com.alibaba.fastjson.JSON;
-import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
-//import com.lgsim.engine.graphEditor.data.components.impl.ComponentImpl;
-import com.lgsim.engine.graphEditor.data.components.component.Components;
-import com.lgsim.engine.graphEditor.data.components.component.ComponentsTest;
-import com.lgsim.engine.graphEditor.data.components.library.ptlos.ptlos_111.Ptlos_111;
-import com.lgsim.engine.graphEditor.data.components.template.Component;
 import com.lgsim.engine.graphEditor.data.components.template.Element;
-import com.lgsim.engine.graphEditor.data.components.template.Template;
-import com.lgsim.engine.graphEditor.data.components.util.readjson.ReadJson;
-import com.lgsim.engine.graphEditor.data.components.util.writejson.WriteJson;
-//import net.sf.json.JSONObject;
-import com.alibaba.fastjson.JSONObject;
-import net.sf.json.JSONArray;
-import org.apache.commons.io.IOUtils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+//import com.lgsim.engine.graphEditor.data.components.impl.ComponentImpl;
+//import net.sf.json.JSONObject;
 
 public class YhyTest {
     public static void main(String[] args) throws Exception {
@@ -44,7 +28,10 @@ public class YhyTest {
         /*List<IVertexStencil> list = new ArrayList<>();
         list = element.getPredefinedStencils();*/
 
-        String path = "com/lgsim/engine/graphEditor/data/simpleCase.inp";
+        //String path = "com/lgsim/engine/graphEditor/data/simpleCase.inp";
+        Element element = new Element();
+        String a = element.getPredefinedStencils().get(0).getStencilIcon();
+        System.out.println(a);
 /*        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 
         String jsonStr = null;
@@ -59,8 +46,8 @@ public class YhyTest {
         //System.out.println(list.get(0).getArguments().get(0));
         //System.out.println(wr);
 //        System.out.println(list.size());
-        ReadJson readJson = new ReadJson();
-        readJson.readJson(path);
+        //ReadJson readJson = new ReadJson();
+        //readJson.readJson(path);
         System.out.println("---------------------------------");
         //System.out.println(str);
         //System.out.println(components);
