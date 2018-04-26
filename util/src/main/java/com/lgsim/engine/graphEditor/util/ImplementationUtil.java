@@ -15,14 +15,15 @@ public class ImplementationUtil {
   private static final Map<Class, Class> table = new Hashtable<>();
 
 
-  public static <T> void put(@NotNull Class<T> interfaceType, @NotNull Class<? extends T> implType) {
-    log.debug("register type {} to {}", interfaceType.getName(), implType.getName());
-    Class type = table.get(interfaceType);
-    if (type == null) {
-      table.put(interfaceType, implType);
+  public static <T> void put(@NotNull Class<T> k, @NotNull Class<? extends T> v) {
+    log.debug("register type {} to {}", StringUtil.getName(k), StringUtil.getName(v));
+    Class old = table.get(k);
+    if (old == null) {
+      table.put(k, v);
     }
     else {
-      log.error("already register {} to {}, ignore {}", interfaceType, type, implType);
+      log.error("already register {} to {}, ignore {}",
+                StringUtil.getName(k), StringUtil.getName(old), StringUtil.getName(v));
     }
   }
 
