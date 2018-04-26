@@ -227,24 +227,24 @@ public class Component extends VertexImpl implements IVertexStencil, IVertex {
                 "{" +
                         "\"Name\":\"" + componentName + '\"' +
                         ",\"Type\":\"" + componentType + '\"' +
-                        ",\"ArmNodes\":" + armNodes +
+                        ",\"ArmNodes\":" + armnodes +
                         ",\"Feature\":[{" + "\"Name\":\"" + arguments.get(0).getParameterIOType() + '\"' +
                         ",\"Value\":" + arguments.get(0).getValues() + "}]" +
                         //'}' +
                         '}' ;
     }*/
 
-    /*@Override
-    public String toString() {
-        return "Component{" +
-                "componentName='" + componentName + '\'' +
-                ", componentType='" + componentType + '\'' +
-                ", armNodes=" + armnodes +
-                ", feature=" + feature +
-                '}';
-    }*/
-
     @Override
+    public String toString() {
+        return "{" +
+                "\"Name\":\"" + componentName + '\"' +
+                ",\"Type\":\"" + componentType + '\"' +
+                ",\"ArmNodes\":" + armnodes +
+                ",\"Feature\":" + feature +
+                '}';
+    }
+
+    /*@Override
     public String toString() {
         return "Component{" +
                 "isPredefined=" + isPredefined +
@@ -260,5 +260,5 @@ public class Component extends VertexImpl implements IVertexStencil, IVertex {
                 ", componentInputPorts=" + componentInputPorts +
                 ", componentOutputPorts=" + componentOutputPorts +
                 '}';
-    }
+    }*/
 }

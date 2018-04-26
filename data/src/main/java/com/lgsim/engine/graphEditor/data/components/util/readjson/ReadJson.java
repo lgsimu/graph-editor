@@ -75,7 +75,7 @@ public class ReadJson {
                             component.setArguments(arguments);
                         }
                     }
-
+                    component.setFeature(feature);
                 }
 
                 list.add(component);

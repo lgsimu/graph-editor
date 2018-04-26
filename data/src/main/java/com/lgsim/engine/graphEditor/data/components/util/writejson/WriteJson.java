@@ -1,14 +1,11 @@
 package com.lgsim.engine.graphEditor.data.components.util.writejson;
 
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
-import com.lgsim.engine.graphEditor.data.components.ptlos.entity.Ptlos;
 import com.lgsim.engine.graphEditor.data.components.util.jsonformattool.JsonFormatTool;
-import com.lgsim.engine.graphEditor.data.components.util.readjson.ReadPtlosJson;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
