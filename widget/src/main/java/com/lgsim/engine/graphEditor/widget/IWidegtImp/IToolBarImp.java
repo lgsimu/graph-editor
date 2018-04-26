@@ -1,7 +1,7 @@
 package com.lgsim.engine.graphEditor.widget.IWidegtImp;
 
-import com.lgsim.engine.graphEditor.api.IToolbar;
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
+import com.lgsim.engine.graphEditor.api.widget.IToolbar;
 import com.lgsim.engine.graphEditor.widget.Component.ToolBox;
 import org.jetbrains.annotations.NotNull;
 

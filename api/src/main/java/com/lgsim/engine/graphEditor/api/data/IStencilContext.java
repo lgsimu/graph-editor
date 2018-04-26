@@ -4,8 +4,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public interface IStencilContext
-{
+public interface IStencilContext {
+
   /**
    * 获取预定义的元件模板
    *
@@ -36,9 +36,8 @@ public interface IStencilContext
   @NotNull
   IVertexStencil getCavityStencil();
 
-    /**
-     * 获取全局参数
-     */
-    @NotNull
-  IVertexStencil getGlobalStencil();
+//  /**
+//   * 获取全局节点模板
+//   */
+//  @NotNull IVertexStencil getGlobalStencil();
 }
