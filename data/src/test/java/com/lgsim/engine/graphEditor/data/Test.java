@@ -12,13 +12,15 @@ public class Test {
         //json集合
         String jsonString = "[{\"Age\":[\"13\"],\"name\":\"zhangSan\"},{\"Age\":[\"14\",\"15\"],\"name\":\"liSi\"}]";
 
-        JSONArray jsonArray = JSONArray.fromObject(jsonString);
+        String jstr = jsonString.toLowerCase();
+
+        JSONArray jsonArray = JSONArray.fromObject(jstr);
         //Java集合
-        List<Student> list = (List<Student>) jsonArray.toCollection(jsonArray,Student.class);
+        List<Student> list = (List<Student>) JSONArray.toCollection(jsonArray,Student.class);
         System.out.println(list);
         System.out.println("-------------------------");
 
-        String jstr = JSON.toJSONString(list);
-        System.out.println(jstr);
+        String jsonstr = JSON.toJSONString(list);
+        System.out.println(jsonstr);
     }
 }
