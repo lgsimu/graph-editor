@@ -10,14 +10,12 @@ import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
-import com.lgsim.engine.graphEditor.api.widget.IToolbar;
+import com.lgsim.engine.graphEditor.api.widget.IApplicationToolbar;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
 import com.lgsim.engine.graphEditor.graph.PureCons;
 import com.lgsim.engine.graphEditor.graph.action.ApplicationActionImpl;
 import com.lgsim.engine.graphEditor.graph.document.*;
-import com.lgsim.engine.graphEditor.util.ExceptionManager;
-import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.util.StringUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
@@ -44,6 +42,7 @@ import java.util.function.Function;
 
 @SuppressWarnings("WeakerAccess")
 public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
+
   private static final Logger log = LoggerFactory.getLogger(Editor.class);
   private final IApplication application;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
@@ -63,7 +62,8 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private List<Document> documents = new Vector<>();
   private transient int currentDocumentIndex;
   private transient DocumentContext documentContext;
-  private IToolbar iToolBar;
+  private IApplicationToolbar applicationToolbar = ImplementationContext.INSTANCE.getApplicationToolbar();
+
 
   public Editor(@NotNull IApplication application)
   {
@@ -74,18 +74,12 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     loadDocuments();
   }
 
+
   private void initUIComponents()
   {
-    try {
-      iToolBar = ImplementationUtil.getInstanceOf(IToolbar.class);
-      iToolBar.setActionSupplier(this::getApplicationAction);
-      JToolBar toolBar = iToolBar.getToolBar();
-      toolBar.setOrientation(JToolBar.HORIZONTAL);
-      add(toolBar, BorderLayout.NORTH);
-    } catch (InstantiationException e) {
-      log.debug("install toolbar failed");
-      ExceptionManager.INSTANCE.dealWith(e);
-    }
+    JToolBar toolbar = applicationToolbar.getSwingComponent();
+    toolbar.setOrientation(JToolBar.HORIZONTAL);
+    add(toolbar, BorderLayout.NORTH);
 
     setLayout(new BorderLayout());
 
@@ -126,6 +120,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     loadStencilPalettes();
   }
 
+
   private void loadStencilPalettes() {
     BiConsumer<StencilPalette, String> loadStencilPalette = (palette, title) -> {
       final JScrollPane scrollPane = new JScrollPane(palette);
@@ -144,6 +139,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     loadStencilPalette.accept(userDefinedPalette, MessageBundle.get("vertexStencil.userDefined"));
   }
 
+
   private void loadStencils()
   {
     final IStencilContext context = ImplementationContext.INSTANCE.getStencilContext();
@@ -161,15 +157,18 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     log.debug("load {} user defined stencils", userDefinedPalette.getLoadStencilCount());
   }
 
+
   private void loadDocuments()
   {
     final List<Document> documents = getLastDocuments();
     if (documents == null) {
       openNewDocument();
-    } else {
+    }
+    else {
       openLastDocuments();
     }
   }
+
 
   public void openNewDocument()
   {
@@ -183,12 +182,14 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     documents.add(currentDocumentIndex, document);
     installOutlineListeners(comp);
     installGraphDocumentListeners(document);
-    this.iToolBar.paint();
+    applicationToolbar.setApplicationAction(getApplicationAction());
   }
+
 
   public IApplicationAction getApplicationAction() {
     return application.getApplicationAction();
   }
+
 
   private void installOutlineListeners(@NotNull mxGraphComponent comp)
   {
@@ -197,7 +198,8 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
       if (e.getSource() instanceof mxGraphOutline || e.isControlDown()) {
         if (e.getWheelRotation() < 0) {
           comp.zoomIn();
-        } else {
+        }
+        else {
           comp.zoomOut();
         }
         int scale = (int) (100 * comp.getGraph().getView().getScale());
@@ -206,6 +208,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
       }
     });
   }
+
 
   private void installGraphDocumentListeners(@NotNull Document document)
   {
@@ -246,16 +249,19 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     });
   }
 
+
   private void openLastDocuments()
   {
     log.debug("load last documents");
   }
+
 
   @Nullable
   private List<Document> getLastDocuments()
   {
     return null;
   }
+
 
   private @Nullable IVertex lookupPeerVertex(@NotNull IVertex vertex, @NotNull IGraph graph)
   {
@@ -267,6 +273,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     }
     return null;
   }
+
 
   private void renderVertexTable(@NotNull IVertex vertex)
   {
@@ -280,20 +287,24 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     }
   }
 
+
   private void status(String msg)
   {
     statusBar.setText(msg);
   }
+
 
   @Override
   public @Nullable Document getCurrentGraphDocument()
   {
     if (documents.size() > 0) {
       return documents.get(currentDocumentIndex);
-    } else {
+    }
+    else {
       return null;
     }
   }
+
 
   @Override
   public @NotNull List<IGraphDocument> getOpenedGraphDocuments()
@@ -301,21 +312,25 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     return new Vector<>();
   }
 
+
   @Override
   public IGraphDocument openGraphDocument(@NotNull File file)
   {
     return null;
   }
 
+
   @Override
   public void saveOpenedGraphDocument(@NotNull IGraphDocument document) throws IOException
   {
     if (document instanceof Document) {
       documentContext.put((Document) document);
-    } else {
+    }
+    else {
       log.debug("un-support document type");
     }
   }
+
 
   @Override
   public void saveOpenedGraphDocuments(@NotNull List<IGraphDocument> documents) throws IOException
@@ -325,17 +340,20 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     }
   }
 
+
   @Override
   public boolean isGraphDocumentFile(@NotNull File file)
   {
     return false;
   }
 
+
   @Override
   public void renderVertex(@NotNull IVertex vertex)
   {
     vertexTable.render(vertex);
   }
+
 
   @Override
   public @Nullable IVertex getCurrentVertex()
@@ -344,6 +362,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     return null;
   }
 
+
   @Override
   public @NotNull File getExecutableFile()
   {
@@ -351,16 +370,19 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     return new File("C:\\lgsas\\LGSAS.exe");
   }
 
+
   @Override
   public @Nullable IGraph getGraph()
   {
     IGraphDocument document = getCurrentGraphDocument();
     if (document == null) {
       return null;
-    } else {
+    }
+    else {
       return document.getGraph();
     }
   }
+
 
   @Override
   public @NotNull String getCaseName()
@@ -368,10 +390,12 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     final IGraphDocument document = getCurrentGraphDocument();
     if (document == null) {
       return StringUtil.emptyString();
-    } else {
+    }
+    else {
       return document.getTitle();
     }
   }
+
 
   @Override
   public @NotNull String getSolverCommandlineArguments()
