@@ -7,7 +7,6 @@ import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
-import com.lgsim.engine.graphEditor.graph.editor.StencilPalette;
 import com.lgsim.engine.graphEditor.util.CollectionUtil;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -16,8 +15,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class PureCons {
+
   @Contract(pure = true)
   public static @NotNull VertexImpl createVertex(@NotNull IVertexStencil stencil, boolean cavity)
   {
@@ -30,10 +30,12 @@ public class PureCons {
     return new VertexImpl(ID, typeID, arguments, outputs, inputPorts, outputPorts, cavity, ID);
   }
 
+
   @Contract(pure = true)
   public static @NotNull StencilPalette createStencilPalette() {
     return new StencilPalette();
   }
+
 
   @Contract(pure = true)
   public static @NotNull Action createAction(@NotNull String bundle, @NotNull Action action, @NotNull Object comp) {

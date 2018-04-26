@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.graph.editor;
+package com.lgsim.engine.graphEditor.graph;
 
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
@@ -11,8 +11,6 @@ import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.api.widget.IApplicationToolbar;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
-import com.lgsim.engine.graphEditor.graph.ImplementationContext;
-import com.lgsim.engine.graphEditor.graph.PureCons;
 import com.lgsim.engine.graphEditor.graph.document.Document;
 import com.lgsim.engine.graphEditor.graph.document.DocumentButtonTab;
 import com.lgsim.engine.graphEditor.graph.document.DocumentContext;
