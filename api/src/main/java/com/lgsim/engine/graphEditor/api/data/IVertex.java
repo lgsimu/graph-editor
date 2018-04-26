@@ -7,6 +7,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public interface IVertex extends Serializable {
+
   /**
    * 节点id
    */
@@ -56,6 +57,14 @@ public interface IVertex extends Serializable {
    * 是否是腔节点
    */
   boolean isCavity();
+
+
+  /**
+   * 是否是全局节点
+   *
+   * @return 如果是，返回{@code true}，否则返回{@code false}
+   */
+  boolean isGlobal();
 
 
   /**
