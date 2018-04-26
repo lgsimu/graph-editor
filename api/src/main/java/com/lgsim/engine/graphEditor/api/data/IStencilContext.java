@@ -36,8 +36,8 @@ public interface IStencilContext {
   @NotNull
   IVertexStencil getCavityStencil();
 
-//  /**
-//   * 获取全局节点模板
-//   */
-//  @NotNull IVertexStencil getGlobalStencil();
+  /**
+   * 获取全局节点模板
+   */
+  @NotNull IVertexStencil getGlobalStencil();
 }

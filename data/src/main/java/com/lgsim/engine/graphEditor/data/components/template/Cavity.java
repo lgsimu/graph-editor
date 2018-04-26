@@ -167,6 +167,11 @@ public class Cavity implements IVertex,IVertexStencil {
     }
 
     @Override
+    public boolean isGlobal() {
+        return false;
+    }
+
+    @Override
     public @NotNull String getDisplayName() {
         return cavityDisplayName;
     }
