@@ -17,12 +17,12 @@ public class ImplementationUtil {
 
   public static void put(@NotNull Class<?> interfaceType, @NotNull Class<?> implType) {
     log.debug("register type {} to {}", interfaceType.getName(), implType.getName());
-    Class<?> aClass = table.get(interfaceType);
-    if (aClass == null) {
+    Class<?> type = table.get(interfaceType);
+    if (type == null) {
       table.put(interfaceType, implType);
     }
     else {
-      log.debug("danger: repeat register");
+      log.debug("danger: already register {} to {}", interfaceType, type);
     }
   }
 
