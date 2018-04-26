@@ -1,8 +1,7 @@
-package com.lgsim.engine.graphEditor.graph.editor;
+package com.lgsim.engine.graphEditor.graph;
 
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
-import com.lgsim.engine.graphEditor.graph.PureCons;
 import com.lgsim.engine.graphEditor.util.ResourceUtil;
 import com.lgsim.engine.graphEditor.util.ui.UIUtil;
 import com.mxgraph.model.mxCell;

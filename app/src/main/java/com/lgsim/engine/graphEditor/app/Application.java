@@ -4,7 +4,7 @@ import com.bulenkov.darcula.DarculaLaf;
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.IconBundle;
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
-import com.lgsim.engine.graphEditor.graph.editor.Editor;
+import com.lgsim.engine.graphEditor.graph.Editor;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import com.lgsim.engine.graphEditor.util.ExceptionManager;
 import com.mxgraph.swing.util.mxSwingConstants;

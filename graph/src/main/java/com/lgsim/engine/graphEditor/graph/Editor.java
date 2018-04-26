@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.graph.editor;
+package com.lgsim.engine.graphEditor.graph;
 
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.MessageBundle;
@@ -11,17 +11,11 @@ import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphEditor;
 import com.lgsim.engine.graphEditor.api.widget.IApplicationToolbar;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
-import com.lgsim.engine.graphEditor.graph.ImplementationContext;
-import com.lgsim.engine.graphEditor.graph.PureCons;
-import com.lgsim.engine.graphEditor.graph.action.ApplicationActionImpl;
-import com.lgsim.engine.graphEditor.graph.document.*;
+import com.lgsim.engine.graphEditor.graph.document.Document;
+import com.lgsim.engine.graphEditor.graph.document.DocumentButtonTab;
+import com.lgsim.engine.graphEditor.graph.document.DocumentContext;
 import com.lgsim.engine.graphEditor.util.StringUtil;
-import com.mxgraph.model.mxCell;
-import com.mxgraph.swing.handler.mxRubberband;
-import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.mxGraphOutline;
-import com.mxgraph.util.mxEvent;
-import com.mxgraph.view.mxGraphSelectionModel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -33,11 +27,9 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 @SuppressWarnings("WeakerAccess")
 public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
@@ -46,11 +38,6 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private final IApplication application;
   private final mxGraphOutline graphOutline = new mxGraphOutline(null);
   private final JTabbedPane libraryPane = new JTabbedPane();
-  private final StatusBar statusBar = new StatusBar(MessageBundle.get("application.status.ready")) {
-    {
-      setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
-    }
-  };
   private final IVertexTable vertexTable = ImplementationContext.INSTANCE.getVertexTable();
   private final JTabbedPane docTabbedPane = new JTabbedPane();
   private final JSplitPane westPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, libraryPane, graphOutline);
@@ -114,7 +101,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
     /* eastPane is outer-most split pane */
     add(eastPane, BorderLayout.CENTER);
-    add(statusBar, BorderLayout.SOUTH);
+//    add(statusBar, BorderLayout.SOUTH);
 
     loadStencilPalettes();
   }
@@ -171,11 +158,8 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
   public void openNewDocument()
   {
-    Document document = DocumentSupport.createDocument(documentContext, application);
-    setApplicationAction(document);
-    installOutlineListeners(document);
-    installGraphDocumentListeners(document);
-    addDocument(document);
+    Document document = new Document(this);
+    this.addDocument(document);
   }
 
 
@@ -184,72 +168,6 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
     docTabbedPane.setTabComponentAt(currentDocumentIndex, new DocumentButtonTab(docTabbedPane));
     currentDocumentIndex = documents.size();
     documents.add(currentDocumentIndex, document);
-  }
-
-
-  private void setApplicationAction(@NotNull Document document) {
-    ApplicationActionImpl action = new ApplicationActionImpl(document);
-    application.setApplicationAction(action);
-  }
-
-
-  private void installOutlineListeners(@NotNull Document document)
-  {
-    final mxGraphComponent comp = document.getSwingComponent();
-    graphOutline.setGraphComponent(comp);
-    graphOutline.addMouseWheelListener(e -> {
-      if (e.getSource() instanceof mxGraphOutline || e.isControlDown()) {
-        if (e.getWheelRotation() < 0) {
-          comp.zoomIn();
-        }
-        else {
-          comp.zoomOut();
-        }
-        int scale = (int) (100 * comp.getGraph().getView().getScale());
-        String msg = MessageBundle.get("graphDocument.graph.scale", scale);
-        status(msg);
-      }
-    });
-  }
-
-
-  private void installGraphDocumentListeners(@NotNull Document document)
-  {
-    mxGraphComponent comp = document.getSwingComponent();
-
-    new mxRubberband(comp);
-    new DocumentAccelerator(document);
-
-    comp.getGraph().getSelectionModel().addListener(mxEvent.CHANGE, (sender, evt) -> {
-      if ((sender instanceof mxGraphSelectionModel)) {
-        mxGraphSelectionModel selectionModel = (mxGraphSelectionModel) sender;
-        Object[] cells = selectionModel.getCells();
-        if (cells != null) {
-          if (cells.length == 1) {
-            mxCell cell = (mxCell) cells[0];
-            log.debug("select cell {} value is {}", cell, cell.getValue());
-            if (cell.getValue() instanceof IVertex) {
-              IVertex vertex = (IVertex) cell.getValue();
-              final IGraph graph = getGraph();
-              if (graph != null) {
-                IVertex peer = lookupPeerVertex(vertex, graph);
-                if (peer != null) {
-                  vertex.setOutputs(peer.getOutputs());
-                }
-              }
-              renderVertexTable(vertex);
-            }
-            log.debug("load cell data to table");
-          }
-        }
-      }
-    });
-
-    comp.getGraph().getModel().addListener(mxEvent.CHANGE, (sender, evt) -> {
-      document.setModified(true);
-      docTabbedPane.setTitleAt(currentDocumentIndex, document.getTitle());
-      log.debug("document {} changed", currentDocumentIndex);
-    });
   }
 
 
@@ -263,37 +181,6 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   private List<Document> getLastDocuments()
   {
     return null;
-  }
-
-
-  private @Nullable IVertex lookupPeerVertex(@NotNull IVertex vertex, @NotNull IGraph graph)
-  {
-    Collection<IVertex> vertexes = graph.getAllVertexes();
-    for (IVertex v : vertexes) {
-      if (v.getID().equals(vertex.getID())) {
-        return v;
-      }
-    }
-    return null;
-  }
-
-
-  private void renderVertexTable(@NotNull IVertex vertex)
-  {
-    log.debug("render vertex {}", vertex);
-    Function<IVertex, Boolean> isValid = (v) -> {
-      // TODO: to be complete
-      return true;
-    };
-    if (isValid.apply(vertex)) {
-      vertexTable.render(vertex);
-    }
-  }
-
-
-  private void status(String msg)
-  {
-    statusBar.setText(msg);
   }
 
 
@@ -405,5 +292,30 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
   {
     // TODO: 从设置面板获取
     return "";
+  }
+
+
+  public @NotNull mxGraphOutline getGraphOutline() {
+    return graphOutline;
+  }
+
+
+  public @NotNull IApplication getApplication() {
+    return application;
+  }
+
+
+  public @NotNull JTabbedPane getDocTabbedPane() {
+    return docTabbedPane;
+  }
+
+
+  public int getCurrentDocumentIndex() {
+    return currentDocumentIndex;
+  }
+
+
+  public IVertexTable getVertexTable() {
+    return vertexTable;
   }
 }
