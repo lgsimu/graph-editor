@@ -3,8 +3,8 @@ package com.lgsim.engine.graphEditor.api.graph;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import org.jetbrains.annotations.NotNull;
 
-public interface IGraphDocument
-{
+public interface IGraphDocument {
+
   /**
    * 获取标题
    *
@@ -14,11 +14,11 @@ public interface IGraphDocument
 
 
   /**
-   * 获取图文档文件
+   * 获取入口文件
    *
-   * @return 图文档文件
+   * @return 入口文件
    */
-  @NotNull IGraphDocumentFile getGraphDocumentFile();
+  @NotNull String getEntryFilePath();
 
 
   /**

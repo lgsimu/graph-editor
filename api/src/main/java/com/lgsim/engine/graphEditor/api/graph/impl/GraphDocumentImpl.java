@@ -2,7 +2,6 @@ package com.lgsim.engine.graphEditor.api.graph.impl;
 
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentFile;
 import com.lgsim.engine.graphEditor.api.graph.IGraphStyle;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 public class GraphDocumentImpl implements IGraphDocument {
 
   private String title;
-  private IGraphDocumentFile graphDocumentFile;
+  private String entryFilePath;
   private IGraph graph;
   private IGraphStyle graphStyle;
   private boolean modified;
@@ -38,16 +37,15 @@ public class GraphDocumentImpl implements IGraphDocument {
   }
 
 
+  @NotNull
   @Override
-  public @NotNull IGraphDocumentFile getGraphDocumentFile()
-  {
-    return graphDocumentFile;
+  public String getEntryFilePath() {
+    return entryFilePath;
   }
 
 
-  public void setGraphDocumentFile(IGraphDocumentFile graphDocumentFile)
-  {
-    this.graphDocumentFile = graphDocumentFile;
+  public void setEntryFilePath(String entryFilePath) {
+    this.entryFilePath = entryFilePath;
   }
 
 
