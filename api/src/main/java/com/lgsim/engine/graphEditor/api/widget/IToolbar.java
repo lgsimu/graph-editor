@@ -1,7 +1,6 @@
-package com.lgsim.engine.graphEditor.api;
+package com.lgsim.engine.graphEditor.api.widget;
 
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
-import com.lgsim.engine.graphEditor.api.widget.IWidget;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;

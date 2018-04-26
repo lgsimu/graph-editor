@@ -1,13 +1,13 @@
 package com.lgsim.engine.graphEditor.app;
 
 import com.lgsim.engine.graphEditor.api.IRegistry;
-import com.lgsim.engine.graphEditor.api.IToolbar;
 import com.lgsim.engine.graphEditor.api.calc.ISolver;
 import com.lgsim.engine.graphEditor.api.data.*;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
+import com.lgsim.engine.graphEditor.api.widget.IApplicationMenuBar;
+import com.lgsim.engine.graphEditor.api.widget.IToolbar;
 import com.lgsim.engine.graphEditor.api.widget.console.IConsole;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
-import com.lgsim.engine.graphEditor.api.widget.topLevel.ITopLevelMenuBar;
 import com.lgsim.engine.graphEditor.data.components.impl.GraphCodecImpl;
 import com.lgsim.engine.graphEditor.data.components.impl.IGraphImpl;
 import com.lgsim.engine.graphEditor.data.components.template.Component;
@@ -43,7 +43,7 @@ class ImplementationRegistry implements IRegistry
     ImplementationUtil.put(IVertexTable.class, TablePanelImp.class);
     ImplementationUtil.put(IConsole.class, SolverPanelImp.class);
     ImplementationUtil.put(ISolver.class, ISolverImp.class);
-    ImplementationUtil.put(ITopLevelMenuBar.class, IMenuBarImp.class);
+    ImplementationUtil.put(IApplicationMenuBar.class, IMenuBarImp.class);
     ImplementationUtil.put(IToolbar.class, IToolBarImp.class);
   }
 }
