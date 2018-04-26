@@ -12,22 +12,17 @@ import java.util.Map;
 public class ImplementationUtil {
 
   private static final Logger log = LoggerFactory.getLogger(ImplementationUtil.class);
-  private static final Map<Class<?>, Class<?>> table = new Hashtable<>();
+  private static final Map<Class, Class> table = new Hashtable<>();
 
 
-  public static void put(@NotNull Class<?> interfaceType, @NotNull Class<?> implType) {
+  public static <T> void put(@NotNull Class<T> interfaceType, @NotNull Class<? extends T> implType) {
     log.debug("register type {} to {}", interfaceType.getName(), implType.getName());
-    if (interfaceType.isAssignableFrom(implType)) {
-      Class<?> type = table.get(interfaceType);
-      if (type == null) {
-        table.put(interfaceType, implType);
-      }
-      else {
-        log.error("already register {} to {}", interfaceType, type);
-      }
+    Class type = table.get(interfaceType);
+    if (type == null) {
+      table.put(interfaceType, implType);
     }
     else {
-      log.error("not capable types {} {}", interfaceType.getCanonicalName(), implType.getCanonicalName());
+      log.error("already register {} to {}, ignore {}", interfaceType, type, implType);
     }
   }
 
@@ -37,9 +32,9 @@ public class ImplementationUtil {
   public static <T> T getInstanceOf(@NotNull Class<T> type) throws InstantiationException
   {
     try {
-      Class<?> implType = table.get(type);
+      Class implType = table.get(type);
       if (implType != null) {
-        Constructor<?> cons = implType.getConstructor();
+        Constructor cons = implType.getConstructor();
         return (T) cons.newInstance();
       }
       else {
