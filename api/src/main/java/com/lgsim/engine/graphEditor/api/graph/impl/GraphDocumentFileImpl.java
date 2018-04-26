@@ -1,68 +1,52 @@
 package com.lgsim.engine.graphEditor.api.graph.impl;
 
 import com.lgsim.engine.graphEditor.api.graph.IGraphDocumentFile;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
+@SuppressWarnings({"WeakerAccess", "unused"})
+public class GraphDocumentFileImpl implements IGraphDocumentFile {
 
-public class GraphDocumentFileImpl implements IGraphDocumentFile
-{
-  private File entryFile;
-  private File modelFile;
-  private File styleFile;
+  private String entryFile;
+  private String modelFile;
+  private String styleFile;
 
 
-  public GraphDocumentFileImpl()
-  {
+  public GraphDocumentFileImpl() {
   }
 
 
-  public GraphDocumentFileImpl(File entryFile, File modelFile, File styleFile)
-  {
-    this.entryFile = entryFile;
-    this.modelFile = modelFile;
-    this.styleFile = styleFile;
-  }
-
-
-  @Nullable
+  @NotNull
   @Override
-  public File getEntryFile()
-  {
+  public String getEntryFile() {
     return entryFile;
   }
 
 
-  public void setEntryFile(File entryFile)
-  {
+  public void setEntryFile(@NotNull String entryFile) {
     this.entryFile = entryFile;
   }
 
 
-  @Nullable
+  @NotNull
   @Override
-  public File getModelFile()
-  {
+  public String getModelFile() {
     return modelFile;
   }
 
 
-  public void setModelFile(File modelFile)
-  {
+  public void setModelFile(@NotNull String modelFile) {
     this.modelFile = modelFile;
   }
 
 
-  @Nullable
+  @NotNull
   @Override
-  public File getStyleFile()
-  {
+  public String getStyleFile() {
     return styleFile;
   }
 
 
-  public void setStyleFile(File styleFile)
-  {
+  public void setStyleFile(@NotNull String styleFile) {
     this.styleFile = styleFile;
   }
 }

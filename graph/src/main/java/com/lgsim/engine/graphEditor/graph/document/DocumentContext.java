@@ -25,17 +25,17 @@ public class DocumentContext {
   }
 
   public void put(@NotNull Document document) throws IOException {
-    final File docFile = document.getGraphDocumentFile().getEntryFile();
-    if (docFile.exists()) {
-      updateDocumentJarFile(document);
-    } else {
-      File workDir = Files.createTempDir();
-      File jarFile = createDocumentJarFile(document, workDir);
-      Files.copy(jarFile, docFile);
-      if (workDir.delete()) {
-        log.debug("delete temp work dir {}", workDir);
-      }
-    }
+//    final File docFile = document.getGraphDocumentFile().getEntryFile();
+//    if (docFile.exists()) {
+//      updateDocumentJarFile(document);
+//    } else {
+//      File workDir = Files.createTempDir();
+//      File jarFile = createDocumentJarFile(document, workDir);
+//      Files.copy(jarFile, docFile);
+//      if (workDir.delete()) {
+//        log.debug("delete temp work dir {}", workDir);
+//      }
+//    }
   }
 
   private @NotNull File createDocumentJarFile(@NotNull IGraphDocument document, @NotNull File workDir) throws IOException
