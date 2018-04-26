@@ -6,25 +6,27 @@ import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentFileImpl;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphDocumentImpl;
 import com.lgsim.engine.graphEditor.api.graph.impl.GraphStyleImpl;
+import com.lgsim.engine.graphEditor.api.widget.IApplicationWidget;
 import com.mxgraph.swing.mxGraphComponent;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.function.Supplier;
 
 @SuppressWarnings("WeakerAccess")
-public class Document extends GraphDocumentImpl {
-  private mxGraphComponent graphComponent;
-  private final Supplier<IApplicationAction> actionSupplier;
-  private final DocumentContext context;
+public class Document extends GraphDocumentImpl implements IApplicationWidget {
 
-  public Document(@NotNull DocumentContext context, @NotNull mxGraphComponent comp, @NotNull Supplier<IApplicationAction> actionSupplier)
+  private mxGraphComponent graphComponent;
+  private final DocumentContext context;
+  private transient IApplicationAction applicationAction;
+
+
+  public Document(@NotNull DocumentContext context, @NotNull mxGraphComponent graphComponent)
   {
-    super(null, new GraphDocumentFileImpl(), (IGraph) comp.getGraph(), new GraphStyleImpl(), false);
+    super(null, new GraphDocumentFileImpl(), (IGraph) graphComponent.getGraph(), new GraphStyleImpl(), false);
     this.context = context;
-    this.actionSupplier = actionSupplier;
-    setGraphComponent(comp);
+    this.graphComponent = graphComponent;
   }
+
 
   @Override
   public @NotNull String getTitle()
@@ -32,19 +34,24 @@ public class Document extends GraphDocumentImpl {
     return MessageBundle.get("graphDocument.newDocumentTitle") + (isModified() ? "*" : "");
   }
 
-  public @NotNull mxGraphComponent getGraphComponent()
+
+  @Override
+  public @NotNull mxGraphComponent getSwingComponent()
   {
     return graphComponent;
   }
 
-  private void setGraphComponent(@NotNull mxGraphComponent graphComponent)
-  {
-    this.graphComponent = graphComponent;
+
+  public @NotNull IApplicationAction getApplicationAction() {
+    return applicationAction;
   }
 
-  public IApplicationAction getApplicationAction() {
-    return actionSupplier.get();
+
+  @Override
+  public void setApplicationAction(@NotNull IApplicationAction action) {
+    this.applicationAction = action;
   }
+
 
   public void save() throws IOException {
     context.put(this);

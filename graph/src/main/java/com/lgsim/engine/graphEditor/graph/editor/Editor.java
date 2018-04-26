@@ -172,10 +172,10 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
   public void openNewDocument()
   {
-    Document document = DocumentSupport.createDocument(documentContext, this::getApplicationAction);
+    Document document = DocumentSupport.createDocument(documentContext);
     ApplicationActionImpl action = new ApplicationActionImpl(document);
     application.setApplicationAction(action);
-    mxGraphComponent comp = document.getGraphComponent();
+    mxGraphComponent comp = document.getSwingComponent();
     docTabbedPane.add(document.getTitle(), comp);
     docTabbedPane.setTabComponentAt(currentDocumentIndex, new DocumentButtonTab(docTabbedPane));
     currentDocumentIndex = documents.size();
@@ -212,7 +212,7 @@ public class Editor extends JPanel implements IGraphEditor, ISolverEnvironment {
 
   private void installGraphDocumentListeners(@NotNull Document document)
   {
-    mxGraphComponent comp = document.getGraphComponent();
+    mxGraphComponent comp = document.getSwingComponent();
 
     new mxRubberband(comp);
     new DocumentAccelerator(document);

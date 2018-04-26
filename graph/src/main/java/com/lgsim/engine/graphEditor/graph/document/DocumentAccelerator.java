@@ -13,7 +13,7 @@ public class DocumentAccelerator extends KeyAdapter {
   public DocumentAccelerator(@NotNull Document document) {
     this.document = document;
     this.keyPressedConsumer = DocumentSupport.createKeyPressedConsumer(document);
-    document.getGraphComponent().addKeyListener(this);
+    document.getSwingComponent().addKeyListener(this);
   }
 
   @Override

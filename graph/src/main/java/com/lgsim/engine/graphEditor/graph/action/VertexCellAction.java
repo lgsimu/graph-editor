@@ -6,10 +6,12 @@ import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class VertexCellAction extends DocumentAction {
+
   protected mxGraphComponent graphComponent;
+
 
   public VertexCellAction(@NotNull Document document) {
     super(document);
-    graphComponent = document.getGraphComponent();
+    graphComponent = document.getSwingComponent();
   }
 }

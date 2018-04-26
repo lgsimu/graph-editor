@@ -47,31 +47,31 @@ public class DocumentAcceleratorKeyPressedConsumer extends DocumentAcceleratorCo
 
   private void copyVertexes(@NotNull KeyEvent event) {
     Action action = document.getApplicationAction().getVertexCellCopyAction();
-    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getGraphComponent(), event);
+    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getSwingComponent(), event);
     action.actionPerformed(actionEvent);
   }
 
   private void pasteVertexes(@NotNull KeyEvent event) {
     Action action = document.getApplicationAction().getVertexCellPasteAction();
-    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getGraphComponent(), event);
+    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getSwingComponent(), event);
     action.actionPerformed(actionEvent);
   }
 
   private void cutVertexes(KeyEvent event) {
     Action action = document.getApplicationAction().getVertexCellCutAction();
-    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getGraphComponent(), event);
+    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getSwingComponent(), event);
     action.actionPerformed(actionEvent);
   }
 
   private void deleteVertexes(@NotNull KeyEvent event) {
     Action action = document.getApplicationAction().getVertexCellDeleteAction();
-    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getGraphComponent(), event);
+    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getSwingComponent(), event);
     action.actionPerformed(actionEvent);
   }
 
   private void saveDocument(@NotNull KeyEvent event) {
     Action action = document.getApplicationAction().getDocumentSaveAction();
-    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getGraphComponent(), event);
+    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getSwingComponent(), event);
     action.actionPerformed(actionEvent);
   }
 }
