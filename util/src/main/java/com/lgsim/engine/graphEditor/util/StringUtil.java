@@ -4,6 +4,8 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
+
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class StringUtil {
 
@@ -78,5 +80,11 @@ public class StringUtil {
   @Contract(pure = true)
   public static @NotNull String getName(@NotNull Class cls) {
     return cls.getSimpleName();
+  }
+
+
+  @Contract(pure = true)
+  public static @NotNull String getName(@NotNull File file) {
+    return file.getName();
   }
 }

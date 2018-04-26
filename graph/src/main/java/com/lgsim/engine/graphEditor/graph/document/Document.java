@@ -98,11 +98,9 @@ public class Document extends GraphDocumentImpl implements IApplicationWidget {
             if (cell.getValue() instanceof IVertex) {
               IVertex vertex = (IVertex) cell.getValue();
               final IGraph graph = getGraph();
-              if (graph != null) {
-                IVertex peer = lookupPeerVertex(vertex, graph);
-                if (peer != null) {
-                  vertex.setOutputs(peer.getOutputs());
-                }
+              IVertex peer = lookupPeerVertex(vertex, graph);
+              if (peer != null) {
+                vertex.setOutputs(peer.getOutputs());
               }
               renderVertexTable(vertex);
             }

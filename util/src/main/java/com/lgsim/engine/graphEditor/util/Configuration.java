@@ -9,11 +9,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+@SuppressWarnings({"WeakerAccess"})
 public class Configuration {
+
   private static final Logger logger = LoggerFactory.getLogger(Configuration.class);
   private final String corporationName;
   private final String artifactName;
   private final String version;
+
 
   public Configuration(String corporationName, String artifactName, String version)
   {
@@ -22,33 +25,38 @@ public class Configuration {
     this.version = version;
   }
 
+
+  public @NotNull File getWorkingDirectory() {
+    return new File(getWorkingDirectory0());
+  }
+
+
   @NotNull
-  private String getDirectory()
+  private String getWorkingDirectory0()
   {
     final String directoryName = "." + corporationName + artifactName + version;
     String home = System.getProperty("user.home");
     return Paths.get(home, directoryName).toString();
   }
 
-  @NotNull
-  public String getWorkDirectory() {
-    return getDirectory();
-  }
 
   private String getLogFile()
   {
-    return Paths.get(getDirectory(), "log.txt").toString();
+    return Paths.get(getWorkingDirectory0(), "log.txt").toString();
   }
+
 
   private void touchDirectories()
   {
     String[] directories = new String[]{
-        getDirectory()
+        getWorkingDirectory0(),
+        getTempDirectory0()
     };
     for (String it : directories) {
       touchDirectoryIfAbsent(it);
     }
   }
+
 
   private void touchDirectoryIfAbsent(@NotNull String path)
   {
@@ -58,6 +66,7 @@ public class Configuration {
       logger.debug("make directory {} {}", dir, success ? "success" : "failed");
     }
   }
+
 
   private void touchFiles()
   {
@@ -69,21 +78,34 @@ public class Configuration {
     }
   }
 
+
   private void touchEmptyFileIfAbsent(@NotNull String path)
   {
     File file = new File(path);
     if (!file.exists()) {
       try {
         new FileOutputStream(file).close();
-      } catch (IOException e) {
+      }
+      catch (IOException e) {
         logger.debug("{}", e);
       }
     }
   }
 
+
   public void applyIfPossible()
   {
     touchDirectories();
     touchFiles();
+  }
+
+
+  private @NotNull String getTempDirectory0() {
+    return Paths.get(getWorkingDirectory0(), "temp").toString();
+  }
+
+
+  public @NotNull File getTempDirectory() {
+    return new File(getTempDirectory0());
   }
 }
