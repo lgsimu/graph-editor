@@ -219,6 +219,9 @@ public class TablePanel extends JPanel {
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
         Vector vector = new Vector();
+
+
+
         for (IVertexArgument rowContent : vertex.getArguments()) {
             model.addRow(setTableContent(vector, rowContent));
             shows(model);
@@ -226,7 +229,7 @@ public class TablePanel extends JPanel {
     }
 
     public TablePanel() {
-        String[] columns = {"属性", "值", "单位", "描述"};
+        String[] columns = {"名称", "值", "单位", "说明"};
         model.setColumnIdentifiers(columns);
         shows(model);
         scrollPane = new JScrollPane(table);

@@ -58,6 +58,11 @@ public interface IVertex extends Serializable {
    */
   boolean isCavity();
 
+  /**
+   * 是否是全局节点
+   * @return
+   */
+
 
   /**
    * 是否是全局节点

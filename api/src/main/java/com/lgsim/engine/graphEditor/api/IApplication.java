@@ -52,4 +52,5 @@ public interface IApplication {
    * @param action 动作
    */
   void setApplicationAction(@NotNull IApplicationAction action);
+
 }

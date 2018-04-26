@@ -85,4 +85,68 @@ public interface IApplicationAction {
    * @return 动作
    */
   @NotNull Action getSolverSettingsAction();
+
+  /**
+   * 弹出菜单  标准  动作
+   *
+   * @return
+   */
+  @NotNull Action getStandardAction();
+
+
+  /**
+   * 弹出菜单 布局 动作
+   *
+   * @return
+   */
+  @NotNull Action getLayoutAction();
+
+  /**
+   * 弹出菜单 动作  动作
+   *
+   * @return
+   */
+  @NotNull Action getMoveAction();
+
+  /**
+   * 弹出菜单 格式 动作
+   *
+   * @return
+   */
+  @NotNull  Action getFormatAction();
+
+  /**
+   * 弹出菜单 工具 动作
+   *
+   * @return
+   */
+  @NotNull Action getToolAction();
+
+  /**
+   * 弹出菜单 视图 动作
+   *
+   * @return
+   */
+  @NotNull Action getViewAction();
+
+  /**
+   * 弹出菜单 图元控件 动作
+   * @return
+   */
+  @NotNull Action getControlAction();
+
+  /**
+   * 弹出菜单 图元库 动作
+   *
+   * @return
+   */
+  @NotNull Action getBankAction();
+
+  /**
+   * 弹出菜单 自定义 动作
+   *
+   * @return
+   */
+
+  @NotNull Action getCustomAction();
 }

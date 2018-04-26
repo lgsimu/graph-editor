@@ -62,6 +62,52 @@ public class ApplicationActionImpl implements IApplicationAction {
   public @NotNull Action getSolverSettingsAction() {
     return new SolverSettingAction();
   }
+
+  @Override
+  public @NotNull Action getStandardAction() {
+    return null;
+  }
+
+  @Override
+  public @NotNull Action getLayoutAction() {
+    return null;
+  }
+
+  @Override
+  public @NotNull Action getMoveAction() {
+    return null;
+  }
+
+  @Override
+  public @NotNull Action getFormatAction() {
+    return null;
+  }
+
+  @Override
+  public @NotNull Action getToolAction() {
+    return null;
+  }
+
+  @Override
+  public @NotNull Action getViewAction() {
+    return null;
+  }
+
+  @Override
+  public @NotNull Action getControlAction() {
+    return null;
+  }
+
+  @Override
+  public @NotNull Action getBankAction() {
+    return null;
+  }
+
+  @Override
+  public @NotNull Action getCustomAction() {
+    return null;
+  }
+
   public Document getDocument() {
     return document;
   }
