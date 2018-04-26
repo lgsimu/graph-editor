@@ -17,13 +17,14 @@ public class Component extends VertexImpl implements IVertexStencil, IVertex {
     private String componentName;//元件名称
     private String componentType;//元件类型ID
     private String imageSource;//图片所在路径
-    private List<Parameter> arguments;//输入参数
+    private List<IVertexArgument> arguments;//输入参数
     private List<IVertexOutput> outputs;//输出参数
     private ComponentArm componentArms;//元件端口
-    private List<String> armNodes = new ArrayList<>();//端口集合
+    private List<String> armnodes = new ArrayList<>();//端口集合
     private List<String> feature = new ArrayList<>();//端口集合
     private List<IVertex> componentInputPorts;//输入到该节点的端口
     private List<IVertex> componentOutputPorts;//该节点输出的端口
+    private String featureName;//参数特点name
 
     public Component() {
         this.isPredefined = false;
@@ -31,10 +32,10 @@ public class Component extends VertexImpl implements IVertexStencil, IVertex {
         this.componentName = "";
         this.componentType = "";
         this.imageSource = "";
-        this.arguments = new ArrayList<Parameter>();
+        this.arguments = new ArrayList<IVertexArgument>();
         this.outputs = new ArrayList<IVertexOutput>();
         this.componentArms = new ComponentArm();
-        this.armNodes.add(componentArms.getComponentArmNodeName());
+        this.armnodes.add(componentArms.getComponentArmNodeName());
         this.componentInputPorts = new ArrayList<>();
         this.componentOutputPorts = new ArrayList<>();
     }
@@ -91,6 +92,7 @@ public class Component extends VertexImpl implements IVertexStencil, IVertex {
 
     @Override
     public void setArguments(@NotNull List<IVertexArgument> arguments) {
+        this.arguments = arguments;
     }
 
 
@@ -102,12 +104,12 @@ public class Component extends VertexImpl implements IVertexStencil, IVertex {
         this.componentArms = componentArms;
     }
 
-    public List<String> getArmNodes() {
-        return armNodes;
+    public List<String> getArmnodes() {
+        return armnodes;
     }
 
-    public void setArmNodes(List<String> armNodes) {
-        armNodes = armNodes;
+    public void setArmnodes(List<String> armnodes) {
+        this.armnodes = armnodes;
     }
 
     public List<String> getFeature() {
@@ -132,6 +134,14 @@ public class Component extends VertexImpl implements IVertexStencil, IVertex {
 
     public void setComponentOutputPorts(List<IVertex> componentOutputPorts) {
         this.componentOutputPorts = componentOutputPorts;
+    }
+
+    public String getFeatureName() {
+        return featureName;
+    }
+
+    public void setFeatureName(String featureName) {
+        this.featureName = featureName;
     }
 
     @Override
@@ -166,18 +176,18 @@ public class Component extends VertexImpl implements IVertexStencil, IVertex {
 
     @Override
     public @NotNull List<IVertexArgument> getArguments() {
-        List<IVertexArgument> arguments = new ArrayList<IVertexArgument>();
+        /*List<IVertexArgument> arguments = new ArrayList<IVertexArgument>();
         Parameter parameter = new Parameter();
-        arguments.add(parameter);
+        arguments.add(parameter);*/
 
         return arguments;
     }
 
     @Override
     public @NotNull List<IVertexOutput> getOutputs() {
-        List<IVertexOutput> outputs = new ArrayList<IVertexOutput>();
+        /*List<IVertexOutput> outputs = new ArrayList<IVertexOutput>();
         Parameter parameter = new Parameter();
-        outputs.add(parameter);
+        outputs.add(parameter);*/
 
         return outputs;
     }
@@ -224,13 +234,31 @@ public class Component extends VertexImpl implements IVertexStencil, IVertex {
                         '}' ;
     }*/
 
-    @Override
+    /*@Override
     public String toString() {
         return "Component{" +
                 "componentName='" + componentName + '\'' +
                 ", componentType='" + componentType + '\'' +
-                ", armNodes=" + armNodes +
+                ", armNodes=" + armnodes +
                 ", feature=" + feature +
+                '}';
+    }*/
+
+    @Override
+    public String toString() {
+        return "Component{" +
+                "isPredefined=" + isPredefined +
+                ", componentTemplateName='" + componentTemplateName + '\'' +
+                ", componentName='" + componentName + '\'' +
+                ", componentType='" + componentType + '\'' +
+                ", imageSource='" + imageSource + '\'' +
+                ", arguments=" + arguments +
+                ", outputs=" + outputs +
+                ", componentArms=" + componentArms +
+                ", armnodes=" + armnodes +
+                ", feature=" + feature +
+                ", componentInputPorts=" + componentInputPorts +
+                ", componentOutputPorts=" + componentOutputPorts +
                 '}';
     }
 }
