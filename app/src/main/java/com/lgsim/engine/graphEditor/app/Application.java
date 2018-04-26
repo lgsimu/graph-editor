@@ -30,7 +30,7 @@ public class Application implements IApplication {
 
     JFrame frame = new JFrame();
     Editor editor = new Editor(this);
-    JMenuBar menuBar = ApplicationSupport.createApplicationMenuBar(applicationAction);
+    JMenuBar menuBar = ApplicationSupport.createApplicationMenuBar(this);
     frame.setJMenuBar(menuBar);
     frame.getContentPane().add(editor);
     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);

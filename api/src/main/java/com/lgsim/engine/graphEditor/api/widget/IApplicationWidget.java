@@ -1,6 +1,6 @@
 package com.lgsim.engine.graphEditor.api.widget;
 
-import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
+import com.lgsim.engine.graphEditor.api.IApplication;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -10,17 +10,17 @@ import org.jetbrains.annotations.NotNull;
 public interface IApplicationWidget extends IWidget {
 
   /**
-   * 获取应用动作
+   * 获取组件所属应用
    *
-   * @return 应用动作
+   * @return 应用
    */
-  @NotNull IApplicationAction getApplicationAction();
+  @NotNull IApplication getApplication();
 
 
   /**
-   * 设置应用动作
+   * 设置组件所属应用
    *
-   * @param action 应用动作
+   * @param application 应用
    */
-  void setApplicationAction(@NotNull IApplicationAction action);
+  void setApplication(@NotNull IApplication application);
 }
