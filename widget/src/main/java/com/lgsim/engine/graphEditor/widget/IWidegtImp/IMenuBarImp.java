@@ -1,12 +1,12 @@
 package com.lgsim.engine.graphEditor.widget.IWidegtImp;
 
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
-import com.lgsim.engine.graphEditor.api.widget.topLevel.ITopLevelMenuBar;
+import com.lgsim.engine.graphEditor.api.widget.IApplicationMenuBar;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
-public class IMenuBarImp implements ITopLevelMenuBar {
+public class IMenuBarImp implements IApplicationMenuBar {
 
     private IApplicationAction action;
 

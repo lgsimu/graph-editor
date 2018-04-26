@@ -3,7 +3,10 @@ package com.lgsim.engine.graphEditor.api.widget;
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("WeakerAccess")
+/**
+ * 应用组件
+ */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public interface IApplicationWidget extends IWidget {
 
   /**
