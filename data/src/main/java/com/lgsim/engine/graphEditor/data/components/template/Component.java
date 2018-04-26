@@ -1,6 +1,7 @@
 package com.lgsim.engine.graphEditor.data.components.template;
 
 import com.lgsim.engine.graphEditor.api.data.*;
+import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * 元件模板
  */
-public class Component implements IVertexStencil,IVertex {
+public class Component extends VertexImpl implements IVertexStencil, IVertex {
 
     private boolean isPredefined;//是否是当前定义元件
     private String componentTemplateName;//元件模板名称
@@ -87,8 +88,9 @@ public class Component implements IVertexStencil,IVertex {
         this.imageSource = imageSource;
     }
 
-    public void setArguments(List<Parameter> arguments) {
-        this.arguments = arguments;
+
+    @Override
+    public void setArguments(@NotNull List<IVertexArgument> arguments) {
     }
 
 

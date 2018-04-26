@@ -1,9 +1,12 @@
 package com.lgsim.engine.graphEditor.data.components.impl;
 
-import com.lgsim.engine.graphEditor.api.data.*;
+import com.lgsim.engine.graphEditor.api.data.IStencilContext;
+import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
+import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.data.components.entity.IVertexArgumentImpl;
 import com.lgsim.engine.graphEditor.data.components.entity.IVertexRestrictionImpl;
 import com.lgsim.engine.graphEditor.data.components.ptlos.entity.Ptlos;
+import com.lgsim.engine.graphEditor.data.components.template.Component;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -46,5 +49,10 @@ public class IStencilContextImpl implements IStencilContext {
     @Override
     public @NotNull IVertexStencil getCavityStencil() {
         return null;
+    }
+
+    @Override
+    public @NotNull IVertexStencil getGlobalStencil() {
+        return new Component();
     }
 }

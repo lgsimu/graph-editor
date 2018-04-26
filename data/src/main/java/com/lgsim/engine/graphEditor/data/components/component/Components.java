@@ -6,13 +6,12 @@ import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.data.components.entity.IVertexArgumentImpl;
 import com.lgsim.engine.graphEditor.data.components.entity.IVertexRestrictionImpl;
 import com.lgsim.engine.graphEditor.data.components.ptlos.entity.Ptlos;
+import com.lgsim.engine.graphEditor.data.components.template.Component;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -170,5 +169,10 @@ public class Components implements IStencilContext {
     @Override
     public IVertexStencil getCavityStencil() {
         return null;
+    }
+
+    @Override
+    public @NotNull IVertexStencil getGlobalStencil() {
+        return new Component();
     }
 }

@@ -1,0 +1,19 @@
+{
+  "GlobalParameters":[
+    {
+      "name":"GC",
+      "unitId":"12",
+      "description":"气体常数"
+    },
+    {
+      "name":"AI",
+      "unitId":"0",
+      "description":"绝热指数"
+    },
+    {
+      "name":"RS",
+      "unitId":"18",
+      "description":"转速"
+    }
+  ]
+}

@@ -30,8 +30,11 @@ public class YhyTest {
 
         //String path = "com/lgsim/engine/graphEditor/data/simpleCase.inp";
         Element element = new Element();
-        String a = element.getPredefinedStencils().get(0).getStencilIcon();
-        System.out.println(a);
+        System.out.println(element.getPredefinedStencils().get(0));
+        System.out.println("------------------------------------");
+        System.out.println(element.getPredefinedStencils().get(0).getArguments().get(1).getDescription());
+        /*Component component = new Component();
+        System.out.println(component.toString());*/
 /*        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 
         String jsonStr = null;

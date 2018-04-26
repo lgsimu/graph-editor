@@ -1,6 +1,7 @@
 package com.lgsim.engine.graphEditor.data.components.template;
 
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
+import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import net.sf.json.JSONArray;
@@ -54,7 +55,7 @@ public class Element implements IStencilContext {
                 JSONObject jObjectType = (JSONObject)objectType;
                 JSONArray arguments = JSONArray.fromObject(jObjectType.get("arguments"));
                 JSONArray results = JSONArray.fromObject(jsonObject.get("Result"));
-                List<Parameter> parameters = new ArrayList<Parameter>();
+                List<IVertexArgument> parameters = new ArrayList<IVertexArgument>();
                 List<IVertexOutput> outParameters = new ArrayList<IVertexOutput>();
 
                 for (Object objectArgument : arguments) {
@@ -117,5 +118,45 @@ public class Element implements IStencilContext {
     public @NotNull IVertexStencil getCavityStencil() {
         Cavity cavity = new Cavity();
         return cavity;
+    }
+
+    @Override
+    public @NotNull IVertexStencil getGlobalStencil() {
+
+        //读取文件
+        String path = "com/lgsim/engine/graphEditor/data/globalparameters/globalparameters.json";
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+
+        //将json文件转化为字符串
+        String jsonStr = null;
+        try {
+            jsonStr = IOUtils.toString(is);
+        }catch (IOException e) {
+            e.getStackTrace();
+        }
+        //System.out.println(jsonStr);
+        //解析jsonStr
+        JSONObject jsonObject = JSONObject.fromObject(jsonStr);
+        JSONArray globs = JSONArray.fromObject(jsonObject.get("GlobalParameters"));
+
+        List<IVertexArgument> arguments = new ArrayList<>();
+
+        for (Object globObject : globs) {
+            JSONObject jGlobObject = (JSONObject)globObject;
+            Parameter parameter = new Parameter();
+
+            parameter.setParameterName(jGlobObject.getString("name"));
+            parameter.setParameterUnitID(jGlobObject.getString("unitId"));
+            parameter.setParameterDescription(jGlobObject.getString("description"));
+
+            arguments.add(parameter);
+        }
+        Component component = new Component();
+
+        component.setArguments(arguments);
+
+
+
+        return component;
     }
 }

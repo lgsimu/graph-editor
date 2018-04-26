@@ -2,6 +2,7 @@ package com.lgsim.engine.graphEditor.data.components.template;
 
 
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
+import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
 import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import net.sf.json.JSONArray;
@@ -12,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +36,7 @@ public class Template implements IStencilContext {
         Parameter parameter11 = new Parameter();
         Parameter parameter12 = new Parameter();
         Parameter parameter13 = new Parameter();
-        List<Parameter> parameters1 = new ArrayList<Parameter>();
+        List<IVertexArgument> parameters1 = new ArrayList<IVertexArgument>();
 
         parameter11.setParameterName("AA");
         parameter11.setParameterUnitID("2");
@@ -65,7 +65,7 @@ public class Template implements IStencilContext {
         Parameter parameter22 = new Parameter();
         Parameter parameter23 = new Parameter();
         Parameter parameter24 = new Parameter();
-        List<Parameter> parameters2 = new ArrayList<Parameter>();
+        List<IVertexArgument> parameters2 = new ArrayList<IVertexArgument>();
 
         parameter21.setParameterName("GEO1");
         parameter21.setParameterUnitID("4");
@@ -227,6 +227,11 @@ public class Template implements IStencilContext {
 
     @Override
     public @NotNull IVertexStencil getCavityStencil() {
+        return new Component();
+    }
+
+    @Override
+    public @NotNull IVertexStencil getGlobalStencil() {
         return new Component();
     }
 }

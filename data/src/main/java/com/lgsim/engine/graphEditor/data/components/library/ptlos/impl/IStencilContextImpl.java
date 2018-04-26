@@ -3,6 +3,7 @@ package com.lgsim.engine.graphEditor.data.components.library.ptlos.impl;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.data.components.library.ptlos.ptlos_111.Ptlos_111;
+import com.lgsim.engine.graphEditor.data.components.template.Component;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -35,6 +36,11 @@ public class IStencilContextImpl implements IStencilContext {
 
     @Override
     public IVertexStencil getCavityStencil() {
-        return null;
+        return new Component();
+    }
+
+    @Override
+    public @NotNull IVertexStencil getGlobalStencil() {
+        return new Component();
     }
 }

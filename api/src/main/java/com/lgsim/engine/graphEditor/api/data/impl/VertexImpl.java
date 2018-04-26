@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class VertexImpl implements IVertex {
+
   private String ID;
   private String typeID;
   private List<IVertexArgument> arguments;
@@ -17,7 +18,9 @@ public class VertexImpl implements IVertex {
   private List<IVertex> inputPorts;
   private List<IVertex> outputPorts;
   private boolean cavity;
+  private boolean global;
   private String displayName;
+
 
   public VertexImpl()
   {
@@ -28,6 +31,7 @@ public class VertexImpl implements IVertex {
     inputPorts = CollectionUtil.emptyList();
     outputs = CollectionUtil.emptyList();
   }
+
 
   public VertexImpl(@NotNull String ID, @NotNull String typeID, @NotNull List<IVertexArgument> arguments, @NotNull List<IVertexOutput> outputs, @NotNull List<IVertex> inputPorts, @NotNull List<IVertex> outputPorts, boolean cavity, @NotNull String displayName)
   {
@@ -41,6 +45,7 @@ public class VertexImpl implements IVertex {
     this.displayName = displayName;
   }
 
+
   @Override
   @NotNull
   public String getID()
@@ -48,10 +53,12 @@ public class VertexImpl implements IVertex {
     return ID;
   }
 
+
   public void setID(@NotNull String ID)
   {
     this.ID = ID;
   }
+
 
   @Override
   @NotNull
@@ -60,10 +67,12 @@ public class VertexImpl implements IVertex {
     return typeID;
   }
 
+
   public void setTypeID(@NotNull String typeID)
   {
     this.typeID = typeID;
   }
+
 
   @Override
   @NotNull
@@ -72,10 +81,12 @@ public class VertexImpl implements IVertex {
     return arguments;
   }
 
+
   public void setArguments(@NotNull List<IVertexArgument> arguments)
   {
     this.arguments = arguments;
   }
+
 
   @Override
   @NotNull
@@ -84,10 +95,12 @@ public class VertexImpl implements IVertex {
     return outputs;
   }
 
+
   public void setOutputs(@NotNull List<IVertexOutput> outputs)
   {
     this.outputs = outputs;
   }
+
 
   @Override
   @NotNull
@@ -96,10 +109,12 @@ public class VertexImpl implements IVertex {
     return inputPorts;
   }
 
+
   public void setInputPorts(@NotNull List<IVertex> inputPorts)
   {
     this.inputPorts = inputPorts;
   }
+
 
   @Override
   @NotNull
@@ -108,10 +123,12 @@ public class VertexImpl implements IVertex {
     return outputPorts;
   }
 
+
   public void setOutputPorts(@NotNull List<IVertex> outputPorts)
   {
     this.outputPorts = outputPorts;
   }
+
 
   @Override
   public boolean isCavity()
@@ -119,10 +136,23 @@ public class VertexImpl implements IVertex {
     return cavity;
   }
 
+
   public void setCavity(boolean cavity)
   {
     this.cavity = cavity;
   }
+
+
+  @Override
+  public boolean isGlobal() {
+    return global;
+  }
+
+
+  public void setGlobal(boolean global) {
+    this.global = global;
+  }
+
 
   @NotNull
   @Override
@@ -130,9 +160,11 @@ public class VertexImpl implements IVertex {
     return displayName;
   }
 
+
   public void setDisplayName(String displayName) {
     this.displayName = displayName;
   }
+
 
   @Override
   public String toString()
