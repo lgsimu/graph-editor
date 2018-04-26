@@ -35,16 +35,20 @@ public class Document extends GraphDocumentImpl implements IApplicationWidget {
 
   private Editor editor;
   private IApplication application;
-  private GraphComponent graphComponent;
+  private GraphComponent swingComponent;
   private mxGraphOutline graphOutline;
   private JTabbedPane docTabbedPane;
+
+
+  public Document() {
+  }
 
 
   public Document(@NotNull Editor editor)
   {
     this.editor = editor;
     this.application = editor.getApplication();
-    this.graphComponent = new GraphComponent(new Graph());
+    this.swingComponent = new GraphComponent(new Graph());
     this.graphOutline = editor.getGraphOutline();
     this.docTabbedPane = editor.getDocTabbedPane();
     settingGraphComponent();
@@ -52,9 +56,9 @@ public class Document extends GraphDocumentImpl implements IApplicationWidget {
 
 
   private void settingGraphComponent() {
-    graphComponent.setMinimumSize(new Dimension(320, 320));
-    graphComponent.setColumnHeaderView(new DocumentRuler(graphComponent, DocumentRuler.ORIENTATION_HORIZONTAL));
-    graphComponent.setRowHeaderView(new DocumentRuler(graphComponent, DocumentRuler.ORIENTATION_VERTICAL));
+    swingComponent.setMinimumSize(new Dimension(320, 320));
+    swingComponent.setColumnHeaderView(new DocumentRuler(swingComponent, DocumentRuler.ORIENTATION_HORIZONTAL));
+    swingComponent.setRowHeaderView(new DocumentRuler(swingComponent, DocumentRuler.ORIENTATION_VERTICAL));
     application.setApplicationAction(new ApplicationActionImpl(this));
   }
 
@@ -153,7 +157,12 @@ public class Document extends GraphDocumentImpl implements IApplicationWidget {
   @Override
   public @NotNull mxGraphComponent getSwingComponent()
   {
-    return graphComponent;
+    return swingComponent;
+  }
+
+
+  public void setSwingComponent(GraphComponent swingComponent) {
+    this.swingComponent = swingComponent;
   }
 
 
