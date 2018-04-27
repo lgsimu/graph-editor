@@ -1,7 +1,8 @@
-package com.lgsim.engine.graphEditor.graph;
+package com.lgsim.engine.graphEditor.graph.stencil;
 
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
+import com.lgsim.engine.graphEditor.graph.graph.GraphSupport;
 import com.lgsim.engine.graphEditor.util.ResourceUtil;
 import com.lgsim.engine.graphEditor.util.ui.UIUtil;
 import com.mxgraph.model.mxCell;
@@ -25,10 +26,13 @@ import java.awt.dnd.DragSource;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+@SuppressWarnings("WeakerAccess")
 public class StencilPalette extends JPanel {
+
   private mxEventSource eventSource = new mxEventSource(this);
   private JLabel selectedEntry;
   private int loadStencilCount = 0;
+
 
   public StencilPalette() {
     setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
@@ -47,18 +51,20 @@ public class StencilPalette extends JPanel {
     });
   }
 
-  void setPreferredWidth(int width)
+
+  public void setPreferredWidth(int width)
   {
     int cols = Math.max(1, width / 55);
     setPreferredSize(new Dimension(width, (getComponentCount() * 55 / cols) + 30));
     revalidate();
   }
 
-  void addStencil(@NotNull final IVertexStencil stencil)
+
+  public void addStencil(@NotNull final IVertexStencil stencil)
   {
-    IVertex cellVal = PureCons.createVertex(stencil, false);
+    IVertex cellVal = GraphSupport.createVertex(stencil, false);
     mxCell cell = new mxCell(cellVal, new mxGeometry(0, 0, 64, 64),
-        "icon;image=/" + stencil.getGraphIcon());
+                             "icon;image=/" + stencil.getGraphIcon());
     cell.setVertex(true);
     mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
     final mxGraphTransferable t = new mxGraphTransferable(new Object[]{cell}, bounds);
@@ -89,12 +95,13 @@ public class StencilPalette extends JPanel {
     });
 
     DragGestureListener dragGestureListener = e -> e.startDrag(null, mxSwingConstants.EMPTY_IMAGE,
-        new Point(), t, null);
+                                                               new Point(), t, null);
     DragSource dragSource = new DragSource();
     dragSource.createDefaultDragGestureRecognizer(entry, DnDConstants.ACTION_COPY, dragGestureListener);
     add(entry);
     loadStencilCount += 1;
   }
+
 
   @SuppressWarnings("SameParameterValue")
   private void setSelectionEntry(@Nullable JLabel entry, @Nullable mxGraphTransferable t)
@@ -113,22 +120,25 @@ public class StencilPalette extends JPanel {
     }
 
     eventSource.fireEvent(new mxEventObject(mxEvent.SELECT, "entry", selectedEntry,
-        "transferable", t, "previous", previous));
+                                            "transferable", t, "previous", previous));
   }
 
+
   @SuppressWarnings({"SameParameterValue", "unused"})
-  void addListener(@NotNull String eventName, @NotNull mxIEventListener listener)
+  public void addListener(@NotNull String eventName, @NotNull mxIEventListener listener)
   {
     eventSource.addListener(eventName, listener);
   }
 
+
   @SuppressWarnings("unused")
-  void removeListener(mxIEventListener listener)
+  public void removeListener(mxIEventListener listener)
   {
     eventSource.removeListener(listener);
   }
 
-  int getLoadStencilCount() {
+
+  public int getLoadStencilCount() {
     return loadStencilCount;
   }
 }

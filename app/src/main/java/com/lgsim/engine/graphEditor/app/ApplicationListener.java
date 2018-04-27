@@ -1,6 +1,6 @@
 package com.lgsim.engine.graphEditor.app;
 
-import com.lgsim.engine.graphEditor.graph.ui.ConfirmExitDialog;
+import com.lgsim.engine.graphEditor.app.ui.ConfirmExitDialog;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

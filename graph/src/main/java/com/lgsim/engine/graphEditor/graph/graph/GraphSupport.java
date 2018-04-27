@@ -1,8 +1,11 @@
 package com.lgsim.engine.graphEditor.graph.graph;
 
 import com.lgsim.engine.graphEditor.api.data.IVertex;
+import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
+import com.lgsim.engine.graphEditor.api.data.IVertexOutput;
+import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
-import com.lgsim.engine.graphEditor.graph.IntCounter;
+import com.lgsim.engine.graphEditor.util.CollectionUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxEventSource;
 import org.jetbrains.annotations.Contract;
@@ -12,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -123,5 +127,18 @@ public class GraphSupport {
     } else {
       return vertex.isCavity();
     }
+  }
+
+
+  @Contract(pure = true)
+  public static @NotNull VertexImpl createVertex(@NotNull IVertexStencil stencil, boolean cavity)
+  {
+    String ID = "";
+    String typeID = stencil.getID();
+    List<IVertexArgument> arguments = CollectionUtil.cloneList(stencil.getArguments());
+    List<IVertexOutput> outputs = CollectionUtil.cloneList(stencil.getOutputs());
+    List<IVertex> inputPorts = CollectionUtil.emptyList();
+    List<IVertex> outputPorts = CollectionUtil.emptyList();
+    return new VertexImpl(ID, typeID, arguments, outputs, inputPorts, outputPorts, cavity, ID);
   }
 }

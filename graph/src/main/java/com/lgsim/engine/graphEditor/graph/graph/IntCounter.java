@@ -1,27 +1,26 @@
-package com.lgsim.engine.graphEditor.graph;
+package com.lgsim.engine.graphEditor.graph.graph;
 
 // TODO: thread safe?
-@SuppressWarnings("unused")
-public class IntCounter {
+class IntCounter {
+
   private int count;
 
-  public IntCounter()
-  {
-    this(0);
-  }
 
-  public IntCounter(int count) {
+  IntCounter(int count) {
     this.count = count;
   }
 
-  public void inc()
+
+  void inc()
   {
     if (count != Integer.MAX_VALUE) {
       count += 1;
-    } else {
+    }
+    else {
       throw new RuntimeException("integer counter overflow");
     }
   }
+
 
   public void dec()
   {
@@ -30,7 +29,8 @@ public class IntCounter {
     }
   }
 
-  public int get() {
+
+  int get() {
     return count;
   }
 }
