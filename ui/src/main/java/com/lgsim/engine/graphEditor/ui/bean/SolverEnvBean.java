@@ -13,6 +13,13 @@ public class SolverEnvBean implements Serializable {
   }
 
 
+  public SolverEnvBean(String caseName, String executable, String arguments) {
+    this.caseName = caseName;
+    this.executable = executable;
+    this.arguments = arguments;
+  }
+
+
   public String getCaseName() {
     return caseName;
   }

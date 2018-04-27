@@ -7,13 +7,21 @@ import java.io.File;
 
 public class SolverEnvironment implements ISolverEnvironment {
 
-  private File executableFile;
-  private IGraph graph;
   private String caseName;
+  private File executableFile;
   private String solverCommandlineArguments;
+  private IGraph graph;
 
 
   public SolverEnvironment() {
+  }
+
+
+  public SolverEnvironment(String caseName, File executableFile, String solverCommandlineArguments, IGraph graph) {
+    this.caseName = caseName;
+    this.executableFile = executableFile;
+    this.solverCommandlineArguments = solverCommandlineArguments;
+    this.graph = graph;
   }
 
 
