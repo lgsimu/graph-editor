@@ -13,13 +13,20 @@ import java.awt.*;
 import java.io.*;
 
 public class Solver {
+
     private Process process;
+
     private static Thread thread;
+
     private SolverOutputPanel outputPanel;
+
     private JScrollPane scrollPane;
+
     private JTextArea textArea;
 
+
     public void setAreaText() {
+
         textArea = new JTextArea();
         outputPanel = new SolverOutputPanel();
         scrollPane = new JScrollPane();
@@ -38,7 +45,7 @@ public class Solver {
             IGraph graph = environment.getGraph();
             IGraphCodec codec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
             @NotNull byte[] encode = codec.encode(graph);
-            inputFile = new File(Files.createTempDir(), "case.dat");
+            inputFile = new File(Files.createTempDir(), "case.inp");
             Files.write(encode, inputFile);
 
         } catch (IOException e) {
@@ -61,14 +68,14 @@ public class Solver {
         }
 
         BufferedReader br = null;
-        //setAreaText();//设置需要输出的面板
+        setAreaText();//设置需要输出的面板
         StringBuilder builder = new StringBuilder();
         try {
             br = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
             String line = null;
 
             while ((line = br.readLine()) != null) {
-                // textArea.append(line + "\r\n");
+                 textArea.append(line + "\r\n");
                 builder.append(line + "\r\n");
             }
         } catch (UnsupportedEncodingException e) {

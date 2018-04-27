@@ -29,6 +29,7 @@ public class ImplementationContext {
       graphCodec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
       solver = ImplementationUtil.getInstanceOf(ISolver.class);
       applicationToolbar = ImplementationUtil.getInstanceOf(IApplicationToolbar.class);
+      console = ImplementationUtil.getInstanceOf(IConsole.class);
     }
     catch (InstantiationException e) {
       ExceptionManager.INSTANCE.dealWith(e);

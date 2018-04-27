@@ -22,14 +22,23 @@ import static org.mariuszgromada.math.mxparser.Constant.SYNTAX_ERROR_OR_STATUS_U
 
 
 public class TablePanel extends JPanel {
-    JScrollPane scrollPane;
-    static JTable table;
-    JComboBox comboBoxLen, comboBoxArea, comboBoxPa, comboBoxTem, comboBoxSwirl;
-    List<Unit> unitLen, unitLen2, unitArea, unitPa, unitTem, unitSwirl;
+
+    private JScrollPane scrollPane;
+
+    private static JTable table;
+
+    private JComboBox comboBoxLen, comboBoxArea, comboBoxPa, comboBoxTem, comboBoxSwirl;
+
+    private List<Unit> unitLen, unitLen2, unitArea, unitPa, unitTem, unitSwirl;
+
     private static List<TableCellEditor> editors = new ArrayList<>();
+
     private static List<TableCellEditor> editor2 = new ArrayList<>();
-    static DefaultTableModel model = new DefaultTableModel();
+
+    private static DefaultTableModel model = new DefaultTableModel();
+
     private List<Vector> vectorList = new Vector<>();
+
 
     /**
      * 单位转换
@@ -38,13 +47,16 @@ public class TablePanel extends JPanel {
      * @param str
      */
     public void calculate(Unit unit, String str) {
-        double num = 0;
+
+        double num;
+
         try {
             num = Double.parseDouble(str);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "请检查输入的值!");
             return;
         }
+
         Double number = num / unit.getUnitRate();
         table.setValueAt(number.toString(), table.getSelectedRow(), table.getSelectedColumn() - 1);
     }
@@ -159,15 +171,24 @@ public class TablePanel extends JPanel {
         }
     }
 
+    /**
+     * 设置文本框事件
+     *
+     * @param rowContent
+     * @return
+     */
     public JTextField setTextListener(IVertexArgument rowContent) {
+
         JTextField textField = new JTextField();
         textField.addFocusListener(new FocusListener() {
+
             @Override
             public void focusGained(FocusEvent e) {
             }
 
             @Override
             public void focusLost(FocusEvent e) {
+
                 if (!isNumber(textField.getText())) {
                     JOptionPane.showMessageDialog(null, "请输入数字!");
                 } else {
@@ -178,8 +199,10 @@ public class TablePanel extends JPanel {
 
         DefaultCellEditor cellEditor2 = new DefaultCellEditor(textField);
         editor2.add(cellEditor2);
+
         return textField;
     }
+
 
     public Unit[] setComboBoxArray(List<Unit> list) {
         Object[] arrayObject = list.toArray();
