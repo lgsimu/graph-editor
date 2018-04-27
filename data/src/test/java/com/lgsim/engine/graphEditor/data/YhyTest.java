@@ -23,7 +23,7 @@ public class YhyTest {
 
         String pathOut = "com/lgsim/engine/graphEditor/data/simpleCase.out";
         String pathInt = "C:\\Users\\admin\\Desktop\\test\\simpleCase.out";
-        list1 = rj.readJson(pathOut);
+//        list1 = rj.readJson(pathOut);
         //wr.writeJson(list,pathInt);
         //System.out.println(element.getPredefinedStencils().get(0).getArguments());
         System.out.println("------------------------------------");
