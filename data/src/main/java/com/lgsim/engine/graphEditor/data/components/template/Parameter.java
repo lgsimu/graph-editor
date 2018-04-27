@@ -122,7 +122,7 @@ public class Parameter implements IVertexArgument,IVertexOutput {
 
     @Override
     public void setValue(double value) {
-
+        this.parameterValue = value;
     }
 
     @Override
