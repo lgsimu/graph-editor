@@ -1,5 +1,7 @@
 package com.lgsim.engine.graphEditor.data.components.util.chart;
 
+import net.sf.json.JSONObject;
+import org.apache.commons.io.IOUtils;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -8,10 +10,25 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 public class LineChartTest {
     public static void main(String[] args) throws Exception {
+
+        String path = "com/lgsim/engine/graphEditor/data/test/dataset.json";
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+        String jsonstr = null;
+        try {
+            jsonstr = IOUtils.toString(is);
+        }catch (IOException e) {
+            e.getStackTrace();
+        }
+        //String jstr = jsonstr.toLowerCase();
+
+        JSONObject jsonObject = JSONObject.fromObject(jsonstr);
+
+
         //设置数据集
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         //setValue(y轴的值,"线条的分类","x轴的值")

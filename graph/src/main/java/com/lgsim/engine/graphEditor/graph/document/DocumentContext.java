@@ -2,16 +2,18 @@ package com.lgsim.engine.graphEditor.graph.document;
 
 import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.IApplication;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
+import com.lgsim.engine.graphEditor.api.graph.IDocument;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import com.lgsim.engine.graphEditor.util.JarUtil;
 import com.lgsim.engine.graphEditor.util.StringUtil;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.function.BiPredicate;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
@@ -21,34 +23,47 @@ public class DocumentContext {
   private static final Logger log = LoggerFactory.getLogger(DocumentContext.class);
   private IApplication application;
   private Configuration configuration;
-  private File temp;
 
 
   public DocumentContext(@NotNull IApplication application) {
     this.application = application;
     this.configuration = application.getConfiguration();
-    this.temp = configuration.getTempDirectory();
   }
 
 
   public void put(@NotNull Document document) throws IOException {
-    byte[] data = DocumentCodec.encode(document);
-    File entryFile = new File(document.getEntryFilePath());
-    if (entryFile.exists()) {
+    File entry = new File(document.getEntryFilePath());
+    if (entry.exists()) {
       updateDocumentJarFile(document);
     }
     else {
-      createDocumentJarFile(document, temp);
-      Files.write(data, entryFile);
+      createDocumentJarFile(document, entry);
     }
   }
 
 
-  private void createDocumentJarFile(@NotNull IGraphDocument document, @NotNull File entry) throws IOException
+  @Contract(pure = true)
+  private void createDocumentJarFile(@NotNull Document document, @NotNull File entry) throws IOException
   {
+    BiPredicate<File, File> isParent = (dir, file) -> false;
     log.debug("create document jar file {}", StringUtil.getName(entry));
+    File tempDir = Files.createTempDir();
+    File docDir = new File(tempDir, "document");
+    if (!docDir.exists()) {
+      if (docDir.mkdir()) {
+        log.debug("make directory {}", docDir);
+      }
+    }
+    File doc = new File(docDir, "document.xml");
+    byte[] data = DocumentCodec.encode(document);
+    Files.write(data, doc);
     Manifest manifestFile = createManifest();
-    JarUtil.pack(temp, entry, manifestFile);
+    if (!isParent.test(docDir, entry)) {
+      JarUtil.pack(docDir, entry, manifestFile);
+    }
+    else {
+      log.error("jar file is under it's archive directory, hence it will not be created");
+    }
   }
 
 
@@ -62,7 +77,7 @@ public class DocumentContext {
   }
 
 
-  private void updateDocumentJarFile(@NotNull IGraphDocument document)
+  private void updateDocumentJarFile(@NotNull IDocument document)
   {
     log.debug("update document jar file, {}", document);
   }

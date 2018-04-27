@@ -4,7 +4,7 @@
     <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${user.home}/.LgsimAirDiagram1.0/log.txt</file>
+        <file>${user.home}/.LGSimulatorGraphEditor1.0/log.txt</file>
         <append>true</append>
         <encoder>
             <pattern>%date %-5level %logger{35} - %msg%n</pattern>
