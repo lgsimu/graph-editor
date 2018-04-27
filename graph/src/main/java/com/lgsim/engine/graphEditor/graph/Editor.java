@@ -79,11 +79,13 @@ public class Editor extends JPanel implements IEditor {
     westPane.setContinuousLayout(true);
     centerPane.setContinuousLayout(true);
     eastPane.setContinuousLayout(true);
+    consoleDocPane.setContinuousLayout(true);
 
-    final int defaultDividerSize = 1;
-    westPane.setDividerSize(defaultDividerSize);
-    centerPane.setDividerSize(defaultDividerSize);
-    eastPane.setDividerSize(defaultDividerSize);
+    final int dividerSize = 1;
+    westPane.setDividerSize(dividerSize);
+    centerPane.setDividerSize(dividerSize);
+    eastPane.setDividerSize(dividerSize);
+    consoleDocPane.setDividerSize(dividerSize);
 
     westPane.setBorder(null);
     centerPane.setBorder(null);
