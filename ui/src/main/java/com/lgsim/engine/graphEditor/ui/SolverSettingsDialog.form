@@ -36,7 +36,7 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="OK"/>
+                  <text resource-bundle="com/lgsim/engine/graphEditor/ui/ui" key="base.ok"/>
                 </properties>
               </component>
               <component id="5723f" class="javax.swing.JButton" binding="buttonCancel">
@@ -46,7 +46,7 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="Cancel"/>
+                  <text resource-bundle="com/lgsim/engine/graphEditor/ui/ui" key="application.exitConfirm.cancel"/>
                 </properties>
               </component>
             </children>

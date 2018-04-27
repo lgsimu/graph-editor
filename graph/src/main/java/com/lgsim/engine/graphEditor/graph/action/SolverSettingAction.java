@@ -35,18 +35,22 @@ public class SolverSettingAction extends SolverAction {
   {
     log.debug("perform setting action");
     SolverSettingsDialog dialog = new SolverSettingsDialog(this::consumeUserInput);
-    Consumer<SolverEnvBean> loadBeanConsumer = dialog.dialogOutput();
+    Consumer<SolverEnvBean> dialogInput = dialog.dialogInput();
     try {
       SolverEnvBean bean = loadSettings();
       if (bean != null) {
-        loadBeanConsumer.accept(bean);
+        consumeUserInput(bean);
+        dialogInput.accept(bean);
+        dialog.dispose();
+      }
+      else {
+        dialog.pack();
+        dialog.setVisible(true);
       }
     }
     catch (IOException e) {
       log.debug("{}", e);
     }
-    dialog.pack();
-    dialog.setVisible(true);
   }
 
 

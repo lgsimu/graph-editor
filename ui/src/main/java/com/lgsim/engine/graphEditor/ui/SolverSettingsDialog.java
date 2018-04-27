@@ -59,7 +59,7 @@ public class SolverSettingsDialog extends JDialog {
   }
 
 
-  public Consumer<SolverEnvBean> dialogOutput() {
+  public Consumer<SolverEnvBean> dialogInput() {
     return (bean) -> {
       textFieldExecutable.setText(bean.getExecutable());
       textFieldArguments.setText(bean.getArguments());
