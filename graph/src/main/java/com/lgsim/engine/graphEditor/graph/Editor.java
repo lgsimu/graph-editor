@@ -30,20 +30,18 @@ import java.util.function.BiConsumer;
 public class Editor extends JPanel implements IEditor {
 
   private static final Logger log = LoggerFactory.getLogger(Editor.class);
-  private final IApplication application;
-  private final mxGraphOutline graphOutline = new mxGraphOutline(null);
-  private final JTabbedPane libraryPane = new JTabbedPane();
-  private final IVertexTable vertexTable = ImplementationContext.INSTANCE.getVertexTable();
-  private final JTabbedPane docTabbedPane = new JTabbedPane();
-  private final JSplitPane westPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, libraryPane, graphOutline);
-  private final JSplitPane centerPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, westPane, docTabbedPane);
-  private final JSplitPane eastPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPane, vertexTable.getSwingComponent());
-  private final StencilPalette predefinedPalette = StencilSupport.createStencilPalette();
-  private final StencilPalette userDefinedPalette = StencilSupport.createStencilPalette();
+
+  private IApplication application;
+  private DocumentContext documentContext;
   private List<Document> documents = new Vector<>();
-  private transient int currentDocumentIndex;
-  private transient DocumentContext documentContext;
-  private IApplicationToolbar applicationToolbar = ImplementationContext.INSTANCE.getApplicationToolbar();
+  private int currentDocumentIndex;
+
+  private mxGraphOutline graphOutline;
+  private JTabbedPane libraryPane;
+  private IVertexTable vertexTable;
+  private JTabbedPane docTabbedPane;
+  private StencilPalette predefinedPalette;
+  private StencilPalette userDefinedPalette;
 
 
   public Editor(@NotNull IApplication application)
@@ -58,11 +56,22 @@ public class Editor extends JPanel implements IEditor {
 
   private void initUIComponents()
   {
+    setLayout(new BorderLayout());
+
+    graphOutline = new mxGraphOutline(null);
+    libraryPane = new JTabbedPane();
+    vertexTable = ImplementationContext.INSTANCE.getVertexTable();
+    docTabbedPane = new JTabbedPane();
+    JSplitPane westPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, libraryPane, graphOutline);
+    JSplitPane centerPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, westPane, docTabbedPane);
+    JSplitPane eastPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPane, vertexTable.getSwingComponent());
+    predefinedPalette = StencilSupport.createStencilPalette();
+    userDefinedPalette = StencilSupport.createStencilPalette();
+    IApplicationToolbar applicationToolbar = ImplementationContext.INSTANCE.getApplicationToolbar();
+
     JToolBar toolbar = applicationToolbar.getSwingComponent();
     toolbar.setOrientation(JToolBar.HORIZONTAL);
     add(toolbar, BorderLayout.NORTH);
-
-    setLayout(new BorderLayout());
 
     westPane.setContinuousLayout(true);
     centerPane.setContinuousLayout(true);
