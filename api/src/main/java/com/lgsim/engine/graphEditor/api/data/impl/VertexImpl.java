@@ -157,7 +157,17 @@ public class VertexImpl implements IVertex {
   @NotNull
   @Override
   public String getDisplayName() {
-    return displayName;
+    if (displayName != null) {
+      return displayName;
+    }
+    else {
+      if (ID != null) {
+        return ID;
+      }
+      else {
+        return StringUtil.emptyString();
+      }
+    }
   }
 
 
