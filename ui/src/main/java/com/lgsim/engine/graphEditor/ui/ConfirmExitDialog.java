@@ -1,4 +1,4 @@
-package com.lgsim.engine.graphEditor.app.ui;
+package com.lgsim.engine.graphEditor.ui;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;

@@ -12,6 +12,7 @@ buildscript {
 apply plugin: 'com.github.johnrengelman.shadow'
 
 dependencies {
+    compile files("${rootDir}/lib/darcula.jar")
     compile project(':graph')
 }
 
