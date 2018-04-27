@@ -1,6 +1,7 @@
 package com.lgsim.engine.graphEditor.ui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class SolverSettingsDialog extends JDialog {
@@ -8,12 +9,14 @@ public class SolverSettingsDialog extends JDialog {
   private JPanel contentPane;
   private JButton buttonOK;
   private JButton buttonCancel;
-  private JTextField textField1;
-  private JTextField textField2;
+  private JTextField executablePathComp;
+  private JTextField argumentsComp;
   private JButton button1;
 
 
   public SolverSettingsDialog() {
+    setMinimumSize(new Dimension(400, 180));
+    setResizable(false);
     setContentPane(contentPane);
     setModal(true);
     getRootPane().setDefaultButton(buttonOK);
