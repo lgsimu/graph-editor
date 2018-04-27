@@ -148,7 +148,7 @@ public class Graph extends mxGraph implements IGraph {
 
 
   @Override
-  public Collection<IVertex> getAllVertexes()
+  public @NotNull Collection<IVertex> getVertexes()
   {
     final Object defaultParent = getDefaultParent();
     final Object[] vertices = getChildVertices(defaultParent);

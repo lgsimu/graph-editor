@@ -96,7 +96,7 @@ public class DocumentSupport {
 
   private static @Nullable IVertex lookupPeerVertex(@NotNull IVertex vertex, @NotNull IGraph graph)
   {
-    Collection<IVertex> vertexes = graph.getAllVertexes();
+    Collection<IVertex> vertexes = graph.getVertexes();
     for (IVertex v : vertexes) {
       if (v.getID().equals(vertex.getID())) {
         return v;

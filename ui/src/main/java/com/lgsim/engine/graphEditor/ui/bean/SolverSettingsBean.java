@@ -1,19 +1,22 @@
 package com.lgsim.engine.graphEditor.ui.bean;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 
-public class SolverEnvBean implements Serializable {
+@SuppressWarnings("unused")
+public class SolverSettingsBean implements Serializable {
 
   private String caseName;
   private String executable;
   private String arguments;
 
 
-  public SolverEnvBean() {
+  public SolverSettingsBean() {
   }
 
 
-  public SolverEnvBean(String caseName, String executable, String arguments) {
+  public SolverSettingsBean(@NotNull String caseName, @NotNull String executable, @NotNull String arguments) {
     this.caseName = caseName;
     this.executable = executable;
     this.arguments = arguments;

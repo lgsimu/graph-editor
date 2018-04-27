@@ -4,7 +4,7 @@ import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.calc.SolverEnvironment;
 import com.lgsim.engine.graphEditor.graph.document.Document;
 import com.lgsim.engine.graphEditor.ui.SolverSettingsDialog;
-import com.lgsim.engine.graphEditor.ui.bean.SolverEnvBean;
+import com.lgsim.engine.graphEditor.ui.bean.SolverSettingsBean;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import org.apache.commons.lang.SerializationUtils;
 import org.jetbrains.annotations.NotNull;
@@ -17,13 +17,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-@SuppressWarnings("WeakerAccess")
 public class SolverSettingAction extends SolverAction {
 
   private static final Logger log = LoggerFactory.getLogger("graph.action.SolverSettingAction");
   private Configuration configuration;
 
 
+  @SuppressWarnings("WeakerAccess")
   public SolverSettingAction(@NotNull Document document) {
     super(document);
     configuration = document.getApplication().getConfiguration();
@@ -34,12 +34,12 @@ public class SolverSettingAction extends SolverAction {
   public void actionPerformed(ActionEvent event)
   {
     log.debug("perform setting action");
-    SolverSettingsDialog dialog = new SolverSettingsDialog(this::consumeUserInput);
-    Consumer<SolverEnvBean> dialogInput = dialog.dialogInput();
+    SolverSettingsDialog dialog = new SolverSettingsDialog(this::consumeSettings);
+    Consumer<SolverSettingsBean> dialogInput = dialog.dialogInput();
     try {
-      SolverEnvBean bean = loadSettings();
+      SolverSettingsBean bean = loadSettings();
       if (bean != null) {
-        consumeUserInput(bean);
+        consumeSettings(bean);
         dialogInput.accept(bean);
         dialog.dispose();
       }
@@ -54,7 +54,7 @@ public class SolverSettingAction extends SolverAction {
   }
 
 
-  private void consumeUserInput(@NotNull SolverEnvBean bean) {
+  private void consumeSettings(@NotNull SolverSettingsBean bean) {
     try {
       bean.setCaseName(document.getTitle());
       SolverEnvironment env = new SolverEnvironment(bean.getCaseName(), new File(bean.getExecutable()),
@@ -68,20 +68,20 @@ public class SolverSettingAction extends SolverAction {
   }
 
 
-  private void saveSettings(@NotNull SolverEnvBean bean) throws IOException {
+  private void saveSettings(@NotNull SolverSettingsBean bean) throws IOException {
     File file = getSettingsFile();
     byte[] bytes = SerializationUtils.serialize(bean);
     Files.write(bytes, file);
   }
 
 
-  private @Nullable SolverEnvBean loadSettings() throws IOException {
+  private @Nullable SolverSettingsBean loadSettings() throws IOException {
     File file = getSettingsFile();
     if (file.exists()) {
       byte[] bytes = Files.toByteArray(file);
       Object o = SerializationUtils.deserialize(bytes);
-      if (o instanceof SolverEnvBean) {
-        return (SolverEnvBean) o;
+      if (o instanceof SolverSettingsBean) {
+        return (SolverSettingsBean) o;
       }
     }
     return null;

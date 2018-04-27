@@ -19,7 +19,7 @@ public class GraphCodecImpl implements IGraphCalcCodec
 
       Collection<IVertex> list = new ArrayList<>();
 
-      list = graph.getAllVertexes();
+    list = graph.getVertexes();
       String path = "C:\\Users\\admin\\Desktop\\test\\simpleCase.inp";
 
       WriteJson wj = new WriteJson();

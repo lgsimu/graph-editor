@@ -11,7 +11,7 @@ public class IGraphImpl implements IGraph {
     private Collection<IVertex> allVertexes;
 
     @Override
-    public Collection<IVertex> getAllVertexes() {
+    public @NotNull Collection<IVertex> getVertexes() {
         return allVertexes;
     }
 

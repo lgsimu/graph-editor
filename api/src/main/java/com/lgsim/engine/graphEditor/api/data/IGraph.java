@@ -8,9 +8,10 @@ import java.util.Collection;
 public interface IGraph extends Serializable {
 
   /**
-   * 获取图中所有的节点
+   * 获取图中的节点
+   * @return 图中的节点
    */
-  Collection<IVertex> getAllVertexes();
+  @NotNull Collection<IVertex> getVertexes();
 
 
   /**

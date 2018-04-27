@@ -1,6 +1,6 @@
 package com.lgsim.engine.graphEditor.ui;
 
-import com.lgsim.engine.graphEditor.ui.bean.SolverEnvBean;
+import com.lgsim.engine.graphEditor.ui.bean.SolverSettingsBean;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -21,11 +21,11 @@ public class SolverSettingsDialog extends JDialog {
   @SuppressWarnings("unused")
   private JButton buttonChooseExecutable;
 
-  private Consumer<SolverEnvBean> userInputConsumer;
+  private Consumer<SolverSettingsBean> consumeSettings;
 
 
-  public SolverSettingsDialog(@NotNull Consumer<SolverEnvBean> userInputConsumer) {
-    this.userInputConsumer = userInputConsumer;
+  public SolverSettingsDialog(@NotNull Consumer<SolverSettingsBean> consumeSettings) {
+    this.consumeSettings = consumeSettings;
 
     setMinimumSize(new Dimension(400, 180));
     setResizable(false);
@@ -33,7 +33,7 @@ public class SolverSettingsDialog extends JDialog {
     setModal(true);
     getRootPane().setDefaultButton(buttonOK);
 
-    buttonOK.addActionListener(e -> userInput());
+    buttonOK.addActionListener(e -> commitSettings());
 
     buttonCancel.addActionListener(e -> onCancel());
 
@@ -49,17 +49,17 @@ public class SolverSettingsDialog extends JDialog {
   }
 
 
-  private void userInput() {
+  private void commitSettings() {
+    String caseName = UISupport.getText(textFieldCaseName);
     String executable = UISupport.getText(textFieldExecutable);
     String arguments = UISupport.getText(textFieldArguments);
-    String caseName = UISupport.getText(textFieldCaseName);
-    SolverEnvBean bean = new SolverEnvBean(caseName, executable, arguments);
+    SolverSettingsBean bean = new SolverSettingsBean(caseName, executable, arguments);
     dispose();
-    userInputConsumer.accept(bean);
+    consumeSettings.accept(bean);
   }
 
 
-  public Consumer<SolverEnvBean> dialogInput() {
+  public Consumer<SolverSettingsBean> dialogInput() {
     return (bean) -> {
       textFieldExecutable.setText(bean.getExecutable());
       textFieldArguments.setText(bean.getArguments());
