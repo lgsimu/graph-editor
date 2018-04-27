@@ -4,6 +4,7 @@ import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public interface IApplication {
@@ -61,7 +62,7 @@ public interface IApplication {
    *
    * @return 求解器执行环境
    */
-  @NotNull ISolverEnvironment getSolverEnvironment();
+  @Nullable ISolverEnvironment getSolverEnvironment();
 
 
   /**

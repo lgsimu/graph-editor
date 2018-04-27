@@ -26,17 +26,31 @@ public class SolverCalcAction extends SolverAction {
   @Override
   public void actionPerformed(ActionEvent evt)
   {
-    log.debug("perform solver calc action");
     ISolver solver = ImplementationContext.INSTANCE.getSolver();
-    try {
+    if (document != null) {
       ISolverEnvironment env = document.getApplication().getSolverEnvironment();
-      IGraph graph = solver.calc(env);
-      if (document != null) {
-        document.setGraph(graph);
+      if (env != null) {
+        try {
+          IGraph graph = solver.calc(env);
+          document.setGraph(graph);
+          log.debug("The calc task has finished, update graph model");
+        }
+        catch (CalcException e) {
+          ExceptionManager.INSTANCE.dealWith(e);
+        }
+      }
+      else {
+        performCalcSettingAction(evt);
       }
     }
-    catch (CalcException e) {
-      ExceptionManager.INSTANCE.dealWith(e);
+    else {
+      log.debug("cannot calc without any documents");
     }
+  }
+
+
+  private void performCalcSettingAction(@NotNull ActionEvent evt) {
+    ActionEvent actionEvent = ActionSupport.createActionEvent(document.getSwingComponent(), evt);
+    document.getApplication().getApplicationAction().getSolverSettingAction().actionPerformed(actionEvent);
   }
 }

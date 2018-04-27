@@ -11,6 +11,7 @@ import com.lgsim.engine.graphEditor.util.ExceptionManager;
 import com.mxgraph.swing.util.mxSwingConstants;
 import com.mxgraph.util.mxConstants;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -103,7 +104,7 @@ public class Application implements IApplication {
 
 
   @Override
-  public @NotNull ISolverEnvironment getSolverEnvironment() {
+  public @Nullable ISolverEnvironment getSolverEnvironment() {
     return solverEnvironment;
   }
 
