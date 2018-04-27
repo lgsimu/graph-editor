@@ -5,6 +5,7 @@ import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.graph.Editor;
+import com.lgsim.engine.graphEditor.graph.graph.Graph;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.mxGraphComponent;
@@ -73,7 +74,7 @@ public class DocumentSupport {
             log.debug("select cell {} value is {}", cell, cell.getValue());
             if (cell.getValue() instanceof IVertex) {
               IVertex vertex = (IVertex) cell.getValue();
-              final IGraph graph = document.getGraph();
+              Graph graph = (Graph) document.getGraph();
               IVertex peer = lookupPeerVertex(vertex, graph);
               if (peer != null) {
                 vertex.setOutputs(peer.getOutputs());
