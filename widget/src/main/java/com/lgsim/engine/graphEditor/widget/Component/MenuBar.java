@@ -351,8 +351,8 @@ public class MenuBar extends JMenuBar {
         JMenuItem start = createMenuItem("calc.start", action.getSolverCalcAction(), "calc.start");
         JMenuItem argument = createMenuItem("calc.argument", null, "calc.argument");
         JMenuItem trend = createMenuItem("calc.show.trend", null, "calc.show.trend");
-
-        List<JMenuItem> actionList = Arrays.asList(start, argument, trend);
+        JMenuItem setting = createMenuItem("calc.setting",action.getSolverSettingAction(),"calc.setting");
+        List<JMenuItem> actionList = Arrays.asList(start, argument, trend, setting);
 
         addMenuItem(actionList, doc, null, null);
         add(doc);
