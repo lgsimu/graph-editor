@@ -100,7 +100,30 @@ public class Element implements IStencilContext {
     @Override
     public @NotNull List<IVertexStencil> getUserDefinedStencils() {
 
+        /*IGraph iGraph = new Graph();
+        Collection<IVertex> list = new ArrayList<>();
+        list = iGraph.getAllVertexes();
 
+        for (Object objectCom : list) {
+
+            List<IVertexArgument> arguments = new ArrayList<>();
+
+            for (Object objectPar : arguments) {
+                Parameter parameter = new Parameter();
+
+                parameter.setParameterName(objectCom);
+                parameter.setParameterValue(objectCom);
+                parameter.setParameterUnitID(objectCom);
+                parameter.setParameterDescription(objectCom);
+            }
+
+            Component component = new Component();
+            component.setComponentName(objectCom);
+            component.setComponentTemplateName(objectCom);
+            component.setTypeID(objectCom);
+            component.setArguments(objectCom);
+            component.setArmnodes(objectCom);
+        }*/
 
         return new ArrayList<IVertexStencil>();
     }
