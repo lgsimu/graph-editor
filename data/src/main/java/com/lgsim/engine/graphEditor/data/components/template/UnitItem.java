@@ -65,5 +65,10 @@ public class UnitItem implements IUnit {
         return new ArrayList<IUnit>();
     }
 
-
+    @Override
+    public String toString() {
+        return "UnitItem{" +
+                "symbol='" + symbol + '\'' +
+                '}';
+    }
 }
