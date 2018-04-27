@@ -380,7 +380,7 @@ public class MenuBar extends JMenuBar {
         JMenu doc = new JMenu(ActionBundle.get("coup.calc.name"));
 
         JMenuItem source = createMenuItem("coup.calc.source", null, "coup.calc.source");
-        JMenuItem solve = createMenuItem("coup.calc.solve", null, "coup.calc.solve");
+        JMenuItem solve = createMenuItem("coup.calc.solve", action.getSolverCalcAction(), "coup.calc.solve");
 
         List<JMenuItem> actionList = Arrays.asList(source, solve);
 
