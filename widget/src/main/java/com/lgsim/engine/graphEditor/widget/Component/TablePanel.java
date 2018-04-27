@@ -9,6 +9,7 @@ import org.mariuszgromada.math.mxparser.Expression;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
+import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
@@ -28,6 +29,7 @@ public class TablePanel extends JPanel {
     private static List<TableCellEditor> editors = new ArrayList<>();
     private static List<TableCellEditor> editor2 = new ArrayList<>();
     static DefaultTableModel model = new DefaultTableModel();
+    private List<Vector> vectorList = new Vector<>();
 
     /**
      * 单位转换
@@ -112,20 +114,24 @@ public class TablePanel extends JPanel {
     /**
      * 设置表格显示的内容
      *
-     * @param vector
+     * @param
      * @param rowContent
      * @param
      */
-    public Vector setTableContent(Vector vector, IVertexArgument rowContent) {
+    public void setTableContent(IVertexArgument rowContent) {
+
+        Vector vector = new Vector();
 
         vector.add(rowContent.getID());
         vector.add(rowContent.getValue());
         vector.add(rowContent.getUnit());
         vector.add(rowContent.getDescription());
+
+        vectorList.add(vector);
+
         JTextField textField = setTextListener(rowContent);
         setComboBoxCell(rowContent, textField);
 
-        return vector;
     }
 
     public void createComboBox(JComboBox comboBox) {
@@ -218,21 +224,25 @@ public class TablePanel extends JPanel {
     public void showTable(IVertex vertex) {
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
-        Vector vector = new Vector();
-
-
-
         for (IVertexArgument rowContent : vertex.getArguments()) {
-            model.addRow(setTableContent(vector, rowContent));
-            shows(model);
+            setTableContent(rowContent);
         }
+        for (Vector vector1 : vectorList) {
+            model.addRow(vector1);
+        }
+        vectorList.clear();
+        shows(model);
     }
 
     public TablePanel() {
+
+        Dimension dimension = this.getSize();
         String[] columns = {"名称", "值", "单位", "说明"};
         model.setColumnIdentifiers(columns);
         shows(model);
+        this.setSize(dimension);
         scrollPane = new JScrollPane(table);
         this.add(scrollPane);
+        this.setVisible(true);
     }
 }
