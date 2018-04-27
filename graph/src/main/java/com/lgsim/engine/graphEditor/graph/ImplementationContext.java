@@ -4,6 +4,7 @@ import com.lgsim.engine.graphEditor.api.calc.ISolver;
 import com.lgsim.engine.graphEditor.api.data.IGraphCodec;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.widget.IApplicationToolbar;
+import com.lgsim.engine.graphEditor.api.widget.console.IConsole;
 import com.lgsim.engine.graphEditor.api.widget.table.IVertexTable;
 import com.lgsim.engine.graphEditor.util.ExceptionManager;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
@@ -17,6 +18,7 @@ public class ImplementationContext {
   private IGraphCodec graphCodec;
   private ISolver solver;
   private IApplicationToolbar applicationToolbar;
+  private IConsole console;
 
 
   private ImplementationContext()
@@ -62,5 +64,10 @@ public class ImplementationContext {
 
   public IApplicationToolbar getApplicationToolbar() {
     return applicationToolbar;
+  }
+
+
+  public IConsole getConsole() {
+    return console;
   }
 }

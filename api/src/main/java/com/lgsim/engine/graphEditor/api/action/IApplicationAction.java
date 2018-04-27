@@ -80,14 +80,6 @@ public interface IApplicationAction {
 
 
   /**
-   * 计算配置
-   *
-   * @return 动作
-   */
-  @NotNull Action getSolverSettingsAction();
-
-
-  /**
    * 弹出菜单  标准  动作
    *
    * @return
