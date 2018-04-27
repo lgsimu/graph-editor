@@ -40,6 +40,17 @@ public class Configuration {
   }
 
 
+  private @NotNull String getSolverDirectory0() {
+    String dir = getWorkingDirectory0();
+    return Paths.get(dir, "calcEnv").toString();
+  }
+
+
+  public File getSolverDirectory() {
+    return new File(getSolverDirectory0());
+  }
+
+
   private String getLogFile()
   {
     return Paths.get(getWorkingDirectory0(), "log.txt").toString();
@@ -50,7 +61,8 @@ public class Configuration {
   {
     String[] directories = new String[]{
         getWorkingDirectory0(),
-        getTempDirectory0()
+        getTempDirectory0(),
+        getSolverDirectory0()
     };
     for (String it : directories) {
       touchDirectoryIfAbsent(it);
