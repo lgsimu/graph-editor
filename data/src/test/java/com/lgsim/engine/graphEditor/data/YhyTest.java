@@ -23,7 +23,7 @@ public class YhyTest {
         String pathInt = "com/lgsim/engine/graphEditor/data/simpleCase.inp";
 
         wr.writeJson(list,pathOut);
-        //System.out.println(element.getPredefinedStencils().get(0));
+        System.out.println(element.getPredefinedStencils().get(0).getArguments());
         System.out.println("------------------------------------");
         //System.out.println(element.getPredefinedStencils().get(0).getArguments().get(2).getDescription());
         System.out.println("------------------------------------");
