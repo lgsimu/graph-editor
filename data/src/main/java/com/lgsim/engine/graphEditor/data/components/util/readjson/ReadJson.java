@@ -44,86 +44,139 @@ public class ReadJson {
                 JSONObject res = JSONObject.fromObject(results.getJSONObject(j));
 
                 ArrayList<IVertexOutput> parameters = new ArrayList<>();
-                Parameter parameter = new Parameter();
 
                 if(res.containsKey("AA1")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("AA1"));
+                    parameter.setParameterName("AA1");
+                    parameter.setParameterDescription("端口1面积");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("AA2")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("AA2"));
+                    parameter.setParameterName("AA2");
+                    parameter.setParameterDescription("端口2面积");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("M1")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("M1"));
+                    parameter.setParameterName("M1");
+                    parameter.setParameterDescription("端口1质量流量");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("M2")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("M2"));
+                    parameter.setParameterName("M2");
+                    parameter.setParameterDescription("端口2质量流量");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("TP1")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("TP1"));
+                    parameter.setParameterName("TP1");
+                    parameter.setParameterDescription("端口1总压");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("TP2")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("TP2"));
+                    parameter.setParameterName("TP2");
+                    parameter.setParameterDescription("端口2总压");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("TT1")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("TT1"));
+                    parameter.setParameterName("TT1");
+                    parameter.setParameterDescription("端口1总温");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("TT2")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("TT2"));
+                    parameter.setParameterName("TT2");
+                    parameter.setParameterDescription("端口2总温");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("SP1")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("SP1"));
+                    parameter.setParameterName("SP1");
+                    parameter.setParameterDescription("端口1静压");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("SP2")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("SP2"));
+                    parameter.setParameterName("SP2");
+                    parameter.setParameterDescription("端口2静压");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("ST1")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("ST1"));
+                    parameter.setParameterName("ST1");
+                    parameter.setParameterDescription("端口1静温");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("ST2")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("ST2"));
+                    parameter.setParameterName("ST2");
+                    parameter.setParameterDescription("端口2静温");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("MA1")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("MA1"));
+                    parameter.setParameterName("MA1");
+                    parameter.setParameterDescription("端口1马赫数");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("MA2")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("MA2"));
+                    parameter.setParameterName("MA2");
+                    parameter.setParameterDescription("端口2马赫数");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("V1")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("V1"));
+                    parameter.setParameterName("V1");
+                    parameter.setParameterDescription("端口1速度");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("V2")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("V2"));
+                    parameter.setParameterName("V2");
+                    parameter.setParameterDescription("端口2速度");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("DEN1")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("DEN1"));
+                    parameter.setParameterName("DEN1");
+                    parameter.setParameterDescription("端口1密度");
                     parameters.add(parameter);
                 }
                 if(res.containsKey("DEN2")) {
+                    Parameter parameter = new Parameter();
                     parameter.setParameterValue(res.getDouble("DEN2"));
+                    parameter.setParameterName("DEN2");
+                    parameter.setParameterDescription("端口2密度");
                     parameters.add(parameter);
                 }
 
                 component.setOutputs(parameters);
-            }
+                component.setComponentName(com.getString("Name"));
+                component.setComponentType(com.getString("Type"));
 
-            component.setComponentName(com.getString("Name"));
-            component.setComponentType(com.getString("Type"));
+            }
 
             list.add(component);
         }
