@@ -23,13 +23,11 @@ public class DocumentContext {
   private static final Logger log = LoggerFactory.getLogger(DocumentContext.class);
   private IApplication application;
   private Configuration configuration;
-  private File temp;
 
 
   public DocumentContext(@NotNull IApplication application) {
     this.application = application;
     this.configuration = application.getConfiguration();
-    this.temp = configuration.getTempDirectory();
   }
 
 
@@ -50,12 +48,18 @@ public class DocumentContext {
     BiPredicate<File, File> isParent = (dir, file) -> false;
     log.debug("create document jar file {}", StringUtil.getName(entry));
     File tempDir = Files.createTempDir();
-    File doc = new File(tempDir, "document.xml");
+    File docDir = new File(tempDir, "document");
+    if (!docDir.exists()) {
+      if (docDir.mkdir()) {
+        log.debug("make directory {}", docDir);
+      }
+    }
+    File doc = new File(docDir, "document.xml");
     byte[] data = DocumentCodec.encode(document);
     Files.write(data, doc);
     Manifest manifestFile = createManifest();
-    if (!isParent.test(tempDir, entry)) {
-      JarUtil.pack(tempDir, entry, manifestFile);
+    if (!isParent.test(docDir, entry)) {
+      JarUtil.pack(docDir, entry, manifestFile);
     }
     else {
       log.error("jar file is under it's archive directory, hence it will not be created");
