@@ -3,8 +3,6 @@ package com.lgsim.engine.graphEditor.graph.graph;
 import com.lgsim.engine.graphEditor.api.data.*;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
-import com.lgsim.engine.graphEditor.graph.IntCounter;
-import com.lgsim.engine.graphEditor.graph.PureCons;
 import com.lgsim.engine.graphEditor.util.CollectionUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxEvent;
@@ -77,7 +75,7 @@ public class Graph extends mxGraph implements IGraph {
 
   private @NotNull mxCell createCavityCell(@NotNull Point position, @NotNull Object p) {
     final IVertexStencil stencil = stencilContext.getCavityStencil();
-    VertexImpl value = PureCons.createVertex(stencil, true);
+    VertexImpl value = GraphSupport.createVertex(stencil, true);
     mxCell cell = (mxCell) insertVertex(p, null, value, position.x, position.y, 48, 48);
     GraphSupport.applyCellSettings(cell, vertexCounter);
     settingCavityCellStyle(cell, stencil);
