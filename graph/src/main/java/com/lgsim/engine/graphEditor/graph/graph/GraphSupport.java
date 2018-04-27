@@ -28,7 +28,8 @@ public class GraphSupport {
     if (vertex != null) {
       String id = counter.get() + "";
       counter.inc();
-      cell.setId(id);
+      // TODO 可能会出错，出错解开注释
+//      cell.setId(id);
       vertex.setID(id);
       vertex.setDisplayName(id);
     }

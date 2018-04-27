@@ -4,6 +4,7 @@ import com.bulenkov.darcula.DarculaLaf;
 import com.lgsim.engine.graphEditor.api.IApplication;
 import com.lgsim.engine.graphEditor.api.IconBundle;
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
+import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.graph.Editor;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import com.lgsim.engine.graphEditor.util.ExceptionManager;
@@ -21,6 +22,7 @@ public class Application implements IApplication {
   private static final String version = "1.0";
   private static final Configuration CONFIGURATION = new Configuration(corporationName, artifactName, version);
   private IApplicationAction applicationAction;
+  private ISolverEnvironment solverEnvironment;
 
 
   private Application() throws InstantiationException
@@ -97,5 +99,17 @@ public class Application implements IApplication {
   @Override
   public void setApplicationAction(@NotNull IApplicationAction action) {
     this.applicationAction = action;
+  }
+
+
+  @Override
+  public @NotNull ISolverEnvironment getSolverEnvironment() {
+    return solverEnvironment;
+  }
+
+
+  @Override
+  public void setSolverEnvironment(@NotNull ISolverEnvironment environment) {
+    this.solverEnvironment = environment;
   }
 }

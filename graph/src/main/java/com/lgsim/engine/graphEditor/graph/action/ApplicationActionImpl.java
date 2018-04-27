@@ -72,62 +72,56 @@ public class ApplicationActionImpl implements IApplicationAction {
 
 
   @Override
-  public @NotNull Action getSolverSettingsAction() {
-    return new SolverSettingAction();
-  }
-
-
-  @Override
   public @NotNull Action getStandardAction() {
-    return null;
+    return ActionSupport.emptyAction();
   }
 
 
   @Override
   public @NotNull Action getLayoutAction() {
-    return null;
+    return ActionSupport.emptyAction();
   }
 
 
   @Override
   public @NotNull Action getMoveAction() {
-    return null;
+    return ActionSupport.emptyAction();
   }
 
 
   @Override
   public @NotNull Action getFormatAction() {
-    return null;
+    return ActionSupport.emptyAction();
   }
 
 
   @Override
   public @NotNull Action getToolAction() {
-    return null;
+    return ActionSupport.emptyAction();
   }
 
 
   @Override
   public @NotNull Action getViewAction() {
-    return null;
+    return ActionSupport.emptyAction();
   }
 
 
   @Override
   public @NotNull Action getControlAction() {
-    return null;
+    return ActionSupport.emptyAction();
   }
 
 
   @Override
   public @NotNull Action getBankAction() {
-    return null;
+    return ActionSupport.emptyAction();
   }
 
 
   @Override
   public @NotNull Action getCustomAction() {
-    return null;
+    return ActionSupport.emptyAction();
   }
 
 
@@ -143,12 +137,12 @@ public class ApplicationActionImpl implements IApplicationAction {
 
   @Override
   public @NotNull Action getSolverCalcAction() {
-    return null;
+    return new SolverCalcAction(document);
   }
 
 
   @Override
   public @NotNull Action getSolverSettingAction() {
-    return null;
+    return new SolverSettingAction(document);
   }
 }

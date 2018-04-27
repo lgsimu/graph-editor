@@ -11,16 +11,12 @@ import com.lgsim.engine.graphEditor.graph.graph.Graph;
 import com.lgsim.engine.graphEditor.graph.graph.GraphComponent;
 import com.mxgraph.swing.mxGraphComponent;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.io.IOException;
 
 @SuppressWarnings({"WeakerAccess"})
 public class Document extends GraphDocumentImpl implements IApplicationWidget {
-
-  private static final Logger log = LoggerFactory.getLogger("graph.document.Document");
 
   private Editor editor;
   private IApplication application;

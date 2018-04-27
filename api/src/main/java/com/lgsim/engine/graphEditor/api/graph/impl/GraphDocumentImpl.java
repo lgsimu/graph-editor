@@ -1,12 +1,12 @@
 package com.lgsim.engine.graphEditor.api.graph.impl;
 
 import com.lgsim.engine.graphEditor.api.data.IGraph;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
+import com.lgsim.engine.graphEditor.api.graph.IDocument;
 import com.lgsim.engine.graphEditor.api.graph.IGraphStyle;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class GraphDocumentImpl implements IGraphDocument {
+public class GraphDocumentImpl implements IDocument {
 
   private String title;
   private String entryFilePath;

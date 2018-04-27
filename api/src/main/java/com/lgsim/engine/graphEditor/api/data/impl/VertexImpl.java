@@ -29,7 +29,7 @@ public class VertexImpl implements IVertex {
     arguments = CollectionUtil.emptyList();
     outputs = CollectionUtil.emptyList();
     inputPorts = CollectionUtil.emptyList();
-    outputs = CollectionUtil.emptyList();
+    outputPorts = CollectionUtil.emptyList();
   }
 
 
@@ -157,7 +157,17 @@ public class VertexImpl implements IVertex {
   @NotNull
   @Override
   public String getDisplayName() {
-    return displayName;
+    if (displayName != null) {
+      return displayName;
+    }
+    else {
+      if (ID != null) {
+        return ID;
+      }
+      else {
+        return StringUtil.emptyString();
+      }
+    }
   }
 
 

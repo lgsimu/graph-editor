@@ -15,32 +15,28 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.nio.charset.Charset;
 
-public class ISolverImp implements ISolver
-{
+public class ISolverImp implements ISolver {
+
   private Solver solver = new Solver();
   private static final int STATUS_CODE_OK = 0;
-  private static final String DEFAULT_ENCODING = "utf-8";
 
 
   @Override
   public @NotNull IGraph calc(@NotNull ISolverEnvironment environment) throws CalcException
   {
-    try
-    {
+    try {
       InvokeCalcExecutableResult result = invokeCalcExecutable(environment);
-      if (result.getStatusCode() == STATUS_CODE_OK)
-      {
+      if (result.getStatusCode() == STATUS_CODE_OK) {
+        final String encoding = "utf-8";
         IGraphCodec codec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
-        String s = FileUtils.readFileToString(result.getOutputFile(), DEFAULT_ENCODING);
-        return codec.decode(s.getBytes(Charset.forName(DEFAULT_ENCODING)));
+        String s = FileUtils.readFileToString(result.getOutputFile(), encoding);
+        return codec.decode(s.getBytes(Charset.forName(encoding)));
       }
-      else
-      {
+      else {
         throw new CalcException();
       }
     }
-    catch (Exception e)
-    {
+    catch (Exception e) {
       throw new CalcException();
     }
   }
@@ -51,7 +47,7 @@ public class ISolverImp implements ISolver
   {
     Object[] exeResult = solver.executeCmd(environment);
     int status = Integer.parseInt(exeResult[0].toString());
-    File file = new File(exeResult[1].toString()+".inp");
+    File file = new File(exeResult[1].toString() + ".inp");
     InvokeCalcExecutableResult result = new InvokeCalcExecutableResult(status, file);
     return result;
   }
