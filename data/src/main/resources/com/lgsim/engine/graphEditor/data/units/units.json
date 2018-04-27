@@ -63,18 +63,20 @@
           "offset":"0"
         }
       ]
-    }
-    /*{
+    },
+    {
       "unitId":"5",
       "unitName":"半径",
       "unitItems":[
         {
           "name":"m",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         },
         {
           "name":"mm",
-          "factor":"1000"
+          "factor":"1000",
+          "offset":"0"
         }
       ]
     },
@@ -84,11 +86,13 @@
       "unitItems":[
         {
           "name":"deg",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         },
         {
           "name":"rad",
-          "factor":"57.2958"
+          "factor":"57.2958",
+          "offset":"0"
         }
       ]
     },
@@ -98,11 +102,13 @@
       "unitItems":[
         {
           "name":"kg/(m^3)",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         },
         {
           "name":"g/((cm)^3)",
-          "factor":"1000"
+          "factor":"1000",
+          "offset":"0"
         }
       ]
     },
@@ -112,7 +118,8 @@
       "unitItems":[
         {
           "name":"N*s/(m^2)",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         }
       ]
     },
@@ -122,11 +129,13 @@
       "unitItems":[
         {
           "name":"j",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         },
         {
           "name":"kj",
-          "factor":"0.001"
+          "factor":"0.001",
+          "offset":"0"
         }
       ]
     },
@@ -136,11 +145,13 @@
       "unitItems":[
         {
           "name":"j/kg",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         },
         {
           "name":"kj/kg",
-          "factor":"0.001"
+          "factor":"0.001",
+          "offset":"0"
         }
       ]
     },
@@ -150,7 +161,8 @@
       "unitItems":[
         {
           "name":"N",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         }
       ]
     },
@@ -160,7 +172,8 @@
       "unitItems":[
         {
           "name":"J/kg/K",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         }
       ]
     },
@@ -170,7 +183,8 @@
       "unitItems":[
         {
           "name":"kW/(m^2)",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         }
       ]
     },
@@ -180,7 +194,8 @@
       "unitItems":[
         {
           "name":"W/(m^2)/K",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         }
       ]
     },
@@ -190,11 +205,13 @@
       "unitItems":[
         {
           "name":"W",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         },
         {
           "name":"kW",
-          "factor":"0.001"
+          "factor":"0.001",
+          "offset":"0"
         }
       ]
     },
@@ -204,7 +221,8 @@
       "unitItems":[
         {
           "name":"mm",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         }
       ]
     },
@@ -214,7 +232,8 @@
       "unitItems":[
         {
           "name":"J/kg/K",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         }
       ]
     },
@@ -224,11 +243,13 @@
       "unitItems":[
         {
           "name":"rad/s",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         },
         {
           "name":"rpm",
-          "factor":"9.5493"
+          "factor":"9.5493",
+          "offset":"0"
         }
       ]
     },
@@ -238,11 +259,13 @@
       "unitItems":[
         {
           "name":"s",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         },
         {
           "name":"ms",
-          "factor":"0.001"
+          "factor":"0.001",
+          "offset":"0"
         }
       ]
     },
@@ -252,7 +275,8 @@
       "unitItems":[
         {
           "name":"N*m",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         }
       ]
     },
@@ -262,11 +286,13 @@
       "unitItems":[
         {
           "name":"m/s",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         },
         {
           "name":"cm/s",
-          "factor":"0.01"
+          "factor":"0.01",
+          "offset":"0"
         }
       ]
     },
@@ -276,11 +302,13 @@
       "unitItems":[
         {
           "name":"m^3",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         },
         {
           "name":"(cm)^3",
-          "factor":"1000000"
+          "factor":"1000000",
+          "offset":"0"
         }
       ]
     },
@@ -288,7 +316,11 @@
       "unitId":"23",
       "unitName":"动力粘度",
       "unitItems":[
-
+        {
+          "name":"",
+          "factor":"1",
+          "offset":"0"
+        }
       ]
     },
     {
@@ -297,11 +329,13 @@
       "unitItems":[
         {
           "name":"K",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         },
         {
           "name":"℃",
-          "factor":""
+          "factor":"1",
+          "offset":"0"
         }
       ]
     },
@@ -309,21 +343,33 @@
       "unitId":"25",
       "unitName":"损失系数",
       "unitItems":[
-
+        {
+          "name":"",
+          "factor":"1",
+          "offset":"0"
+        }
       ]
     },
     {
       "unitId":"26",
       "unitName":"流量系数",
       "unitItems":[
-
+        {
+          "name":"",
+          "factor":"1",
+          "offset":"0"
+        }
       ]
     },
     {
       "unitId":"27",
       "unitName":"绝热指数",
       "unitItems":[
-
+        {
+          "name":"",
+          "factor":"1",
+          "offset":"0"
+        }
       ]
     },
     {
@@ -332,7 +378,8 @@
       "unitItems":[
         {
           "name":"W/m/K",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         }
       ]
     },
@@ -342,7 +389,8 @@
       "unitItems":[
         {
           "name":"(m^2)K/W",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         }
       ]
     },
@@ -352,7 +400,8 @@
       "unitItems":[
         {
           "name":"(m^2)/s",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         }
       ]
     },
@@ -362,9 +411,10 @@
       "unitItems":[
         {
           "name":"kg/s",
-          "factor":"1"
+          "factor":"1",
+          "offset":"0"
         }
       ]
-    }*/
+    }
   ]
 }

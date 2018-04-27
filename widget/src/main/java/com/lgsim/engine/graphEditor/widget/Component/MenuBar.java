@@ -348,7 +348,7 @@ public class MenuBar extends JMenuBar {
 
         JMenu doc = new JMenu(ActionBundle.get("calc.name"));
 
-        JMenuItem start = createMenuItem("calc.start", null, "calc.start");
+        JMenuItem start = createMenuItem("calc.start", action.getSolverCalcAction(), "calc.start");
         JMenuItem argument = createMenuItem("calc.argument", null, "calc.argument");
         JMenuItem trend = createMenuItem("calc.show.trend", null, "calc.show.trend");
 
@@ -380,7 +380,7 @@ public class MenuBar extends JMenuBar {
         JMenu doc = new JMenu(ActionBundle.get("coup.calc.name"));
 
         JMenuItem source = createMenuItem("coup.calc.source", null, "coup.calc.source");
-        JMenuItem solve = createMenuItem("coup.calc.solve", action.getSolverCalcAction(), "coup.calc.solve");
+        JMenuItem solve = createMenuItem("coup.calc.solve", null, "coup.calc.solve");
 
         List<JMenuItem> actionList = Arrays.asList(source, solve);
 
