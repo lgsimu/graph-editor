@@ -33,7 +33,7 @@ public class Editor extends JPanel implements IEditor {
 
   private IApplication application;
   private DocumentContext documentContext;
-  private List<Document> documents = new Vector<>();
+  private List<Document> documents;
   private int currentDocumentIndex;
 
   private mxGraphOutline graphOutline;
@@ -47,7 +47,8 @@ public class Editor extends JPanel implements IEditor {
   public Editor(@NotNull IApplication application)
   {
     this.application = application;
-    this.documentContext = new DocumentContext(application);
+    documentContext = new DocumentContext(application);
+    documents = new Vector<>();
     initUIComponents();
     loadStencils();
     loadDocuments();
