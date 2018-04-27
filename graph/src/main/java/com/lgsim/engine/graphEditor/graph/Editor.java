@@ -95,10 +95,12 @@ public class Editor extends JPanel implements IEditor {
     westPane.setResizeWeight(1);
     centerPane.setResizeWeight(0);
     eastPane.setResizeWeight(1);
+    consoleDocPane.setResizeWeight(1);
 
     libraryPane.setMinimumSize(new Dimension(320, 0));
     graphOutline.setMinimumSize(new Dimension(320, 320));
     vertexTable.getSwingComponent().setMinimumSize(new Dimension(320, 0));
+    console.setMinimumSize(new Dimension(0, 210));
 
     westPane.getRightComponent().setPreferredSize(
         new Dimension((int) vertexTable.getSwingComponent().getPreferredSize().getWidth(), 320)
