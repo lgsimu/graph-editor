@@ -1,20 +1,20 @@
 package com.lgsim.engine.graphEditor.graph.graph;
 
-import com.lgsim.engine.graphEditor.api.data.*;
+import com.lgsim.engine.graphEditor.api.data.IGraph;
+import com.lgsim.engine.graphEditor.api.data.IStencilContext;
+import com.lgsim.engine.graphEditor.api.data.IVertex;
+import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
 import com.lgsim.engine.graphEditor.api.data.impl.VertexImpl;
 import com.lgsim.engine.graphEditor.graph.ImplementationContext;
-import com.lgsim.engine.graphEditor.util.CollectionUtil;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.view.mxGraph;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.List;
 import java.util.Vector;
 
 @SuppressWarnings("WeakerAccess")
@@ -28,10 +28,12 @@ public class Graph extends mxGraph implements IGraph {
   private mxCell sourceNode;
   private mxCell targetNode;
   private mxCell handDrawnEdge;
+  private final Collection<IVertex> vertexes;
 
 
   public Graph()
   {
+    vertexes = new Vector<>();
     GraphSupport.applyGraphSettings(this);
     addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
     addListener(mxEvent.CELLS_MOVED, GraphSupport.cellsMovedListener(this));
@@ -89,7 +91,7 @@ public class Graph extends mxGraph implements IGraph {
     final IVertexStencil stencil = stencilContext.getCavityStencil();
     VertexImpl value = GraphSupport.createVertex(stencil, true);
     mxCell cell = (mxCell) insertVertex(p, null, value, position.x, position.y, 48, 48);
-    GraphSupport.applyCellSettings(cell, vertexCounter);
+    GraphSupport.applyCellSettings(cell, vertexCounter, this);
     settingCavityCellStyle(cell, stencil);
     return cell;
   }
@@ -129,7 +131,7 @@ public class Graph extends mxGraph implements IGraph {
       for (Object x : cells) {
         if (x instanceof mxCell) {
           mxCell cell = (mxCell) x;
-          GraphHook.cellAdded(cell, vertexCounter);
+          GraphHook.cellAdded(cell, vertexCounter, this);
         }
       }
     }
@@ -150,93 +152,17 @@ public class Graph extends mxGraph implements IGraph {
   @Override
   public @NotNull Collection<IVertex> getVertexes()
   {
-    final Object defaultParent = getDefaultParent();
-    final Object[] vertices = getChildVertices(defaultParent);
-    final Object[] edges = getChildEdges(defaultParent);
-    final List<IVertex> output = new Vector<>();
-    for (Object vertex : vertices) {
-      if (vertex instanceof IVertex) {
-        mxCell in = (mxCell) vertex;
-        IVertex v = (IVertex) in.getValue();
-        VertexImpl out = new VertexImpl();
-        cloneIfPossible(v, out);
-        List<IVertex> inputVertexes = lookupInputPorts(vertex, edges);
-        List<IVertex> outputVertexes = lookupOutputPorts(vertex, edges);
-        out.setInputPorts(inputVertexes);
-        out.setOutputPorts(outputVertexes);
-        output.add(out);
-      }
-    }
-    return output;
-  }
-
-
-  // TODO: deep clone?
-  private void cloneIfPossible(@NotNull IVertex source, @NotNull VertexImpl target)
-  {
-    target.setID(source.getID());
-    target.setTypeID(source.getTypeID());
-    List<IVertexArgument> arguments = CollectionUtil.cloneList(source.getArguments());
-    target.setArguments(arguments);
-    List<IVertexOutput> outputs = CollectionUtil.cloneList(source.getOutputs());
-    target.setOutputs(outputs);
-    target.setCavity(source.isCavity());
-  }
-
-
-  private List<IVertex> lookupInputPorts(@NotNull Object vertex, @NotNull Object[] edges)
-  {
-    List<IVertex> output = new Vector<>();
-    for (Object o : edges) {
-      mxCell v = (mxCell) vertex;
-      mxCell edge = (mxCell) o;
-      if (notOrphanEdge(edge)) {
-        mxCell target = (mxCell) edge.getTarget();
-        if (cellEquals(v, target)) {
-          mxCell source = (mxCell) edge.getSource();
-          IVertex out = (IVertex) source.getValue();
-          output.add(out);
-        }
-      }
-    }
-    return output;
-  }
-
-
-  private List<IVertex> lookupOutputPorts(@NotNull Object vertex, @NotNull Object[] edges)
-  {
-    List<IVertex> output = new Vector<>();
-    for (Object o : edges) {
-      mxCell v = (mxCell) vertex;
-      mxCell edge = (mxCell) o;
-      if (notOrphanEdge(edge)) {
-        mxCell source = (mxCell) edge.getSource();
-        if (cellEquals(v, source)) {
-          mxCell target = (mxCell) edge.getTarget();
-          IVertex out = (IVertex) target.getValue();
-          output.add(out);
-        }
-      }
-    }
-    return output;
-  }
-
-
-  @Contract(pure = true)
-  private boolean cellEquals(@NotNull mxCell x, @NotNull mxCell y)
-  {
-    return x.equals(y);
-  }
-
-
-  private boolean notOrphanEdge(@NotNull mxCell cell)
-  {
-    return (cell.getSource() != null) && (cell.getTarget() != null);
+    return vertexes;
   }
 
 
   @Override
   public void retrieveCalcOutputs(@NotNull IGraph graph) {
     // TODO: update outputs for graph
+  }
+
+
+  public void addVertex(@NotNull IVertex vertex) {
+    vertexes.add(vertex);
   }
 }

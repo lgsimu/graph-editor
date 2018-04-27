@@ -23,15 +23,15 @@ import java.util.function.Consumer;
 public class GraphSupport {
   private static final Logger log = LoggerFactory.getLogger(GraphSupport.class);
 
-  public static void applyCellSettings(@NotNull mxCell cell, @NotNull IntCounter counter) {
+
+  public static void applyCellSettings(@NotNull mxCell cell, @NotNull IntCounter counter, @NotNull Graph graph) {
     VertexImpl vertex = extractVertexImpl(cell);
     if (vertex != null) {
       String id = counter.get() + "";
       counter.inc();
-      // TODO 可能会出错，出错解开注释
-//      cell.setId(id);
       vertex.setID(id);
       vertex.setDisplayName(id);
+      graph.addVertex(vertex);
     }
   }
 
