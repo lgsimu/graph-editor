@@ -18,33 +18,37 @@ public class SolverCalcAction extends SolverAction {
   private static final Logger log = LoggerFactory.getLogger(SolverCalcAction.class);
 
 
+  @SuppressWarnings("WeakerAccess")
   public SolverCalcAction(@NotNull Document document) {
     super(document);
   }
 
 
   @Override
-  public void actionPerformed(ActionEvent evt)
+  public void actionPerformed(ActionEvent event)
   {
-    ISolver solver = ImplementationContext.INSTANCE.getSolver();
-    if (document != null) {
-      ISolverEnvironment env = document.getApplication().getSolverEnvironment();
-      if (env != null) {
-        try {
-          IGraph graph = solver.calc(env);
-          document.setGraph(graph);
-          log.debug("The calc task has finished, update graph model");
-        }
-        catch (CalcException e) {
-          ExceptionManager.INSTANCE.dealWith(e);
-        }
-      }
-      else {
-        performCalcSettingAction(evt);
-      }
+    final Document document = getDocument();
+    ISolverEnvironment env = document.getApplication().getSolverEnvironment();
+    if (env != null) {
+      calc(document, env);
     }
     else {
-      log.debug("cannot calc without any documents");
+      performCalcSettingAction(event);
+    }
+  }
+
+
+  private void calc(@NotNull Document document, @NotNull ISolverEnvironment env) {
+    try {
+      ISolver solver = ImplementationContext.INSTANCE.getSolver();
+      IGraph graphBean = solver.calc(env);
+      IGraph graphModel = document.getGraph();
+      graphModel.retrieveCalcOutputs(graphBean);
+      log.debug("The calc task has finished, update graph model");
+    }
+    catch (CalcException e) {
+      // TODO: use IConsole notify user
+      ExceptionManager.INSTANCE.dealWith(e);
     }
   }
 

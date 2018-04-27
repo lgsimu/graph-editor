@@ -19,6 +19,7 @@ import java.util.Vector;
 
 @SuppressWarnings("WeakerAccess")
 public class Graph extends mxGraph implements IGraph {
+
   private static final Logger log = LoggerFactory.getLogger(Graph.class);
   private static final IStencilContext stencilContext = ImplementationContext.INSTANCE.getStencilContext();
   private static final boolean disableContainsCavities = true;
@@ -28,6 +29,7 @@ public class Graph extends mxGraph implements IGraph {
   private mxCell targetNode;
   private mxCell handDrawnEdge;
 
+
   public Graph()
   {
     GraphSupport.applyGraphSettings(this);
@@ -35,15 +37,21 @@ public class Graph extends mxGraph implements IGraph {
     addListener(mxEvent.CELLS_MOVED, GraphSupport.cellsMovedListener(this));
   }
 
+
   public void setSourceNode(mxCell sourceNode) {
     this.sourceNode = sourceNode;
   }
+
+
   public void setTargetNode(mxCell targetNode) {
     this.targetNode = targetNode;
   }
+
+
   public void setHandDrawnEdge(mxCell handDrawnEdge) {
     this.handDrawnEdge = handDrawnEdge;
   }
+
 
   public void paintCavityBetween()
   {
@@ -52,10 +60,12 @@ public class Graph extends mxGraph implements IGraph {
       if (notContains) {
         paintCavityBetween0();
       }
-    } else {
+    }
+    else {
       paintCavityBetween0();
     }
   }
+
 
   private void paintCavityBetween0() {
     log.debug("paint cavity node");
@@ -66,12 +76,14 @@ public class Graph extends mxGraph implements IGraph {
       mxCell cavityCell = createCavityCell(position, p);
       handDrawnEdge.setTerminal(cavityCell, false);
       insertEdge(getDefaultParent(), null, null, cavityCell, targetNode);
-    } finally {
+    }
+    finally {
       removeListener(cellConnectedListener);
       getModel().endUpdate();
       addListener(mxEvent.CELL_CONNECTED, cellConnectedListener);
     }
   }
+
 
   private @NotNull mxCell createCavityCell(@NotNull Point position, @NotNull Object p) {
     final IVertexStencil stencil = stencilContext.getCavityStencil();
@@ -82,10 +94,12 @@ public class Graph extends mxGraph implements IGraph {
     return cell;
   }
 
+
   private void settingCavityCellStyle(@NotNull mxCell cavity, @NotNull IVertexStencil stencil) {
     String icon = stencil.getGraphIcon();
     cavity.setStyle("glass=1;rounded=1;shadow=1;imageWidth=32;imageHeight=32;arcSize=48;icon;image=/" + icon);
   }
+
 
   private static Point getCavityPosition(Point from, Point to)
   {
@@ -94,17 +108,20 @@ public class Graph extends mxGraph implements IGraph {
     return new Point(x, y);
   }
 
+
   @Override
   public String getToolTipForCell(Object cell)
   {
     return "";
   }
 
+
   @Override
   public boolean isCellSelectable(Object cell)
   {
     return !model.isEdge(cell);
   }
+
 
   @Override
   public void cellsAdded(Object[] cells, Object parent, Integer index, Object source, Object target, boolean absolute) {
@@ -119,6 +136,7 @@ public class Graph extends mxGraph implements IGraph {
     super.cellsAdded(cells, parent, index, source, target, absolute);
   }
 
+
   @Override
   public Object createEdge(Object parent, String id, Object value, Object source, Object target, String style)
   {
@@ -127,6 +145,7 @@ public class Graph extends mxGraph implements IGraph {
     edge.getGeometry().setRelative(false);
     return edge;
   }
+
 
   @Override
   public Collection<IVertex> getAllVertexes()
@@ -151,6 +170,7 @@ public class Graph extends mxGraph implements IGraph {
     return output;
   }
 
+
   // TODO: deep clone?
   private void cloneIfPossible(@NotNull IVertex source, @NotNull VertexImpl target)
   {
@@ -162,6 +182,7 @@ public class Graph extends mxGraph implements IGraph {
     target.setOutputs(outputs);
     target.setCavity(source.isCavity());
   }
+
 
   private List<IVertex> lookupInputPorts(@NotNull Object vertex, @NotNull Object[] edges)
   {
@@ -181,6 +202,7 @@ public class Graph extends mxGraph implements IGraph {
     return output;
   }
 
+
   private List<IVertex> lookupOutputPorts(@NotNull Object vertex, @NotNull Object[] edges)
   {
     List<IVertex> output = new Vector<>();
@@ -199,14 +221,22 @@ public class Graph extends mxGraph implements IGraph {
     return output;
   }
 
+
   @Contract(pure = true)
   private boolean cellEquals(@NotNull mxCell x, @NotNull mxCell y)
   {
     return x.equals(y);
   }
 
+
   private boolean notOrphanEdge(@NotNull mxCell cell)
   {
     return (cell.getSource() != null) && (cell.getTarget() != null);
+  }
+
+
+  @Override
+  public void retrieveCalcOutputs(@NotNull IGraph graph) {
+    // TODO: update outputs for graph
   }
 }

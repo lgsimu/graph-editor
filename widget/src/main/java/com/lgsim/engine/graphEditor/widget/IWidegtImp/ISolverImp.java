@@ -1,5 +1,6 @@
 package com.lgsim.engine.graphEditor.widget.IWidegtImp;
 
+import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.calc.ISolver;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.api.calc.InvokeCalcExecutableResult;
@@ -9,11 +10,9 @@ import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.util.exception.CalcException;
 import com.lgsim.engine.graphEditor.util.exception.InvokeExecutableException;
 import com.lgsim.engine.graphEditor.widget.PoJo.Solver;
-import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.nio.charset.Charset;
 
 public class ISolverImp implements ISolver {
 
@@ -27,10 +26,9 @@ public class ISolverImp implements ISolver {
     try {
       InvokeCalcExecutableResult result = invokeCalcExecutable(environment);
       if (result.getStatusCode() == STATUS_CODE_OK) {
-        final String encoding = "utf-8";
         IGraphCalcCodec codec = ImplementationUtil.getInstanceOf(IGraphCalcCodec.class);
-        String s = FileUtils.readFileToString(result.getOutputFile(), encoding);
-        return codec.decode(s.getBytes(Charset.forName(encoding)));
+        byte[] bytes = Files.toByteArray(result.getOutputFile());
+        return codec.decode(bytes);
       }
       else {
         throw new CalcException();

@@ -18,7 +18,8 @@ public abstract class DocumentAction extends AbstractAction {
   public void actionPerformed(ActionEvent e) {
   }
 
-  public Document getDocument() {
+
+  public @NotNull Document getDocument() {
     return document;
   }
 }
