@@ -23,7 +23,7 @@ public interface IUnit {
    *
    * @return 缩放比例
    */
-  int getScale();
+  double getScale();
 
 
   /**
