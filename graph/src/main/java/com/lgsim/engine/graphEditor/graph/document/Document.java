@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.function.Function;
 
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings({"WeakerAccess"})
 public class Document extends GraphDocumentImpl implements IApplicationWidget {
 
   private static final Logger log = LoggerFactory.getLogger("graph.document.Document");
@@ -60,6 +60,8 @@ public class Document extends GraphDocumentImpl implements IApplicationWidget {
     swingComponent.setColumnHeaderView(new DocumentRuler(swingComponent, DocumentRuler.ORIENTATION_HORIZONTAL));
     swingComponent.setRowHeaderView(new DocumentRuler(swingComponent, DocumentRuler.ORIENTATION_VERTICAL));
     application.setApplicationAction(new ApplicationActionImpl(this));
+    installOutlineListeners(this);
+    installGraphDocumentListeners(this);
   }
 
 

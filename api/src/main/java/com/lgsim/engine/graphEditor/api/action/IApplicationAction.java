@@ -86,6 +86,7 @@ public interface IApplicationAction {
    */
   @NotNull Action getSolverSettingsAction();
 
+
   /**
    * 弹出菜单  标准  动作
    *
@@ -101,6 +102,7 @@ public interface IApplicationAction {
    */
   @NotNull Action getLayoutAction();
 
+
   /**
    * 弹出菜单 动作  动作
    *
@@ -108,12 +110,14 @@ public interface IApplicationAction {
    */
   @NotNull Action getMoveAction();
 
+
   /**
    * 弹出菜单 格式 动作
    *
    * @return
    */
-  @NotNull  Action getFormatAction();
+  @NotNull Action getFormatAction();
+
 
   /**
    * 弹出菜单 工具 动作
@@ -122,6 +126,7 @@ public interface IApplicationAction {
    */
   @NotNull Action getToolAction();
 
+
   /**
    * 弹出菜单 视图 动作
    *
@@ -129,11 +134,14 @@ public interface IApplicationAction {
    */
   @NotNull Action getViewAction();
 
+
   /**
    * 弹出菜单 图元控件 动作
+   *
    * @return
    */
   @NotNull Action getControlAction();
+
 
   /**
    * 弹出菜单 图元库 动作
@@ -142,6 +150,7 @@ public interface IApplicationAction {
    */
   @NotNull Action getBankAction();
 
+
   /**
    * 弹出菜单 自定义 动作
    *
@@ -149,4 +158,20 @@ public interface IApplicationAction {
    */
 
   @NotNull Action getCustomAction();
+
+
+  /**
+   * 获取求解器计算动作
+   *
+   * @return 动作
+   */
+  @NotNull Action getSolverCalcAction();
+
+
+  /**
+   * 获取求解器设置动作
+   *
+   * @return 动作
+   */
+  @NotNull Action getSolverSettingAction();
 }
