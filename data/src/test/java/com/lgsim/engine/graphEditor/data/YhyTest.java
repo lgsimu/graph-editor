@@ -1,7 +1,10 @@
 package com.lgsim.engine.graphEditor.data;
 
+import com.lgsim.engine.graphEditor.api.unit.IUnitBundle;
 import com.lgsim.engine.graphEditor.data.components.template.UnitsContextImpl;
 import com.lgsim.engine.graphEditor.data.components.util.readjson.ReadJson;
+
+import java.util.Collection;
 
 //import com.lgsim.engine.graphEditor.data.components.impl.ComponentImpl;
 //import net.sf.json.JSONObject;
@@ -33,7 +36,7 @@ public class YhyTest {
         //System.out.println(components);
 
         UnitsContextImpl context = new UnitsContextImpl();
-        context.getSupportUnitBundles();
+        Collection<IUnitBundle> list = context.getSupportUnitBundles();
 
     }
 }
