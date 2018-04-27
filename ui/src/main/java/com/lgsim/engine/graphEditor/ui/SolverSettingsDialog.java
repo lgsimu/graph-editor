@@ -1,5 +1,6 @@
 package com.lgsim.engine.graphEditor.ui;
 
+import com.lgsim.engine.graphEditor.ui.bean.SolverEnvBean;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -73,6 +74,19 @@ public class SolverSettingsDialog extends JDialog {
   }
 
 
+  private void updateTextFields(@NotNull SolverEnvBean bean) {
+    executable = bean.getExecutable();
+    arguments = bean.getArguments();
+    textFieldExecutable.setText(executable);
+    textFieldArguments.setText(arguments);
+  }
+
+
+  public Consumer<SolverEnvBean> getBeanHook() {
+    return this::updateTextFields;
+  }
+
+
   private void onCancel() {
     // add your code here if necessary
     dispose();
@@ -84,7 +98,7 @@ public class SolverSettingsDialog extends JDialog {
   }
 
 
-  private void setExecutable(String executable) {
+  public void setExecutable(String executable) {
     this.executable = executable;
   }
 
@@ -94,8 +108,18 @@ public class SolverSettingsDialog extends JDialog {
   }
 
 
-  private void setArguments(String arguments) {
+  public void setArguments(String arguments) {
     this.arguments = arguments;
+  }
+
+
+  public JTextField getTextFieldExecutable() {
+    return textFieldExecutable;
+  }
+
+
+  public JTextField getTextFieldArguments() {
+    return textFieldArguments;
   }
 
 
