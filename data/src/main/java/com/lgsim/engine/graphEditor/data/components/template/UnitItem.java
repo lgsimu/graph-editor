@@ -67,8 +67,6 @@ public class UnitItem implements IUnit {
 
     @Override
     public String toString() {
-        return "UnitItem{" +
-                "symbol='" + symbol + '\'' +
-                '}';
+        return symbol;
     }
 }
