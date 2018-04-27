@@ -27,6 +27,8 @@ public class WriteJson {
         ptlos = rptlos.readPtlosJson();*/
         JsonFormatTool tool = new JsonFormatTool();
 
+        //OutputStream os = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+
         //创建文件对象
         //File file = new File("C:\\Users\\admin\\Desktop\\ptlo-111.out");
         File file = new File(path);

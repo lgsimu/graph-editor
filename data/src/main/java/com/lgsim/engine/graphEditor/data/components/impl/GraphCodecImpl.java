@@ -20,7 +20,7 @@ public class GraphCodecImpl implements IGraphCalcCodec
       Collection<IVertex> list = new ArrayList<>();
 
       list = graph.getAllVertexes();
-      String path = "com/lgsim/engine/graphEditor/data/test/graph.out";
+      String path = "C:\\Users\\admin\\Desktop\\test\\simpleCase.inp";
 
       WriteJson wj = new WriteJson();
       byte[] bjson = null;

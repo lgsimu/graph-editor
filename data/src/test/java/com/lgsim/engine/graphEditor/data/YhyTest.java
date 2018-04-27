@@ -1,9 +1,10 @@
 package com.lgsim.engine.graphEditor.data;
 
-import com.lgsim.engine.graphEditor.api.unit.IUnitBundle;
-import com.lgsim.engine.graphEditor.data.components.template.UnitsContextImpl;
+import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.data.components.util.readjson.ReadJson;
+import com.lgsim.engine.graphEditor.data.components.util.writejson.WriteJson;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 //import com.lgsim.engine.graphEditor.data.components.impl.ComponentImpl;
@@ -12,15 +13,18 @@ import java.util.Collection;
 public class YhyTest {
     public static void main(String[] args) throws Exception {
 
-        /*List<IVertexStencil> list = new ArrayList<>();
-        Element element = new Element();
-        list = element.getPredefinedStencils();
+        Collection<IVertex> list = new ArrayList<>();
+        Collection<IVertex> list1 = new ArrayList<>();
+        //Element element = new Element();
+        //list = element.getPredefinedStencils();
         WriteJson wr = new WriteJson();
+        ReadJson rj = new ReadJson();
 
-        String pathOut = "C:\\Users\\admin\\Desktop\\ptlo-112.out";
-        String pathInt = "com/lgsim/engine/graphEditor/data/simpleCase.inp";
 
-        wr.writeJson(list,pathOut);*/
+        String pathOut = "com/lgsim/engine/graphEditor/data/simpleCase.out";
+        String pathInt = "C:\\Users\\admin\\Desktop\\test\\simpleCase.out";
+        list1 = rj.readJson(pathOut);
+        //wr.writeJson(list,pathInt);
         //System.out.println(element.getPredefinedStencils().get(0).getArguments());
         System.out.println("------------------------------------");
         //System.out.println(element.getPredefinedStencils().get(0).getArguments().get(2).getDescription());
@@ -35,8 +39,8 @@ public class YhyTest {
         //System.out.println(str);
         //System.out.println(components);
 
-        UnitsContextImpl context = new UnitsContextImpl();
-        Collection<IUnitBundle> list = context.getSupportUnitBundles();
+        /*UnitsContextImpl context = new UnitsContextImpl();
+        Collection<IUnitBundle> list = context.getSupportUnitBundles();*/
 
     }
 }
