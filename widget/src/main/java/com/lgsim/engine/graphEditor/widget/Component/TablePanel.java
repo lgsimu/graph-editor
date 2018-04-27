@@ -2,8 +2,14 @@ package com.lgsim.engine.graphEditor.widget.Component;
 
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.api.data.IVertexArgument;
+import com.lgsim.engine.graphEditor.api.unit.IUnit;
+import com.lgsim.engine.graphEditor.api.unit.IUnitBundle;
+import com.lgsim.engine.graphEditor.api.unit.IUnitsContext;
+import com.lgsim.engine.graphEditor.util.ExceptionManager;
+import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.widget.PoJo.RowContent;
 import com.lgsim.engine.graphEditor.widget.PoJo.Unit;
+import org.apache.commons.lang.StringUtils;
 import org.mariuszgromada.math.mxparser.Expression;
 
 import javax.swing.*;
@@ -13,10 +19,8 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Vector;
 
 import static org.mariuszgromada.math.mxparser.Constant.SYNTAX_ERROR_OR_STATUS_UNKNOWN;
 
@@ -27,9 +31,9 @@ public class TablePanel extends JPanel {
 
     private static JTable table;
 
-    private JComboBox comboBoxLen, comboBoxArea, comboBoxPa, comboBoxTem, comboBoxSwirl;
+    private JComboBox comboBox;
 
-    private List<Unit> unitLen, unitLen2, unitArea, unitPa, unitTem, unitSwirl;
+    private Vector<IUnit> unitLen;
 
     private static List<TableCellEditor> editors = new ArrayList<>();
 
@@ -39,14 +43,17 @@ public class TablePanel extends JPanel {
 
     private List<Vector> vectorList = new Vector<>();
 
+    private IUnitsContext units;
+
+    private IUnit iunit;
 
     /**
      * 单位转换
      *
-     * @param unit
+     * @param
      * @param str
      */
-    public void calculate(Unit unit, String str) {
+    public void calculate(IUnit unit,String str) {
 
         double num;
 
@@ -57,70 +64,71 @@ public class TablePanel extends JPanel {
             return;
         }
 
-        Double number = num / unit.getUnitRate();
+        Double number = num * unit.getScale();
         table.setValueAt(number.toString(), table.getSelectedRow(), table.getSelectedColumn() - 1);
     }
+
+
+    public IUnitsContext getIUnitBundleInstance() {
+
+        try {
+            units = ImplementationUtil.getInstanceOf(IUnitsContext.class);
+        } catch (InstantiationException e) {
+            ExceptionManager.INSTANCE.dealWith(e);
+        }
+
+        return units;
+    }
+
+    public IUnit getUnit() {
+
+        try {
+            iunit = ImplementationUtil.getInstanceOf(IUnit.class);
+        } catch (InstantiationException e) {
+            ExceptionManager.INSTANCE.dealWith(e);
+        }
+
+        return iunit;
+    }
+
+
+    /**
+     * 将 collection  转换为 vector
+     *
+     * @param collection
+     * @return
+     */
+    public Vector getVector(Collection<IUnit> collection) {
+
+        Vector vector = new Vector();
+
+        for (IUnit unit : collection) {
+
+            vector.add(unit);
+        }
+
+        return vector;
+    }
+
 
     /**
      * 根据单位设置下拉框
      */
     public void setComboBoxCell(IVertexArgument rowContent, JTextField textField) {
-        String[] lenUnit = {"m", "dm", "cm", "mm"};
-        List lenList = Arrays.asList(lenUnit);
-        if (rowContent != null && lenList.contains(rowContent.getUnit())) {
-            unitLen = new ArrayList<>();
-            unitLen.add(new Unit("m", 1.0));
-            unitLen.add(new Unit("mm", 0.001));
-            comboBoxLen = new JComboBox(setComboBoxArray(unitLen));
-            createComboBox(comboBoxLen);
-            setListener(comboBoxLen, textField);
 
-        }
-
-        String[] areaUnit = {"m2", "dm2", "cm2", "mm2"};
-        List areaList = Arrays.asList(areaUnit);
-        if (rowContent != null && areaList.contains(rowContent.getUnit())) {
-            unitArea = new ArrayList<>();
-            unitArea.add(new Unit("m2", 1.0));
-            unitArea.add(new Unit("mm2", 0.001 * 0.001));
-            comboBoxArea = new JComboBox(setComboBoxArray(unitArea));
-            createComboBox(comboBoxArea);
-            setListener(comboBoxArea, textField);
+        Collection<IUnitBundle> unitBundles = units.getSupportUnitBundles();
+        for (IUnitBundle bundle : unitBundles) {
+            if (StringUtils.equals(rowContent.getUnit(), bundle.getID())) {
+                unitLen = getVector(bundle.getUnitFamily());
+                break;
+            }
         }
 
 
-        String[] paUnit = {"Pa", "Bar"};
-        List paList = Arrays.asList(paUnit);
-        if (rowContent != null && paList.contains(rowContent.getUnit())) {
-            unitPa = new ArrayList<>();
-            unitPa.add(new Unit("Pa", 1.0));
-            unitPa.add(new Unit("Bar", 100 * 100));
-            comboBoxPa = new JComboBox(setComboBoxArray(unitPa));
-            createComboBox(comboBoxPa);
-            setListener(comboBoxPa, textField);
-        }
+        comboBox = new JComboBox(unitLen);
 
-        String[] temUnit = {"K", "℃"};
-        List temList = Arrays.asList(temUnit);
-        if (rowContent != null && temList.contains(rowContent.getUnit())) {
-            unitTem = new ArrayList<>();
-            unitTem.add(new Unit("℃", rowContent.getValue() * 28.315));
-            unitTem.add(new Unit("K", 1));
-            comboBoxTem = new JComboBox(setComboBoxArray(unitTem));
-            createComboBox(comboBoxTem);
-            setListener(comboBoxTem, textField);
-        }
-
-        String[] swirlUnit = {"m2/s"};
-        List swirlList = Arrays.asList(swirlUnit);
-        if (rowContent != null && swirlList.contains(rowContent.getUnit())) {
-            unitSwirl = new ArrayList<>();
-            unitSwirl.add(new Unit("m2/s", 1.0));
-            comboBoxSwirl = new JComboBox(setComboBoxArray(unitSwirl));
-            createComboBox(comboBoxSwirl);
-            setListener(comboBoxSwirl, textField);
-        }
-
+        createComboBox(comboBox);
+        setListener(comboBox, textField);
     }
 
     /**
@@ -136,7 +144,7 @@ public class TablePanel extends JPanel {
 
         vector.add(rowContent.getID());
         vector.add(rowContent.getValue());
-        vector.add(rowContent.getUnit());
+        vector.add(getDefaultUnit(rowContent));
         vector.add(rowContent.getDescription());
 
         vectorList.add(vector);
@@ -145,6 +153,25 @@ public class TablePanel extends JPanel {
         setComboBoxCell(rowContent, textField);
 
     }
+
+    /**
+     * 得到单位
+     *
+     * @param
+     * @return
+     */
+    public String getDefaultUnit(IVertexArgument rowContent) {
+
+        Collection<IUnitBundle> unitBundles = units.getSupportUnitBundles();
+        for (IUnitBundle bundle : unitBundles) {
+            if (StringUtils.equals(rowContent.getUnit(), bundle.getID())) {
+                unitLen = getVector(bundle.getUnitFamily());
+                break;
+            }
+        }
+        return unitLen.get(0).getName();
+    }
+
 
     public void createComboBox(JComboBox comboBox) {
         DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
@@ -204,12 +231,6 @@ public class TablePanel extends JPanel {
     }
 
 
-    public Unit[] setComboBoxArray(List<Unit> list) {
-        Object[] arrayObject = list.toArray();
-        Unit[] data = Arrays.copyOf(arrayObject, arrayObject.length, Unit[].class);
-        return data;
-    }
-
     /**
      * 添加事件
      *
@@ -218,9 +239,9 @@ public class TablePanel extends JPanel {
     public void setListener(JComboBox comboBox, JTextField textField) {
         comboBox.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
-                JComboBox<Unit> combo = (JComboBox<Unit>) e.getSource();
-                Unit item = (Unit) combo.getSelectedItem();
-                calculate(item, textField.getText());
+
+                IUnit unit = (IUnit) comboBox.getSelectedItem();
+                calculate(unit,textField.getText());
             }
         });
     }
@@ -245,25 +266,31 @@ public class TablePanel extends JPanel {
     }
 
     public void showTable(IVertex vertex) {
+
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
+
         for (IVertexArgument rowContent : vertex.getArguments()) {
             setTableContent(rowContent);
         }
+
         for (Vector vector1 : vectorList) {
             model.addRow(vector1);
         }
+
         vectorList.clear();
+
         shows(model);
     }
 
     public TablePanel() {
 
-        Dimension dimension = this.getSize();
+        getIUnitBundleInstance();
+        getUnit();
+
         String[] columns = {"名称", "值", "单位", "说明"};
         model.setColumnIdentifiers(columns);
         shows(model);
-        this.setSize(dimension);
         scrollPane = new JScrollPane(table);
         this.add(scrollPane);
         this.setVisible(true);
