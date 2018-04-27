@@ -14,11 +14,10 @@ public class ActionSupport {
   private static final Logger log = LoggerFactory.getLogger(ActionSupport.class);
 
   @Contract(pure = true)
-  public static Action defaultAction() {
+  public static Action emptyAction() {
     return new AbstractAction() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        log.debug("default action performed");
       }
     };
   }
