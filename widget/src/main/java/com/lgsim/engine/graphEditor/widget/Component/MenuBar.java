@@ -16,10 +16,10 @@ import java.util.Map;
 
 public class MenuBar extends JMenuBar {
 
+    public MenuBar() {
+    }
 
-    public MenuBar() {}
-
-    public void bindAction(IApplicationAction action){
+    public void bindAction(IApplicationAction action) {
 
         addFileMenu(action);
         addEditorMenu(action);
@@ -33,7 +33,6 @@ public class MenuBar extends JMenuBar {
         addCoupCalcMenu(action);
         addToolMenu(action);
         addHelpMenu(action);
-
 
     }
 
@@ -95,8 +94,8 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addViewMenu(IApplicationAction action) {
-        JMenu doc = new JMenu(ActionBundle.get("view.name"));
 
+        JMenu doc = new JMenu(ActionBundle.get("view.name"));
 
         JMenuItem scale = createMenuItem("view.scale", null, "view.scale");
         JMenuItem grid = createMenuItem("view.grid", null, "view.grid");
@@ -108,7 +107,6 @@ public class MenuBar extends JMenuBar {
         JMenuItem property = createMenuItem("view.property.browser", null, "view.property.browser");
 
         JMenu subGridStyle = new JMenu(ActionBundle.get("view.grid.style"));
-
         JMenuItem mainLine = createMenuItem("grid.style.main.line", null, "grid.style.main.line");
         JMenuItem secondLine = createMenuItem("grid.style.main.second.line", null, "grid.style.main.second.line");
         JMenuItem point = createMenuItem("grid.style.main.point", null, "grid.style.main.point");
@@ -157,6 +155,7 @@ public class MenuBar extends JMenuBar {
 
 
     private void addFormatMenu(IApplicationAction action) {
+
         JMenu doc = new JMenu(ActionBundle.get("format.name"));
 
         JMenuItem fill = createMenuItem("format.fill.style", null, "format.fill.style");
@@ -181,6 +180,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addMoveMenu(IApplicationAction action) {
+
         JMenu doc = new JMenu(ActionBundle.get("move.name"));
 
         JMenu operate = new JMenu(ActionBundle.get("move.operate"));
@@ -240,13 +240,13 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addLayoutMenu(IApplicationAction action) {
+
         JMenu doc = new JMenu(ActionBundle.get("layout.name"));
 
         JMenuItem search = createMenuItem("layout.search.branch", null, "layout.search.branch");
         JMenuItem last = createMenuItem("layout.last", null, "layout.last");
         JMenuItem next = createMenuItem("layout.next", null, "layout.next");
         JMenuItem bgp = createMenuItem("layout.bgp", null, "layout.bgp");
-
 
         JMenu align = new JMenu(ActionBundle.get("layout.align"));
         JMenuItem left = createMenuItem("align.left", null, "align.left");
@@ -304,6 +304,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addDrawMenu(IApplicationAction action) {
+
         JMenu doc = new JMenu(ActionBundle.get("tool.name"));
 
         JMenuItem pointer = createMenuItem("tool.pointer", null, "tool.pointer");
@@ -333,6 +334,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addDefine(IApplicationAction action) {
+
         JMenu doc = new JMenu(ActionBundle.get("define.name"));
         JMenuItem var = createMenuItem("define.var", null, "define.var");
 
@@ -343,6 +345,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addCalc(IApplicationAction action) {
+
         JMenu doc = new JMenu(ActionBundle.get("calc.name"));
 
         JMenuItem start = createMenuItem("calc.start", null, "calc.start");
@@ -357,6 +360,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addToolMenu(IApplicationAction action) {
+
         JMenu doc = new JMenu(ActionBundle.get("box.name"));
         JMenuItem note = createMenuItem("box.note", null, "box.note");
         JMenuItem calc = createMenuItem("box.calc", null, "box.calc");
@@ -372,6 +376,7 @@ public class MenuBar extends JMenuBar {
 
 
     private void addCoupCalcMenu(IApplicationAction action) {
+
         JMenu doc = new JMenu(ActionBundle.get("coup.calc.name"));
 
         JMenuItem source = createMenuItem("coup.calc.source", null, "coup.calc.source");
@@ -384,6 +389,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addHelpMenu(IApplicationAction action) {
+
         JMenu doc = new JMenu(ActionBundle.get("help.name"));
         JMenuItem instructions = createMenuItem("help.instructions", null, "help.instructions");
         JMenuItem about = createMenuItem("help.about", null, "help.about");
@@ -394,6 +400,7 @@ public class MenuBar extends JMenuBar {
     }
 
     public JMenuItem createMenuItem(String key, Action action, String iconPath) {
+
         iconPath = "com/lgsim/engine/graphEditor/widget/png/monkey.png";
         Icon icon = ResourceUtil.lookupImageIcon(iconPath);
         JMenuItem menuItem = new JMenuItem(ActionBundle.get(key), icon);
