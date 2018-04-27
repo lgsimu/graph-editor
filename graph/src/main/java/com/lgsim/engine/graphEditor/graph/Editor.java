@@ -64,7 +64,9 @@ public class Editor extends JPanel implements IEditor {
     vertexTable = ImplementationContext.INSTANCE.getVertexTable();
     docTabbedPane = new JTabbedPane();
     JSplitPane westPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, libraryPane, graphOutline);
-    JSplitPane centerPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, westPane, docTabbedPane);
+    JComponent console = ImplementationContext.INSTANCE.getConsole().getSwingComponent();
+    JSplitPane consoleDocPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, docTabbedPane, console);
+    JSplitPane centerPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, westPane, consoleDocPane);
     JSplitPane eastPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPane, vertexTable.getSwingComponent());
     predefinedPalette = StencilSupport.createStencilPalette();
     userDefinedPalette = StencilSupport.createStencilPalette();
