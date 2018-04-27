@@ -2,24 +2,37 @@ package com.lgsim.engine.graphEditor.data.components.impl;
 
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import com.lgsim.engine.graphEditor.api.data.IGraphCodec;
-import com.lgsim.engine.graphEditor.data.components.util.jsonformattool.JsonFormatTool;
+import com.lgsim.engine.graphEditor.api.data.IVertex;
+import com.lgsim.engine.graphEditor.data.components.util.writejson.WriteJson;
 import com.lgsim.engine.graphEditor.util.exception.DecodeException;
 import com.lgsim.engine.graphEditor.util.exception.EncodeException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class GraphCodecImpl implements IGraphCodec
 {
   @Override
   public @NotNull byte[] encode(@NotNull IGraph graph) throws EncodeException {
 
+      Collection<IVertex> list = new ArrayList<>();
+
+      list = graph.getAllVertexes();
+      String path = "com/lgsim/engine/graphEditor/data/test/graph.out";
+
+      WriteJson wj = new WriteJson();
+      byte[] bjson = null;
+      try {
+          bjson = wj.writeJson(list,path);
+      }catch (Exception e){
+          throw new EncodeException();
+      }
 
 
-      JsonFormatTool jsonFormatTool = new JsonFormatTool();
+     /* JsonFormatTool jsonFormatTool = new JsonFormatTool();
       try {
           FileOutputStream fos = new FileOutputStream("com/lgsim/engine/graphEditor/data/test/graph.out");
           ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -29,15 +42,15 @@ public class GraphCodecImpl implements IGraphCodec
           byte[] bjson = str.getBytes();
 
           oos.writeObject(bjson);
-          oos.close();
+          oos.close();*/
 
       return bjson;
     }
-    catch (Exception e)
+    /*catch (Exception e)
     {
       throw new EncodeException();
-    }
-  }
+    }*/
+
 
 
   @Override

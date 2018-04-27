@@ -1,12 +1,12 @@
 package com.lgsim.engine.graphEditor.data.components.util.writejson;
 
-import com.lgsim.engine.graphEditor.api.data.IVertexStencil;
+import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.data.components.util.jsonformattool.JsonFormatTool;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Created by admin on 2018/4/14.
@@ -20,7 +20,7 @@ public class WriteJson {
      * @param path 生成json文件路径
      * @throws IOException
      */
-    public void writeJson(List<IVertexStencil> object, String path) throws IOException {
+    public byte[] writeJson(Collection<IVertex> object, String path) throws IOException {
 
         /*ArrayList<Ptlos> ptlos = new ArrayList<Ptlos>();
         ReadPtlosJson rptlos = new ReadPtlosJson();
@@ -51,6 +51,7 @@ public class WriteJson {
         os.write(bjson);
         //关闭
         os.close();
+        return bjson;
     }
 
 }
