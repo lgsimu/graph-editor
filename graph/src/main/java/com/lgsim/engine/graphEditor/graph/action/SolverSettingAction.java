@@ -23,8 +23,16 @@ public class SolverSettingAction extends SolverAction {
   public void actionPerformed(ActionEvent e)
   {
     log.debug("perform setting action");
-    SolverSettingsDialog dialog = new SolverSettingsDialog();
+    SolverSettingsDialog dialog = new SolverSettingsDialog(this::updateCalcEnv);
     dialog.pack();
     dialog.setVisible(true);
+  }
+
+
+  private void updateCalcEnv(@NotNull SolverSettingsDialog dialog) {
+    String executable = dialog.getExecutable();
+    String arguments = dialog.getArguments();
+    System.out.println(executable);
+    System.out.println(arguments);
   }
 }

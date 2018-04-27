@@ -15,6 +15,12 @@ public class StringUtil {
   }
 
 
+  @Contract(pure = true)
+  public static @NotNull String exceptionString() {
+    return "<exception>";
+  }
+
+
   @NotNull
   @Contract(pure = true)
   public static String notNullize(@Nullable String s) {

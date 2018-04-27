@@ -1,20 +1,28 @@
 package com.lgsim.engine.graphEditor.ui;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.function.Consumer;
 
 public class SolverSettingsDialog extends JDialog {
 
   private JPanel contentPane;
   private JButton buttonOK;
   private JButton buttonCancel;
-  private JTextField executablePathComp;
-  private JTextField argumentsComp;
-  private JButton button1;
+  private JTextField textFieldExecutable;
+  private JTextField textFieldArguments;
+  private JButton buttonChooseExecutable;
+
+  private String executable;
+  private String arguments;
+  private Consumer<SolverSettingsDialog> dialogConsumer;
 
 
-  public SolverSettingsDialog() {
+  public SolverSettingsDialog(@NotNull Consumer<SolverSettingsDialog> dialogConsumer) {
+    this.dialogConsumer = dialogConsumer;
     setMinimumSize(new Dimension(400, 180));
     setResizable(false);
     setContentPane(contentPane);
@@ -51,8 +59,17 @@ public class SolverSettingsDialog extends JDialog {
 
 
   private void onOK() {
-    // add your code here
+    updateCalcEnv();
     dispose();
+  }
+
+
+  private void updateCalcEnv() {
+    String executable = UISupport.getText(textFieldExecutable);
+    String arguments = UISupport.getText(textFieldArguments);
+    setExecutable(executable);
+    setArguments(arguments);
+    dialogConsumer.accept(this);
   }
 
 
@@ -62,8 +79,29 @@ public class SolverSettingsDialog extends JDialog {
   }
 
 
+  public String getExecutable() {
+    return executable;
+  }
+
+
+  private void setExecutable(String executable) {
+    this.executable = executable;
+  }
+
+
+  public String getArguments() {
+    return arguments;
+  }
+
+
+  private void setArguments(String arguments) {
+    this.arguments = arguments;
+  }
+
+
   public static void main(String[] args) {
-    SolverSettingsDialog dialog = new SolverSettingsDialog();
+    SolverSettingsDialog dialog = new SolverSettingsDialog((dia) -> {
+    });
     dialog.pack();
     dialog.setVisible(true);
     System.exit(0);
