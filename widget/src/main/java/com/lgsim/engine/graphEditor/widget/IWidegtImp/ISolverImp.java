@@ -45,7 +45,7 @@ public class ISolverImp implements ISolver {
   {
     Object[] exeResult = solver.executeCmd(environment);
     int status = Integer.parseInt(exeResult[0].toString());
-    File file = new File(exeResult[1].toString() + ".inp");
+    File file = new File(exeResult[1].toString() + ".out");
     InvokeCalcExecutableResult result = new InvokeCalcExecutableResult(status, file);
     return result;
   }
