@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class SolverSettingsDialog extends JDialog {
@@ -21,10 +22,10 @@ public class SolverSettingsDialog extends JDialog {
   @SuppressWarnings("unused")
   private JButton buttonChooseExecutable;
 
-  private Consumer<SolverSettingsBean> consumeSettings;
+  private BiConsumer<SolverSettingsDialog, SolverSettingsBean> consumeSettings;
 
 
-  public SolverSettingsDialog(@NotNull Consumer<SolverSettingsBean> consumeSettings) {
+  public SolverSettingsDialog(@NotNull BiConsumer<SolverSettingsDialog, SolverSettingsBean> consumeSettings) {
     this.consumeSettings = consumeSettings;
 
     setMinimumSize(new Dimension(400, 180));
@@ -55,11 +56,11 @@ public class SolverSettingsDialog extends JDialog {
     String arguments = UISupport.getText(textFieldArguments);
     SolverSettingsBean bean = new SolverSettingsBean(caseName, executable, arguments);
     dispose();
-    consumeSettings.accept(bean);
+    consumeSettings.accept(this, bean);
   }
 
 
-  public Consumer<SolverSettingsBean> dialogInput() {
+  public Consumer<SolverSettingsBean> updateUI() {
     return (bean) -> {
       textFieldExecutable.setText(bean.getExecutable());
       textFieldArguments.setText(bean.getArguments());
@@ -74,7 +75,7 @@ public class SolverSettingsDialog extends JDialog {
 
 
   public static void main(String[] args) {
-    SolverSettingsDialog dialog = new SolverSettingsDialog((dia) -> {
+    SolverSettingsDialog dialog = new SolverSettingsDialog((p, q) -> {
     });
     dialog.pack();
     dialog.setVisible(true);
