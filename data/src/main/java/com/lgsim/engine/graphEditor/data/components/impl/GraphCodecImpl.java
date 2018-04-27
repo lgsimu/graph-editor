@@ -19,7 +19,7 @@ public class GraphCodecImpl implements IGraphCalcCodec
 
       Collection<IVertex> list = new ArrayList<>();
 
-    list = graph.getVertexes();
+      list = graph.getVertexes();
       String path = "C:\\Users\\admin\\Desktop\\test\\simpleCase.inp";
 
       WriteJson wj = new WriteJson();
@@ -58,10 +58,10 @@ public class GraphCodecImpl implements IGraphCalcCodec
       //IGraphImpl iGraph1 = new IGraphImpl();
       try {
           IGraphImpl iGraph = new IGraphImpl();
-          String path = "com/lgsim/engine/graphEditor/data/simpleCase.out";
+          //String path = "com/lgsim/engine/graphEditor/data/simpleCase.out";
           ReadJson rj = new ReadJson();
 
-          iGraph.setAllVertexes(rj.readJson(path));
+          iGraph.setAllVertexes(rj.readJson(bytes));
           /*FileInputStream fis = new FileInputStream("com/lgsim/engine/graphEditor/data/test/graph.out");
           ObjectInputStream ois = new ObjectInputStream(fis);*/
 

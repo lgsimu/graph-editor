@@ -6,28 +6,25 @@ import com.lgsim.engine.graphEditor.data.components.template.Component;
 import com.lgsim.engine.graphEditor.data.components.template.Parameter;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.apache.commons.io.IOUtils;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class ReadJson {
     /**
      * 读取json文件
-     * @param path json文件路径
+     * @param bytes json文件路径
      */
-    public Collection<IVertex> readJson(String path) {
+    public Collection<IVertex> readJson(byte[] bytes) {
 
-        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+        /*InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
         String jsonstr = null;
         try {
             jsonstr = IOUtils.toString(is);
         }catch (IOException e) {
             e.getStackTrace();
-        }
-        //String jstr = jsonstr.toLowerCase();
+        }*/
+        String jsonstr = new String(bytes);
 
         JSONObject jsonObject = JSONObject.fromObject(jsonstr);
         JSONObject components = JSONObject.fromObject(jsonObject.get("Components"));
