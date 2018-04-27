@@ -34,34 +34,33 @@ public class SolverSettingAction extends SolverAction {
   public void actionPerformed(ActionEvent event)
   {
     log.debug("perform setting action");
-    SolverSettingsDialog dialog = new SolverSettingsDialog(this::updateCalcEnv);
-    Consumer<SolverEnvBean> hook = dialog.getBeanHook();
+    SolverSettingsDialog dialog = new SolverSettingsDialog(this::consumeUserInput);
+    Consumer<SolverEnvBean> dialogInput = dialog.dialogInput();
     try {
-      SolverEnvBean bean = loadSolverSettings();
+      SolverEnvBean bean = loadSettings();
       if (bean != null) {
-        hook.accept(bean);
+        consumeUserInput(bean);
+        dialogInput.accept(bean);
+        dialog.dispose();
+      }
+      else {
+        dialog.pack();
+        dialog.setVisible(true);
       }
     }
     catch (IOException e) {
       log.debug("{}", e);
     }
-    dialog.pack();
-    dialog.setVisible(true);
   }
 
 
-  private void updateCalcEnv(@NotNull SolverSettingsDialog dialog) {
+  private void consumeUserInput(@NotNull SolverEnvBean bean) {
     try {
-      String executable, arguments;
-      executable = dialog.getExecutable();
-      arguments = dialog.getArguments();
-      SolverEnvironment env = new SolverEnvironment();
-      env.setExecutableFile(new File(executable));
-      env.setSolverCommandlineArguments(arguments);
-      env.setGraph(document.getGraph());
-      env.setCaseName(document.getTitle());
+      bean.setCaseName(document.getTitle());
+      SolverEnvironment env = new SolverEnvironment(bean.getCaseName(), new File(bean.getExecutable()),
+                                                    bean.getArguments(), document.getGraph());
       document.getApplication().setSolverEnvironment(env);
-      saveSolverSettings(env);
+      saveSettings(bean);
     }
     catch (IOException e) {
       log.debug("{}", e);
@@ -69,25 +68,15 @@ public class SolverSettingAction extends SolverAction {
   }
 
 
-  private File getCalcEnvFile() {
-    File dir = configuration.getSolverDirectory();
-    return new File(dir, "calcEnv.bin");
-  }
-
-
-  private void saveSolverSettings(@NotNull SolverEnvironment env) throws IOException {
-    File file = getCalcEnvFile();
-    SolverEnvBean bean = new SolverEnvBean();
-    bean.setCaseName(env.getCaseName());
-    bean.setExecutable(env.getExecutableFile().getPath());
-    bean.setArguments(env.getSolverCommandlineArguments());
+  private void saveSettings(@NotNull SolverEnvBean bean) throws IOException {
+    File file = getSettingsFile();
     byte[] bytes = SerializationUtils.serialize(bean);
     Files.write(bytes, file);
   }
 
 
-  private @Nullable SolverEnvBean loadSolverSettings() throws IOException {
-    File file = getCalcEnvFile();
+  private @Nullable SolverEnvBean loadSettings() throws IOException {
+    File file = getSettingsFile();
     if (file.exists()) {
       byte[] bytes = Files.toByteArray(file);
       Object o = SerializationUtils.deserialize(bytes);
@@ -96,5 +85,11 @@ public class SolverSettingAction extends SolverAction {
       }
     }
     return null;
+  }
+
+
+  private @NotNull File getSettingsFile() {
+    File dir = configuration.getSolverDirectory();
+    return new File(dir, "calcEnv.bin");
   }
 }

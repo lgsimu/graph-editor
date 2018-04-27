@@ -5,7 +5,9 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.function.Consumer;
 
 public class SolverSettingsDialog extends JDialog {
@@ -15,34 +17,26 @@ public class SolverSettingsDialog extends JDialog {
   private JButton buttonCancel;
   private JTextField textFieldExecutable;
   private JTextField textFieldArguments;
+  private JTextField textFieldCaseName;
+  @SuppressWarnings("unused")
   private JButton buttonChooseExecutable;
 
-  private String executable;
-  private String arguments;
-  private Consumer<SolverSettingsDialog> dialogConsumer;
+  private Consumer<SolverEnvBean> userInputConsumer;
 
 
-  public SolverSettingsDialog(@NotNull Consumer<SolverSettingsDialog> dialogConsumer) {
-    this.dialogConsumer = dialogConsumer;
+  public SolverSettingsDialog(@NotNull Consumer<SolverEnvBean> userInputConsumer) {
+    this.userInputConsumer = userInputConsumer;
+
     setMinimumSize(new Dimension(400, 180));
     setResizable(false);
     setContentPane(contentPane);
     setModal(true);
     getRootPane().setDefaultButton(buttonOK);
 
-    buttonOK.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        onOK();
-      }
-    });
+    buttonOK.addActionListener(e -> userInput());
 
-    buttonCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        onCancel();
-      }
-    });
+    buttonCancel.addActionListener(e -> onCancel());
 
-    // call onCancel() when cross is clicked
     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
@@ -50,76 +44,32 @@ public class SolverSettingsDialog extends JDialog {
       }
     });
 
-    // call onCancel() on ESCAPE
-    contentPane.registerKeyboardAction(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        onCancel();
-      }
-    }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                                       JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
   }
 
 
-  private void onOK() {
-    updateCalcEnv();
-    dispose();
-  }
-
-
-  private void updateCalcEnv() {
+  private void userInput() {
     String executable = UISupport.getText(textFieldExecutable);
     String arguments = UISupport.getText(textFieldArguments);
-    setExecutable(executable);
-    setArguments(arguments);
-    dialogConsumer.accept(this);
+    String caseName = UISupport.getText(textFieldCaseName);
+    SolverEnvBean bean = new SolverEnvBean(caseName, executable, arguments);
+    dispose();
+    userInputConsumer.accept(bean);
   }
 
 
-  private void updateTextFields(@NotNull SolverEnvBean bean) {
-    executable = bean.getExecutable();
-    arguments = bean.getArguments();
-    textFieldExecutable.setText(executable);
-    textFieldArguments.setText(arguments);
-  }
-
-
-  public Consumer<SolverEnvBean> getBeanHook() {
-    return this::updateTextFields;
+  public Consumer<SolverEnvBean> dialogInput() {
+    return (bean) -> {
+      textFieldExecutable.setText(bean.getExecutable());
+      textFieldArguments.setText(bean.getArguments());
+      textFieldCaseName.setText(bean.getCaseName());
+    };
   }
 
 
   private void onCancel() {
-    // add your code here if necessary
     dispose();
-  }
-
-
-  public String getExecutable() {
-    return executable;
-  }
-
-
-  public void setExecutable(String executable) {
-    this.executable = executable;
-  }
-
-
-  public String getArguments() {
-    return arguments;
-  }
-
-
-  public void setArguments(String arguments) {
-    this.arguments = arguments;
-  }
-
-
-  public JTextField getTextFieldExecutable() {
-    return textFieldExecutable;
-  }
-
-
-  public JTextField getTextFieldArguments() {
-    return textFieldArguments;
   }
 
 
