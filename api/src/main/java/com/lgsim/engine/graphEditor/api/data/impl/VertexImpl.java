@@ -29,7 +29,7 @@ public class VertexImpl implements IVertex {
     arguments = CollectionUtil.emptyList();
     outputs = CollectionUtil.emptyList();
     inputPorts = CollectionUtil.emptyList();
-    outputs = CollectionUtil.emptyList();
+    outputPorts = CollectionUtil.emptyList();
   }
 
 

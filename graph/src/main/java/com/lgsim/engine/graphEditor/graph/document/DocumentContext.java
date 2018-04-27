@@ -2,7 +2,7 @@ package com.lgsim.engine.graphEditor.graph.document;
 
 import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.IApplication;
-import com.lgsim.engine.graphEditor.api.graph.IGraphDocument;
+import com.lgsim.engine.graphEditor.api.graph.IDocument;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import com.lgsim.engine.graphEditor.util.JarUtil;
 import com.lgsim.engine.graphEditor.util.StringUtil;
@@ -44,7 +44,7 @@ public class DocumentContext {
   }
 
 
-  private void createDocumentJarFile(@NotNull IGraphDocument document, @NotNull File entry) throws IOException
+  private void createDocumentJarFile(@NotNull IDocument document, @NotNull File entry) throws IOException
   {
     log.debug("create document jar file {}", StringUtil.getName(entry));
     Manifest manifestFile = createManifest();
@@ -62,7 +62,7 @@ public class DocumentContext {
   }
 
 
-  private void updateDocumentJarFile(@NotNull IGraphDocument document)
+  private void updateDocumentJarFile(@NotNull IDocument document)
   {
     log.debug("update document jar file, {}", document);
   }

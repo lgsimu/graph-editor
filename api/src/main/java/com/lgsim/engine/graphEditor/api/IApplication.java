@@ -1,11 +1,13 @@
 package com.lgsim.engine.graphEditor.api;
 
 import com.lgsim.engine.graphEditor.api.action.IApplicationAction;
+import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.util.Configuration;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public interface IApplication {
+
   /**
    * 获取应用名字
    *
@@ -53,4 +55,19 @@ public interface IApplication {
    */
   void setApplicationAction(@NotNull IApplicationAction action);
 
+
+  /**
+   * 获取求解器执行环境
+   *
+   * @return 求解器执行环境
+   */
+  @NotNull ISolverEnvironment getSolverEnvironment();
+
+
+  /**
+   * 设置求解器执行环境
+   *
+   * @param environment 求解器执行环境
+   */
+  void setSolverEnvironment(@NotNull ISolverEnvironment environment);
 }

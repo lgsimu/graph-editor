@@ -3,7 +3,7 @@ package com.lgsim.engine.graphEditor.api.graph;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
 import org.jetbrains.annotations.NotNull;
 
-public interface IGraphDocument {
+public interface IDocument {
 
   /**
    * 获取标题
