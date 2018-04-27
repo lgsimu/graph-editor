@@ -4,7 +4,7 @@ import com.lgsim.engine.graphEditor.api.calc.ISolver;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.api.calc.InvokeCalcExecutableResult;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
-import com.lgsim.engine.graphEditor.api.data.IGraphCodec;
+import com.lgsim.engine.graphEditor.api.data.IGraphCalcCodec;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.util.exception.CalcException;
 import com.lgsim.engine.graphEditor.util.exception.InvokeExecutableException;
@@ -28,7 +28,7 @@ public class ISolverImp implements ISolver {
       InvokeCalcExecutableResult result = invokeCalcExecutable(environment);
       if (result.getStatusCode() == STATUS_CODE_OK) {
         final String encoding = "utf-8";
-        IGraphCodec codec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
+        IGraphCalcCodec codec = ImplementationUtil.getInstanceOf(IGraphCalcCodec.class);
         String s = FileUtils.readFileToString(result.getOutputFile(), encoding);
         return codec.decode(s.getBytes(Charset.forName(encoding)));
       }

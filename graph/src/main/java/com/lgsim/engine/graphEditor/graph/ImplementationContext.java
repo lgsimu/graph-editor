@@ -1,7 +1,7 @@
 package com.lgsim.engine.graphEditor.graph;
 
 import com.lgsim.engine.graphEditor.api.calc.ISolver;
-import com.lgsim.engine.graphEditor.api.data.IGraphCodec;
+import com.lgsim.engine.graphEditor.api.data.IGraphCalcCodec;
 import com.lgsim.engine.graphEditor.api.data.IStencilContext;
 import com.lgsim.engine.graphEditor.api.widget.IApplicationToolbar;
 import com.lgsim.engine.graphEditor.api.widget.console.IConsole;
@@ -15,7 +15,7 @@ public class ImplementationContext {
   public static final ImplementationContext INSTANCE = new ImplementationContext();
   private IStencilContext stencilContext;
   private IVertexTable vertexTable;
-  private IGraphCodec graphCodec;
+  private IGraphCalcCodec graphCodec;
   private ISolver solver;
   private IApplicationToolbar applicationToolbar;
   private IConsole console;
@@ -26,7 +26,7 @@ public class ImplementationContext {
     try {
       stencilContext = ImplementationUtil.getInstanceOf(IStencilContext.class);
       vertexTable = ImplementationUtil.getInstanceOf(IVertexTable.class);
-      graphCodec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
+      graphCodec = ImplementationUtil.getInstanceOf(IGraphCalcCodec.class);
       solver = ImplementationUtil.getInstanceOf(ISolver.class);
       applicationToolbar = ImplementationUtil.getInstanceOf(IApplicationToolbar.class);
       console = ImplementationUtil.getInstanceOf(IConsole.class);
@@ -51,7 +51,7 @@ public class ImplementationContext {
   }
 
 
-  public @NotNull IGraphCodec getGraphCodec()
+  public @NotNull IGraphCalcCodec getGraphCodec()
   {
     return graphCodec;
   }

@@ -3,7 +3,7 @@ package com.lgsim.engine.graphEditor.widget.PoJo;
 import com.google.common.io.Files;
 import com.lgsim.engine.graphEditor.api.calc.ISolverEnvironment;
 import com.lgsim.engine.graphEditor.api.data.IGraph;
-import com.lgsim.engine.graphEditor.api.data.IGraphCodec;
+import com.lgsim.engine.graphEditor.api.data.IGraphCalcCodec;
 import com.lgsim.engine.graphEditor.util.ImplementationUtil;
 import com.lgsim.engine.graphEditor.widget.Component.SolverOutputPanel;
 import org.jetbrains.annotations.NotNull;
@@ -43,7 +43,7 @@ public class Solver {
         try {
 
             IGraph graph = environment.getGraph();
-            IGraphCodec codec = ImplementationUtil.getInstanceOf(IGraphCodec.class);
+            IGraphCalcCodec codec = ImplementationUtil.getInstanceOf(IGraphCalcCodec.class);
             @NotNull byte[] encode = codec.encode(graph);
             inputFile = new File(Files.createTempDir(), "case.inp");
             Files.write(encode, inputFile);

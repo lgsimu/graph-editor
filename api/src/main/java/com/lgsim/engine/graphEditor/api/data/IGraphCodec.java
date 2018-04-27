@@ -4,8 +4,8 @@ import com.lgsim.engine.graphEditor.util.exception.DecodeException;
 import com.lgsim.engine.graphEditor.util.exception.EncodeException;
 import org.jetbrains.annotations.NotNull;
 
-public interface IGraphCodec
-{
+public interface IGraphCodec {
+
   /**
    * 将图数据模型编码为字节数组
    *

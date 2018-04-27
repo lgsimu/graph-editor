@@ -28,7 +28,7 @@ class ImplementationRegistry implements IRegistry
   {
     //ImplementationUtil.put(IGraph.class, Graph.class);
     ImplementationUtil.put(IGraph.class, IGraphImpl.class);
-    ImplementationUtil.put(IGraphCodec.class, GraphCodecImpl.class);
+    ImplementationUtil.put(IGraphCalcCodec.class, GraphCodecImpl.class);
     //ImplementationUtil.put(IStencilContext.class, ComponentsTest.class);
 //    ImplementationUtil.put(IStencilContext.class, Template.class);
     ImplementationUtil.put(IStencilContext.class, Element.class);

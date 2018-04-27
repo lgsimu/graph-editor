@@ -1,7 +1,7 @@
 package com.lgsim.engine.graphEditor.data.components.impl;
 
 import com.lgsim.engine.graphEditor.api.data.IGraph;
-import com.lgsim.engine.graphEditor.api.data.IGraphCodec;
+import com.lgsim.engine.graphEditor.api.data.IGraphCalcCodec;
 import com.lgsim.engine.graphEditor.api.data.IVertex;
 import com.lgsim.engine.graphEditor.data.components.util.writejson.WriteJson;
 import com.lgsim.engine.graphEditor.util.exception.DecodeException;
@@ -13,7 +13,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class GraphCodecImpl implements IGraphCodec
+public class GraphCodecImpl implements IGraphCalcCodec
 {
   @Override
   public @NotNull byte[] encode(@NotNull IGraph graph) throws EncodeException {
