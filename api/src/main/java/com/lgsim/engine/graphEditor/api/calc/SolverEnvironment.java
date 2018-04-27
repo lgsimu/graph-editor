@@ -1,10 +1,11 @@
 package com.lgsim.engine.graphEditor.api.calc;
 
 import com.lgsim.engine.graphEditor.api.data.IGraph;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
-public class SolverEnvironment {
+public class SolverEnvironment implements ISolverEnvironment {
 
   private File executableFile;
   private IGraph graph;
@@ -16,6 +17,7 @@ public class SolverEnvironment {
   }
 
 
+  @NotNull
   public File getExecutableFile() {
     return executableFile;
   }
@@ -36,6 +38,7 @@ public class SolverEnvironment {
   }
 
 
+  @NotNull
   public String getCaseName() {
     return caseName;
   }
@@ -46,6 +49,7 @@ public class SolverEnvironment {
   }
 
 
+  @NotNull
   public String getSolverCommandlineArguments() {
     return solverCommandlineArguments;
   }
